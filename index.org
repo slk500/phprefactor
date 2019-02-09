@@ -1,0 +1,80 @@
+#+SETUPFILE: export/setup/theme-darksun-local.setup
+
+#+Title: PHPRefactor
+
+* Refactorings
+**** Replace Magic Number With Symbolic Constant
+     Smell: Number with a particular meaning
+      #+NAME: replace_magic_number_with_symbolic_constant
+       #+BEGIN_SRC php
+final class Circle
+{
+    /**
+     ,* @var float
+     ,*/
+    private $radius;
+    
+    public function __construct(float $radius)
+    {
+		$this->radius = $radius;
+    }
+    
+    public function getCircumference(): float
+    {
+		return $this->radius * 2 * 3.1416;
+    }
+}
+      #+END_SRC
+***** Write a test that pass
+      #+NAME: init_block_test
+      #+BEGIN_SRC phpunit :noweb yes :noweb strip-export :exports both
+<<replace_magic_number_with_symbolic_constant>>
+use PHPUnit\Framework\TestCase;
+
+class CircleTest extends TestCase
+{   
+    public function testGetCircumference()
+    {
+        $circle = new Circle(2);
+        $this->assertEquals(12.5664, $circle->getCircumference());
+    }
+}
+      #+END_SRC
+
+      #+RESULTS:
+      : PHPUnit 7.5.2 by Sebastian Bergmann and contributors.
+      : 
+      : .                                                                   1 / 1 (100%)
+      : 
+      : Time: 151 ms, Memory: 10.00MB
+      : 
+      : OK (1 test, 1 assertion)
+
+***** Refactor the code 
+      Create a constant, name it after the meaning, and replace the number with it
+      #+BEGIN_SRC php
+final class Circle
+{
+    /**
+     ,* @var float
+     ,*/
+    private const PI = 3.1416;
+
+    /**
+     ,* @var float
+     ,*/
+    private $radius;
+
+    public function __construct(float $radius)
+    {
+		$this->radius = $radius;
+    }
+
+    public function getCircumference(): float
+    {
+		return $this->radius * 2 * self::PI;
+    }
+}
+      #+END_SRC
+***** Run a test 
+      #+RESULTS: init_block_test 

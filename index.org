@@ -3,6 +3,324 @@
 #+Title: PHPRefactor
 
 * Refactorings
+**** Add PHPDoc
+     Smell: An array with elements of generic type or method which can throw Exception
+#+BEGIN_SRC php
+public function printUsersNames(array $users): void
+{
+    foreach ($users as $user) {
+        echo $user->getName();
+    }
+}
+#+END_SRC
+***** Refactor the code
+      Add PHPDoc - the Object[] notation in addition to an array type-hint to explain what kind of object is expected
+#+BEGIN_SRC php
+/**
+ ,* @param User[] $users
+ ,*/
+public function printUsersNames(array $users): void
+{
+    foreach ($users as $user) {
+        echo $user->getName();
+    }
+}
+#+END_SRC
+**** Add Type-Hint
+     Smell: A method with no type defined parameters or return type declaration
+#+BEGIN_SRC php
+public function setNumber($number)
+{
+    $this->number = $number;
+}
+#+END_SRC
+***** Refactor the code
+#+BEGIN_SRC php
+public function setNumber(int $number): void
+{
+    $this->number = $number;
+}
+#+END_SRC
+***** Helper 
+      [[https://github.com/dunglas/phpdoc-to-typehint][phpdoc-to-typehint]] adds automatically scalar type hints and return types to all functions and methods using existing PHPDoc annotations 
+***** Further Reading 
+      https://www.thecodingmachine.com/type-hint-all-the-things/
+**** Consolidate Conditional Expression
+     Smell: Sequence of conditionals with the same result
+#+BEGIN_SRC php
+class Sale
+{
+    public function calculateShipping(Customer $customer)
+    {
+        if ($customer->isEmployee) return 0;
+        if ($customer->isGoldCustomer) return 0;
+        if ($customer->isHasACoupon) return 0;
+        
+        if($isUsa) return 10;
+        if($isEurope) return 20;
+    }
+}
+#+END_SRC
+***** Write a test that pass
+***** Refactor the code 
+      Combine them into a single conditional expression and extract it.
+#+BEGIN_SRC php
+class Sale
+{
+    public function calculateShipping(Customer $customer): int
+    {
+       if ($this->isFreeShipping()){
+           return 0;
+       }
+
+        if($isUsa) {
+            return 10;
+        }
+
+        if($isEurope) {
+            return 20;
+        }
+    }
+
+    private function isFreeShipping(): bool
+    {
+        return ($customer->isEmployee || $customer->isGoldCustomer || $customer->isHasACoupon);
+    }
+}
+ #+END_SRC
+***** Pass a test
+**** Consolidate Duplicate Conditional Fragments
+     Smell: The same fragment of code is in all branches of a conditional expression.
+#+BEGIN_SRC php
+final class Sale
+{
+    public function calculateTotal(int $price)
+    {
+        if ($this->isSpecialDeal()) {
+            $total = $price * 0.95;
+            $this->setTotal($total);
+        }
+        else {
+            $total = $price * 0.98;
+            $this->setTotal($total);
+        }
+    }
+}
+#+END_SRC
+***** Write a test that pass
+***** Refactor the code 
+      Move it outside of the expression.
+#+BEGIN_SRC php
+class Sale
+{
+    public function calculateShipping(Customer $customer): int
+    {
+       if ($this->isFreeShipping()){
+           return 0;
+       }
+
+        if($isUsa) {
+            return 10;
+        }
+
+        if($isEurope) {
+            return 20;
+        }
+    }
+
+    private function isFreeShipping(): bool
+    {
+        return ($customer->isEmployee || $customer->isGoldCustomer || $customer->isHasACoupon);
+    }
+}
+ #+END_SRC
+***** Pass a test
+**** Decompose Conditional
+     Smell: Complicated conditional (if-else) statement.
+#+BEGIN_SRC php
+class Sale
+{
+    public $expired_at;
+    public $amount;
+
+    public function getAmount()
+    {
+        if(null !== $this->expired_at && $this->expired_at < time())
+        {
+            $interest = 10;
+            $this->amount = $this->amount + ($this->amount / 100 * $interest);
+        }
+        else
+        {
+            $discount = 10;
+            $this->amount = $this->amount - ($this->amount / 100 * $discount);
+        }
+        return $this->amount;
+    }
+}
+#+END_SRC
+***** Write a test that pass
+#+BEGIN_SRC php
+class SaleTest extends TestCase
+{
+    public function testAmount()
+    {
+        $sale = new Sale();
+        $sale->amount = 10;
+        $sale->expired_at = strtotime('-10 days');
+        $this->assertEquals(10 + (10 / 100 * 10), $sale->getAmount());
+        $sale = new Sale();
+
+        $sale->amount = 10;
+        $sale->expired_at = strtotime('+10 days');
+        $this->assertEquals(10 - (10 / 100 * 10), $sale->getAmount());
+    }
+}
+#+END_SRC
+***** Refactor the code
+Extract conditional code in a private method. We name the method isExpired() because our conditional chunk of code checks if the sale is expired. We create the private method isExpired() and, with the technique of extract method, we move chunks of code into the new method. The next step is to move each branch of the condition in a private method. We do the same as we did before for each branch. So we create the private method getAmountWithInterest() for the first branch and the method getAmountWithDiscount() for the second branch.
+#+BEGIN_SRC php
+class Sale
+{
+    public $expired_at;
+    public $amount;
+
+    public function getAmount()
+    {
+        if ($this->isExpired()) {
+            return $this->getAmountWithInterest();
+        } else {
+            return $this->getAmountWithDiscount();
+        }
+    }
+
+    private function isExpired()
+    {
+        return !is_null($this->expired_at) && $this->expired_at < time();
+    }
+
+    private function getAmountWithInterest()
+    {
+        $interest = 10;
+        return $this->amount + ($this->amount / 100 * $interest);
+    }
+
+    private function getAmountWithDiscount()
+    {
+        $discount = 10;
+        return $this->amount - ($this->amount / 100 * $discount);
+    }
+}
+#+END_SRC
+***** Pass a test
+**** Encapsulate Field
+     Smell: A public field
+#+BEGIN_SRC php
+final class User
+{
+    /**
+     * @var string
+     */
+    public $name;
+}
+#+END_SRC
+***** Write a test that pass
+***** Refactor the code
+      Make it private and provide accessors.
+#+BEGIN_SRC php
+final class User
+{
+    /**
+     * @var string
+     */
+    private $name;
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): void
+    {
+        $this->name = $name;
+    }
+}
+#+END_SRC
+***** Run a test
+**** Extract Class
+     SmellL Large Class
+#+BEGIN_SRC php
+final class User
+{
+    private $name;
+    private $surname;
+
+    private $city;
+    private $zipCode;
+    private $street;
+    private $state;
+}
+#+END_SRC
+***** Write a test that pass
+***** Refactor the code 
+      Create a new class and move the relevant fields and methods from the old class into the new class.
+#+BEGIN_SRC php
+final class User
+{
+    private $name;
+    private $surname;
+
+    private $address;
+}
+
+final class Address
+{
+    private $city;
+    private $zipCode;
+    private $street;
+    private $state;
+}
+#+END_SRC
+***** Pass a test
+**** Extract Method
+     Smell: Code fragment that can be grouped together
+#+BEGIN_SRC php
+public function printInvoice(Invoice $invoice): void
+{
+    echo 'Invoice';
+    echo '<br>';
+    echo $invoice->getNumber();
+   
+    echo 'phpRefactor: ';
+    echo '<br>';
+    echo $invoice->getDate();
+}
+#+END_SRC
+***** Write a test that pass
+***** Refactor the code 
+      Turn the fragment into a method whose name explains the purpose of the method
+#+BEGIN_SRC php
+public function printInvoice(Invoice $invoice): void
+{
+    printInvoiceHeader($invoice);
+    printInvoiceFooter($invoice);
+}
+
+function printInvoiceHeader(Invoice $invoice): void
+{
+    echo 'Invoice';
+    echo '<br>';
+    echo $invoice->getNumber();
+}
+
+function printInvoiceFooter(Invoice $invoice): void
+{
+    echo 'phpRefactor: ';
+    echo '<br>';
+    echo $invoice->getDate();
+}
+ #+END_SRC
+***** Run a test
 **** Replace Magic Number With Symbolic Constant
      Smell: Number with a particular meaning
       #+NAME: replace_magic_number_with_symbolic_constant
@@ -24,7 +342,7 @@ final class Circle
 		return $this->radius * 2 * 3.1416;
     }
 }
-      #+END_SRC
+       #+END_SRC
 ***** Write a test that pass
       #+NAME: init_block_test
       #+BEGIN_SRC phpunit :noweb yes :noweb strip-export :exports both
@@ -78,3 +396,93 @@ final class Circle
       #+END_SRC
 ***** Run a test 
       #+RESULTS: init_block_test 
+***** Helper:  
+      [[https://github.com/povils/phpmnd][PHP Magic Number Detector]] is a tool to detect magic numbers in your PHP code
+
+
+**** Temp
+***** Write a test that pass
+***** Refactor the code 
+
+#+BEGIN_SRC php
+ #+END_SRC
+***** Pass a test
+* Books
+| author                    | title                                               | year |   |
+|---------------------------+-----------------------------------------------------+------+---|
+| Andrew Hunt, David Thomas | The Pragmatic Programmer: From Journeyman to Master | 1999 |   |
+* Tools
+* Tutorials  
+* Practies
+** Don't Use 'else if'
+   Else if is not compatible with the colon syntax for if|elseif blocks. For this reason, use elseif for conditionals
+#+BEGIN_SRC php
+<?php if ($user) { ?>
+    <span>OK. Your registration is successful</span>
+<?php } else { ?>
+    <span>Something went wrong! Please try again later! </span>
+<?php } ?>
+#+END_SRC
+
+#+BEGIN_SRC php
+ if ($user) : ?>
+    <div>OK. Your registration is successful</div>
+<?php else : ?>
+    <div>Something went wr+ong! Please try again later!</div>
+<?php endif ?>
+#+END_SRC
+
+Most of the time the alternative (endif) syntax is used in view scripts. It's often hard to see/notice the end of an if statement since a curly brace only takes up one character, when you're at the bottom of a file, it's hard to tell if it's the end of an if or a foreach. For example:
+
+#+BEGIN_SRC php
+<?php if ($condition): ?>
+
+    <div>a huge block of html</div>
+
+<?php endif; ?>
+#+END_SRC
+
+
+https://www.mediawiki.org/wiki/Manual:Coding_conventions/PHP
+And the latter has poorer performance.
+#+BEGIN_SRC php
+// This:
+if ( $foo == 'bar' ) {
+	echo 'Hello world';
+} else if ( $foo == 'Bar' ) {
+	echo 'Hello world';
+} else if ( $baz == $foo ) {
+	echo 'Hello baz';
+} else {
+	echo 'Eh?';
+}
+
+// Is actually equivalent to:
+if ( $foo == 'bar' ) {
+	echo 'Hello world';
+} else {
+	if ( $foo == 'Bar' ) {
+		echo 'Hello world';
+	} else {
+		if ( $baz == $foo ) {
+			echo 'Hello baz';
+		} else {
+			echo 'Eh?';
+		}
+	}
+}
+#+END_SRC
+** Boolean conversion
+#+BEGIN_SRC php
+declare(stric_types=1);
+
+$var  = '0';
+if ( !$var ) {
+   echo 'negation';
+}
+#+END_SRC
+
+#+RESULTS:
+: negation
+* Wiki
+

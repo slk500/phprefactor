@@ -3,7 +3,7 @@
 #+Title: PHPRefactor
 
 * Refactorings
-**** Add PHPDoc
+** Add PHPDoc
      Smell: An array with elements of generic type or method which can throw Exception
 #+BEGIN_SRC php
 public function printUsersNames(array $users): void
@@ -13,7 +13,7 @@ public function printUsersNames(array $users): void
     }
 }
 #+END_SRC
-***** Refactor the code
+*** Refactor the code
       Add PHPDoc - the Object[] notation in addition to an array type-hint to explain what kind of object is expected
 #+BEGIN_SRC php
 /**
@@ -26,7 +26,7 @@ public function printUsersNames(array $users): void
     }
 }
 #+END_SRC
-**** Add Type-Hint
+** Add Type-Hint
      Smell: A method with no type defined parameters or return type declaration
 #+BEGIN_SRC php
 public function setNumber($number)
@@ -34,18 +34,18 @@ public function setNumber($number)
     $this->number = $number;
 }
 #+END_SRC
-***** Refactor the code
+*** Refactor the code
 #+BEGIN_SRC php
 public function setNumber(int $number): void
 {
     $this->number = $number;
 }
 #+END_SRC
-***** Helper 
-      [[https://github.com/dunglas/phpdoc-to-typehint][phpdoc-to-typehint]] adds automatically scalar type hints and return types to all functions and methods using existing PHPDoc annotations 
-***** Further Reading 
-      https://www.thecodingmachine.com/type-hint-all-the-things/
-**** Consolidate Conditional Expression
+*** Helper 
+    [[https://github.com/dunglas/phpdoc-to-typehint][phpdoc-to-typehint]] adds automatically scalar type hints and return types to all functions and methods using existing PHPDoc annotations 
+*** Further Reading 
+    https://www.thecodingmachine.com/type-hint-all-the-things/
+** Consolidate Conditional Expression
      Smell: Sequence of conditionals with the same result
 #+BEGIN_SRC php
 class Sale
@@ -61,8 +61,8 @@ class Sale
     }
 }
 #+END_SRC
-***** Write a test that pass
-***** Refactor the code 
+*** Write a test that pass
+*** Refactor the code 
       Combine them into a single conditional expression and extract it.
 #+BEGIN_SRC php
 class Sale
@@ -88,8 +88,8 @@ class Sale
     }
 }
  #+END_SRC
-***** Pass a test
-**** Consolidate Duplicate Conditional Fragments
+*** Pass a test
+** Consolidate Duplicate Conditional Fragments
      Smell: The same fragment of code is in all branches of a conditional expression.
 #+BEGIN_SRC php
 final class Sale
@@ -107,8 +107,8 @@ final class Sale
     }
 }
 #+END_SRC
-***** Write a test that pass
-***** Refactor the code 
+*** Write a test that pass
+*** Refactor the code 
       Move it outside of the expression.
 #+BEGIN_SRC php
 class Sale
@@ -134,8 +134,8 @@ class Sale
     }
 }
  #+END_SRC
-***** Pass a test
-**** Decompose Conditional
+*** Pass a test
+** Decompose Conditional
      Smell: Complicated conditional (if-else) statement.
 #+BEGIN_SRC php
 class Sale
@@ -159,7 +159,7 @@ class Sale
     }
 }
 #+END_SRC
-***** Write a test that pass
+*** Write a test that pass
 #+BEGIN_SRC php
 class SaleTest extends TestCase
 {
@@ -177,7 +177,7 @@ class SaleTest extends TestCase
     }
 }
 #+END_SRC
-***** Refactor the code
+*** Refactor the code
 Extract conditional code in a private method. We name the method isExpired() because our conditional chunk of code checks if the sale is expired. We create the private method isExpired() and, with the technique of extract method, we move chunks of code into the new method. The next step is to move each branch of the condition in a private method. We do the same as we did before for each branch. So we create the private method getAmountWithInterest() for the first branch and the method getAmountWithDiscount() for the second branch.
 #+BEGIN_SRC php
 class Sale
@@ -212,8 +212,8 @@ class Sale
     }
 }
 #+END_SRC
-***** Pass a test
-**** Encapsulate Field
+*** Pass a test
+** Encapsulate Field
      Smell: A public field
 #+BEGIN_SRC php
 final class User
@@ -224,8 +224,8 @@ final class User
     public $name;
 }
 #+END_SRC
-***** Write a test that pass
-***** Refactor the code
+*** Write a test that pass
+*** Refactor the code
       Make it private and provide accessors.
 #+BEGIN_SRC php
 final class User
@@ -246,8 +246,8 @@ final class User
     }
 }
 #+END_SRC
-***** Run a test
-**** Extract Class
+*** Run a test
+** Extract Class
      SmellL Large Class
 #+BEGIN_SRC php
 final class User
@@ -261,8 +261,8 @@ final class User
     private $state;
 }
 #+END_SRC
-***** Write a test that pass
-***** Refactor the code 
+*** Write a test that pass
+*** Refactor the code 
       Create a new class and move the relevant fields and methods from the old class into the new class.
 #+BEGIN_SRC php
 final class User
@@ -281,8 +281,8 @@ final class Address
     private $state;
 }
 #+END_SRC
-***** Pass a test
-**** Extract Method
+*** Pass a test
+** Extract Method
      Smell: Code fragment that can be grouped together
 #+BEGIN_SRC php
 public function printInvoice(Invoice $invoice): void
@@ -296,8 +296,8 @@ public function printInvoice(Invoice $invoice): void
     echo $invoice->getDate();
 }
 #+END_SRC
-***** Write a test that pass
-***** Refactor the code 
+*** Write a test that pass
+*** Refactor the code 
       Turn the fragment into a method whose name explains the purpose of the method
 #+BEGIN_SRC php
 public function printInvoice(Invoice $invoice): void
@@ -320,11 +320,462 @@ function printInvoiceFooter(Invoice $invoice): void
     echo $invoice->getDate();
 }
  #+END_SRC
-***** Run a test
-**** Replace Magic Number With Symbolic Constant
-     Smell: Number with a particular meaning
-      #+NAME: replace_magic_number_with_symbolic_constant
-       #+BEGIN_SRC php
+*** Run a test
+** Extract Variable
+   Smell: Complicated expression
+#+BEGIN_SRC php
+if(($stock->checkStatus($order->getItem) > $order->getQuantity()) 
+    && ($order->getTotal() > 99) 
+    && ($order->getCustomer()->getBillingAddress() === $order->getShippingAddress()));
+#+END_SRC
+*** Write a test that pass
+*** Refactor the code
+    Put the result of the expression, or parts of the expression, in a temporary variable with a name that explains the purpose
+#+BEGIN_SRC php
+$freeShipping = $order->getTotal() > 99;
+$stockAvailable = $stock->checkStatus($order->getItem) > $order->getQuantity();
+$addressMatches = $order->getCustomer()->getBillingAddress() === $order->getShippingAddress();
+if($stockAvailable && $freeShipping && $addressMatches);
+#+END_SRC
+*** Pass a test
+    Info: In the books, this refactoring is called "Introduce Explaining Variable", but most tools and people now use the (better) name "extract variable"
+** Inline Class
+   Smell: A class isn't doing very much
+#+BEGIN_SRC php
+final class User
+{
+    private $name;
+    private $surname;
+
+    private $telephoneNumber;
+}
+
+final class TelephoneNumber
+{
+    private $number;
+}
+#+END_SRC
+** Inline Method
+   Smell: A method's body is just as clear as its name
+#+BEGIN_SRC php
+public function calculateAreaOfCircle(float $radius): float
+{
+    return getValueOfPI() * $radius * $radius;
+}
+
+public function getValueOfPI(): float
+{
+    return pi();
+}
+#+END_SRC
+*** Write a test that pass
+*** Refactor the code 
+    Put the method's body into the body of its callers and remove the method.
+#+BEGIN_SRC php
+public function calculateAreaOfCircle(float $radius): float
+{
+    return pi() * $radius * $radius;
+}
+ #+END_SRC
+*** Pass a test
+** Introduce Parameter Object
+   Smell: Long Parameter List and parameters that naturally go together
+#+BEGIN_SRC php
+final class Account
+{
+    public function findAllTransactions(DateTime $start, DateTime $end)
+    {
+        ...
+    }
+}
+#+END_SRC
+*** Write a test that pass
+*** Refactor the code 
+    Replace them with an object.
+#+BEGIN_SRC php#+END_SRC
+*** Pass a test
+
+** Move Method
+   Smell: Method accessing fields and methods in different class
+   #+BEGIN_SRC php
+final class Customer
+{
+    function printInvoice(Order $order)
+    {
+        echo "Invoice {$order->getId()}";
+        echo "Date: {$order->getDate()}";
+        echo "Customer: {$this->getName()}";
+
+        $address = $order->getAddress();
+        echo "City: {$address->getCity()}";
+        echo "Address: {$address->getStreet()}";
+
+        foreach ($order->getItems() as $item){
+
+            echo "Name: {$item->getName()}";
+            echo "Price: {$item->getPrice()}";
+        }
+    }
+}   
+   #+END_SRC
+*** Write a test that pass
+*** Refactor the code 
+    Move all its features into another class and delete it.
+#+BEGIN_SRC php
+final class Order
+{
+    function printInvoice()
+    {
+        echo "Invoice {$this->getId()}";
+        echo "Date: {$this->getDate()}";
+        echo "Customer: {$this->getCustomer()->getName()}";
+
+        $address = $this->getAddress();
+        echo "City: {$address->getCity()}";
+        echo "Address: {$address->getStreet()}";
+
+        foreach ($this->getItems() as $item){
+
+            echo "Name: {$item->getName()}";
+            echo "Price: {$item->getPrice()}";
+        }
+    }
+}
+ #+END_SRC
+*** Pass a test
+** Optimize Imports
+   Smell: Imports unused or not in alphabetically order. Multiple use statement
+#+BEGIN_SRC php
+use SomeClass\Worker;
+use SomeClass\Foo;
+use SomeClass\UnusedClass;
+#+END_SRC
+*** Write a test that pass
+*** Refactor the code 
+    Remove unused imports. Sort imports alphabetically (ascending order). Splits multiple use statement imports into single use statement imports
+#+BEGIN_SRC php
+use SomeClass\{Foo, Worker};
+ #+END_SRC
+*** Pass a test
+** Parameterize Method
+   Smell: Several methods do similar things but with different values contained in the method body.
+#+BEGIN_SRC php
+final class Employee
+{
+    /**
+     * @var float
+     */
+    private $salary;
+
+    public function setSalary(float $salary)
+    {
+        $this->salary = $salary;
+    }
+
+    public function getSalary(): float
+    {
+        return $this->salary;
+    }
+
+    public function fivePercentRaise()
+    {
+        $this->salary += $this->salary* (5 / 100);
+    }
+
+    public function tenPercentRaise()
+    {
+        $this->salary += $this->salary* (10 / 100) ;
+    }
+}
+#+END_SRC
+*** TODO Write a test that pass
+*** Refactor the code 
+Create one method that uses a parameter for the different values.
+#+BEGIN_SRC php
+final class Employee
+{
+    /**
+     * @var float
+     */
+    private $salary;
+
+    public function setSalary(float $salary)
+    {
+        $this->salary = $salary;
+    }
+
+    public function getSalary(): float
+    {
+        return $this->salary;
+    }
+
+    public function raise(float $percent)
+    {
+        $this->salary += $this->salary * ($percent / 100);
+    }
+}
+ #+END_SRC
+*** Pass a test
+** Preserve Whole Object
+   Smell: More than one value from an object are passing as parameters in a method call
+#+BEGIN_SRC php
+class September
+{
+    /**
+     * @var float
+     */
+    private $highestTemp;
+
+    /**
+     * @var float
+     */
+    private $lowestTemp;
+
+    public function __construct(float $highestTemp, float $lowestTemp)
+    {
+        $this->highestTemp = $highestTemp;
+        $this->lowestTemp = $lowestTemp;
+    }
+
+    public function getHighestTemp(): float
+    {
+        return $this->highestTemp;
+    }
+
+    public function getLowestTemp(): float
+    {
+        return $this->lowestTemp;
+    }
+}
+
+class Calculator
+{
+    public function calculateAverageTemperature(float $highestTemp, float $lowestTemp)
+    {
+        return ($highestTemp + $lowestTemp) / 2;
+    }
+}
+
+$september = new September(15,5);
+$calculator = new Calculator();
+
+$averageTemperature = $calculator->calculateAverageTemperature(
+            $september->getHighestTemp(),
+            $september->getLowestTemp()
+        );
+#+END_SRC
+*** Write a test that pass
+#+BEGIN_SRC php
+public function testCalculateAverageTemperature()
+{
+        $september = new September(15,5);
+        $calculator = new Calculator();
+
+        $averageTemperature = $calculator->calculateAverageTemperature(
+            $september->getHighestTemp(),
+            $september->getLowestTemp());
+
+        $this->assertEquals(10, $averageTemperature);
+}
+#+END_SRC
+*** Refactor the code
+    Add object as a new parameter. Set it default value to null, that will help to manage the transitions towards the final version of the method.
+#+BEGIN_SRC php
+class Calculator
+{
+    public function calculateAverageTemperature(float $highestTemp, float $lowestTemp, September $september = null)
+    {
+        return ($highestTemp + $lowestTemp) / 2;
+    }
+}
+#+END_SRC
+*** Pass a test
+*** Refactor the code
+    Replace values with values coming from the whole object
+#+BEGIN_SRC php
+class Calculator
+{
+    public function calculateAverageTemperature(float $highestTemp, float $lowestTemp, September $september = null)
+    {
+        return ($september->getHighestTemp() + $september->getLowestTemp()) / 2;
+    }
+}
+#+END_SRC
+*** Pass a test
+*** Refactor the code
+    Remove useless parameters and default null value of $september object
+#+BEGIN_SRC php
+class Calculator
+{
+    public function calculateAverageTemperature(September $september)
+    {
+        return ($september->getHighestTemp() + $september->getLowestTemp()) / 2;
+    }
+}
+#+END_SRC
+*** Pass a test
+** Pull Up Method
+   Smell: Subclasses have the same method.
+#+BEGIN_SRC php
+class Employee
+{
+    /**
+     * @var string
+     */
+    protected $name;
+    
+    public function __construct(string $name)
+    {
+        $this->name = $name;
+    }
+}
+
+final class Salesman extends Employee
+{
+    public function getName()
+    {
+        return $this->name;
+    }
+}
+
+final class Engineer extends Employee
+{
+    public function getName()
+    {
+        return $this->name;
+    }
+}
+#+END_SRC
+*** Write a test that pass
+*** Refactor the code 
+    Move the methods to the super class.
+#+BEGIN_SRC php
+class Employee
+{
+    /**
+     * @var string
+     */
+    protected $name;
+
+    public function __construct(string $name)
+    {
+        $this->name = $name;
+    }
+
+    public function getName()
+    {
+        return $this->name;
+    }
+}
+
+final class Salesman extends Employee {}
+
+final class Engineer extends Employee {}
+ #+END_SRC
+*** Pass a test
+** Remove Assignments to Parameters
+   Smell: Reassign to a parameter
+   #+BEGIN_SRC php
+public function discount(int $priceTotal): int
+{
+    if ($priceTotal > 100) {
+        $priceTotal = $priceTotal - 10;
+    }
+    
+    return $priceTotal;
+}  
+   #+END_SRC
+*** Write a test that pass
+*** Refactor the code 
+    Use a temporary variable instead
+#+BEGIN_SRC php
+public function discount(int $priceTotal): int
+{
+    $result = $priceTotal;
+
+    if ($priceTotal > 100) {
+        $result = $result - 10;
+    }
+
+    return $result;
+}
+#+END_SRC
+*** Pass a test
+*** Info
+    The best practice is that if you pass parameters into a method then they should always represent what were passed in and never be reassigned to mean something else. Btw. in Java you can prevent variable’s reassignment by keyword 'final' before a parameter https://stackoverflow.com/questions/500508/why-should-i-use-the-keyword-final-on-a-method-parameter-in-java
+** Remove PHPDoc
+   Smell: PHPDoc is duplicating type-hint information
+   Damage: Adds information which not provides additional value
+   #+BEGIN_SRC php
+/**
+ * @param int $number
+ * @return void
+ */
+public function setNumber(int $number): void
+{
+    $this->number = $number;
+}  
+   #+END_SRC
+*** Write a test that pass
+*** Refactor the code 
+Remove PHPDoc if it's not provides additional value
+#+BEGIN_SRC php
+
+#+END_SRC
+*** Pass a test
+** Rename Method
+   Smell: The name of a method does not reveal it's purpose1
+#+BEGIN_SRC php
+public function getInvcdtlmt()
+#+END_SRC
+
+*** Write a test that pass
+*** Refactor the code 
+    Change the name of the method
+#+BEGIN_SRC php
+public function getInvoiceableCreditLimit()
+#+END_SRC
+*** Pass a test
+** Replace Global with Dependency Injection
+   Smell: Variable with 'global' keyword
+#+BEGIN_SRC php
+final class Item
+{
+    public function fetch()
+    {
+        global $db;
+        return $db->query(...);
+    }
+}
+#+END_SRC
+
+*** Write a test that pass
+*** Refactor the code 
+    Move global variable in class to the constructor
+#+BEGIN_SRC php
+final class Item
+{
+    /**
+     * @var Database
+     */
+    private $db;
+
+    public function __construct(Database $db)
+    {
+        $this->db = $db;
+    }
+
+    public function fetch()
+    {
+        return $db->query(...);
+    }
+}
+#+END_SRC
+*** Pass a test
+** Replace Magic Number With Symbolic Constant
+   Smell: Number with a particular meaning
+    #+NAME: replace_magic_number_with_symbolic_constant
+     #+BEGIN_SRC php
 final class Circle
 {
     /**
@@ -342,10 +793,10 @@ final class Circle
 		return $this->radius * 2 * 3.1416;
     }
 }
-       #+END_SRC
-***** Write a test that pass
-      #+NAME: init_block_test
-      #+BEGIN_SRC phpunit :noweb yes :noweb strip-export :exports both
+     #+END_SRC
+*** Write a test that pass
+    #+NAME: init_block_test
+    #+BEGIN_SRC phpunit :noweb yes :noweb strip-export :exports both
 <<replace_magic_number_with_symbolic_constant>>
 use PHPUnit\Framework\TestCase;
 
@@ -357,20 +808,20 @@ class CircleTest extends TestCase
         $this->assertEquals(12.5664, $circle->getCircumference());
     }
 }
-      #+END_SRC
+    #+END_SRC
 
-      #+RESULTS:
-      : PHPUnit 7.5.2 by Sebastian Bergmann and contributors.
-      : 
-      : .                                                                   1 / 1 (100%)
-      : 
-      : Time: 151 ms, Memory: 10.00MB
-      : 
-      : OK (1 test, 1 assertion)
+    #+RESULTS:
+    : PHPUnit 7.5.2 by Sebastian Bergmann and contributors.
+    : 
+    : .                                                                   1 / 1 (100%)
+    : 
+    : Time: 151 ms, Memory: 10.00MB
+    : 
+    : OK (1 test, 1 assertion)
 
-***** Refactor the code 
-      Create a constant, name it after the meaning, and replace the number with it
-      #+BEGIN_SRC php
+*** Refactor the code 
+    Create a constant, name it after the meaning, and replace the number with it
+    #+BEGIN_SRC php
 final class Circle
 {
     /**
@@ -393,28 +844,251 @@ final class Circle
 		return $this->radius * 2 * self::PI;
     }
 }
-      #+END_SRC
-***** Run a test 
-      #+RESULTS: init_block_test 
-***** Helper:  
-      [[https://github.com/povils/phpmnd][PHP Magic Number Detector]] is a tool to detect magic numbers in your PHP code
-
-
-**** Temp
-***** Write a test that pass
-***** Refactor the code 
-
+    #+END_SRC
+*** Run a test 
+    #+RESULTS: init_block_test 
+*** Helper:  
+    [[https://github.com/povils/phpmnd][PHP Magic Number Detector]] is a tool to detect magic numbers in your PHP code
+** Replace Parameter with Method
+   Smell: A method runs different code depending on the values of parameters
 #+BEGIN_SRC php
- #+END_SRC
-***** Pass a test
+final class EmailNotification
+{
+    public function send(string $to, string $body, string $from = null)
+    {
+        if($from){
+            $this->mailer->send($to, $body, $from);
+        }else{
+            $this->mailer->send($to, $body, $this->defaultSender);
+        }
+    }
+}
+#+END_SRC
+*** Write a test that pass
+*** Refactor the code 
+    Create a separate method for each value of the parameter
+#+BEGIN_SRC php
+final class EmailNotification
+{
+    public function send(string $to, string $body, string $from)
+    {
+        $this->mailer->send($to, $body, $from);
+    }
+    
+    public function sendFromDefaultSender(string $to, string $body)
+    {
+        $this->mailer->send($to, $body, $this->defaultSender);
+    }
+}
+#+END_SRC
+*** Pass a test
+** Replace Temp with Query
+   Smell: Using a temporary variable to hold the result of an expression.
+   Damage: Temporary variable increase the temptation to write longer methods. Temporaries aren’t necessarily bad, but sometimes they attract new code.
+#+BEGIN_SRC php
+public function getTotalPrice(): int
+{
+    $basePrice = $this->quantity * $this->itemPrice;
+
+    if ($basePrice > self::DISCOUNT_POINT) {
+        return $basePrice * self::DISCOUNT;
+    }
+    return $basePrice;
+}
+#+END_SRC
+*** Write a test that pass
+*** Refactor the code 
+    Extract the expression into a method. Replace all references to the temp with the expression. The new method can then be used in other methods.
+#+BEGIN_SRC php
+public function getTotalPrice(): int
+{
+    if ($this->getBasePrice() > self::DISCOUNT_POINT) {
+        return $this->getBasePrice() * self::DISCOUNT;
+    }
+    return $this->getBasePrice();
+}
+
+public function getBasePrice(): int
+{
+    $this->quantity * $this->itemPrice;
+}
+#+END_SRC
+*** Pass a test
+*** Info 
+    Now, but wait, you might say. Isn't this more inefficient? Because if we created the temp the old way, we'd only have to execute the expression once, but if we turn it into a method, we might be calling it many different times. And yes, you're absolutely right, but remember, the pure efficiency of the code is not our first goal in refactoring. Clarity is. The likelihood is that a typical expression you would deal with in this sort of refactoring is going to be so undemanding, it wouldn't be noticeable at all, even having to call it several more times. But if it is an intensive operation, an intensive expression, well you should really be working on that later, after you've refactored using profilers. And other tools to make sure you're not doing pointless, premature optimization. And the real benefit is that by creating this as its own method, we will also have use of it anywhere else in the class, which wasn't the case before. As the original temp was scoped to the original method. So, we won't be tempted to add more code to the original method just to have access to that temp.
+** Replacing Type Code with Subclasses
+   Smell: Immutable type code affecting the class behavior.
+#+BEGIN_SRC php
+final class Account
+{
+    /**
+     * @var int
+     */
+    private $accountType;
+
+    /**
+     * @var float
+     */
+    private $balance;
+
+    /**
+     * @var int
+     */
+    public const CHECKING = 0;
+
+    /**
+     * @var int
+     */
+    public const SAVINGS = 1;
+
+    /**
+     * @var int
+     */
+    public const INVESTMENT = 2;
+
+    public function __construct(int $accountType)
+    {
+        $this->accountType = $accountType;
+    }
+
+    public function getAccountType(): int
+    {
+        return $this->accountType;
+    }
+
+    public function getBalance(): float
+    {
+        return $this->balance;
+    }
+
+    public function withdraw(float $amount): void
+    {
+        switch ($this->accountType){
+            case self::CHECKING:
+                $this->balance -= $amount;
+                break;
+            case self::SAVINGS:
+                $this->balance -= $amount + 100;
+                break;
+            case self::INVESTMENT:
+                $this->balance -= $amount + 300;
+                break;
+            default:
+                throw new RuntimeException('Unknown Account Type');
+        }
+    }
+}
+#+END_SRC
+*** Write a test that pass
+*** Refactor the code 
+    Replace the type code with subclasses.
+#+BEGIN_SRC php
+abstract class Account
+{
+    /**
+     * @var float
+     */
+    private $balance;
+
+    public function getBalance(): float
+    {
+        return $this->balance;
+    }
+    
+    abstract public function withdraw(float $amount): void
+}
+
+final class AccountChecking extends Account
+{
+    public function withdraw(float $amount): void
+    {
+        $this->balance -= $amount;
+    }
+}
+
+final class AccountSavings extends Account
+{
+    public function withdraw(float $amount): void
+    {
+        $this->balance -= $amount + 100;
+    }
+}
+
+final class AccountInvestment extends Account
+{
+    public function withdraw(float $amount): void
+    {
+        $this->balance -= $amount + 300;
+    }
+}
+#+END_SRC
+*** Pass a test
+** Separate Query from Modifier
+   Smell: A method that returns a value but also changes the state of an object.
+#+BEGIN_SRC php
+final class Account
+{
+    /**
+     * @var float
+     */
+    private $balance;
+    
+    public function withdrawAndGetBalance(float $amount): float
+    {
+        $this->balance -= $amount;
+        return $this->balance;
+    }
+}
+#+END_SRC
+*** Write a test that pass
+*** Refactor the code
+    Create two methods, one for the query and one for the modification.
+#+BEGIN_SRC php
+final class Account
+{
+    /**
+     * @var float
+     */
+    private $balance;
+
+    public function getBalance(): float
+    {
+        return $this->balance;
+    }
+
+    public function withdraw(float $amount): void
+    {
+        $this->balance -= $amount;
+    }
+}
+#+END_SRC
+*** Pass a test
+** Split Temporary Variable
+   Smell: Temporary variable is assigned to more than once (overwrite), but is not a loop variable nor a collecting temporary variable.
+#+BEGIN_SRC php
+$temp = $item.getPrice() * item.getQuantity();
+echo "Total: $temp";
+$temp = order.getTotal() - order.getDiscount();
+echo "Price after discount: $temp;"
+#+END_SRC
+*** Write a test that pass
+*** Refactor the code
+    Make a separate temporary variable for each assignment.
+#+BEGIN_SRC php
+$totalPrice = $item.getPrice() * item.getQuantity();
+echo "Total: $totalPrice";
+$totalDiscountPrice = order.getTotal() - order.getDiscount();
+echo "Price after discount: $totalDiscountPrice";
+#+END_SRC
+*** Pass a test
 * Books
 | author                    | title                                               | year |   |
 |---------------------------+-----------------------------------------------------+------+---|
 | Andrew Hunt, David Thomas | The Pragmatic Programmer: From Journeyman to Master | 1999 |   |
 * Tools
 * Tutorials  
-* Practies
-** Don't Use 'else if'
+* Practices
+** Don't use 'else if'
    Else if is not compatible with the colon syntax for if|elseif blocks. For this reason, use elseif for conditionals
 #+BEGIN_SRC php
 <?php if ($user) { ?>
@@ -472,6 +1146,9 @@ if ( $foo == 'bar' ) {
 	}
 }
 #+END_SRC
+** Don't use 'clone'  
+https://www.facebook.com/edyta.maciek
+example with Doctrine
 ** Boolean conversion
 #+BEGIN_SRC php
 declare(stric_types=1);

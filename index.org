@@ -394,6 +394,20 @@ final class Account
     Replace them with an object.
 #+BEGIN_SRC php#+END_SRC
 *** Pass a test
+** Optimize Imports
+   Smell: Imports unused or not in alphabetically order. Multiple use statement
+#+BEGIN_SRC php
+use SomeClass\Worker;
+use SomeClass\Foo;
+use SomeClass\UnusedClass;
+#+END_SRC
+*** Write a test that pass
+*** Refactor the code 
+    Remove unused imports. Sort imports alphabetically (ascending order). Splits multiple use statement imports into single use statement imports
+#+BEGIN_SRC php
+use SomeClass\{Foo, Worker};
+ #+END_SRC
+*** Pass a test
 
 ** Move Method
    Smell: Method accessing fields and methods in different class
@@ -441,20 +455,6 @@ final class Order
         }
     }
 }
- #+END_SRC
-*** Pass a test
-** Optimize Imports
-   Smell: Imports unused or not in alphabetically order. Multiple use statement
-#+BEGIN_SRC php
-use SomeClass\Worker;
-use SomeClass\Foo;
-use SomeClass\UnusedClass;
-#+END_SRC
-*** Write a test that pass
-*** Refactor the code 
-    Remove unused imports. Sort imports alphabetically (ascending order). Splits multiple use statement imports into single use statement imports
-#+BEGIN_SRC php
-use SomeClass\{Foo, Worker};
  #+END_SRC
 *** Pass a test
 ** Parameterize Method
@@ -1083,46 +1083,486 @@ echo "Price after discount: $totalDiscountPrice";
 *** Pass a test
 * Books
   
-| author                                | title                                                                                                                | topic       | info        | year |                                                                                                                                                                                                              |   |
-|---------------------------------------+----------------------------------------------------------------------------------------------------------------------+-------------+-------------+------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+---|
-| Andrew Hunt, David Thomas             | The Pragmatic Programmer: From Journeyman to Master                                                                  | overall     | skip        | 1999 | a lot of tips & tricks but too old                                                                                                                                                                           |   |
-|                                       | Antipatterns. Refactoring Software, Archtectures and Projects in Crisis                                              |             |             | 1998 |                                                                                                                                                                                                              |   |
-|                                       | Refactoring in Large Software Projects                                                                               |             |             | 2006 |                                                                                                                                                                                                              |   |
-|                                       | Antipatterns: Identification, Refactoring, and Management                                                            |             |             | 2005 |                                                                                                                                                                                                              |   |
-|                                       | Fifty Quick Ideas To Improve Your Tests                                                                              | tests       |             |      |                                                                                                                                                                                                              |   |
-|                                       | Growing Object-Oriented Software, Guided by Tests                                                                    |             |             |      |                                                                                                                                                                                                              |   |
-|                                       | Working Effectively with Unit Tests                                                                                  |             |             |      |                                                                                                                                                                                                              |   |
-|                                       | Scalable Internet Architectures                                                                                      |             |             |      |                                                                                                                                                                                                              |   |
-|                                       | SQL for Smarties: Advanced SQL Programming                                                                           | database    |             | 2005 |                                                                                                                                                                                                              |   |
-|                                       | Mastering the SPL Library                                                                                            |             |             |      |                                                                                                                                                                                                              |   |
-|                                       | Anthology  The Thoughtworks Anthology - Essays on Software Technology and Innovation                                 |             |             | 2008 |                                                                                                                                                                                                              |   |
-|                                       | Anthology  The ThoughtWorks Anthology 2 - More Essays on Software Technology and Innovation                          |             |             | 2012 |                                                                                                                                                                                                              |   |
-| Beck, Kent                            | Extreme Programming Explained: Embrace Change                                                                        | overall     | can be read | 1999 |                                                                                                                                                                                                              |   |
-| Bernstein, David Scott                | Beyond Legacy Code                                                                                                   |             |             | 2015 | Want to read                                                                                                                                                                                                 |   |
-| Bhargava, Aditya                      | Grokking Algorithms: An illustrated guide for programmers and other curious people                                   |             | must read   | 2017 | Fully illustrated, friendly, easy to read guide, worth to read. When you will stumble upon a problem, you will know how to recognize it and chose the right Algorithm                                        |   |
-| Bloch, Joshua                         | Effective Java                                                                                                       |             |             | 2018 |                                                                                                                                                                                                              |   |
-| Buenosvinos, Carlos                   | Domain-Driven Design in PHP                                                                                          |             |             | 2016 |                                                                                                                                                                                                              |   |
-| Bugayenko, Yegor                      | Elegant Objects                                                                                                      |             |             | 2016 | Want to read                                                                                                                                                                                                 |   |
-| Feathers, Michael                     | Working Effectively with Legacy Code                                                                                 |             |             | 2005 |                                                                                                                                                                                                              |   |
-| Fowler, Martin                        | Refactoring: Improving the Design of Existing Code                                                                   | refactoring | must have   | 1999 |                                                                                                                                                                                                              |   |
-| Fowler, Martin                        | Patterns of Enterprise Application Architecture                                                                      |             |             | 2012 |                                                                                                                                                                                                              |   |
-| Francesco Trucchia, Jacopo Romei      | Pro PHP Refactoring                                                                                                  |             |             | 2010 | Old, without PHP 7 but still the best PHP book about refactoring. Great examples. Worth to have.                                                                                                             |   |
-| Ganesh, Samarthyam; Tushar, Sharma    | Refactoring for Software Design Smells: Managing Technical Debt                                                      |             |             | 2015 | Catalog of smells. Focus on smell point of view. Also they introduce smell classification scheme, naming scheme for design smells which helps to increase awerness of smells. So definetly must read. (Java) |   |
-| Halladay, Steve                       | Principle-Based Refactoring: Learning Software Design Principles by Applying Refactoring Rules                       |             |             | 2012 | Want to read                                                                                                                                                                                                 |   |
-| Jones, Paul M.                        | Modernizing Legacy Apps In PHP                                                                                       |             |             | 2014 |                                                                                                                                                                                                              |   |
-| Junade, Ali                           | Mastering PHP Design Patterns                                                                                        |             |             | 2016 | Little bit inmature, poorly written. Having a lot of tips and information about broad variaty of things which is a good place on website but not in the book. Code examples could be much better.            |   |
-| Karwin, Bill                          | SQL Antipatterns - Avoiding The Pitfalls of Database Programming                                                     | database    |             | 2010 |                                                                                                                                                                                                              |   |
-| Kerievsky, Joshua                     | Refactoring to Patterns                                                                                              |             |             | 2004 |                                                                                                                                                                                                              |   |
-| Martin, Robert C.                     | Agile Software Development: Principles, Patterns, and Practices                                                      |             |             | 2002 |                                                                                                                                                                                                              |   |
-| Martin, Robert C.                     | Clean Code: A Handbook of Agile Software Craftsmanship                                                               |             |             | 2009 |                                                                                                                                                                                                              |   |
-| Rahman, Mizanur                       | PHP 7 Data Structures and Algorithms                                                                                 | refactoring | must have   | 2017 |                                                                                                                                                                                                              |   |
-| Scott J Ambler and Pramod J. Sadalage | Refactoring Databases - Evolutionary Database Design                                                                 | refactoring | must read   | 2006 | It's catalog of refactorings for database                                                                                                                                                                    |   |
-| Stephane Faroult, Pascal L'Hermite    | Refactoring SQL Application                                                                                          | database    |             | 2008 |                                                                                                                                                                                                              |   |
-| Tornhill, Adam                        | Your Code as a Crime Scene - Use Forensic Techniques to Arrest Defects, Bottlenecks, and Bad Design in Your Programs |             |             | 2015 |                                                                                                                                                                                                              |   |
-| West, David                           | Object Thinking                                                                                                      |             |             | 2004 |                                                                                                                                                                                                              |   |
-| Zandstra, Matt                        | PHP Objects, Patterns, and Practice                                                                                  |             | can be read | 2008 | Pretty old. But written with precise language and with great examples                                                                                                                                        |   |
+| author                                | title                                                                                                                | topic       | info        | year |                                                                                                                                                                                                              |
+|---------------------------------------+----------------------------------------------------------------------------------------------------------------------+-------------+-------------+------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Andrew Hunt, David Thomas             | The Pragmatic Programmer: From Journeyman to Master                                                                  | overall     | skip        | 1999 | a lot of tips & tricks but too old                                                                                                                                                                           |
+|                                       | Antipatterns. Refactoring Software, Archtectures and Projects in Crisis                                              |             |             | 1998 |                                                                                                                                                                                                              |
+|                                       | Refactoring in Large Software Projects                                                                               |             |             | 2006 |                                                                                                                                                                                                              |
+|                                       | Antipatterns: Identification, Refactoring, and Management                                                            |             |             | 2005 |                                                                                                                                                                                                              |
+|                                       | Fifty Quick Ideas To Improve Your Tests                                                                              | tests       |             |      |                                                                                                                                                                                                              |
+|                                       | Growing Object-Oriented Software, Guided by Tests                                                                    |             |             |      |                                                                                                                                                                                                              |
+|                                       | Working Effectively with Unit Tests                                                                                  |             |             |      |                                                                                                                                                                                                              |
+|                                       | Scalable Internet Architectures                                                                                      |             |             |      |                                                                                                                                                                                                              |
+|                                       | SQL for Smarties: Advanced SQL Programming                                                                           | database    |             | 2005 |                                                                                                                                                                                                              |
+|                                       | Mastering the SPL Library                                                                                            |             |             |      |                                                                                                                                                                                                              |
+|                                       | Anthology  The Thoughtworks Anthology - Essays on Software Technology and Innovation                                 |             |             | 2008 |                                                                                                                                                                                                              |
+|                                       | Anthology  The ThoughtWorks Anthology 2 - More Essays on Software Technology and Innovation                          |             |             | 2012 |                                                                                                                                                                                                              |
+| Beck, Kent                            | Extreme Programming Explained: Embrace Change                                                                        | overall     | can be read | 1999 |                                                                                                                                                                                                              |
+| Bernstein, David Scott                | Beyond Legacy Code                                                                                                   |             |             | 2015 | Want to read                                                                                                                                                                                                 |
+| Bhargava, Aditya                      | Grokking Algorithms: An illustrated guide for programmers and other curious people                                   |             | must read   | 2017 | Fully illustrated, friendly, easy to read guide, worth to read. When you will stumble upon a problem, you will know how to recognize it and chose the right Algorithm                                        |
+| Bloch, Joshua                         | Effective Java                                                                                                       |             |             | 2018 |                                                                                                                                                                                                              |
+| Buenosvinos, Carlos                   | Domain-Driven Design in PHP                                                                                          |             |             | 2016 |                                                                                                                                                                                                              |
+| Bugayenko, Yegor                      | Elegant Objects                                                                                                      |             |             | 2016 | Want to read                                                                                                                                                                                                 |
+| Feathers, Michael                     | Working Effectively with Legacy Code                                                                                 |             |             | 2005 |                                                                                                                                                                                                              |
+| Fowler, Martin                        | Refactoring: Improving the Design of Existing Code                                                                   | refactoring | must have   | 1999 |                                                                                                                                                                                                              |
+| Fowler, Martin                        | Patterns of Enterprise Application Architecture                                                                      |             |             | 2012 |                                                                                                                                                                                                              |
+| Francesco Trucchia, Jacopo Romei      | Pro PHP Refactoring                                                                                                  |             |             | 2010 | Old, without PHP 7 but still the best PHP book about refactoring. Great examples. Worth to have.                                                                                                             |
+| Ganesh, Samarthyam; Tushar, Sharma    | Refactoring for Software Design Smells: Managing Technical Debt                                                      |             |             | 2015 | Catalog of smells. Focus on smell point of view. Also they introduce smell classification scheme, naming scheme for design smells which helps to increase awerness of smells. So definetly must read. (Java) |
+| Halladay, Steve                       | Principle-Based Refactoring: Learning Software Design Principles by Applying Refactoring Rules                       |             |             | 2012 | Want to read                                                                                                                                                                                                 |
+| Jones, Paul M.                        | Modernizing Legacy Apps In PHP                                                                                       |             |             | 2014 |                                                                                                                                                                                                              |
+| Junade, Ali                           | Mastering PHP Design Patterns                                                                                        |             |             | 2016 | Little bit inmature, poorly written. Having a lot of tips and information about broad variaty of things which is a good place on website but not in the book. Code examples could be much better.            |
+| Karwin, Bill                          | SQL Antipatterns - Avoiding The Pitfalls of Database Programming                                                     | database    |             | 2010 |                                                                                                                                                                                                              |
+| Kerievsky, Joshua                     | Refactoring to Patterns                                                                                              |             |             | 2004 |                                                                                                                                                                                                              |
+| Martin, Robert C.                     | Agile Software Development: Principles, Patterns, and Practices                                                      |             |             | 2002 |                                                                                                                                                                                                              |
+| Martin, Robert C.                     | Clean Code: A Handbook of Agile Software Craftsmanship                                                               |             |             | 2009 |                                                                                                                                                                                                              |
+| Rahman, Mizanur                       | PHP 7 Data Structures and Algorithms                                                                                 | refactoring | must have   | 2017 |                                                                                                                                                                                                              |
+| Scott J Ambler and Pramod J. Sadalage | Refactoring Databases - Evolutionary Database Design                                                                 | refactoring | must read   | 2006 | It's catalog of refactorings for database                                                                                                                                                                    |
+| Stephane Faroult, Pascal L'Hermite    | Refactoring SQL Application                                                                                          | database    |             | 2008 |                                                                                                                                                                                                              |
+| Tornhill, Adam                        | Your Code as a Crime Scene - Use Forensic Techniques to Arrest Defects, Bottlenecks, and Bad Design in Your Programs |             |             | 2015 |                                                                                                                                                                                                              |
+| West, David                           | Object Thinking                                                                                                      |             |             | 2004 |                                                                                                                                                                                                              |
+| Zandstra, Matt                        | PHP Objects, Patterns, and Practice                                                                                  |             | can be read | 2008 | Pretty old. But written with precise language and with great examples                                                                                                                                        |
+* TODO Smells                                                      :noexport:
+** Booch’s fundamental design principles
+*** abstraction
+**** Missing Abstraction
+ Clumps of data or encoded strings are used instead of creating a class or an interface
 
-* Tools
+ PROBLEMS:
+ - it can expose implementation details to different abstractions, violating the principle of encapsulation.
+ - When data and associated behavior are spread across abstractions, it can
+ lead to tight coupling between entities, resulting in brittle and non-reusable
+ code. Hence, not creating necessary abstractions also violates the principle of
+ modularization.
+
+ POTENTIAL CAUSES:
+
+ Inadequate design analysis
+ When careful thought is not applied during design, it is easy to overlook creating
+ abstractions and use primitive type values or strings to “get the work done.” In our
+ experience, this often occurs when software is developed under tight deadlines or
+ resource constraints.
+
+ Lack of refactoring
+ As requirements change, software evolves and entities that were earlier represented
+ using strings or primitive types may need to be refactored into classes or interfaces.
+ When the existing clumps of data or encoded strings are retained as they are without
+ refactoring them, it can lead to a Missing Abstraction smell.
+
+ Misguided focus on minor performance gains
+ This smell often results when designers compromise design quality for minor performance gains.
+ For instance, we have observed developers using arrays directly in the code
+ instead of creating appropriate abstractions since they feel that indexing arrays is faster
+ than accessing members in objects. In most contexts, the performance gains due to such
+ “optimizations” are minimal, and do not justify the resultant trade-off in design quality.
+
+ https://steemit.com/php/@crell/php-use-associative-arrays-basically-never
+
+ REFACTOR - The refactoring for this smell is to create abstraction(s) that can internally make use
+ of primitive type values or strings. For example, if a primitive type value is used as a
+ “type-code,” then apply “replace type-code with class”.
+
+ ALIAS:
+ Primitive Obsession — This smell occurs when primitive types are used for
+ encoding dates, currency, etc. instead of creating classes.
+
+ Data clumps — This smell occurs when there are clumps of data items that
+ occur together in lots of places instead of creating a class.
+**** Imperative Abstraction
+  Consider the case of a large-sized financial application. This application employs
+             classes named CreateReport, CopyReport, DisplayReport, etc. to deal with its report
+             generation functionality. Each class has exactly one method definition named create,
+             copy, display, etc., respectively, and suffers from Imperative Abstraction smell. The
+             data items relating to a report such as name of the report, data elements that need to be
+             displayed in the report, kind of report, etc. are housed in a “data class” named Report.
+             The smell not only increases the number of classes (in this case there are at least
+             four classes when ideally one could have been used), but also increases the complex-
+             ity involved in development and maintenance because of the unnecessary separation
+             of cohesive methods
+
+             Reification
+             “Reification” is the promotion or elevation of something that is not an object into an
+             object. When we reify behavior, it is possible to store it, pass it, or transform it. Reifica-
+             tion improves flexibility of the system at the cost of introducing some complexity [52].
+             Many design patterns [54] employ reification. Examples:
+
+
+             • State pattern: Encoding a state-machine.
+
+             • Command pattern: Encoding requests as command objects. A permitted excep-
+             tion for this smell is when a Command pattern has been used to objectify
+             method requests.
+
+             • Strategy pattern: Parameterizing a procedure in terms of an operation it uses.
+
+             In other words, when we consciously design in such a way to elevate non-objects
+             to objects for better reusability, flexibility, and extensibility (i.e., for improving
+             design quality), it is not a smell.
+
+
+             ALIASES
+             “Operation class” [51,52] — This smell occurs when an operation that should
+             have been a method within a class has been turned into a class itself.
+**** Incomplete Abstraction
+ An abstraction (entity or interface) does not support complementary or interrelated methods completely
+ For example, if we need to be able to add or remove elements in a data
+ structure, the type abstracting that data structure should support both add() and
+ remove() methods. Supporting only one of them makes the abstraction incomplete
+ and incoherent in the context of those interrelated methods.
+
+  missing “complementary and symmetric” methods,
+
+ Min/max Open/close Create/destroy Get/set
+ Read/write Print/scan First/last Begin/end
+ Start/stop Lock/unlock Show/hide Up/down
+ First/last Push/pull
+ Enable/disable  Left/right On/off
+
+ Sometimes, a designer may make a conscious design decision to not provide sym-
+ metric or matching methods. For example, in a read-only collection, only add()
+ method may be provided without the corresponding remove() method. In such a
+ case, the abstraction may appear incomplete, but is not a smell.
+
+
+ Sometimes, APIs choose to replace symmetrical methods with a method that takes
+ a boolean argument (for instance, to enforce a particular naming convention such as
+ naming convention that requires accessors to have prefixes “get,” “is,” or
+ “set”). For example, classes such as java.awt.MenuItem and java.awt.Component
+ originally supported disable() and enable() methods. These methods were dep-
+ recated and are now replaced with setEnabled(boolean) method. Similarly, java.
+ awt.Component has the method setVisible(boolean) that deprecates the methods
+ show() and hide(). One would be tempted to mark these classes as Incomplete
+ Abstractions since they lack symmetric methods, i.e., getEnabled() and getVisi-
+ ble() respectively. However, since there is no need for corresponding getter methods
+ (as these methods take a boolean argument), these classes do not have Incomplete
+ Abstraction smell.
+
+
+
+
+ ALIASES
+ This smell is also known in literature as:
+  
+ • “Class supports incomplete behavior” [18]—This smell occurs when the public
+ interface of a class is incomplete and does not support all the behavior needed
+ by objects of that class.
+
+ • “Half-hearted operations” [63]—This smell occurs when interrelated methods
+ provided in an incomplete or in an inconsistent way; this smell could lead to
+ runtime problems.
+**** Multifaceted Abstraction
+ This smell arises when an abstraction has more than one responsibility assigned to it.
+
+ In particular, the Single Responsibility Principle says that an abstraction should have a single
+ well-defined responsibility and that responsibility should be entirely encapsulated
+ within that abstraction. 
+
+ ALIASES
+ This smell is also known in literature as:
+
+ • “Divergent change” [7]—This smell occurs when a class is changed for differ-
+ ent reasons.
+
+ • “Conceptualization abuse” [30]—This smell occurs when two or more non-
+ cohesive concepts have been packed into a single class of the system.
+	 
+ • “Large class” [7,24,57,58]—This smell occurs when a class has “too many”
+ responsibilities.
+	 
+ • “Lack of cohesion” [59]—This smell occurs when there is a large type in a
+ design with low cohesion, i.e., a “kitchen sink” type that represents many
+ abstractions.
+**** Unnecessary Abstraction
+ An abstraction that is not needed
+ ALIASES:
+ Irrelevant class - class does not have any meaningful behavior in the design
+ Lazy class / Freeloader — class does “too little”
+ Small class - class has no (or too few) variables or no (or too few) methods in it
+ Mini-class - a public, non-nested class defines less than three methods and less than three attributes (including constants) in it
+ No responsibility - class has no responsibility associated with it
+ Agent classes - class serve as an “agent” (i.e., they only pass messages from one class to another), indicating that the class may be unnecessary
+**** Unutilized Abstraction
+ UNUTILIZED ABSTRACTION
+ An abstraction is left unused (either not directly used or not
+ reachable). This smell manifests in two forms:
+
+ • Unreferenced abstractions—Concrete classes that are not being used by anyone
+ • Orphan abstractions—Stand-alone interfaces/abstract classes that do not have
+ any derived abstractions
+
+
+                 This smell violates the principle YAGNI (You
+ Aren’t Gonna Need It), which recommends not adding functionality until deemed
+ necessary [53]
+
+                 When an abstraction is left unused
+ in design, it does not serve a meaningful purpose in design, and hence violates the
+ principle of abstraction.
+
+ POTENTIAL CAUSES:
+ Leftover garbage during maintenance or refactoring.
+ Speculative generality - abstractions are introduced speculating that they may be required sometime in future.
+
+
+ REFACTORING:
+ remove the Unutilized Abstraction from the design.
+
+ IMPACT:
+ pollutes the design space and increases cognitive load. This impacts understandability.
+ UNUTILIZED ABSTRACTION
+ Two or more abstractions have identical names or identical implementation or both
+
+
+ POTENTIAL CAUSES:
+
+ Copy-paste programming
+ The “get-the-work-done” mindset of a programmer leads him to copy and paste code
+ instead of applying proper abstraction.
+ Ad hoc maintenance
+ When the software undergoes haphazard fixes or enhancements over many years, it
+ leaves “crufts”6 with lots of redundant code in it.
+ Lack of communication
+ Often, in industrial software, code duplication occurs because different people work
+ on the same code at different times in the life cycle of the software. They are not
+ aware of existing classes or methods and end up re-inventing the wheel.
+
+ REFACTORING:
+ For identical name form, the suggested refactoring is to rename one of the abstrac-
+ tions to a unique name.
+ In the case of the identical implementation form of Duplicate Abstraction, if the
+ implementations are exactly the same, one of the implementations can be removed.
+ If the implementations are slightly different, then the common implementation in
+ the duplicate abstractions can be factored out into a common class.
+
+
+ IMPACT:
+ it affects understandability of the design. Developers of client code will be confused and unclear about the choice
+ of the abstraction that should be used by their code.
+
+ identical implementation (i.e., they have duplicate code), it becomes difficult to maintain them.
+ In summary, this smell indicates a violation of the DRY (Don’t Repeat Yourself)
+ principle.
+                 If the DRY principle is not fol-
+ lowed, a modification of an element within the system requires modifications to other
+ logically unrelated elements making maintainability a nightmare. Since there is dupli-
+ cation among abstractions in the design, this smell is named Duplicate Abstraction.
+
+ 3.7.6 ALIASES
+ This smell is also known in literature as:
+
+ •	“Alternative classes with different interfaces” [7]—This smell occurs when
+ classes do similar things, but have different names.
+ •	“Duplicate design artifacts” [74]—This smell occurs when equivalent design
+ artifacts are replicated throughout the architecture.
+**** Duplicate Abstraction
+ UNUTILIZED ABSTRACTION
+ Two or more abstractions have identical names or identical implementation or both
+
+
+ POTENTIAL CAUSES:
+
+ Copy-paste programming
+ The “get-the-work-done” mindset of a programmer leads him to copy and paste code
+ instead of applying proper abstraction.
+ Ad hoc maintenance
+ When the software undergoes haphazard fixes or enhancements over many years, it
+ leaves “crufts”6 with lots of redundant code in it.
+ Lack of communication
+ Often, in industrial software, code duplication occurs because different people work
+ on the same code at different times in the life cycle of the software. They are not
+ aware of existing classes or methods and end up re-inventing the wheel.
+
+ REFACTORING:
+ For identical name form, the suggested refactoring is to rename one of the abstrac-
+ tions to a unique name.
+ In the case of the identical implementation form of Duplicate Abstraction, if the
+ implementations are exactly the same, one of the implementations can be removed.
+ If the implementations are slightly different, then the common implementation in
+ the duplicate abstractions can be factored out into a common class.
+
+
+ IMPACT:
+ it affects understandability of the design. Developers of client code will be confused and unclear about the choice
+ of the abstraction that should be used by their code.
+
+ identical implementation (i.e., they have duplicate code), it becomes difficult to maintain them.
+ In summary, this smell indicates a violation of the DRY (Don’t Repeat Yourself)
+ principle.
+                 If the DRY principle is not fol-
+ lowed, a modification of an element within the system requires modifications to other
+ logically unrelated elements making maintainability a nightmare. Since there is dupli-
+ cation among abstractions in the design, this smell is named Duplicate Abstraction.
+
+ 3.7.6 ALIASES
+ This smell is also known in literature as:
+
+ •	“Alternative classes with different interfaces” [7]—This smell occurs when
+ classes do similar things, but have different names.
+ •	“Duplicate design artifacts” [74]—This smell occurs when equivalent design
+ artifacts are replicated throughout the architecture.
+*** encapsulation
+*** modularization
+*** hierarchy
+** Normal
+:PROPERTIES:
+:Tile: Duplicated Code	
+:Tag: Within Classes	
+:Description: Same code structure in more than one place
+:Against: Don't Repeat Yourself (DRY)
+
+
+Long Method	Within Classes		
+Long Parameter List	Within Classes		
+Divergent Change	Within Classes		
+Large Class	Within Classes	A class contains to many fields, methods, lines of code	
+Feature Envy	Between Classes	A method accesses the data of another object more than its own data
+* TODO Tools                                                       :noexport:
+* Codebases
+| Name                              | Lines of Code | Description                                                                                   | Tutorials                       |
+|-----------------------------------+---------------+-----------------------------------------------------------------------------------------------+---------------------------------|
+| [[https://github.com/adamculp/refactoring101][Video Rental Shop]]                 |           132 | From Martin Fowler book "Refactoring: Improving the Design of Existing Code" converted to PHP | [[https://youtu.be/0DYIJdX6kB4][Refactoring 101]]                 |
+| [[https://github.com/jbrains/trivia/tree/master/php][Legacy Code Retreat - Trivia Game]] |           196 | Designed for [[https://legacycoderetreat.typepad.com/][Legacy Code Retreat]] events                                                       | [[https://code.tutsplus.com/series/refactoring-legacy-code--cms-633][Refactoring Legacy Code]] |
+|                                   |               |                                                                                               | [[https://code.tutsplus.com/courses/techniques-for-refactoring-code][Techniques for Refactoring Code]] |
+|                                   |               |                                                                                               | [[http://blog.adrianbolboaca.ro/2014/04/legacy-coderetreat/#sessions][Legacy Coderetreat (Java)]]       |
+
+** [[https://github.com/adamculp/refactoring101][Video Rental Shop]]
+   phploc
+Size
+  Lines of Code (LOC)                              132
+  Comment Lines of Code (CLOC)                      12 (9.09%)
+  Non-Comment Lines of Code (NCLOC)                120 (90.91%)
+  Logical Lines of Code (LLOC)                      48 (36.36%)
+    Classes                                         40 (83.33%)
+      Average Class Length                          13
+        Minimum Class Length                         6
+        Maximum Class Length                        24
+      Average Method Length                          2
+        Minimum Method Length                        1
+        Maximum Method Length                       19
+    Functions                                        0 (0.00%)
+      Average Function Length                        0
+    Not in classes or functions                      8 (16.67%)
+
+Cyclomatic Complexity
+  Average Complexity per LLOC                     0.17
+  Average Complexity per Class                    3.67
+    Minimum Class Complexity                      1.00
+    Maximum Class Complexity                      9.00
+  Average Complexity per Method                   1.73
+    Minimum Method Complexity                     1.00
+    Maximum Method Complexity                     9.00
+
+Dependencies
+  Global Accesses                                    0
+    Global Constants                                 0 (0.00%)
+    Global Variables                                 0 (0.00%)
+    Super-Global Variables                           0 (0.00%)
+  Attribute Accesses                                15
+    Non-Static                                      15 (100.00%)
+    Static                                           0 (0.00%)
+  Method Calls                                      14
+    Non-Static                                      14 (100.00%)
+    Static                                           0 (0.00%)
+
+Structure
+  Namespaces                                         0
+  Interfaces                                         0
+  Traits                                             0
+  Classes                                            3
+    Abstract Classes                                 0 (0.00%)
+    Concrete Classes                                 3 (100.00%)
+  Methods                                           11
+    Scope
+      Non-Static Methods                            11 (100.00%)
+      Static Methods                                 0 (0.00%)
+    Visibility
+      Public Methods                                11 (100.00%)
+      Non-Public Methods                             0 (0.00%)
+  Functions                                          0
+    Named Functions                                  0 (0.00%)
+    Anonymous Functions                              0 (0.00%)
+  Constants                                          3
+    Global Constants                                 0 (0.00%)
+    Class Constants                                  3 (100.00%)
+** [[https://github.com/jbrains/trivia/tree/master/php][Legacy Code Retreat - Trivia Game]]
+   phploc
+Size
+  Lines of Code (LOC)                              196
+  Comment Lines of Code (CLOC)                       0 (0.00%)
+  Non-Comment Lines of Code (NCLOC)                196 (100.00%)
+  Logical Lines of Code (LLOC)                      99 (50.51%)
+    Classes                                         88 (88.89%)
+      Average Class Length                          88
+        Minimum Class Length                        88
+        Maximum Class Length                        88
+      Average Method Length                          7
+        Minimum Method Length                        1
+        Maximum Method Length                       17
+    Functions                                        1 (1.01%)
+      Average Function Length                        1
+    Not in classes or functions                     10 (10.10%)
+
+Cyclomatic Complexity
+  Average Complexity per LLOC                     0.26
+  Average Complexity per Class                   25.00
+    Minimum Class Complexity                     25.00
+    Maximum Class Complexity                     25.00
+  Average Complexity per Method                   3.18
+    Minimum Method Complexity                     1.00
+    Maximum Method Complexity                    10.00
+
+Dependencies
+  Global Accesses                                    0
+    Global Constants                                 0 (0.00%)
+    Global Variables                                 0 (0.00%)
+    Super-Global Variables                           0 (0.00%)
+  Attribute Accesses                               115
+    Non-Static                                     115 (100.00%)
+    Static                                           0 (0.00%)
+  Method Calls                                      21
+    Non-Static                                      21 (100.00%)
+    Static                                           0 (0.00%)
+
+Structure
+  Namespaces                                         0
+  Interfaces                                         0
+  Traits                                             0
+  Classes                                            1
+    Abstract Classes                                 0 (0.00%)
+    Concrete Classes                                 1 (100.00%)
+  Methods                                           11
+    Scope
+      Non-Static Methods                            11 (100.00%)
+      Static Methods                                 0 (0.00%)
+    Visibility
+      Public Methods                                11 (100.00%)
+      Non-Public Methods                             0 (0.00%)
+  Functions                                          1
+    Named Functions                                  1 (100.00%)
+    Anonymous Functions                              0 (0.00%)
+  Constants                                          0
+    Global Constants                                 0 (0.00%)
+    Class Constants                                  0 (0.00%)
+
+* TODO Definitions                                                 :noexport:
+** Anemic Domain Model
+- focus on data
+- structured
+- easy to implement and to maintain
+- contains little or no logic
+- no guarantee to be valid or consisten
+*** use
+    - prototyping
+    - easy of use
+    - easily generated 
+** Rich Domain Model
+- combines data and logic 
+- valid by design
+- easy to test
+- defined state transistions
+*** use
+    - clean code 
+    - testability
+    - truly OOP
 * Tutorials  
 | [[https://www.pluralsight.com/courses/automated-tests-phpunit][Automated Tests with PHPUnit]]                     | Anna Filina              | testing - PHPUnit     |
 | [[https://industriallogic.com/xp/refactoring/catalog.html][Catalog of Refactoring to Patterns]]               | Joshua Kerievsky         | patterns              |
@@ -1150,7 +1590,74 @@ echo "Price after discount: $totalDiscountPrice";
 | [[https://youtu.be/Fca-Ng0bzuk][Solving the N+1 Problem]]                          | Paul M. Jones            | database              |
 | [[https://youtu.be/65NrzJ_5j58][Steps Toward Modernizing a Legacy Codebase]]       | Paul M. Jones            | refactoring           |
 | [[https://code.tutsplus.com/courses/techniques-for-refactoring-code][Techniques for Refactoring Code]]                  | Patkós Csaba             | refactoring           |
-* Practices
+* TODO Practices                                                   :noexport:
+** Always use 'declare(stric_types=1)'
+#+BEGIN_SRC php
+declare(stric_types=1);
+
+$var  = '0';
+if ( !$var ) {
+   echo 'negation';
+}
+#+END_SRC
+
+#+RESULTS:
+: negation
+** Avoid Else, Return Early (Guard Clause)
+   Return as soon as you know your method cannot do any more meaningful work.
+#+BEGIN_SRC php
+ public function foo(int $x): string
+    {
+        $result = null;
+
+        if ($x === 1) {
+            $result = 'a';
+        } elseif ($x === 2) {
+            $result = 'b';
+        } else {
+            $result = 'c';
+        }
+
+        return $result;
+    }
+#+END_SRC
+#+BEGIN_SRC php
+ public function foo(int $x): string
+    {
+        if ($x === 1) {
+            return 'a';
+        }
+
+        if ($x === 2) {
+            return 'b';
+        }
+
+        if ($x === 3) {
+            return 'c';
+        }
+    }
+#+END_SRC
+
+Refactoring: Replace Nested Conditional with Guard Clauses
+Guard clause provides an early exit from a subroutine. Removing one level of nesting and resulting in flatter code.
+   
+https://stackoverflow.com/questions/4838828/why-should-a-function-have-only-one-exit-point
+** Avoid Negative Conditionals
+   It is much easier, for the human mind, to comprehend positive reasoning. So if you can avoid negative conditionals, you should always take that path.
+#+BEGIN_SRC php
+if (!count){
+...
+}
+#+END_SRC
+
+#+BEGIN_SRC php
+if (count == 0){
+...
+}
+#+END_SRC
+** Don't use 'clone'
+*** https://dcsg.me/articles/dont-clone-your-php-objects-deepcopy-them/
+*** TODO show example with Doctrine
 ** Don't use 'else if'
    Else if is not compatible with the colon syntax for if|elseif blocks. For this reason, use elseif for conditionals
 #+BEGIN_SRC php
@@ -1209,20 +1716,183 @@ if ( $foo == 'bar' ) {
 	}
 }
 #+END_SRC
-** Don't use 'clone'  
-https://www.facebook.com/edyta.maciek
-example with Doctrine
-** Boolean conversion
+** Don't Use Globals
+   EVIL in pure form ;)
+** Don't Use Magic Numbers
+   Raw numbers in code. Like 86400 - that's a number of seconds per day. But it is not so obvious for every one whats that number means
+Refactoring: Replace Magic Number with Symbolic Constant
+** Don't Use Method Chaining Syntax
+   Violating CQS
+** Don't Use Optional Dependencies
+   Use Constructor Injection not Setter Injection. Constructor Injection gives you a valid object with all its dependencies, upon construction.
+** Don't Use Switch Parameter
+   A method runs different code depending on the values of an parameter
+   Refactoring: Replace Parameter with Method
+** Don't Use Traits
+   Further Reading: https://dev.to/barryosull/why-i-dont-like-traits
+** Eliminate or Reduce Number of Comments
+** Eliminate or Reduce Number of Parameters
+   Functions should have a small number of arguments. No argument is best, followed by one, two, and three. More than three is very questionable and should be avoided with prejudice.
+** Eliminate or Reduce Number of Setters
+   Further Reading: https://beberlei.de/2012/08/22/building_an_object_model__no_setters_allowed.html 
+http://williamdurand.fr/2013/06/03/object-calisthenics/#9-no-getterssettersproperties
+** Make Class Constants & Variables Always Private
+** Make Classes Always Final
+   Force to use composition over inheritance principle
+   Further Reading: https://ocramius.github.io/blog/when-to-declare-classes-final https://matthiasnoback.nl/2018/09/final-classes-by-default-why/
+** Sprout Class
+** Sprout Method
+   When adding new functionality, write the code in a new method with TDD and then call this method from the old code. So even if you can’t test the code where your method is being called, at least the new code has tests.
+1. Identify where you need to make your code change.
+2. If the change can be formulated as a single sequence of statements in one place in a method, write down a call for a new method that will do the work involved and then comment it out. (I like to do this before I even write the method so that I can get a sense of what the method call will look like in context.) 
+3. Determine what local variables you need from the source method, and make them arguments to the call. 
+4.Determine whether the sprouted method will need to return values to source method. If so, change the call so that its return value is assigned to a variable. 
+5. Develop the sprout method using test-driven development. 
+6. Remove the comment in the source method to enable the call.
+** Use parentheses
+   Parentheses help clarify the order of operators...etc. PHP won’t get confused if you don’t use parentheses because it knows the order of operators table very well. However, a person looking at your program has to figure out which is done first, and parentheses help group operations together.
 #+BEGIN_SRC php
-declare(stric_types=1);
+if (age < 20 || sales < 1200 && hrsWorked > 15) {}
+#+END_SRC
 
-$var  = '0';
-if ( !$var ) {
-   echo 'negation';
+#+BEGIN_SRC php
+if ((age < 20) || ((sales < 1200) && (hrsWorked > 15))) {}
+#+END_SRC
+** Wrap Class
+   Choosing to use Wrap Class is a whole other issue. There is a higher thresh- old for this pattern. Generally two cases tip me toward using Wrap Class: 1. The behavior that I want to add is completely independent, and I don’t want to pollute the existing class with behavior that is low level or unre- lated. 2. The class has grown so large that I really can’t stand to make it worse. In a case like this, I wrap just to put a stake in the ground and provide a roadmap for later changes.
+** Wrap Method
+** Naming
+*** variable
+*** method
+   - isX() or hasX() for bool return type
+* TODO Principles                                                  :noexport:
+** Don't Repeat Yourself (DRY)
+
+1	Composition Over Inheritance				
+2	Single Responsibilty (SRP)	A class should have only one reason to change - doing one thing, and do it well The object should be able to do the job completely The class has only one well-defined responsibility which is exclusively handling user data. No more, no less.		solid	
+3	Open/Closed Principle (OCP)	Software entities (classes, modules, functions, etc.) should be open for extension, but closed for modification. Interface is open for extension but closed for modification.		solid	
+4	Liskov Substitution (LSP)	Metody do klas bazowych, muszą być w stanie używać również obiektów klas dziedziczących po klasach bazowych.	Program to an, interface, not an implementation.	solid	
+5	Interface Segregation (ISP)	A client should never be forced to implement an interface that it doesn't use or clients shouldn't be forced to depend on methods they do not use.		solid	
+6	Dependency Inversion (DIP)	Depend on abstractions, not concretions	Program to an, interface, not an implementation.	solid	
+7	The Law of Demeter (LoD)	Each unit should only talk to its friends; don't talk to strangers.	Object Calisthenics - One Arrow Per Line		
+8	Don't Repeat Yourself (DRY)				
+9	Separation of Concerns (SoC)	The no.1 - the most important		design	Big Ball of Mud
+10	Big Ball of Mud			design	Separation of Concerns (SoC)
+11	Model-View-Controller	• The Model: Captures and centralizes all the domain model behaviour. This layer manages all the data, logic and business rules independently of the data representation. It can be said that the Model layer is the heart and soul of every MVC application. • The Controller: Orchestrates interactions between the other layers. Triggers actions on the model in order to update its state and refreshes the representations associated to the model. Additionally, the Controller can also send messages to the View layer in order to change the specific Model representation. • The View: A layer whose main purpose is to expose the differing representations of the Model layer and to give a way to trigger changes on the Model’s state.		architectural	
+12	Command Query Separation (CQS)			design
+
+* TODO PSR                                                         :noexport:
+Name	PSR	Community	Description
+Method names	camelCase() 21/22. lower_under 1/22	camelCase()	Based on an eye tracking study on camelCase and snake_case (PDF) from 2010, snake_case is 20% easier to read than camelCase!
+Properties names	$StudlyCaps or $camelCase or $under_score	$camelCase XMLHttpRequest is still a great tragedy
+* Metrics
+** Cyclomatic Complexity Number (CCN) 
+   Counts the available decision paths in a source code to determine it's complexity.
+   Each decision path starts with one of the conditional statements from the following list:
+   - ?
+   - &&
+   - ||
+   - or
+   - and
+   - xor
+   - case
+   - catch
+   - elseif
+   - for
+   - foreach
+   - if
+   - while
+
+   Cyclomatic Complexity Number is never less than 1, because there’s always at least one code path.
+   - 1-4 has low complexity.
+   - 5-7 is moderate and still easy to understand.
+   - 6-10 has a high complexity.
+   - 10+ is very complex and hard to understand.
+#+BEGIN_SRC php
+final class CyclomaticComplexityNumber
+{
+    // Class Cyclomatic Complexity = 1
+}
+
+final class CyclomaticComplexityNumber
+{
+
+    public function one()
+    {
+        // Function Cyclomatic Complexity = 1
+    }
+
+    public function two()
+    {
+        // Function Cyclomatic Complexity = 1
+    }
+
+    // Class Cyclomatic Complexity = 1
+}
+
+final class CyclomaticComplexityNumber
+{
+
+    public function one()
+    {
+        if(true){
+
+        }
+        // Function Cyclomatic Complexity = 2
+    }
+
+    public function two()
+    {
+        // Function Cyclomatic Complexity = 1
+    }
+
+    // Class Cyclomatic Complexity = 1 + 1 = 2
+}
+
+final class CyclomaticComplexityNumber
+{
+
+    public function one()
+    {
+        if(true){
+
+        }
+        // Function Cyclomatic Complexity = 2
+    }
+
+    public function two()
+    {
+        if(true){
+
+        }
+        // Function Cyclomatic Complexity = 2
+    }
+
+    // Class Cyclomatic Complexity = 1 + 1 + 1 = 3
 }
 #+END_SRC
 
-#+RESULTS:
-: negation
-* Wikipedia Refactor
-
+** NPath Complexity
+#+BEGIN_SRC php
+function foo($a, $b)
+{
+    if ($a > 10) {
+        echo 1;
+    } else {
+        echo 2;
+    }
+    if ($a > $b) {
+        echo 3;
+    } else {
+        echo 4;
+    }
+}
+#+END_SRC
+So here we have function with 4 possible outcomes, since we have 2 statements that have 2 possible outcomes each (2 * 2 = 4). That means that the functions Npath complexity is 4. If we would add another statement with 2 possible outcomes we would get a complexity of 8 since 2 * 2 * 2 = 8.
+* About
+  It's a simple site about refactoring in PHP.
+  
+  You can contact me at slawomir.grochowski@gmail.com, https://twitter.com/s_grochowski, https://www.facebook.com/SlawomirGrochowski
+  You can support this site: send some BitCoins 1D8xeRkxssTTLESfGZtPVoqVJDq7MJSqNx , send/buy one of the books I would like to read or just say Hello!
+  
+  

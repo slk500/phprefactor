@@ -1,0 +1,2955 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2019-04-19 pią 10:31 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>PHPRefactor</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="slk" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css" href="export/styles/darksun/css/htmlize.css"/>
+<link rel="stylesheet" type="text/css" href="export/styles/darksun/css/darksun.css"/>
+<link rel="stylesheet" type="text/css" href="export/styles/darksun/css/hideshow.css"/>
+<script type="text/javascript" src="export/styles/darksun/js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="export/styles/darksun/js/jquery-ui-1.10.2.min.js"></script>
+<script type="text/javascript" src="export/styles/darksun/js/jquery.localscroll-min.js"></script>
+<script type="text/javascript" src="export/styles/darksun/js/jquery.scrollTo-1.4.3.1-min.js"></script>
+<script type="text/javascript" src="export/styles/darksun/js/jquery.zclip.min.js"></script>
+<script type="text/javascript" src="export/styles/darksun/js/darksun.js"></script>
+<script type="text/javascript" src="export/styles/darksun/js/hideshow.js"></script>
+<script type="text/javascript" src="export/styles/lib/js/jquery.stickytableheaders.min.js"></script>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2018 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">PHPRefactor</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org543c9ce">1. Refactorings</a>
+<ul>
+<li><a href="#org16b5ebe">1.1. Add PHPDoc</a>
+<ul>
+<li><a href="#orgec210c6">1.1.1. Refactor the code</a></li>
+</ul>
+</li>
+<li><a href="#org23106e9">1.2. Add Type-Hint</a>
+<ul>
+<li><a href="#org01dc299">1.2.1. Refactor the code</a></li>
+<li><a href="#org0c36c18">1.2.2. Helper</a></li>
+<li><a href="#orgf8a8d73">1.2.3. Further Reading</a></li>
+</ul>
+</li>
+<li><a href="#org48aa115">1.3. Consolidate Conditional Expression</a>
+<ul>
+<li><a href="#org326b24b">1.3.1. Write a test that pass</a></li>
+<li><a href="#orge3622ae">1.3.2. Refactor the code</a></li>
+<li><a href="#orgb2eb2a0">1.3.3. Pass a test</a></li>
+</ul>
+</li>
+<li><a href="#org90e4c60">1.4. Consolidate Duplicate Conditional Fragments</a>
+<ul>
+<li><a href="#org5ad23fe">1.4.1. Write a test that pass</a></li>
+<li><a href="#org8c2906b">1.4.2. Refactor the code</a></li>
+<li><a href="#org94dba76">1.4.3. Pass a test</a></li>
+</ul>
+</li>
+<li><a href="#orge50053b">1.5. Decompose Conditional</a>
+<ul>
+<li><a href="#org418a0b3">1.5.1. Write a test that pass</a></li>
+<li><a href="#org7d8c83e">1.5.2. Refactor the code</a></li>
+<li><a href="#org3e649f1">1.5.3. Pass a test</a></li>
+</ul>
+</li>
+<li><a href="#orgca01807">1.6. Encapsulate Field</a>
+<ul>
+<li><a href="#org5a31aeb">1.6.1. Write a test that pass</a></li>
+<li><a href="#org09175a2">1.6.2. Refactor the code</a></li>
+<li><a href="#org2ee033c">1.6.3. Run a test</a></li>
+</ul>
+</li>
+<li><a href="#org3359442">1.7. Extract Class</a>
+<ul>
+<li><a href="#org82de954">1.7.1. Write a test that pass</a></li>
+<li><a href="#orgd1b0392">1.7.2. Refactor the code</a></li>
+<li><a href="#org712e622">1.7.3. Pass a test</a></li>
+</ul>
+</li>
+<li><a href="#org5a4184c">1.8. Extract Method</a>
+<ul>
+<li><a href="#org0474a17">1.8.1. Write a test that pass</a></li>
+<li><a href="#orgf7c0a86">1.8.2. Refactor the code</a></li>
+<li><a href="#org8630650">1.8.3. Run a test</a></li>
+</ul>
+</li>
+<li><a href="#org6298b51">1.9. Extract Variable</a>
+<ul>
+<li><a href="#orgfc3e63b">1.9.1. Write a test that pass</a></li>
+<li><a href="#orged18951">1.9.2. Refactor the code</a></li>
+<li><a href="#org40ae535">1.9.3. Pass a test</a></li>
+</ul>
+</li>
+<li><a href="#org80cc7b3">1.10. Inline Class</a></li>
+<li><a href="#org1d77305">1.11. Inline Method</a>
+<ul>
+<li><a href="#org3dfef09">1.11.1. Write a test that pass</a></li>
+<li><a href="#orgbc207bb">1.11.2. Refactor the code</a></li>
+<li><a href="#orgfe748e6">1.11.3. Pass a test</a></li>
+</ul>
+</li>
+<li><a href="#orgbbb4448">1.12. Introduce Parameter Object</a>
+<ul>
+<li><a href="#org0d344c7">1.12.1. Write a test that pass</a></li>
+<li><a href="#org62eb5da">1.12.2. Refactor the code</a></li>
+<li><a href="#org73705e2">1.12.3. Pass a test</a></li>
+</ul>
+</li>
+<li><a href="#org2d15d11">1.13. Optimize Imports</a>
+<ul>
+<li><a href="#org5736b06">1.13.1. Write a test that pass</a></li>
+<li><a href="#orgd195920">1.13.2. Refactor the code</a></li>
+<li><a href="#orgf56eb00">1.13.3. Pass a test</a></li>
+</ul>
+</li>
+<li><a href="#orge787ebb">1.14. Move Method</a>
+<ul>
+<li><a href="#org660c431">1.14.1. Write a test that pass</a></li>
+<li><a href="#org5babaff">1.14.2. Refactor the code</a></li>
+<li><a href="#orgb1371e5">1.14.3. Pass a test</a></li>
+</ul>
+</li>
+<li><a href="#orgc7c8ba6">1.15. Parameterize Method</a>
+<ul>
+<li><a href="#org153d89a">1.15.1. <span class="todo TODO">TODO</span> Write a test that pass</a></li>
+<li><a href="#org4ba3dfd">1.15.2. Refactor the code</a></li>
+<li><a href="#org3025fc3">1.15.3. Pass a test</a></li>
+</ul>
+</li>
+<li><a href="#org959302b">1.16. Preserve Whole Object</a>
+<ul>
+<li><a href="#orgf0aae3b">1.16.1. Write a test that pass</a></li>
+<li><a href="#org68270c5">1.16.2. Refactor the code</a></li>
+<li><a href="#org2066d94">1.16.3. Pass a test</a></li>
+<li><a href="#orgd18ddb3">1.16.4. Refactor the code</a></li>
+<li><a href="#org057a99d">1.16.5. Pass a test</a></li>
+<li><a href="#org81876a1">1.16.6. Refactor the code</a></li>
+<li><a href="#orgb0f3871">1.16.7. Pass a test</a></li>
+</ul>
+</li>
+<li><a href="#org4e5a078">1.17. Pull Up Method</a>
+<ul>
+<li><a href="#org1f844c0">1.17.1. Write a test that pass</a></li>
+<li><a href="#orgfcde41e">1.17.2. Refactor the code</a></li>
+<li><a href="#org6aec933">1.17.3. Pass a test</a></li>
+</ul>
+</li>
+<li><a href="#org51df64f">1.18. Remove Assignments to Parameters</a>
+<ul>
+<li><a href="#orgdda404b">1.18.1. Write a test that pass</a></li>
+<li><a href="#orgaa69f0c">1.18.2. Refactor the code</a></li>
+<li><a href="#orga65af33">1.18.3. Pass a test</a></li>
+<li><a href="#orgb9f4f9a">1.18.4. Info</a></li>
+</ul>
+</li>
+<li><a href="#org4188863">1.19. Remove PHPDoc</a>
+<ul>
+<li><a href="#orgbaf996e">1.19.1. Write a test that pass</a></li>
+<li><a href="#org8c1a687">1.19.2. Refactor the code</a></li>
+<li><a href="#org6b2a3c2">1.19.3. Pass a test</a></li>
+</ul>
+</li>
+<li><a href="#orgf1da0b1">1.20. Rename Method</a>
+<ul>
+<li><a href="#org422f5cc">1.20.1. Write a test that pass</a></li>
+<li><a href="#org242c102">1.20.2. Refactor the code</a></li>
+<li><a href="#org66ad3eb">1.20.3. Pass a test</a></li>
+</ul>
+</li>
+<li><a href="#org3500ab7">1.21. Replace Global with Dependency Injection</a>
+<ul>
+<li><a href="#org159de7f">1.21.1. Write a test that pass</a></li>
+<li><a href="#org8134a90">1.21.2. Refactor the code</a></li>
+<li><a href="#org185a528">1.21.3. Pass a test</a></li>
+</ul>
+</li>
+<li><a href="#org595f20b">1.22. Replace Magic Number With Symbolic Constant</a>
+<ul>
+<li><a href="#orge403c21">1.22.1. Write a test that pass</a></li>
+<li><a href="#org2d8b2f6">1.22.2. Refactor the code</a></li>
+<li><a href="#org9599e83">1.22.3. Run a test</a></li>
+<li><a href="#org0d50df1">1.22.4. Helper:</a></li>
+</ul>
+</li>
+<li><a href="#org41b1125">1.23. Replace Parameter with Method</a>
+<ul>
+<li><a href="#org42fd7f2">1.23.1. Write a test that pass</a></li>
+<li><a href="#org10f1e64">1.23.2. Refactor the code</a></li>
+<li><a href="#org17957ed">1.23.3. Pass a test</a></li>
+</ul>
+</li>
+<li><a href="#org87759b6">1.24. Replace Temp with Query</a>
+<ul>
+<li><a href="#org0623dbf">1.24.1. Write a test that pass</a></li>
+<li><a href="#orgc6d63ef">1.24.2. Refactor the code</a></li>
+<li><a href="#orgd512837">1.24.3. Pass a test</a></li>
+<li><a href="#org57219da">1.24.4. Info</a></li>
+</ul>
+</li>
+<li><a href="#orgb2be027">1.25. Replacing Type Code with Subclasses</a>
+<ul>
+<li><a href="#org115c5d2">1.25.1. Write a test that pass</a></li>
+<li><a href="#org2c5b621">1.25.2. Refactor the code</a></li>
+<li><a href="#orgceaffeb">1.25.3. Pass a test</a></li>
+</ul>
+</li>
+<li><a href="#orgfcbe3b3">1.26. Separate Query from Modifier</a>
+<ul>
+<li><a href="#org44ac0f5">1.26.1. Write a test that pass</a></li>
+<li><a href="#org7cf1169">1.26.2. Refactor the code</a></li>
+<li><a href="#orgf57f4b6">1.26.3. Pass a test</a></li>
+</ul>
+</li>
+<li><a href="#orgac6bd8b">1.27. Split Temporary Variable</a>
+<ul>
+<li><a href="#orgf53c52e">1.27.1. Write a test that pass</a></li>
+<li><a href="#org58a0068">1.27.2. Refactor the code</a></li>
+<li><a href="#orgb24b288">1.27.3. Pass a test</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#orgf5408bc">2. Books</a></li>
+<li><a href="#org2bbdbb9">3. Codebases</a>
+<ul>
+<li><a href="#orga0f6d4c">3.1. Video Rental Shop</a></li>
+<li><a href="#org6a304bf">3.2. Legacy Code Retreat - Trivia Game</a></li>
+</ul>
+</li>
+<li><a href="#orgfafc93e">4. Tutorials</a></li>
+<li><a href="#orgcef6775">5. Metrics</a>
+<ul>
+<li><a href="#org0c19b5c">5.1. Cyclomatic Complexity Number (CCN)</a></li>
+<li><a href="#org61222c8">5.2. NPath Complexity</a></li>
+</ul>
+</li>
+<li><a href="#org94361cf">6. About</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org543c9ce" class="outline-2">
+<h2 id="org543c9ce"><span class="section-number-2">1</span> Refactorings</h2>
+<div class="outline-text-2" id="text-1">
+</div>
+<div id="outline-container-org16b5ebe" class="outline-3">
+<h3 id="org16b5ebe"><span class="section-number-3">1.1</span> Add PHPDoc</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+Smell: An array with elements of generic type or method which can throw Exception
+</p>
+<div class="org-src-container">
+<pre class="src src-php"><span style="color: #00ffff;">public</span> <span style="color: #00ffff;">function</span> <span style="color: #87cefa;">printUsersNames</span>(<span style="color: #98fb98;">array</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">users</span>): <span style="color: #98fb98;">void</span>
+{
+    <span style="color: #00ffff;">foreach</span> (<span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">users</span> <span style="color: #00ffff;">as</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">user</span>) {
+        <span style="color: #00ffff;">echo</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">user</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #f5f5f5; background-color: #333333;">getName</span>();
+    }
+}
+</pre>
+</div>
+</div>
+<div id="outline-container-orgec210c6" class="outline-4">
+<h4 id="orgec210c6"><span class="section-number-4">1.1.1</span> Refactor the code</h4>
+<div class="outline-text-4" id="text-1-1-1">
+<p>
+Add PHPDoc - the Object[] notation in addition to an array type-hint to explain what kind of object is expected
+</p>
+<div class="org-src-container">
+<pre class="src src-php"><span style="color: #ffa07a;">/**</span>
+<span style="color: #ffa07a;"> * </span><span style="color: #7fffd4;">@param</span><span style="color: #ffa07a;"> </span><span style="color: #ffa07a;">User[]</span><span style="color: #ffa07a;"> </span><span style="color: #eedd82;">$</span><span style="color: #eedd82;">users</span>
+<span style="color: #ffa07a;"> */</span>
+<span style="color: #00ffff;">public</span> <span style="color: #00ffff;">function</span> <span style="color: #87cefa;">printUsersNames</span>(<span style="color: #98fb98;">array</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">users</span>): <span style="color: #98fb98;">void</span>
+{
+    <span style="color: #00ffff;">foreach</span> (<span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">users</span> <span style="color: #00ffff;">as</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">user</span>) {
+        <span style="color: #00ffff;">echo</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">user</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #f5f5f5; background-color: #333333;">getName</span>();
+    }
+}
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-org23106e9" class="outline-3">
+<h3 id="org23106e9"><span class="section-number-3">1.2</span> Add Type-Hint</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+Smell: A method with no type defined parameters or return type declaration
+</p>
+<div class="org-src-container">
+<pre class="src src-php"><span style="color: #00ffff;">public</span> <span style="color: #00ffff;">function</span> <span style="color: #87cefa;">setNumber</span>(<span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">number</span>)
+{
+    <span style="color: #7fffd4;">$</span><span style="color: #7fffd4;">this</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #eedd82;">number</span> = <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">number</span>;
+}
+</pre>
+</div>
+</div>
+<div id="outline-container-org01dc299" class="outline-4">
+<h4 id="org01dc299"><span class="section-number-4">1.2.1</span> Refactor the code</h4>
+<div class="outline-text-4" id="text-1-2-1">
+<div class="org-src-container">
+<pre class="src src-php"><span style="color: #00ffff;">public</span> <span style="color: #00ffff;">function</span> <span style="color: #87cefa;">setNumber</span>(<span style="color: #98fb98;">int</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">number</span>): <span style="color: #98fb98;">void</span>
+{
+    <span style="color: #7fffd4;">$</span><span style="color: #7fffd4;">this</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #eedd82;">number</span> = <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">number</span>;
+}
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org0c36c18" class="outline-4">
+<h4 id="org0c36c18"><span class="section-number-4">1.2.2</span> Helper</h4>
+<div class="outline-text-4" id="text-1-2-2">
+<p>
+<a href="https://github.com/dunglas/phpdoc-to-typehint">phpdoc-to-typehint</a> adds automatically scalar type hints and return types to all functions and methods using existing PHPDoc annotations 
+</p>
+</div>
+</div>
+<div id="outline-container-orgf8a8d73" class="outline-4">
+<h4 id="orgf8a8d73"><span class="section-number-4">1.2.3</span> Further Reading</h4>
+<div class="outline-text-4" id="text-1-2-3">
+<p>
+<a href="https://www.thecodingmachine.com/type-hint-all-the-things/">https://www.thecodingmachine.com/type-hint-all-the-things/</a>
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org48aa115" class="outline-3">
+<h3 id="org48aa115"><span class="section-number-3">1.3</span> Consolidate Conditional Expression</h3>
+<div class="outline-text-3" id="text-1-3">
+<p>
+Smell: Sequence of conditionals with the same result
+</p>
+<div class="org-src-container">
+<pre class="src src-php"><span style="color: #00ffff;">class</span> <span style="color: #98fb98;">Sale</span>
+{
+    <span style="color: #00ffff;">public</span> <span style="color: #00ffff;">function</span> <span style="color: #87cefa;">calculateShipping</span>(<span style="color: #98fb98;">Customer</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">customer</span>)
+    {
+        <span style="color: #00ffff;">if</span> (<span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">customer</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #eedd82;">isEmployee</span>) <span style="color: #00ffff;">return</span> 0;
+        <span style="color: #00ffff;">if</span> (<span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">customer</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #eedd82;">isGoldCustomer</span>) <span style="color: #00ffff;">return</span> 0;
+        <span style="color: #00ffff;">if</span> (<span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">customer</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #eedd82;">isHasACoupon</span>) <span style="color: #00ffff;">return</span> 0;
+        
+        <span style="color: #00ffff;">if</span>(<span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">isUsa</span>) <span style="color: #00ffff;">return</span> 10;
+        <span style="color: #00ffff;">if</span>(<span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">isEurope</span>) <span style="color: #00ffff;">return</span> 20;
+    }
+}
+</pre>
+</div>
+</div>
+<div id="outline-container-org326b24b" class="outline-4">
+<h4 id="org326b24b"><span class="section-number-4">1.3.1</span> Write a test that pass</h4>
+</div>
+<div id="outline-container-orge3622ae" class="outline-4">
+<h4 id="orge3622ae"><span class="section-number-4">1.3.2</span> Refactor the code</h4>
+<div class="outline-text-4" id="text-1-3-2">
+<p>
+Combine them into a single conditional expression and extract it.
+</p>
+<div class="org-src-container">
+<pre class="src src-php"><span style="color: #00ffff;">class</span> <span style="color: #98fb98;">Sale</span>
+{
+    <span style="color: #00ffff;">public</span> <span style="color: #00ffff;">function</span> <span style="color: #87cefa;">calculateShipping</span>(<span style="color: #98fb98;">Customer</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">customer</span>): <span style="color: #98fb98;">int</span>
+    {
+       <span style="color: #00ffff;">if</span> (<span style="color: #7fffd4;">$</span><span style="color: #7fffd4;">this</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #f5f5f5; background-color: #333333;">isFreeShipping</span>()){
+           <span style="color: #00ffff;">return</span> 0;
+       }
+
+        <span style="color: #00ffff;">if</span>(<span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">isUsa</span>) {
+            <span style="color: #00ffff;">return</span> 10;
+        }
+
+        <span style="color: #00ffff;">if</span>(<span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">isEurope</span>) {
+            <span style="color: #00ffff;">return</span> 20;
+        }
+    }
+
+    <span style="color: #00ffff;">private</span> <span style="color: #00ffff;">function</span> <span style="color: #87cefa;">isFreeShipping</span>(): <span style="color: #98fb98;">bool</span>
+    {
+        <span style="color: #00ffff;">return</span> (<span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">customer</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #eedd82;">isEmployee</span> || <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">customer</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #eedd82;">isGoldCustomer</span> || <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">customer</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #eedd82;">isHasACoupon</span>);
+    }
+}
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgb2eb2a0" class="outline-4">
+<h4 id="orgb2eb2a0"><span class="section-number-4">1.3.3</span> Pass a test</h4>
+</div>
+</div>
+<div id="outline-container-org90e4c60" class="outline-3">
+<h3 id="org90e4c60"><span class="section-number-3">1.4</span> Consolidate Duplicate Conditional Fragments</h3>
+<div class="outline-text-3" id="text-1-4">
+<p>
+Smell: The same fragment of code is in all branches of a conditional expression.
+</p>
+<div class="org-src-container">
+<pre class="src src-php"><span style="color: #00ffff;">final</span> <span style="color: #00ffff;">class</span> <span style="color: #98fb98;">Sale</span>
+{
+    <span style="color: #00ffff;">public</span> <span style="color: #00ffff;">function</span> <span style="color: #87cefa;">calculateTotal</span>(<span style="color: #98fb98;">int</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">price</span>)
+    {
+        <span style="color: #00ffff;">if</span> (<span style="color: #7fffd4;">$</span><span style="color: #7fffd4;">this</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #f5f5f5; background-color: #333333;">isSpecialDeal</span>()) {
+            <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">total</span> = <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">price</span> * 0.95;
+            <span style="color: #7fffd4;">$</span><span style="color: #7fffd4;">this</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #f5f5f5; background-color: #333333;">setTotal</span>(<span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">total</span>);
+        }
+        <span style="color: #00ffff;">else</span> {
+            <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">total</span> = <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">price</span> * 0.98;
+            <span style="color: #7fffd4;">$</span><span style="color: #7fffd4;">this</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #f5f5f5; background-color: #333333;">setTotal</span>(<span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">total</span>);
+        }
+    }
+}
+</pre>
+</div>
+</div>
+<div id="outline-container-org5ad23fe" class="outline-4">
+<h4 id="org5ad23fe"><span class="section-number-4">1.4.1</span> Write a test that pass</h4>
+</div>
+<div id="outline-container-org8c2906b" class="outline-4">
+<h4 id="org8c2906b"><span class="section-number-4">1.4.2</span> Refactor the code</h4>
+<div class="outline-text-4" id="text-1-4-2">
+<p>
+Move it outside of the expression.
+</p>
+<div class="org-src-container">
+<pre class="src src-php"><span style="color: #00ffff;">class</span> <span style="color: #98fb98;">Sale</span>
+{
+    <span style="color: #00ffff;">public</span> <span style="color: #00ffff;">function</span> <span style="color: #87cefa;">calculateShipping</span>(<span style="color: #98fb98;">Customer</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">customer</span>): <span style="color: #98fb98;">int</span>
+    {
+       <span style="color: #00ffff;">if</span> (<span style="color: #7fffd4;">$</span><span style="color: #7fffd4;">this</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #f5f5f5; background-color: #333333;">isFreeShipping</span>()){
+           <span style="color: #00ffff;">return</span> 0;
+       }
+
+        <span style="color: #00ffff;">if</span>(<span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">isUsa</span>) {
+            <span style="color: #00ffff;">return</span> 10;
+        }
+
+        <span style="color: #00ffff;">if</span>(<span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">isEurope</span>) {
+            <span style="color: #00ffff;">return</span> 20;
+        }
+    }
+
+    <span style="color: #00ffff;">private</span> <span style="color: #00ffff;">function</span> <span style="color: #87cefa;">isFreeShipping</span>(): <span style="color: #98fb98;">bool</span>
+    {
+        <span style="color: #00ffff;">return</span> (<span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">customer</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #eedd82;">isEmployee</span> || <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">customer</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #eedd82;">isGoldCustomer</span> || <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">customer</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #eedd82;">isHasACoupon</span>);
+    }
+}
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org94dba76" class="outline-4">
+<h4 id="org94dba76"><span class="section-number-4">1.4.3</span> Pass a test</h4>
+</div>
+</div>
+<div id="outline-container-orge50053b" class="outline-3">
+<h3 id="orge50053b"><span class="section-number-3">1.5</span> Decompose Conditional</h3>
+<div class="outline-text-3" id="text-1-5">
+<p>
+Smell: Complicated conditional (if-else) statement.
+</p>
+<div class="org-src-container">
+<pre class="src src-php"><span style="color: #00ffff;">class</span> <span style="color: #98fb98;">Sale</span>
+{
+    <span style="color: #00ffff;">public</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">expired_at</span>;
+    <span style="color: #00ffff;">public</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">amount</span>;
+
+    <span style="color: #00ffff;">public</span> <span style="color: #00ffff;">function</span> <span style="color: #87cefa;">getAmount</span>()
+    {
+        <span style="color: #00ffff;">if</span>(<span style="color: #7fffd4;">null</span> !== <span style="color: #7fffd4;">$</span><span style="color: #7fffd4;">this</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #eedd82;">expired_at</span> &amp;&amp; <span style="color: #7fffd4;">$</span><span style="color: #7fffd4;">this</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #eedd82;">expired_at</span> &lt; time())
+        {
+            <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">interest</span> = 10;
+            <span style="color: #7fffd4;">$</span><span style="color: #7fffd4;">this</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #eedd82;">amount</span> = <span style="color: #7fffd4;">$</span><span style="color: #7fffd4;">this</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #eedd82;">amount</span> + (<span style="color: #7fffd4;">$</span><span style="color: #7fffd4;">this</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #eedd82;">amount</span> / 100 * <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">interest</span>);
+        }
+        <span style="color: #00ffff;">else</span>
+        {
+            <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">discount</span> = 10;
+            <span style="color: #7fffd4;">$</span><span style="color: #7fffd4;">this</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #eedd82;">amount</span> = <span style="color: #7fffd4;">$</span><span style="color: #7fffd4;">this</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #eedd82;">amount</span> - (<span style="color: #7fffd4;">$</span><span style="color: #7fffd4;">this</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #eedd82;">amount</span> / 100 * <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">discount</span>);
+        }
+        <span style="color: #00ffff;">return</span> <span style="color: #7fffd4;">$</span><span style="color: #7fffd4;">this</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #eedd82;">amount</span>;
+    }
+}
+</pre>
+</div>
+</div>
+<div id="outline-container-org418a0b3" class="outline-4">
+<h4 id="org418a0b3"><span class="section-number-4">1.5.1</span> Write a test that pass</h4>
+<div class="outline-text-4" id="text-1-5-1">
+<div class="org-src-container">
+<pre class="src src-php"><span style="color: #00ffff;">class</span> <span style="color: #98fb98;">SaleTest</span> <span style="color: #00ffff;">extends</span> <span style="color: #98fb98;">TestCase</span>
+{
+    <span style="color: #00ffff;">public</span> <span style="color: #00ffff;">function</span> <span style="color: #87cefa;">testAmount</span>()
+    {
+        <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">sale</span> = <span style="color: #00ffff;">new</span> <span style="color: #98fb98;">Sale</span>();
+        <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">sale</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #eedd82;">amount</span> = 10;
+        <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">sale</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #eedd82;">expired_at</span> = strtotime(<span style="color: #ffa07a;">'-10 days'</span>);
+        <span style="color: #7fffd4;">$</span><span style="color: #7fffd4;">this</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #f5f5f5; background-color: #333333;">assertEquals</span>(10 + (10 / 100 * 10), <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">sale</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #f5f5f5; background-color: #333333;">getAmount</span>());
+        <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">sale</span> = <span style="color: #00ffff;">new</span> <span style="color: #98fb98;">Sale</span>();
+
+        <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">sale</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #eedd82;">amount</span> = 10;
+        <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">sale</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #eedd82;">expired_at</span> = strtotime(<span style="color: #ffa07a;">'+10 days'</span>);
+        <span style="color: #7fffd4;">$</span><span style="color: #7fffd4;">this</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #f5f5f5; background-color: #333333;">assertEquals</span>(10 - (10 / 100 * 10), <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">sale</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #f5f5f5; background-color: #333333;">getAmount</span>());
+    }
+}
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org7d8c83e" class="outline-4">
+<h4 id="org7d8c83e"><span class="section-number-4">1.5.2</span> Refactor the code</h4>
+<div class="outline-text-4" id="text-1-5-2">
+<p>
+Extract conditional code in a private method. We name the method isExpired() because our conditional chunk of code checks if the sale is expired. We create the private method isExpired() and, with the technique of extract method, we move chunks of code into the new method. The next step is to move each branch of the condition in a private method. We do the same as we did before for each branch. So we create the private method getAmountWithInterest() for the first branch and the method getAmountWithDiscount() for the second branch.
+</p>
+<div class="org-src-container">
+<pre class="src src-php"><span style="color: #00ffff;">class</span> <span style="color: #98fb98;">Sale</span>
+{
+    <span style="color: #00ffff;">public</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">expired_at</span>;
+    <span style="color: #00ffff;">public</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">amount</span>;
+
+    <span style="color: #00ffff;">public</span> <span style="color: #00ffff;">function</span> <span style="color: #87cefa;">getAmount</span>()
+    {
+        <span style="color: #00ffff;">if</span> (<span style="color: #7fffd4;">$</span><span style="color: #7fffd4;">this</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #f5f5f5; background-color: #333333;">isExpired</span>()) {
+            <span style="color: #00ffff;">return</span> <span style="color: #7fffd4;">$</span><span style="color: #7fffd4;">this</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #f5f5f5; background-color: #333333;">getAmountWithInterest</span>();
+        } <span style="color: #00ffff;">else</span> {
+            <span style="color: #00ffff;">return</span> <span style="color: #7fffd4;">$</span><span style="color: #7fffd4;">this</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #f5f5f5; background-color: #333333;">getAmountWithDiscount</span>();
+        }
+    }
+
+    <span style="color: #00ffff;">private</span> <span style="color: #00ffff;">function</span> <span style="color: #87cefa;">isExpired</span>()
+    {
+        <span style="color: #00ffff;">return</span> !is_null(<span style="color: #7fffd4;">$</span><span style="color: #7fffd4;">this</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #eedd82;">expired_at</span>) &amp;&amp; <span style="color: #7fffd4;">$</span><span style="color: #7fffd4;">this</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #eedd82;">expired_at</span> &lt; time();
+    }
+
+    <span style="color: #00ffff;">private</span> <span style="color: #00ffff;">function</span> <span style="color: #87cefa;">getAmountWithInterest</span>()
+    {
+        <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">interest</span> = 10;
+        <span style="color: #00ffff;">return</span> <span style="color: #7fffd4;">$</span><span style="color: #7fffd4;">this</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #eedd82;">amount</span> + (<span style="color: #7fffd4;">$</span><span style="color: #7fffd4;">this</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #eedd82;">amount</span> / 100 * <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">interest</span>);
+    }
+
+    <span style="color: #00ffff;">private</span> <span style="color: #00ffff;">function</span> <span style="color: #87cefa;">getAmountWithDiscount</span>()
+    {
+        <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">discount</span> = 10;
+        <span style="color: #00ffff;">return</span> <span style="color: #7fffd4;">$</span><span style="color: #7fffd4;">this</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #eedd82;">amount</span> - (<span style="color: #7fffd4;">$</span><span style="color: #7fffd4;">this</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #eedd82;">amount</span> / 100 * <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">discount</span>);
+    }
+}
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org3e649f1" class="outline-4">
+<h4 id="org3e649f1"><span class="section-number-4">1.5.3</span> Pass a test</h4>
+</div>
+</div>
+<div id="outline-container-orgca01807" class="outline-3">
+<h3 id="orgca01807"><span class="section-number-3">1.6</span> Encapsulate Field</h3>
+<div class="outline-text-3" id="text-1-6">
+<p>
+Smell: A public field
+</p>
+<div class="org-src-container">
+<pre class="src src-php"><span style="color: #00ffff;">final</span> <span style="color: #00ffff;">class</span> <span style="color: #98fb98;">User</span>
+{
+    <span style="color: #ffa07a;">/**</span>
+<span style="color: #ffa07a;">     * </span><span style="color: #7fffd4;">@var</span><span style="color: #ffa07a;"> </span><span style="color: #98fb98;">string</span>
+<span style="color: #ffa07a;">     */</span>
+    <span style="color: #00ffff;">public</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">name</span>;
+}
+</pre>
+</div>
+</div>
+<div id="outline-container-org5a31aeb" class="outline-4">
+<h4 id="org5a31aeb"><span class="section-number-4">1.6.1</span> Write a test that pass</h4>
+</div>
+<div id="outline-container-org09175a2" class="outline-4">
+<h4 id="org09175a2"><span class="section-number-4">1.6.2</span> Refactor the code</h4>
+<div class="outline-text-4" id="text-1-6-2">
+<p>
+Make it private and provide accessors.
+</p>
+<div class="org-src-container">
+<pre class="src src-php"><span style="color: #00ffff;">final</span> <span style="color: #00ffff;">class</span> <span style="color: #98fb98;">User</span>
+{
+    <span style="color: #ffa07a;">/**</span>
+<span style="color: #ffa07a;">     * </span><span style="color: #7fffd4;">@var</span><span style="color: #ffa07a;"> </span><span style="color: #98fb98;">string</span>
+<span style="color: #ffa07a;">     */</span>
+    <span style="color: #00ffff;">private</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">name</span>;
+
+    <span style="color: #00ffff;">public</span> <span style="color: #00ffff;">function</span> <span style="color: #87cefa;">getName</span>(): <span style="color: #98fb98;">string</span>
+    {
+        <span style="color: #00ffff;">return</span> <span style="color: #7fffd4;">$</span><span style="color: #7fffd4;">this</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #eedd82;">name</span>;
+    }
+
+    <span style="color: #00ffff;">public</span> <span style="color: #00ffff;">function</span> <span style="color: #87cefa;">setName</span>(<span style="color: #98fb98;">string</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">name</span>): <span style="color: #98fb98;">void</span>
+    {
+        <span style="color: #7fffd4;">$</span><span style="color: #7fffd4;">this</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #eedd82;">name</span> = <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">name</span>;
+    }
+}
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org2ee033c" class="outline-4">
+<h4 id="org2ee033c"><span class="section-number-4">1.6.3</span> Run a test</h4>
+</div>
+</div>
+<div id="outline-container-org3359442" class="outline-3">
+<h3 id="org3359442"><span class="section-number-3">1.7</span> Extract Class</h3>
+<div class="outline-text-3" id="text-1-7">
+<p>
+SmellL Large Class
+</p>
+<div class="org-src-container">
+<pre class="src src-php"><span style="color: #00ffff;">final</span> <span style="color: #00ffff;">class</span> <span style="color: #98fb98;">User</span>
+{
+    <span style="color: #00ffff;">private</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">name</span>;
+    <span style="color: #00ffff;">private</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">surname</span>;
+
+    <span style="color: #00ffff;">private</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">city</span>;
+    <span style="color: #00ffff;">private</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">zipCode</span>;
+    <span style="color: #00ffff;">private</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">street</span>;
+    <span style="color: #00ffff;">private</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">state</span>;
+}
+</pre>
+</div>
+</div>
+<div id="outline-container-org82de954" class="outline-4">
+<h4 id="org82de954"><span class="section-number-4">1.7.1</span> Write a test that pass</h4>
+</div>
+<div id="outline-container-orgd1b0392" class="outline-4">
+<h4 id="orgd1b0392"><span class="section-number-4">1.7.2</span> Refactor the code</h4>
+<div class="outline-text-4" id="text-1-7-2">
+<p>
+Create a new class and move the relevant fields and methods from the old class into the new class.
+</p>
+<div class="org-src-container">
+<pre class="src src-php"><span style="color: #00ffff;">final</span> <span style="color: #00ffff;">class</span> <span style="color: #98fb98;">User</span>
+{
+    <span style="color: #00ffff;">private</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">name</span>;
+    <span style="color: #00ffff;">private</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">surname</span>;
+
+    <span style="color: #00ffff;">private</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">address</span>;
+}
+
+<span style="color: #00ffff;">final</span> <span style="color: #00ffff;">class</span> <span style="color: #98fb98;">Address</span>
+{
+    <span style="color: #00ffff;">private</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">city</span>;
+    <span style="color: #00ffff;">private</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">zipCode</span>;
+    <span style="color: #00ffff;">private</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">street</span>;
+    <span style="color: #00ffff;">private</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">state</span>;
+}
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org712e622" class="outline-4">
+<h4 id="org712e622"><span class="section-number-4">1.7.3</span> Pass a test</h4>
+</div>
+</div>
+<div id="outline-container-org5a4184c" class="outline-3">
+<h3 id="org5a4184c"><span class="section-number-3">1.8</span> Extract Method</h3>
+<div class="outline-text-3" id="text-1-8">
+<p>
+Smell: Code fragment that can be grouped together
+</p>
+<div class="org-src-container">
+<pre class="src src-php"><span style="color: #00ffff;">public</span> <span style="color: #00ffff;">function</span> <span style="color: #87cefa;">printInvoice</span>(<span style="color: #98fb98;">Invoice</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">invoice</span>): <span style="color: #98fb98;">void</span>
+{
+    <span style="color: #00ffff;">echo</span> <span style="color: #ffa07a;">'Invoice'</span>;
+    <span style="color: #00ffff;">echo</span> <span style="color: #ffa07a;">'&lt;br&gt;'</span>;
+    <span style="color: #00ffff;">echo</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">invoice</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #f5f5f5; background-color: #333333;">getNumber</span>();
+   
+    <span style="color: #00ffff;">echo</span> <span style="color: #ffa07a;">'phpRefactor: '</span>;
+    <span style="color: #00ffff;">echo</span> <span style="color: #ffa07a;">'&lt;br&gt;'</span>;
+    <span style="color: #00ffff;">echo</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">invoice</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #f5f5f5; background-color: #333333;">getDate</span>();
+}
+</pre>
+</div>
+</div>
+<div id="outline-container-org0474a17" class="outline-4">
+<h4 id="org0474a17"><span class="section-number-4">1.8.1</span> Write a test that pass</h4>
+</div>
+<div id="outline-container-orgf7c0a86" class="outline-4">
+<h4 id="orgf7c0a86"><span class="section-number-4">1.8.2</span> Refactor the code</h4>
+<div class="outline-text-4" id="text-1-8-2">
+<p>
+Turn the fragment into a method whose name explains the purpose of the method
+</p>
+<div class="org-src-container">
+<pre class="src src-php"><span style="color: #00ffff;">public</span> <span style="color: #00ffff;">function</span> <span style="color: #87cefa;">printInvoice</span>(<span style="color: #98fb98;">Invoice</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">invoice</span>): <span style="color: #98fb98;">void</span>
+{
+    printInvoiceHeader(<span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">invoice</span>);
+    printInvoiceFooter(<span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">invoice</span>);
+}
+
+<span style="color: #00ffff;">function</span> <span style="color: #87cefa;">printInvoiceHeader</span>(<span style="color: #98fb98;">Invoice</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">invoice</span>): <span style="color: #98fb98;">void</span>
+{
+    <span style="color: #00ffff;">echo</span> <span style="color: #ffa07a;">'Invoice'</span>;
+    <span style="color: #00ffff;">echo</span> <span style="color: #ffa07a;">'&lt;br&gt;'</span>;
+    <span style="color: #00ffff;">echo</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">invoice</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #f5f5f5; background-color: #333333;">getNumber</span>();
+}
+
+<span style="color: #00ffff;">function</span> <span style="color: #87cefa;">printInvoiceFooter</span>(<span style="color: #98fb98;">Invoice</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">invoice</span>): <span style="color: #98fb98;">void</span>
+{
+    <span style="color: #00ffff;">echo</span> <span style="color: #ffa07a;">'phpRefactor: '</span>;
+    <span style="color: #00ffff;">echo</span> <span style="color: #ffa07a;">'&lt;br&gt;'</span>;
+    <span style="color: #00ffff;">echo</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">invoice</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #f5f5f5; background-color: #333333;">getDate</span>();
+}
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org8630650" class="outline-4">
+<h4 id="org8630650"><span class="section-number-4">1.8.3</span> Run a test</h4>
+</div>
+</div>
+<div id="outline-container-org6298b51" class="outline-3">
+<h3 id="org6298b51"><span class="section-number-3">1.9</span> Extract Variable</h3>
+<div class="outline-text-3" id="text-1-9">
+<p>
+Smell: Complicated expression
+</p>
+<div class="org-src-container">
+<pre class="src src-php"><span style="color: #00ffff;">if</span>((<span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">stock</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #f5f5f5; background-color: #333333;">checkStatus</span>(<span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">order</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #eedd82;">getItem</span>) &gt; <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">order</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #f5f5f5; background-color: #333333;">getQuantity</span>()) 
+    &amp;&amp; (<span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">order</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #f5f5f5; background-color: #333333;">getTotal</span>() &gt; 99) 
+    &amp;&amp; (<span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">order</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #f5f5f5; background-color: #333333;">getCustomer</span>()<span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #f5f5f5; background-color: #333333;">getBillingAddress</span>() === <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">order</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #f5f5f5; background-color: #333333;">getShippingAddress</span>()));
+</pre>
+</div>
+</div>
+<div id="outline-container-orgfc3e63b" class="outline-4">
+<h4 id="orgfc3e63b"><span class="section-number-4">1.9.1</span> Write a test that pass</h4>
+</div>
+<div id="outline-container-orged18951" class="outline-4">
+<h4 id="orged18951"><span class="section-number-4">1.9.2</span> Refactor the code</h4>
+<div class="outline-text-4" id="text-1-9-2">
+<p>
+Put the result of the expression, or parts of the expression, in a temporary variable with a name that explains the purpose
+</p>
+<div class="org-src-container">
+<pre class="src src-php"><span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">freeShipping</span> = <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">order</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #f5f5f5; background-color: #333333;">getTotal</span>() &gt; 99;
+<span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">stockAvailable</span> = <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">stock</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #f5f5f5; background-color: #333333;">checkStatus</span>(<span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">order</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #eedd82;">getItem</span>) &gt; <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">order</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #f5f5f5; background-color: #333333;">getQuantity</span>();
+<span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">addressMatches</span> = <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">order</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #f5f5f5; background-color: #333333;">getCustomer</span>()<span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #f5f5f5; background-color: #333333;">getBillingAddress</span>() === <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">order</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #f5f5f5; background-color: #333333;">getShippingAddress</span>();
+<span style="color: #00ffff;">if</span>(<span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">stockAvailable</span> &amp;&amp; <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">freeShipping</span> &amp;&amp; <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">addressMatches</span>);
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org40ae535" class="outline-4">
+<h4 id="org40ae535"><span class="section-number-4">1.9.3</span> Pass a test</h4>
+<div class="outline-text-4" id="text-1-9-3">
+<p>
+Info: In the books, this refactoring is called "Introduce Explaining Variable", but most tools and people now use the (better) name "extract variable"
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org80cc7b3" class="outline-3">
+<h3 id="org80cc7b3"><span class="section-number-3">1.10</span> Inline Class</h3>
+<div class="outline-text-3" id="text-1-10">
+<p>
+Smell: A class isn't doing very much
+</p>
+<div class="org-src-container">
+<pre class="src src-php"><span style="color: #00ffff;">final</span> <span style="color: #00ffff;">class</span> <span style="color: #98fb98;">User</span>
+{
+    <span style="color: #00ffff;">private</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">name</span>;
+    <span style="color: #00ffff;">private</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">surname</span>;
+
+    <span style="color: #00ffff;">private</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">telephoneNumber</span>;
+}
+
+<span style="color: #00ffff;">final</span> <span style="color: #00ffff;">class</span> <span style="color: #98fb98;">TelephoneNumber</span>
+{
+    <span style="color: #00ffff;">private</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">number</span>;
+}
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org1d77305" class="outline-3">
+<h3 id="org1d77305"><span class="section-number-3">1.11</span> Inline Method</h3>
+<div class="outline-text-3" id="text-1-11">
+<p>
+Smell: A method's body is just as clear as its name
+</p>
+<div class="org-src-container">
+<pre class="src src-php"><span style="color: #00ffff;">public</span> <span style="color: #00ffff;">function</span> <span style="color: #87cefa;">calculateAreaOfCircle</span>(<span style="color: #98fb98;">float</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">radius</span>): <span style="color: #98fb98;">float</span>
+{
+    <span style="color: #00ffff;">return</span> getValueOfPI() * <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">radius</span> * <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">radius</span>;
+}
+
+<span style="color: #00ffff;">public</span> <span style="color: #00ffff;">function</span> <span style="color: #87cefa;">getValueOfPI</span>(): <span style="color: #98fb98;">float</span>
+{
+    <span style="color: #00ffff;">return</span> pi();
+}
+</pre>
+</div>
+</div>
+<div id="outline-container-org3dfef09" class="outline-4">
+<h4 id="org3dfef09"><span class="section-number-4">1.11.1</span> Write a test that pass</h4>
+</div>
+<div id="outline-container-orgbc207bb" class="outline-4">
+<h4 id="orgbc207bb"><span class="section-number-4">1.11.2</span> Refactor the code</h4>
+<div class="outline-text-4" id="text-1-11-2">
+<p>
+Put the method's body into the body of its callers and remove the method.
+</p>
+<div class="org-src-container">
+<pre class="src src-php"><span style="color: #00ffff;">public</span> <span style="color: #00ffff;">function</span> <span style="color: #87cefa;">calculateAreaOfCircle</span>(<span style="color: #98fb98;">float</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">radius</span>): <span style="color: #98fb98;">float</span>
+{
+    <span style="color: #00ffff;">return</span> pi() * <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">radius</span> * <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">radius</span>;
+}
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgfe748e6" class="outline-4">
+<h4 id="orgfe748e6"><span class="section-number-4">1.11.3</span> Pass a test</h4>
+</div>
+</div>
+<div id="outline-container-orgbbb4448" class="outline-3">
+<h3 id="orgbbb4448"><span class="section-number-3">1.12</span> Introduce Parameter Object</h3>
+<div class="outline-text-3" id="text-1-12">
+<p>
+Smell: Long Parameter List and parameters that naturally go together
+</p>
+<div class="org-src-container">
+<pre class="src src-php"><span style="color: #00ffff;">final</span> <span style="color: #00ffff;">class</span> <span style="color: #98fb98;">Account</span>
+{
+    <span style="color: #00ffff;">public</span> <span style="color: #00ffff;">function</span> <span style="color: #87cefa;">findAllTransactions</span>(<span style="color: #98fb98;">DateTime</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">start</span>, <span style="color: #98fb98;">DateTime</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">end</span>)
+    {
+        ...
+    }
+}
+</pre>
+</div>
+</div>
+<div id="outline-container-org0d344c7" class="outline-4">
+<h4 id="org0d344c7"><span class="section-number-4">1.12.1</span> Write a test that pass</h4>
+</div>
+<div id="outline-container-org62eb5da" class="outline-4">
+<h4 id="org62eb5da"><span class="section-number-4">1.12.2</span> Refactor the code</h4>
+<div class="outline-text-4" id="text-1-12-2">
+<p>
+    Replace them with an object.
+#+BEGIN<sub>SRC</sub> php#+END<sub>SRC</sub>
+</p>
+</div>
+</div>
+<div id="outline-container-org73705e2" class="outline-4">
+<h4 id="org73705e2"><span class="section-number-4">1.12.3</span> Pass a test</h4>
+</div>
+</div>
+<div id="outline-container-org2d15d11" class="outline-3">
+<h3 id="org2d15d11"><span class="section-number-3">1.13</span> Optimize Imports</h3>
+<div class="outline-text-3" id="text-1-13">
+<p>
+Smell: Imports unused or not in alphabetically order. Multiple use statement
+</p>
+<div class="org-src-container">
+<pre class="src src-php"><span style="color: #00ffff;">use</span> <span style="color: #98fb98;">SomeClass\Worker</span>;
+<span style="color: #00ffff;">use</span> <span style="color: #98fb98;">SomeClass\Foo</span>;
+<span style="color: #00ffff;">use</span> <span style="color: #98fb98;">SomeClass\UnusedClass</span>;
+</pre>
+</div>
+</div>
+<div id="outline-container-org5736b06" class="outline-4">
+<h4 id="org5736b06"><span class="section-number-4">1.13.1</span> Write a test that pass</h4>
+</div>
+<div id="outline-container-orgd195920" class="outline-4">
+<h4 id="orgd195920"><span class="section-number-4">1.13.2</span> Refactor the code</h4>
+<div class="outline-text-4" id="text-1-13-2">
+<p>
+Remove unused imports. Sort imports alphabetically (ascending order). Splits multiple use statement imports into single use statement imports
+</p>
+<div class="org-src-container">
+<pre class="src src-php"><span style="color: #00ffff;">use</span> <span style="color: #98fb98;">SomeClass</span>\{Foo, Worker};
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgf56eb00" class="outline-4">
+<h4 id="orgf56eb00"><span class="section-number-4">1.13.3</span> Pass a test</h4>
+</div>
+</div>
+
+<div id="outline-container-orge787ebb" class="outline-3">
+<h3 id="orge787ebb"><span class="section-number-3">1.14</span> Move Method</h3>
+<div class="outline-text-3" id="text-1-14">
+<p>
+Smell: Method accessing fields and methods in different class
+</p>
+<div class="org-src-container">
+<pre class="src src-php"><span style="color: #00ffff;">final</span> <span style="color: #00ffff;">class</span> <span style="color: #98fb98;">Customer</span>
+{
+    <span style="color: #00ffff;">function</span> <span style="color: #87cefa;">printInvoice</span>(<span style="color: #98fb98;">Order</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">order</span>)
+    {
+        <span style="color: #00ffff;">echo</span> <span style="color: #ffa07a;">"Invoice </span><span style="color: #eedd82;">{$order-&gt;getId()}</span><span style="color: #ffa07a;">"</span>;
+        <span style="color: #00ffff;">echo</span> <span style="color: #ffa07a;">"Date: </span><span style="color: #eedd82;">{$order-&gt;getDate()}</span><span style="color: #ffa07a;">"</span>;
+        <span style="color: #00ffff;">echo</span> <span style="color: #ffa07a;">"Customer: </span><span style="color: #eedd82;">{$this-&gt;getName()}</span><span style="color: #ffa07a;">"</span>;
+
+        <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">address</span> = <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">order</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #f5f5f5; background-color: #333333;">getAddress</span>();
+        <span style="color: #00ffff;">echo</span> <span style="color: #ffa07a;">"City: </span><span style="color: #eedd82;">{$address-&gt;getCity()}</span><span style="color: #ffa07a;">"</span>;
+        <span style="color: #00ffff;">echo</span> <span style="color: #ffa07a;">"Address: </span><span style="color: #eedd82;">{$address-&gt;getStreet()}</span><span style="color: #ffa07a;">"</span>;
+
+        <span style="color: #00ffff;">foreach</span> (<span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">order</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #f5f5f5; background-color: #333333;">getItems</span>() <span style="color: #00ffff;">as</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">item</span>){
+
+            <span style="color: #00ffff;">echo</span> <span style="color: #ffa07a;">"Name: </span><span style="color: #eedd82;">{$item-&gt;getName()}</span><span style="color: #ffa07a;">"</span>;
+            <span style="color: #00ffff;">echo</span> <span style="color: #ffa07a;">"Price: </span><span style="color: #eedd82;">{$item-&gt;getPrice()}</span><span style="color: #ffa07a;">"</span>;
+        }
+    }
+}   
+</pre>
+</div>
+</div>
+<div id="outline-container-org660c431" class="outline-4">
+<h4 id="org660c431"><span class="section-number-4">1.14.1</span> Write a test that pass</h4>
+</div>
+<div id="outline-container-org5babaff" class="outline-4">
+<h4 id="org5babaff"><span class="section-number-4">1.14.2</span> Refactor the code</h4>
+<div class="outline-text-4" id="text-1-14-2">
+<p>
+Move all its features into another class and delete it.
+</p>
+<div class="org-src-container">
+<pre class="src src-php"><span style="color: #00ffff;">final</span> <span style="color: #00ffff;">class</span> <span style="color: #98fb98;">Order</span>
+{
+    <span style="color: #00ffff;">function</span> <span style="color: #87cefa;">printInvoice</span>()
+    {
+        <span style="color: #00ffff;">echo</span> <span style="color: #ffa07a;">"Invoice </span><span style="color: #eedd82;">{$this-&gt;getId()}</span><span style="color: #ffa07a;">"</span>;
+        <span style="color: #00ffff;">echo</span> <span style="color: #ffa07a;">"Date: </span><span style="color: #eedd82;">{$this-&gt;getDate()}</span><span style="color: #ffa07a;">"</span>;
+        <span style="color: #00ffff;">echo</span> <span style="color: #ffa07a;">"Customer: </span><span style="color: #eedd82;">{$this-&gt;getCustomer()-&gt;getName()}</span><span style="color: #ffa07a;">"</span>;
+
+        <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">address</span> = <span style="color: #7fffd4;">$</span><span style="color: #7fffd4;">this</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #f5f5f5; background-color: #333333;">getAddress</span>();
+        <span style="color: #00ffff;">echo</span> <span style="color: #ffa07a;">"City: </span><span style="color: #eedd82;">{$address-&gt;getCity()}</span><span style="color: #ffa07a;">"</span>;
+        <span style="color: #00ffff;">echo</span> <span style="color: #ffa07a;">"Address: </span><span style="color: #eedd82;">{$address-&gt;getStreet()}</span><span style="color: #ffa07a;">"</span>;
+
+        <span style="color: #00ffff;">foreach</span> (<span style="color: #7fffd4;">$</span><span style="color: #7fffd4;">this</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #f5f5f5; background-color: #333333;">getItems</span>() <span style="color: #00ffff;">as</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">item</span>){
+
+            <span style="color: #00ffff;">echo</span> <span style="color: #ffa07a;">"Name: </span><span style="color: #eedd82;">{$item-&gt;getName()}</span><span style="color: #ffa07a;">"</span>;
+            <span style="color: #00ffff;">echo</span> <span style="color: #ffa07a;">"Price: </span><span style="color: #eedd82;">{$item-&gt;getPrice()}</span><span style="color: #ffa07a;">"</span>;
+        }
+    }
+}
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgb1371e5" class="outline-4">
+<h4 id="orgb1371e5"><span class="section-number-4">1.14.3</span> Pass a test</h4>
+</div>
+</div>
+<div id="outline-container-orgc7c8ba6" class="outline-3">
+<h3 id="orgc7c8ba6"><span class="section-number-3">1.15</span> Parameterize Method</h3>
+<div class="outline-text-3" id="text-1-15">
+<p>
+Smell: Several methods do similar things but with different values contained in the method body.
+</p>
+<div class="org-src-container">
+<pre class="src src-php"><span style="color: #00ffff;">final</span> <span style="color: #00ffff;">class</span> <span style="color: #98fb98;">Employee</span>
+{
+    <span style="color: #ffa07a;">/**</span>
+<span style="color: #ffa07a;">     * </span><span style="color: #7fffd4;">@var</span><span style="color: #ffa07a;"> </span><span style="color: #98fb98;">float</span>
+<span style="color: #ffa07a;">     */</span>
+    <span style="color: #00ffff;">private</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">salary</span>;
+
+    <span style="color: #00ffff;">public</span> <span style="color: #00ffff;">function</span> <span style="color: #87cefa;">setSalary</span>(<span style="color: #98fb98;">float</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">salary</span>)
+    {
+        <span style="color: #7fffd4;">$</span><span style="color: #7fffd4;">this</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #eedd82;">salary</span> = <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">salary</span>;
+    }
+
+    <span style="color: #00ffff;">public</span> <span style="color: #00ffff;">function</span> <span style="color: #87cefa;">getSalary</span>(): <span style="color: #98fb98;">float</span>
+    {
+        <span style="color: #00ffff;">return</span> <span style="color: #7fffd4;">$</span><span style="color: #7fffd4;">this</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #eedd82;">salary</span>;
+    }
+
+    <span style="color: #00ffff;">public</span> <span style="color: #00ffff;">function</span> <span style="color: #87cefa;">fivePercentRaise</span>()
+    {
+        <span style="color: #7fffd4;">$</span><span style="color: #7fffd4;">this</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #eedd82;">salary</span> += <span style="color: #7fffd4;">$</span><span style="color: #7fffd4;">this</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #eedd82;">salary</span>* (5 / 100);
+    }
+
+    <span style="color: #00ffff;">public</span> <span style="color: #00ffff;">function</span> <span style="color: #87cefa;">tenPercentRaise</span>()
+    {
+        <span style="color: #7fffd4;">$</span><span style="color: #7fffd4;">this</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #eedd82;">salary</span> += <span style="color: #7fffd4;">$</span><span style="color: #7fffd4;">this</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #eedd82;">salary</span>* (10 / 100) ;
+    }
+}
+</pre>
+</div>
+</div>
+<div id="outline-container-org153d89a" class="outline-4">
+<h4 id="org153d89a"><span class="section-number-4">1.15.1</span> <span class="todo TODO">TODO</span> Write a test that pass</h4>
+</div>
+<div id="outline-container-org4ba3dfd" class="outline-4">
+<h4 id="org4ba3dfd"><span class="section-number-4">1.15.2</span> Refactor the code</h4>
+<div class="outline-text-4" id="text-1-15-2">
+<p>
+Create one method that uses a parameter for the different values.
+</p>
+<div class="org-src-container">
+<pre class="src src-php"><span style="color: #00ffff;">final</span> <span style="color: #00ffff;">class</span> <span style="color: #98fb98;">Employee</span>
+{
+    <span style="color: #ffa07a;">/**</span>
+<span style="color: #ffa07a;">     * </span><span style="color: #7fffd4;">@var</span><span style="color: #ffa07a;"> </span><span style="color: #98fb98;">float</span>
+<span style="color: #ffa07a;">     */</span>
+    <span style="color: #00ffff;">private</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">salary</span>;
+
+    <span style="color: #00ffff;">public</span> <span style="color: #00ffff;">function</span> <span style="color: #87cefa;">setSalary</span>(<span style="color: #98fb98;">float</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">salary</span>)
+    {
+        <span style="color: #7fffd4;">$</span><span style="color: #7fffd4;">this</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #eedd82;">salary</span> = <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">salary</span>;
+    }
+
+    <span style="color: #00ffff;">public</span> <span style="color: #00ffff;">function</span> <span style="color: #87cefa;">getSalary</span>(): <span style="color: #98fb98;">float</span>
+    {
+        <span style="color: #00ffff;">return</span> <span style="color: #7fffd4;">$</span><span style="color: #7fffd4;">this</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #eedd82;">salary</span>;
+    }
+
+    <span style="color: #00ffff;">public</span> <span style="color: #00ffff;">function</span> <span style="color: #87cefa;">raise</span>(<span style="color: #98fb98;">float</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">percent</span>)
+    {
+        <span style="color: #7fffd4;">$</span><span style="color: #7fffd4;">this</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #eedd82;">salary</span> += <span style="color: #7fffd4;">$</span><span style="color: #7fffd4;">this</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #eedd82;">salary</span> * (<span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">percent</span> / 100);
+    }
+}
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org3025fc3" class="outline-4">
+<h4 id="org3025fc3"><span class="section-number-4">1.15.3</span> Pass a test</h4>
+</div>
+</div>
+<div id="outline-container-org959302b" class="outline-3">
+<h3 id="org959302b"><span class="section-number-3">1.16</span> Preserve Whole Object</h3>
+<div class="outline-text-3" id="text-1-16">
+<p>
+Smell: More than one value from an object are passing as parameters in a method call
+</p>
+<div class="org-src-container">
+<pre class="src src-php"><span style="color: #00ffff;">class</span> <span style="color: #98fb98;">September</span>
+{
+    <span style="color: #ffa07a;">/**</span>
+<span style="color: #ffa07a;">     * </span><span style="color: #7fffd4;">@var</span><span style="color: #ffa07a;"> </span><span style="color: #98fb98;">float</span>
+<span style="color: #ffa07a;">     */</span>
+    <span style="color: #00ffff;">private</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">highestTemp</span>;
+
+    <span style="color: #ffa07a;">/**</span>
+<span style="color: #ffa07a;">     * </span><span style="color: #7fffd4;">@var</span><span style="color: #ffa07a;"> </span><span style="color: #98fb98;">float</span>
+<span style="color: #ffa07a;">     */</span>
+    <span style="color: #00ffff;">private</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">lowestTemp</span>;
+
+    <span style="color: #00ffff;">public</span> <span style="color: #00ffff;">function</span> <span style="color: #87cefa;">__construct</span>(<span style="color: #98fb98;">float</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">highestTemp</span>, <span style="color: #98fb98;">float</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">lowestTemp</span>)
+    {
+        <span style="color: #7fffd4;">$</span><span style="color: #7fffd4;">this</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #eedd82;">highestTemp</span> = <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">highestTemp</span>;
+        <span style="color: #7fffd4;">$</span><span style="color: #7fffd4;">this</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #eedd82;">lowestTemp</span> = <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">lowestTemp</span>;
+    }
+
+    <span style="color: #00ffff;">public</span> <span style="color: #00ffff;">function</span> <span style="color: #87cefa;">getHighestTemp</span>(): <span style="color: #98fb98;">float</span>
+    {
+        <span style="color: #00ffff;">return</span> <span style="color: #7fffd4;">$</span><span style="color: #7fffd4;">this</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #eedd82;">highestTemp</span>;
+    }
+
+    <span style="color: #00ffff;">public</span> <span style="color: #00ffff;">function</span> <span style="color: #87cefa;">getLowestTemp</span>(): <span style="color: #98fb98;">float</span>
+    {
+        <span style="color: #00ffff;">return</span> <span style="color: #7fffd4;">$</span><span style="color: #7fffd4;">this</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #eedd82;">lowestTemp</span>;
+    }
+}
+
+<span style="color: #00ffff;">class</span> <span style="color: #98fb98;">Calculator</span>
+{
+    <span style="color: #00ffff;">public</span> <span style="color: #00ffff;">function</span> <span style="color: #87cefa;">calculateAverageTemperature</span>(<span style="color: #98fb98;">float</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">highestTemp</span>, <span style="color: #98fb98;">float</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">lowestTemp</span>)
+    {
+        <span style="color: #00ffff;">return</span> (<span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">highestTemp</span> + <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">lowestTemp</span>) / 2;
+    }
+}
+
+<span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">september</span> = <span style="color: #00ffff;">new</span> <span style="color: #98fb98;">September</span>(15,5);
+<span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">calculator</span> = <span style="color: #00ffff;">new</span> <span style="color: #98fb98;">Calculator</span>();
+
+<span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">averageTemperature</span> = <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">calculator</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #f5f5f5; background-color: #333333;">calculateAverageTemperature</span>(
+            <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">september</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #f5f5f5; background-color: #333333;">getHighestTemp</span>(),
+            <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">september</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #f5f5f5; background-color: #333333;">getLowestTemp</span>()
+        );
+</pre>
+</div>
+</div>
+<div id="outline-container-orgf0aae3b" class="outline-4">
+<h4 id="orgf0aae3b"><span class="section-number-4">1.16.1</span> Write a test that pass</h4>
+<div class="outline-text-4" id="text-1-16-1">
+<div class="org-src-container">
+<pre class="src src-php"><span style="color: #00ffff;">public</span> <span style="color: #00ffff;">function</span> <span style="color: #87cefa;">testCalculateAverageTemperature</span>()
+{
+        <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">september</span> = <span style="color: #00ffff;">new</span> <span style="color: #98fb98;">September</span>(15,5);
+        <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">calculator</span> = <span style="color: #00ffff;">new</span> <span style="color: #98fb98;">Calculator</span>();
+
+        <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">averageTemperature</span> = <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">calculator</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #f5f5f5; background-color: #333333;">calculateAverageTemperature</span>(
+            <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">september</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #f5f5f5; background-color: #333333;">getHighestTemp</span>(),
+            <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">september</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #f5f5f5; background-color: #333333;">getLowestTemp</span>());
+
+        <span style="color: #7fffd4;">$</span><span style="color: #7fffd4;">this</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #f5f5f5; background-color: #333333;">assertEquals</span>(10, <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">averageTemperature</span>);
+}
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org68270c5" class="outline-4">
+<h4 id="org68270c5"><span class="section-number-4">1.16.2</span> Refactor the code</h4>
+<div class="outline-text-4" id="text-1-16-2">
+<p>
+Add object as a new parameter. Set it default value to null, that will help to manage the transitions towards the final version of the method.
+</p>
+<div class="org-src-container">
+<pre class="src src-php"><span style="color: #00ffff;">class</span> <span style="color: #98fb98;">Calculator</span>
+{
+    <span style="color: #00ffff;">public</span> <span style="color: #00ffff;">function</span> <span style="color: #87cefa;">calculateAverageTemperature</span>(<span style="color: #98fb98;">float</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">highestTemp</span>, <span style="color: #98fb98;">float</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">lowestTemp</span>, <span style="color: #98fb98;">September</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">september</span> = <span style="color: #7fffd4;">null</span>)
+    {
+        <span style="color: #00ffff;">return</span> (<span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">highestTemp</span> + <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">lowestTemp</span>) / 2;
+    }
+}
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org2066d94" class="outline-4">
+<h4 id="org2066d94"><span class="section-number-4">1.16.3</span> Pass a test</h4>
+</div>
+<div id="outline-container-orgd18ddb3" class="outline-4">
+<h4 id="orgd18ddb3"><span class="section-number-4">1.16.4</span> Refactor the code</h4>
+<div class="outline-text-4" id="text-1-16-4">
+<p>
+Replace values with values coming from the whole object
+</p>
+<div class="org-src-container">
+<pre class="src src-php"><span style="color: #00ffff;">class</span> <span style="color: #98fb98;">Calculator</span>
+{
+    <span style="color: #00ffff;">public</span> <span style="color: #00ffff;">function</span> <span style="color: #87cefa;">calculateAverageTemperature</span>(<span style="color: #98fb98;">float</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">highestTemp</span>, <span style="color: #98fb98;">float</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">lowestTemp</span>, <span style="color: #98fb98;">September</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">september</span> = <span style="color: #7fffd4;">null</span>)
+    {
+        <span style="color: #00ffff;">return</span> (<span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">september</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #f5f5f5; background-color: #333333;">getHighestTemp</span>() + <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">september</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #f5f5f5; background-color: #333333;">getLowestTemp</span>()) / 2;
+    }
+}
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org057a99d" class="outline-4">
+<h4 id="org057a99d"><span class="section-number-4">1.16.5</span> Pass a test</h4>
+</div>
+<div id="outline-container-org81876a1" class="outline-4">
+<h4 id="org81876a1"><span class="section-number-4">1.16.6</span> Refactor the code</h4>
+<div class="outline-text-4" id="text-1-16-6">
+<p>
+Remove useless parameters and default null value of $september object
+</p>
+<div class="org-src-container">
+<pre class="src src-php"><span style="color: #00ffff;">class</span> <span style="color: #98fb98;">Calculator</span>
+{
+    <span style="color: #00ffff;">public</span> <span style="color: #00ffff;">function</span> <span style="color: #87cefa;">calculateAverageTemperature</span>(<span style="color: #98fb98;">September</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">september</span>)
+    {
+        <span style="color: #00ffff;">return</span> (<span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">september</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #f5f5f5; background-color: #333333;">getHighestTemp</span>() + <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">september</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #f5f5f5; background-color: #333333;">getLowestTemp</span>()) / 2;
+    }
+}
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgb0f3871" class="outline-4">
+<h4 id="orgb0f3871"><span class="section-number-4">1.16.7</span> Pass a test</h4>
+</div>
+</div>
+<div id="outline-container-org4e5a078" class="outline-3">
+<h3 id="org4e5a078"><span class="section-number-3">1.17</span> Pull Up Method</h3>
+<div class="outline-text-3" id="text-1-17">
+<p>
+Smell: Subclasses have the same method.
+</p>
+<div class="org-src-container">
+<pre class="src src-php"><span style="color: #00ffff;">class</span> <span style="color: #98fb98;">Employee</span>
+{
+    <span style="color: #ffa07a;">/**</span>
+<span style="color: #ffa07a;">     * </span><span style="color: #7fffd4;">@var</span><span style="color: #ffa07a;"> </span><span style="color: #98fb98;">string</span>
+<span style="color: #ffa07a;">     */</span>
+    <span style="color: #00ffff;">protected</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">name</span>;
+    
+    <span style="color: #00ffff;">public</span> <span style="color: #00ffff;">function</span> <span style="color: #87cefa;">__construct</span>(<span style="color: #98fb98;">string</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">name</span>)
+    {
+        <span style="color: #7fffd4;">$</span><span style="color: #7fffd4;">this</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #eedd82;">name</span> = <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">name</span>;
+    }
+}
+
+<span style="color: #00ffff;">final</span> <span style="color: #00ffff;">class</span> <span style="color: #98fb98;">Salesman</span> <span style="color: #00ffff;">extends</span> <span style="color: #98fb98;">Employee</span>
+{
+    <span style="color: #00ffff;">public</span> <span style="color: #00ffff;">function</span> <span style="color: #87cefa;">getName</span>()
+    {
+        <span style="color: #00ffff;">return</span> <span style="color: #7fffd4;">$</span><span style="color: #7fffd4;">this</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #eedd82;">name</span>;
+    }
+}
+
+<span style="color: #00ffff;">final</span> <span style="color: #00ffff;">class</span> <span style="color: #98fb98;">Engineer</span> <span style="color: #00ffff;">extends</span> <span style="color: #98fb98;">Employee</span>
+{
+    <span style="color: #00ffff;">public</span> <span style="color: #00ffff;">function</span> <span style="color: #87cefa;">getName</span>()
+    {
+        <span style="color: #00ffff;">return</span> <span style="color: #7fffd4;">$</span><span style="color: #7fffd4;">this</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #eedd82;">name</span>;
+    }
+}
+</pre>
+</div>
+</div>
+<div id="outline-container-org1f844c0" class="outline-4">
+<h4 id="org1f844c0"><span class="section-number-4">1.17.1</span> Write a test that pass</h4>
+</div>
+<div id="outline-container-orgfcde41e" class="outline-4">
+<h4 id="orgfcde41e"><span class="section-number-4">1.17.2</span> Refactor the code</h4>
+<div class="outline-text-4" id="text-1-17-2">
+<p>
+Move the methods to the super class.
+</p>
+<div class="org-src-container">
+<pre class="src src-php"><span style="color: #00ffff;">class</span> <span style="color: #98fb98;">Employee</span>
+{
+    <span style="color: #ffa07a;">/**</span>
+<span style="color: #ffa07a;">     * </span><span style="color: #7fffd4;">@var</span><span style="color: #ffa07a;"> </span><span style="color: #98fb98;">string</span>
+<span style="color: #ffa07a;">     */</span>
+    <span style="color: #00ffff;">protected</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">name</span>;
+
+    <span style="color: #00ffff;">public</span> <span style="color: #00ffff;">function</span> <span style="color: #87cefa;">__construct</span>(<span style="color: #98fb98;">string</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">name</span>)
+    {
+        <span style="color: #7fffd4;">$</span><span style="color: #7fffd4;">this</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #eedd82;">name</span> = <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">name</span>;
+    }
+
+    <span style="color: #00ffff;">public</span> <span style="color: #00ffff;">function</span> <span style="color: #87cefa;">getName</span>()
+    {
+        <span style="color: #00ffff;">return</span> <span style="color: #7fffd4;">$</span><span style="color: #7fffd4;">this</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #eedd82;">name</span>;
+    }
+}
+
+<span style="color: #00ffff;">final</span> <span style="color: #00ffff;">class</span> <span style="color: #98fb98;">Salesman</span> <span style="color: #00ffff;">extends</span> <span style="color: #98fb98;">Employee</span> {}
+
+<span style="color: #00ffff;">final</span> <span style="color: #00ffff;">class</span> <span style="color: #98fb98;">Engineer</span> <span style="color: #00ffff;">extends</span> <span style="color: #98fb98;">Employee</span> {}
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org6aec933" class="outline-4">
+<h4 id="org6aec933"><span class="section-number-4">1.17.3</span> Pass a test</h4>
+</div>
+</div>
+<div id="outline-container-org51df64f" class="outline-3">
+<h3 id="org51df64f"><span class="section-number-3">1.18</span> Remove Assignments to Parameters</h3>
+<div class="outline-text-3" id="text-1-18">
+<p>
+Smell: Reassign to a parameter
+</p>
+<div class="org-src-container">
+<pre class="src src-php"><span style="color: #00ffff;">public</span> <span style="color: #00ffff;">function</span> <span style="color: #87cefa;">discount</span>(<span style="color: #98fb98;">int</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">priceTotal</span>): <span style="color: #98fb98;">int</span>
+{
+    <span style="color: #00ffff;">if</span> (<span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">priceTotal</span> &gt; 100) {
+        <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">priceTotal</span> = <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">priceTotal</span> - 10;
+    }
+    
+    <span style="color: #00ffff;">return</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">priceTotal</span>;
+}  
+</pre>
+</div>
+</div>
+<div id="outline-container-orgdda404b" class="outline-4">
+<h4 id="orgdda404b"><span class="section-number-4">1.18.1</span> Write a test that pass</h4>
+</div>
+<div id="outline-container-orgaa69f0c" class="outline-4">
+<h4 id="orgaa69f0c"><span class="section-number-4">1.18.2</span> Refactor the code</h4>
+<div class="outline-text-4" id="text-1-18-2">
+<p>
+Use a temporary variable instead
+</p>
+<div class="org-src-container">
+<pre class="src src-php"><span style="color: #00ffff;">public</span> <span style="color: #00ffff;">function</span> <span style="color: #87cefa;">discount</span>(<span style="color: #98fb98;">int</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">priceTotal</span>): <span style="color: #98fb98;">int</span>
+{
+    <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">result</span> = <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">priceTotal</span>;
+
+    <span style="color: #00ffff;">if</span> (<span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">priceTotal</span> &gt; 100) {
+        <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">result</span> = <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">result</span> - 10;
+    }
+
+    <span style="color: #00ffff;">return</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">result</span>;
+}
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orga65af33" class="outline-4">
+<h4 id="orga65af33"><span class="section-number-4">1.18.3</span> Pass a test</h4>
+</div>
+<div id="outline-container-orgb9f4f9a" class="outline-4">
+<h4 id="orgb9f4f9a"><span class="section-number-4">1.18.4</span> Info</h4>
+<div class="outline-text-4" id="text-1-18-4">
+<p>
+The best practice is that if you pass parameters into a method then they should always represent what were passed in and never be reassigned to mean something else. Btw. in Java you can prevent variable’s reassignment by keyword 'final' before a parameter <a href="https://stackoverflow.com/questions/500508/why-should-i-use-the-keyword-final-on-a-method-parameter-in-java">https://stackoverflow.com/questions/500508/why-should-i-use-the-keyword-final-on-a-method-parameter-in-java</a>
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org4188863" class="outline-3">
+<h3 id="org4188863"><span class="section-number-3">1.19</span> Remove PHPDoc</h3>
+<div class="outline-text-3" id="text-1-19">
+<p>
+Smell: PHPDoc is duplicating type-hint information
+Damage: Adds information which not provides additional value
+</p>
+<div class="org-src-container">
+<pre class="src src-php"><span style="color: #ffa07a;">/**</span>
+<span style="color: #ffa07a;"> * </span><span style="color: #7fffd4;">@param</span><span style="color: #ffa07a;"> </span><span style="color: #98fb98;">int</span><span style="color: #ffa07a;"> </span><span style="color: #eedd82;">$</span><span style="color: #eedd82;">number</span>
+<span style="color: #ffa07a;"> * </span><span style="color: #7fffd4;">@return</span><span style="color: #ffa07a;"> </span><span style="color: #98fb98;">void</span>
+<span style="color: #ffa07a;"> */</span>
+<span style="color: #00ffff;">public</span> <span style="color: #00ffff;">function</span> <span style="color: #87cefa;">setNumber</span>(<span style="color: #98fb98;">int</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">number</span>): <span style="color: #98fb98;">void</span>
+{
+    <span style="color: #7fffd4;">$</span><span style="color: #7fffd4;">this</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #eedd82;">number</span> = <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">number</span>;
+}  
+</pre>
+</div>
+</div>
+<div id="outline-container-orgbaf996e" class="outline-4">
+<h4 id="orgbaf996e"><span class="section-number-4">1.19.1</span> Write a test that pass</h4>
+</div>
+<div id="outline-container-org8c1a687" class="outline-4">
+<h4 id="org8c1a687"><span class="section-number-4">1.19.2</span> Refactor the code</h4>
+<div class="outline-text-4" id="text-1-19-2">
+<p>
+Remove PHPDoc if it's not provides additional value
+</p>
+<div class="org-src-container">
+<pre class="src src-php">
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org6b2a3c2" class="outline-4">
+<h4 id="org6b2a3c2"><span class="section-number-4">1.19.3</span> Pass a test</h4>
+</div>
+</div>
+<div id="outline-container-orgf1da0b1" class="outline-3">
+<h3 id="orgf1da0b1"><span class="section-number-3">1.20</span> Rename Method</h3>
+<div class="outline-text-3" id="text-1-20">
+<p>
+Smell: The name of a method does not reveal it's purpose1
+</p>
+<div class="org-src-container">
+<pre class="src src-php"><span style="color: #00ffff;">public</span> <span style="color: #00ffff;">function</span> <span style="color: #87cefa;">getInvcdtlmt</span>()
+</pre>
+</div>
+</div>
+
+<div id="outline-container-org422f5cc" class="outline-4">
+<h4 id="org422f5cc"><span class="section-number-4">1.20.1</span> Write a test that pass</h4>
+</div>
+<div id="outline-container-org242c102" class="outline-4">
+<h4 id="org242c102"><span class="section-number-4">1.20.2</span> Refactor the code</h4>
+<div class="outline-text-4" id="text-1-20-2">
+<p>
+Change the name of the method
+</p>
+<div class="org-src-container">
+<pre class="src src-php"><span style="color: #00ffff;">public</span> <span style="color: #00ffff;">function</span> <span style="color: #87cefa;">getInvoiceableCreditLimit</span>()
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org66ad3eb" class="outline-4">
+<h4 id="org66ad3eb"><span class="section-number-4">1.20.3</span> Pass a test</h4>
+</div>
+</div>
+<div id="outline-container-org3500ab7" class="outline-3">
+<h3 id="org3500ab7"><span class="section-number-3">1.21</span> Replace Global with Dependency Injection</h3>
+<div class="outline-text-3" id="text-1-21">
+<p>
+Smell: Variable with 'global' keyword
+</p>
+<div class="org-src-container">
+<pre class="src src-php"><span style="color: #00ffff;">final</span> <span style="color: #00ffff;">class</span> <span style="color: #98fb98;">Item</span>
+{
+    <span style="color: #00ffff;">public</span> <span style="color: #00ffff;">function</span> <span style="color: #87cefa;">fetch</span>()
+    {
+        <span style="color: #00ffff;">global</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">db</span>;
+        <span style="color: #00ffff;">return</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">db</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #f5f5f5; background-color: #333333;">query</span>(...);
+    }
+}
+</pre>
+</div>
+</div>
+
+<div id="outline-container-org159de7f" class="outline-4">
+<h4 id="org159de7f"><span class="section-number-4">1.21.1</span> Write a test that pass</h4>
+</div>
+<div id="outline-container-org8134a90" class="outline-4">
+<h4 id="org8134a90"><span class="section-number-4">1.21.2</span> Refactor the code</h4>
+<div class="outline-text-4" id="text-1-21-2">
+<p>
+Move global variable in class to the constructor
+</p>
+<div class="org-src-container">
+<pre class="src src-php"><span style="color: #00ffff;">final</span> <span style="color: #00ffff;">class</span> <span style="color: #98fb98;">Item</span>
+{
+    <span style="color: #ffa07a;">/**</span>
+<span style="color: #ffa07a;">     * </span><span style="color: #7fffd4;">@var</span><span style="color: #ffa07a;"> </span><span style="color: #ffa07a;">Database</span>
+<span style="color: #ffa07a;">     */</span>
+    <span style="color: #00ffff;">private</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">db</span>;
+
+    <span style="color: #00ffff;">public</span> <span style="color: #00ffff;">function</span> <span style="color: #87cefa;">__construct</span>(<span style="color: #98fb98;">Database</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">db</span>)
+    {
+        <span style="color: #7fffd4;">$</span><span style="color: #7fffd4;">this</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #eedd82;">db</span> = <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">db</span>;
+    }
+
+    <span style="color: #00ffff;">public</span> <span style="color: #00ffff;">function</span> <span style="color: #87cefa;">fetch</span>()
+    {
+        <span style="color: #00ffff;">return</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">db</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #f5f5f5; background-color: #333333;">query</span>(...);
+    }
+}
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org185a528" class="outline-4">
+<h4 id="org185a528"><span class="section-number-4">1.21.3</span> Pass a test</h4>
+</div>
+</div>
+<div id="outline-container-org595f20b" class="outline-3">
+<h3 id="org595f20b"><span class="section-number-3">1.22</span> Replace Magic Number With Symbolic Constant</h3>
+<div class="outline-text-3" id="text-1-22">
+<p>
+Smell: Number with a particular meaning
+</p>
+<div class="org-src-container">
+<pre class="src src-php" id="org9d87777"><span style="color: #00ffff;">final</span> <span style="color: #00ffff;">class</span> <span style="color: #98fb98;">Circle</span>
+{
+    <span style="color: #ffa07a;">/**</span>
+<span style="color: #ffa07a;">     * </span><span style="color: #7fffd4;">@var</span><span style="color: #ffa07a;"> </span><span style="color: #98fb98;">float</span>
+<span style="color: #ffa07a;">     */</span>
+    <span style="color: #00ffff;">private</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">radius</span>;
+    
+    <span style="color: #00ffff;">public</span> <span style="color: #00ffff;">function</span> <span style="color: #87cefa;">__construct</span>(<span style="color: #98fb98;">float</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">radius</span>)
+    {
+        <span style="color: #7fffd4;">$</span><span style="color: #7fffd4;">this</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #eedd82;">radius</span> = <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">radius</span>;
+    }
+    
+    <span style="color: #00ffff;">public</span> <span style="color: #00ffff;">function</span> <span style="color: #87cefa;">getCircumference</span>(): <span style="color: #98fb98;">float</span>
+    {
+        <span style="color: #00ffff;">return</span> <span style="color: #7fffd4;">$</span><span style="color: #7fffd4;">this</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #eedd82;">radius</span> * 2 * 3.1416;
+    }
+}
+</pre>
+</div>
+</div>
+<div id="outline-container-orge403c21" class="outline-4">
+<h4 id="orge403c21"><span class="section-number-4">1.22.1</span> Write a test that pass</h4>
+<div class="outline-text-4" id="text-1-22-1">
+<div class="org-src-container">
+<pre class="src src-phpunit" id="org4d46872">
+<span style="color: #00ffff;">use</span> <span style="color: #98fb98;">PHPUnit\Framework\TestCase</span>;
+
+<span style="color: #00ffff;">class</span> <span style="color: #98fb98;">CircleTest</span> <span style="color: #00ffff;">extends</span> <span style="color: #98fb98;">TestCase</span>
+{   
+    <span style="color: #00ffff;">public</span> <span style="color: #00ffff;">function</span> <span style="color: #87cefa;">testGetCircumference</span>()
+    {
+        <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">circle</span> = <span style="color: #00ffff;">new</span> <span style="color: #98fb98;">Circle</span>(2);
+        <span style="color: #7fffd4;">$</span><span style="color: #7fffd4;">this</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #f5f5f5; background-color: #333333;">assertEquals</span>(12.5664, <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">circle</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #f5f5f5; background-color: #333333;">getCircumference</span>());
+    }
+}
+</pre>
+</div>
+
+<pre class="example">
+PHPUnit 7.5.2 by Sebastian Bergmann and contributors.
+
+.                                                                   1 / 1 (100%)
+
+Time: 151 ms, Memory: 10.00MB
+
+OK (1 test, 1 assertion)
+
+</pre>
+</div>
+</div>
+
+<div id="outline-container-org2d8b2f6" class="outline-4">
+<h4 id="org2d8b2f6"><span class="section-number-4">1.22.2</span> Refactor the code</h4>
+<div class="outline-text-4" id="text-1-22-2">
+<p>
+Create a constant, name it after the meaning, and replace the number with it
+</p>
+<div class="org-src-container">
+<pre class="src src-php"><span style="color: #00ffff;">final</span> <span style="color: #00ffff;">class</span> <span style="color: #98fb98;">Circle</span>
+{
+    <span style="color: #ffa07a;">/**</span>
+<span style="color: #ffa07a;">     * </span><span style="color: #7fffd4;">@var</span><span style="color: #ffa07a;"> </span><span style="color: #98fb98;">float</span>
+<span style="color: #ffa07a;">     */</span>
+    <span style="color: #00ffff;">private</span> <span style="color: #00ffff;">const</span> <span style="color: #7fffd4;">PI</span> = 3.1416;
+
+    <span style="color: #ffa07a;">/**</span>
+<span style="color: #ffa07a;">     * </span><span style="color: #7fffd4;">@var</span><span style="color: #ffa07a;"> </span><span style="color: #98fb98;">float</span>
+<span style="color: #ffa07a;">     */</span>
+    <span style="color: #00ffff;">private</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">radius</span>;
+
+    <span style="color: #00ffff;">public</span> <span style="color: #00ffff;">function</span> <span style="color: #87cefa;">__construct</span>(<span style="color: #98fb98;">float</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">radius</span>)
+    {
+        <span style="color: #7fffd4;">$</span><span style="color: #7fffd4;">this</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #eedd82;">radius</span> = <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">radius</span>;
+    }
+
+    <span style="color: #00ffff;">public</span> <span style="color: #00ffff;">function</span> <span style="color: #87cefa;">getCircumference</span>(): <span style="color: #98fb98;">float</span>
+    {
+        <span style="color: #00ffff;">return</span> <span style="color: #7fffd4;">$</span><span style="color: #7fffd4;">this</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #eedd82;">radius</span> * 2 * <span style="color: #00ffff;">self</span><span style="color: #f5f5f5; background-color: #333333;">::</span><span style="color: #7fffd4;">PI</span>;
+    }
+}
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org9599e83" class="outline-4">
+<h4 id="org9599e83"><span class="section-number-4">1.22.3</span> Run a test</h4>
+<div class="outline-text-4" id="text-1-22-3">
+<pre class="example">
+PHPUnit 7.4.3 by Sebastian Bergmann and contributors.
+
+.                                                                   1 / 1 (100%)
+
+Time: 129 ms, Memory: 10.00MB
+
+OK (1 test, 1 assertion)
+
+</pre>
+</div>
+</div>
+<div id="outline-container-org0d50df1" class="outline-4">
+<h4 id="org0d50df1"><span class="section-number-4">1.22.4</span> Helper:</h4>
+<div class="outline-text-4" id="text-1-22-4">
+<p>
+<a href="https://github.com/povils/phpmnd">PHP Magic Number Detector</a> is a tool to detect magic numbers in your PHP code
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org41b1125" class="outline-3">
+<h3 id="org41b1125"><span class="section-number-3">1.23</span> Replace Parameter with Method</h3>
+<div class="outline-text-3" id="text-1-23">
+<p>
+Smell: A method runs different code depending on the values of parameters
+</p>
+<div class="org-src-container">
+<pre class="src src-php"><span style="color: #00ffff;">final</span> <span style="color: #00ffff;">class</span> <span style="color: #98fb98;">EmailNotification</span>
+{
+    <span style="color: #00ffff;">public</span> <span style="color: #00ffff;">function</span> <span style="color: #87cefa;">send</span>(<span style="color: #98fb98;">string</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">to</span>, <span style="color: #98fb98;">string</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">body</span>, <span style="color: #98fb98;">string</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">from</span> = <span style="color: #7fffd4;">null</span>)
+    {
+        <span style="color: #00ffff;">if</span>(<span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">from</span>){
+            <span style="color: #7fffd4;">$</span><span style="color: #7fffd4;">this</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #eedd82;">mailer</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #f5f5f5; background-color: #333333;">send</span>(<span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">to</span>, <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">body</span>, <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">from</span>);
+        }<span style="color: #00ffff;">else</span>{
+            <span style="color: #7fffd4;">$</span><span style="color: #7fffd4;">this</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #eedd82;">mailer</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #f5f5f5; background-color: #333333;">send</span>(<span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">to</span>, <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">body</span>, <span style="color: #7fffd4;">$</span><span style="color: #7fffd4;">this</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #eedd82;">defaultSender</span>);
+        }
+    }
+}
+</pre>
+</div>
+</div>
+<div id="outline-container-org42fd7f2" class="outline-4">
+<h4 id="org42fd7f2"><span class="section-number-4">1.23.1</span> Write a test that pass</h4>
+</div>
+<div id="outline-container-org10f1e64" class="outline-4">
+<h4 id="org10f1e64"><span class="section-number-4">1.23.2</span> Refactor the code</h4>
+<div class="outline-text-4" id="text-1-23-2">
+<p>
+Create a separate method for each value of the parameter
+</p>
+<div class="org-src-container">
+<pre class="src src-php"><span style="color: #00ffff;">final</span> <span style="color: #00ffff;">class</span> <span style="color: #98fb98;">EmailNotification</span>
+{
+    <span style="color: #00ffff;">public</span> <span style="color: #00ffff;">function</span> <span style="color: #87cefa;">send</span>(<span style="color: #98fb98;">string</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">to</span>, <span style="color: #98fb98;">string</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">body</span>, <span style="color: #98fb98;">string</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">from</span>)
+    {
+        <span style="color: #7fffd4;">$</span><span style="color: #7fffd4;">this</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #eedd82;">mailer</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #f5f5f5; background-color: #333333;">send</span>(<span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">to</span>, <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">body</span>, <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">from</span>);
+    }
+    
+    <span style="color: #00ffff;">public</span> <span style="color: #00ffff;">function</span> <span style="color: #87cefa;">sendFromDefaultSender</span>(<span style="color: #98fb98;">string</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">to</span>, <span style="color: #98fb98;">string</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">body</span>)
+    {
+        <span style="color: #7fffd4;">$</span><span style="color: #7fffd4;">this</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #eedd82;">mailer</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #f5f5f5; background-color: #333333;">send</span>(<span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">to</span>, <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">body</span>, <span style="color: #7fffd4;">$</span><span style="color: #7fffd4;">this</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #eedd82;">defaultSender</span>);
+    }
+}
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org17957ed" class="outline-4">
+<h4 id="org17957ed"><span class="section-number-4">1.23.3</span> Pass a test</h4>
+</div>
+</div>
+<div id="outline-container-org87759b6" class="outline-3">
+<h3 id="org87759b6"><span class="section-number-3">1.24</span> Replace Temp with Query</h3>
+<div class="outline-text-3" id="text-1-24">
+<p>
+Smell: Using a temporary variable to hold the result of an expression.
+Damage: Temporary variable increase the temptation to write longer methods. Temporaries aren’t necessarily bad, but sometimes they attract new code.
+</p>
+<div class="org-src-container">
+<pre class="src src-php"><span style="color: #00ffff;">public</span> <span style="color: #00ffff;">function</span> <span style="color: #87cefa;">getTotalPrice</span>(): <span style="color: #98fb98;">int</span>
+{
+    <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">basePrice</span> = <span style="color: #7fffd4;">$</span><span style="color: #7fffd4;">this</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #eedd82;">quantity</span> * <span style="color: #7fffd4;">$</span><span style="color: #7fffd4;">this</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #eedd82;">itemPrice</span>;
+
+    <span style="color: #00ffff;">if</span> (<span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">basePrice</span> &gt; <span style="color: #00ffff;">self</span><span style="color: #f5f5f5; background-color: #333333;">::</span><span style="color: #7fffd4;">DISCOUNT_POINT</span>) {
+        <span style="color: #00ffff;">return</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">basePrice</span> * <span style="color: #00ffff;">self</span><span style="color: #f5f5f5; background-color: #333333;">::</span><span style="color: #7fffd4;">DISCOUNT</span>;
+    }
+    <span style="color: #00ffff;">return</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">basePrice</span>;
+}
+</pre>
+</div>
+</div>
+<div id="outline-container-org0623dbf" class="outline-4">
+<h4 id="org0623dbf"><span class="section-number-4">1.24.1</span> Write a test that pass</h4>
+</div>
+<div id="outline-container-orgc6d63ef" class="outline-4">
+<h4 id="orgc6d63ef"><span class="section-number-4">1.24.2</span> Refactor the code</h4>
+<div class="outline-text-4" id="text-1-24-2">
+<p>
+Extract the expression into a method. Replace all references to the temp with the expression. The new method can then be used in other methods.
+</p>
+<div class="org-src-container">
+<pre class="src src-php"><span style="color: #00ffff;">public</span> <span style="color: #00ffff;">function</span> <span style="color: #87cefa;">getTotalPrice</span>(): <span style="color: #98fb98;">int</span>
+{
+    <span style="color: #00ffff;">if</span> (<span style="color: #7fffd4;">$</span><span style="color: #7fffd4;">this</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #f5f5f5; background-color: #333333;">getBasePrice</span>() &gt; <span style="color: #00ffff;">self</span><span style="color: #f5f5f5; background-color: #333333;">::</span><span style="color: #7fffd4;">DISCOUNT_POINT</span>) {
+        <span style="color: #00ffff;">return</span> <span style="color: #7fffd4;">$</span><span style="color: #7fffd4;">this</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #f5f5f5; background-color: #333333;">getBasePrice</span>() * <span style="color: #00ffff;">self</span><span style="color: #f5f5f5; background-color: #333333;">::</span><span style="color: #7fffd4;">DISCOUNT</span>;
+    }
+    <span style="color: #00ffff;">return</span> <span style="color: #7fffd4;">$</span><span style="color: #7fffd4;">this</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #f5f5f5; background-color: #333333;">getBasePrice</span>();
+}
+
+<span style="color: #00ffff;">public</span> <span style="color: #00ffff;">function</span> <span style="color: #87cefa;">getBasePrice</span>(): <span style="color: #98fb98;">int</span>
+{
+    <span style="color: #7fffd4;">$</span><span style="color: #7fffd4;">this</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #eedd82;">quantity</span> * <span style="color: #7fffd4;">$</span><span style="color: #7fffd4;">this</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #eedd82;">itemPrice</span>;
+}
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgd512837" class="outline-4">
+<h4 id="orgd512837"><span class="section-number-4">1.24.3</span> Pass a test</h4>
+</div>
+<div id="outline-container-org57219da" class="outline-4">
+<h4 id="org57219da"><span class="section-number-4">1.24.4</span> Info</h4>
+<div class="outline-text-4" id="text-1-24-4">
+<p>
+Now, but wait, you might say. Isn't this more inefficient? Because if we created the temp the old way, we'd only have to execute the expression once, but if we turn it into a method, we might be calling it many different times. And yes, you're absolutely right, but remember, the pure efficiency of the code is not our first goal in refactoring. Clarity is. The likelihood is that a typical expression you would deal with in this sort of refactoring is going to be so undemanding, it wouldn't be noticeable at all, even having to call it several more times. But if it is an intensive operation, an intensive expression, well you should really be working on that later, after you've refactored using profilers. And other tools to make sure you're not doing pointless, premature optimization. And the real benefit is that by creating this as its own method, we will also have use of it anywhere else in the class, which wasn't the case before. As the original temp was scoped to the original method. So, we won't be tempted to add more code to the original method just to have access to that temp.
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-orgb2be027" class="outline-3">
+<h3 id="orgb2be027"><span class="section-number-3">1.25</span> Replacing Type Code with Subclasses</h3>
+<div class="outline-text-3" id="text-1-25">
+<p>
+Smell: Immutable type code affecting the class behavior.
+</p>
+<div class="org-src-container">
+<pre class="src src-php"><span style="color: #00ffff;">final</span> <span style="color: #00ffff;">class</span> <span style="color: #98fb98;">Account</span>
+{
+    <span style="color: #ffa07a;">/**</span>
+<span style="color: #ffa07a;">     * </span><span style="color: #7fffd4;">@var</span><span style="color: #ffa07a;"> </span><span style="color: #98fb98;">int</span>
+<span style="color: #ffa07a;">     */</span>
+    <span style="color: #00ffff;">private</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">accountType</span>;
+
+    <span style="color: #ffa07a;">/**</span>
+<span style="color: #ffa07a;">     * </span><span style="color: #7fffd4;">@var</span><span style="color: #ffa07a;"> </span><span style="color: #98fb98;">float</span>
+<span style="color: #ffa07a;">     */</span>
+    <span style="color: #00ffff;">private</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">balance</span>;
+
+    <span style="color: #ffa07a;">/**</span>
+<span style="color: #ffa07a;">     * </span><span style="color: #7fffd4;">@var</span><span style="color: #ffa07a;"> </span><span style="color: #98fb98;">int</span>
+<span style="color: #ffa07a;">     */</span>
+    <span style="color: #00ffff;">public</span> <span style="color: #00ffff;">const</span> <span style="color: #7fffd4;">CHECKING</span> = 0;
+
+    <span style="color: #ffa07a;">/**</span>
+<span style="color: #ffa07a;">     * </span><span style="color: #7fffd4;">@var</span><span style="color: #ffa07a;"> </span><span style="color: #98fb98;">int</span>
+<span style="color: #ffa07a;">     */</span>
+    <span style="color: #00ffff;">public</span> <span style="color: #00ffff;">const</span> <span style="color: #7fffd4;">SAVINGS</span> = 1;
+
+    <span style="color: #ffa07a;">/**</span>
+<span style="color: #ffa07a;">     * </span><span style="color: #7fffd4;">@var</span><span style="color: #ffa07a;"> </span><span style="color: #98fb98;">int</span>
+<span style="color: #ffa07a;">     */</span>
+    <span style="color: #00ffff;">public</span> <span style="color: #00ffff;">const</span> <span style="color: #7fffd4;">INVESTMENT</span> = 2;
+
+    <span style="color: #00ffff;">public</span> <span style="color: #00ffff;">function</span> <span style="color: #87cefa;">__construct</span>(<span style="color: #98fb98;">int</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">accountType</span>)
+    {
+        <span style="color: #7fffd4;">$</span><span style="color: #7fffd4;">this</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #eedd82;">accountType</span> = <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">accountType</span>;
+    }
+
+    <span style="color: #00ffff;">public</span> <span style="color: #00ffff;">function</span> <span style="color: #87cefa;">getAccountType</span>(): <span style="color: #98fb98;">int</span>
+    {
+        <span style="color: #00ffff;">return</span> <span style="color: #7fffd4;">$</span><span style="color: #7fffd4;">this</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #eedd82;">accountType</span>;
+    }
+
+    <span style="color: #00ffff;">public</span> <span style="color: #00ffff;">function</span> <span style="color: #87cefa;">getBalance</span>(): <span style="color: #98fb98;">float</span>
+    {
+        <span style="color: #00ffff;">return</span> <span style="color: #7fffd4;">$</span><span style="color: #7fffd4;">this</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #eedd82;">balance</span>;
+    }
+
+    <span style="color: #00ffff;">public</span> <span style="color: #00ffff;">function</span> <span style="color: #87cefa;">withdraw</span>(<span style="color: #98fb98;">float</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">amount</span>): <span style="color: #98fb98;">void</span>
+    {
+        <span style="color: #00ffff;">switch</span> (<span style="color: #7fffd4;">$</span><span style="color: #7fffd4;">this</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #eedd82;">accountType</span>){
+            <span style="color: #00ffff;">case</span> <span style="color: #00ffff;">self</span><span style="color: #f5f5f5; background-color: #333333;">::</span><span style="color: #7fffd4;">CHECKING</span>:
+                <span style="color: #7fffd4;">$</span><span style="color: #7fffd4;">this</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #eedd82;">balance</span> -= <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">amount</span>;
+                <span style="color: #00ffff;">break</span>;
+            <span style="color: #00ffff;">case</span> <span style="color: #00ffff;">self</span><span style="color: #f5f5f5; background-color: #333333;">::</span><span style="color: #7fffd4;">SAVINGS</span>:
+                <span style="color: #7fffd4;">$</span><span style="color: #7fffd4;">this</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #eedd82;">balance</span> -= <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">amount</span> + 100;
+                <span style="color: #00ffff;">break</span>;
+            <span style="color: #00ffff;">case</span> <span style="color: #00ffff;">self</span><span style="color: #f5f5f5; background-color: #333333;">::</span><span style="color: #7fffd4;">INVESTMENT</span>:
+                <span style="color: #7fffd4;">$</span><span style="color: #7fffd4;">this</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #eedd82;">balance</span> -= <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">amount</span> + 300;
+                <span style="color: #00ffff;">break</span>;
+            <span style="color: #00ffff;">default</span>:
+                <span style="color: #00ffff;">throw</span> <span style="color: #00ffff;">new</span> <span style="color: #98fb98;">RuntimeException</span>(<span style="color: #ffa07a;">'Unknown Account Type'</span>);
+        }
+    }
+}
+</pre>
+</div>
+</div>
+<div id="outline-container-org115c5d2" class="outline-4">
+<h4 id="org115c5d2"><span class="section-number-4">1.25.1</span> Write a test that pass</h4>
+</div>
+<div id="outline-container-org2c5b621" class="outline-4">
+<h4 id="org2c5b621"><span class="section-number-4">1.25.2</span> Refactor the code</h4>
+<div class="outline-text-4" id="text-1-25-2">
+<p>
+Replace the type code with subclasses.
+</p>
+<div class="org-src-container">
+<pre class="src src-php"><span style="color: #00ffff;">abstract</span> <span style="color: #00ffff;">class</span> <span style="color: #98fb98;">Account</span>
+{
+    <span style="color: #ffa07a;">/**</span>
+<span style="color: #ffa07a;">     * </span><span style="color: #7fffd4;">@var</span><span style="color: #ffa07a;"> </span><span style="color: #98fb98;">float</span>
+<span style="color: #ffa07a;">     */</span>
+    <span style="color: #00ffff;">private</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">balance</span>;
+
+    <span style="color: #00ffff;">public</span> <span style="color: #00ffff;">function</span> <span style="color: #87cefa;">getBalance</span>(): <span style="color: #98fb98;">float</span>
+    {
+        <span style="color: #00ffff;">return</span> <span style="color: #7fffd4;">$</span><span style="color: #7fffd4;">this</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #eedd82;">balance</span>;
+    }
+    
+    <span style="color: #00ffff;">abstract</span> <span style="color: #00ffff;">public</span> <span style="color: #00ffff;">function</span> <span style="color: #87cefa;">withdraw</span>(<span style="color: #98fb98;">float</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">amount</span>): <span style="color: #98fb98;">void</span>
+}
+
+<span style="color: #00ffff;">final</span> <span style="color: #00ffff;">class</span> <span style="color: #98fb98;">AccountChecking</span> <span style="color: #00ffff;">extends</span> <span style="color: #98fb98;">Account</span>
+{
+    <span style="color: #00ffff;">public</span> <span style="color: #00ffff;">function</span> <span style="color: #87cefa;">withdraw</span>(<span style="color: #98fb98;">float</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">amount</span>): <span style="color: #98fb98;">void</span>
+    {
+        <span style="color: #7fffd4;">$</span><span style="color: #7fffd4;">this</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #eedd82;">balance</span> -= <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">amount</span>;
+    }
+}
+
+<span style="color: #00ffff;">final</span> <span style="color: #00ffff;">class</span> <span style="color: #98fb98;">AccountSavings</span> <span style="color: #00ffff;">extends</span> <span style="color: #98fb98;">Account</span>
+{
+    <span style="color: #00ffff;">public</span> <span style="color: #00ffff;">function</span> <span style="color: #87cefa;">withdraw</span>(<span style="color: #98fb98;">float</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">amount</span>): <span style="color: #98fb98;">void</span>
+    {
+        <span style="color: #7fffd4;">$</span><span style="color: #7fffd4;">this</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #eedd82;">balance</span> -= <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">amount</span> + 100;
+    }
+}
+
+<span style="color: #00ffff;">final</span> <span style="color: #00ffff;">class</span> <span style="color: #98fb98;">AccountInvestment</span> <span style="color: #00ffff;">extends</span> <span style="color: #98fb98;">Account</span>
+{
+    <span style="color: #00ffff;">public</span> <span style="color: #00ffff;">function</span> <span style="color: #87cefa;">withdraw</span>(<span style="color: #98fb98;">float</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">amount</span>): <span style="color: #98fb98;">void</span>
+    {
+        <span style="color: #7fffd4;">$</span><span style="color: #7fffd4;">this</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #eedd82;">balance</span> -= <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">amount</span> + 300;
+    }
+}
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgceaffeb" class="outline-4">
+<h4 id="orgceaffeb"><span class="section-number-4">1.25.3</span> Pass a test</h4>
+</div>
+</div>
+<div id="outline-container-orgfcbe3b3" class="outline-3">
+<h3 id="orgfcbe3b3"><span class="section-number-3">1.26</span> Separate Query from Modifier</h3>
+<div class="outline-text-3" id="text-1-26">
+<p>
+Smell: A method that returns a value but also changes the state of an object.
+</p>
+<div class="org-src-container">
+<pre class="src src-php"><span style="color: #00ffff;">final</span> <span style="color: #00ffff;">class</span> <span style="color: #98fb98;">Account</span>
+{
+    <span style="color: #ffa07a;">/**</span>
+<span style="color: #ffa07a;">     * </span><span style="color: #7fffd4;">@var</span><span style="color: #ffa07a;"> </span><span style="color: #98fb98;">float</span>
+<span style="color: #ffa07a;">     */</span>
+    <span style="color: #00ffff;">private</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">balance</span>;
+    
+    <span style="color: #00ffff;">public</span> <span style="color: #00ffff;">function</span> <span style="color: #87cefa;">withdrawAndGetBalance</span>(<span style="color: #98fb98;">float</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">amount</span>): <span style="color: #98fb98;">float</span>
+    {
+        <span style="color: #7fffd4;">$</span><span style="color: #7fffd4;">this</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #eedd82;">balance</span> -= <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">amount</span>;
+        <span style="color: #00ffff;">return</span> <span style="color: #7fffd4;">$</span><span style="color: #7fffd4;">this</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #eedd82;">balance</span>;
+    }
+}
+</pre>
+</div>
+</div>
+<div id="outline-container-org44ac0f5" class="outline-4">
+<h4 id="org44ac0f5"><span class="section-number-4">1.26.1</span> Write a test that pass</h4>
+</div>
+<div id="outline-container-org7cf1169" class="outline-4">
+<h4 id="org7cf1169"><span class="section-number-4">1.26.2</span> Refactor the code</h4>
+<div class="outline-text-4" id="text-1-26-2">
+<p>
+Create two methods, one for the query and one for the modification.
+</p>
+<div class="org-src-container">
+<pre class="src src-php"><span style="color: #00ffff;">final</span> <span style="color: #00ffff;">class</span> <span style="color: #98fb98;">Account</span>
+{
+    <span style="color: #ffa07a;">/**</span>
+<span style="color: #ffa07a;">     * </span><span style="color: #7fffd4;">@var</span><span style="color: #ffa07a;"> </span><span style="color: #98fb98;">float</span>
+<span style="color: #ffa07a;">     */</span>
+    <span style="color: #00ffff;">private</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">balance</span>;
+
+    <span style="color: #00ffff;">public</span> <span style="color: #00ffff;">function</span> <span style="color: #87cefa;">getBalance</span>(): <span style="color: #98fb98;">float</span>
+    {
+        <span style="color: #00ffff;">return</span> <span style="color: #7fffd4;">$</span><span style="color: #7fffd4;">this</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #eedd82;">balance</span>;
+    }
+
+    <span style="color: #00ffff;">public</span> <span style="color: #00ffff;">function</span> <span style="color: #87cefa;">withdraw</span>(<span style="color: #98fb98;">float</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">amount</span>): <span style="color: #98fb98;">void</span>
+    {
+        <span style="color: #7fffd4;">$</span><span style="color: #7fffd4;">this</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #eedd82;">balance</span> -= <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">amount</span>;
+    }
+}
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgf57f4b6" class="outline-4">
+<h4 id="orgf57f4b6"><span class="section-number-4">1.26.3</span> Pass a test</h4>
+</div>
+</div>
+<div id="outline-container-orgac6bd8b" class="outline-3">
+<h3 id="orgac6bd8b"><span class="section-number-3">1.27</span> Split Temporary Variable</h3>
+<div class="outline-text-3" id="text-1-27">
+<p>
+Smell: Temporary variable is assigned to more than once (overwrite), but is not a loop variable nor a collecting temporary variable.
+</p>
+<div class="org-src-container">
+<pre class="src src-php"><span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">temp</span> = <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">item</span>.getPrice() * item.getQuantity();
+<span style="color: #00ffff;">echo</span> <span style="color: #ffa07a;">"Total: </span><span style="color: #eedd82;">$temp</span><span style="color: #ffa07a;">"</span>;
+<span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">temp</span> = order.getTotal() - order.getDiscount();
+<span style="color: #00ffff;">echo</span> <span style="color: #ffa07a;">"Price after discount: </span><span style="color: #eedd82;">$temp</span><span style="color: #ffa07a;">;"</span>
+</pre>
+</div>
+</div>
+<div id="outline-container-orgf53c52e" class="outline-4">
+<h4 id="orgf53c52e"><span class="section-number-4">1.27.1</span> Write a test that pass</h4>
+</div>
+<div id="outline-container-org58a0068" class="outline-4">
+<h4 id="org58a0068"><span class="section-number-4">1.27.2</span> Refactor the code</h4>
+<div class="outline-text-4" id="text-1-27-2">
+<p>
+Make a separate temporary variable for each assignment.
+</p>
+<div class="org-src-container">
+<pre class="src src-php"><span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">totalPrice</span> = <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">item</span>.getPrice() * item.getQuantity();
+<span style="color: #00ffff;">echo</span> <span style="color: #ffa07a;">"Total: </span><span style="color: #eedd82;">$totalPrice</span><span style="color: #ffa07a;">"</span>;
+<span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">totalDiscountPrice</span> = order.getTotal() - order.getDiscount();
+<span style="color: #00ffff;">echo</span> <span style="color: #ffa07a;">"Price after discount: </span><span style="color: #eedd82;">$totalDiscountPrice</span><span style="color: #ffa07a;">"</span>;
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgb24b288" class="outline-4">
+<h4 id="orgb24b288"><span class="section-number-4">1.27.3</span> Pass a test</h4>
+</div>
+</div>
+</div>
+<div id="outline-container-orgf5408bc" class="outline-2">
+<h2 id="orgf5408bc"><span class="section-number-2">2</span> Books</h2>
+<div class="outline-text-2" id="text-2">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-right" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">author</th>
+<th scope="col" class="org-left">title</th>
+<th scope="col" class="org-left">topic</th>
+<th scope="col" class="org-left">info</th>
+<th scope="col" class="org-right">year</th>
+<th scope="col" class="org-left">&#xa0;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">Andrew Hunt, David Thomas</td>
+<td class="org-left">The Pragmatic Programmer: From Journeyman to Master</td>
+<td class="org-left">overall</td>
+<td class="org-left">skip</td>
+<td class="org-right">1999</td>
+<td class="org-left">a lot of tips &amp; tricks but too old</td>
+</tr>
+
+<tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">Antipatterns. Refactoring Software, Archtectures and Projects in Crisis</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">1998</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">Refactoring in Large Software Projects</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">2006</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">Antipatterns: Identification, Refactoring, and Management</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">2005</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">Fifty Quick Ideas To Improve Your Tests</td>
+<td class="org-left">tests</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">Growing Object-Oriented Software, Guided by Tests</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">Working Effectively with Unit Tests</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">Scalable Internet Architectures</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">SQL for Smarties: Advanced SQL Programming</td>
+<td class="org-left">database</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">2005</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">Mastering the SPL Library</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">Anthology  The Thoughtworks Anthology - Essays on Software Technology and Innovation</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">2008</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">Anthology  The ThoughtWorks Anthology 2 - More Essays on Software Technology and Innovation</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">2012</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">Beck, Kent</td>
+<td class="org-left">Extreme Programming Explained: Embrace Change</td>
+<td class="org-left">overall</td>
+<td class="org-left">can be read</td>
+<td class="org-right">1999</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">Bernstein, David Scott</td>
+<td class="org-left">Beyond Legacy Code</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">2015</td>
+<td class="org-left">Want to read</td>
+</tr>
+
+<tr>
+<td class="org-left">Bhargava, Aditya</td>
+<td class="org-left">Grokking Algorithms: An illustrated guide for programmers and other curious people</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">must read</td>
+<td class="org-right">2017</td>
+<td class="org-left">Fully illustrated, friendly, easy to read guide, worth to read. When you will stumble upon a problem, you will know how to recognize it and chose the right Algorithm</td>
+</tr>
+
+<tr>
+<td class="org-left">Bloch, Joshua</td>
+<td class="org-left">Effective Java</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">2018</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">Buenosvinos, Carlos</td>
+<td class="org-left">Domain-Driven Design in PHP</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">2016</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">Bugayenko, Yegor</td>
+<td class="org-left">Elegant Objects</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">2016</td>
+<td class="org-left">Want to read</td>
+</tr>
+
+<tr>
+<td class="org-left">Feathers, Michael</td>
+<td class="org-left">Working Effectively with Legacy Code</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">2005</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">Fowler, Martin</td>
+<td class="org-left">Refactoring: Improving the Design of Existing Code</td>
+<td class="org-left">refactoring</td>
+<td class="org-left">must have</td>
+<td class="org-right">1999</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">Fowler, Martin</td>
+<td class="org-left">Patterns of Enterprise Application Architecture</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">2012</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">Francesco Trucchia, Jacopo Romei</td>
+<td class="org-left">Pro PHP Refactoring</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">2010</td>
+<td class="org-left">Old, without PHP 7 but still the best PHP book about refactoring. Great examples. Worth to have.</td>
+</tr>
+
+<tr>
+<td class="org-left">Ganesh, Samarthyam; Tushar, Sharma</td>
+<td class="org-left">Refactoring for Software Design Smells: Managing Technical Debt</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">2015</td>
+<td class="org-left">Catalog of smells. Focus on smell point of view. Also they introduce smell classification scheme, naming scheme for design smells which helps to increase awerness of smells. So definetly must read. (Java)</td>
+</tr>
+
+<tr>
+<td class="org-left">Halladay, Steve</td>
+<td class="org-left">Principle-Based Refactoring: Learning Software Design Principles by Applying Refactoring Rules</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">2012</td>
+<td class="org-left">Want to read</td>
+</tr>
+
+<tr>
+<td class="org-left">Jones, Paul M.</td>
+<td class="org-left">Modernizing Legacy Apps In PHP</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">2014</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">Junade, Ali</td>
+<td class="org-left">Mastering PHP Design Patterns</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">2016</td>
+<td class="org-left">Little bit inmature, poorly written. Having a lot of tips and information about broad variaty of things which is a good place on website but not in the book. Code examples could be much better.</td>
+</tr>
+
+<tr>
+<td class="org-left">Karwin, Bill</td>
+<td class="org-left">SQL Antipatterns - Avoiding The Pitfalls of Database Programming</td>
+<td class="org-left">database</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">2010</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">Kerievsky, Joshua</td>
+<td class="org-left">Refactoring to Patterns</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">2004</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">Martin, Robert C.</td>
+<td class="org-left">Agile Software Development: Principles, Patterns, and Practices</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">2002</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">Martin, Robert C.</td>
+<td class="org-left">Clean Code: A Handbook of Agile Software Craftsmanship</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">2009</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">Rahman, Mizanur</td>
+<td class="org-left">PHP 7 Data Structures and Algorithms</td>
+<td class="org-left">refactoring</td>
+<td class="org-left">must have</td>
+<td class="org-right">2017</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">Scott J Ambler and Pramod J. Sadalage</td>
+<td class="org-left">Refactoring Databases - Evolutionary Database Design</td>
+<td class="org-left">refactoring</td>
+<td class="org-left">must read</td>
+<td class="org-right">2006</td>
+<td class="org-left">It's catalog of refactorings for database</td>
+</tr>
+
+<tr>
+<td class="org-left">Stephane Faroult, Pascal L'Hermite</td>
+<td class="org-left">Refactoring SQL Application</td>
+<td class="org-left">database</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">2008</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">Tornhill, Adam</td>
+<td class="org-left">Your Code as a Crime Scene - Use Forensic Techniques to Arrest Defects, Bottlenecks, and Bad Design in Your Programs</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">2015</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">West, David</td>
+<td class="org-left">Object Thinking</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">2004</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">Zandstra, Matt</td>
+<td class="org-left">PHP Objects, Patterns, and Practice</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">can be read</td>
+<td class="org-right">2008</td>
+<td class="org-left">Pretty old. But written with precise language and with great examples</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="outline-container-org2bbdbb9" class="outline-2">
+<h2 id="org2bbdbb9"><span class="section-number-2">3</span> Codebases</h2>
+<div class="outline-text-2" id="text-3">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-right" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Name</th>
+<th scope="col" class="org-right">Lines of Code</th>
+<th scope="col" class="org-left">Description</th>
+<th scope="col" class="org-left">Tutorials</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><a href="https://github.com/adamculp/refactoring101">Video Rental Shop</a></td>
+<td class="org-right">132</td>
+<td class="org-left">From Martin Fowler book "Refactoring: Improving the Design of Existing Code" converted to PHP</td>
+<td class="org-left"><a href="https://youtu.be/0DYIJdX6kB4">Refactoring 101</a></td>
+</tr>
+
+<tr>
+<td class="org-left"><a href="https://github.com/jbrains/trivia/tree/master/php">Legacy Code Retreat - Trivia Game</a></td>
+<td class="org-right">196</td>
+<td class="org-left">Designed for <a href="https://legacycoderetreat.typepad.com/">Legacy Code Retreat</a> events</td>
+<td class="org-left"><a href="https://code.tutsplus.com/series/refactoring-legacy-code--cms-633">Refactoring Legacy Code</a></td>
+</tr>
+
+<tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left"><a href="https://code.tutsplus.com/courses/techniques-for-refactoring-code">Techniques for Refactoring Code</a></td>
+</tr>
+
+<tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left"><a href="http://blog.adrianbolboaca.ro/2014/04/legacy-coderetreat/#sessions">Legacy Coderetreat (Java)</a></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div id="outline-container-orga0f6d4c" class="outline-3">
+<h3 id="orga0f6d4c"><span class="section-number-3">3.1</span> <a href="https://github.com/adamculp/refactoring101">Video Rental Shop</a></h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+   phploc
+Size
+  Lines of Code (LOC)                              132
+  Comment Lines of Code (CLOC)                      12 (9.09%)
+  Non-Comment Lines of Code (NCLOC)                120 (90.91%)
+  Logical Lines of Code (LLOC)                      48 (36.36%)
+    Classes                                         40 (83.33%)
+      Average Class Length                          13
+        Minimum Class Length                         6
+        Maximum Class Length                        24
+      Average Method Length                          2
+        Minimum Method Length                        1
+        Maximum Method Length                       19
+    Functions                                        0 (0.00%)
+      Average Function Length                        0
+    Not in classes or functions                      8 (16.67%)
+</p>
+
+<p>
+Cyclomatic Complexity
+  Average Complexity per LLOC                     0.17
+  Average Complexity per Class                    3.67
+    Minimum Class Complexity                      1.00
+    Maximum Class Complexity                      9.00
+  Average Complexity per Method                   1.73
+    Minimum Method Complexity                     1.00
+    Maximum Method Complexity                     9.00
+</p>
+
+<p>
+Dependencies
+  Global Accesses                                    0
+    Global Constants                                 0 (0.00%)
+    Global Variables                                 0 (0.00%)
+    Super-Global Variables                           0 (0.00%)
+  Attribute Accesses                                15
+    Non-Static                                      15 (100.00%)
+    Static                                           0 (0.00%)
+  Method Calls                                      14
+    Non-Static                                      14 (100.00%)
+    Static                                           0 (0.00%)
+</p>
+
+<p>
+Structure
+  Namespaces                                         0
+  Interfaces                                         0
+  Traits                                             0
+  Classes                                            3
+    Abstract Classes                                 0 (0.00%)
+    Concrete Classes                                 3 (100.00%)
+  Methods                                           11
+    Scope
+      Non-Static Methods                            11 (100.00%)
+      Static Methods                                 0 (0.00%)
+    Visibility
+      Public Methods                                11 (100.00%)
+      Non-Public Methods                             0 (0.00%)
+  Functions                                          0
+    Named Functions                                  0 (0.00%)
+    Anonymous Functions                              0 (0.00%)
+  Constants                                          3
+    Global Constants                                 0 (0.00%)
+    Class Constants                                  3 (100.00%)
+</p>
+</div>
+</div>
+<div id="outline-container-org6a304bf" class="outline-3">
+<h3 id="org6a304bf"><span class="section-number-3">3.2</span> <a href="https://github.com/jbrains/trivia/tree/master/php">Legacy Code Retreat - Trivia Game</a></h3>
+<div class="outline-text-3" id="text-3-2">
+<p>
+   phploc
+Size
+  Lines of Code (LOC)                              196
+  Comment Lines of Code (CLOC)                       0 (0.00%)
+  Non-Comment Lines of Code (NCLOC)                196 (100.00%)
+  Logical Lines of Code (LLOC)                      99 (50.51%)
+    Classes                                         88 (88.89%)
+      Average Class Length                          88
+        Minimum Class Length                        88
+        Maximum Class Length                        88
+      Average Method Length                          7
+        Minimum Method Length                        1
+        Maximum Method Length                       17
+    Functions                                        1 (1.01%)
+      Average Function Length                        1
+    Not in classes or functions                     10 (10.10%)
+</p>
+
+<p>
+Cyclomatic Complexity
+  Average Complexity per LLOC                     0.26
+  Average Complexity per Class                   25.00
+    Minimum Class Complexity                     25.00
+    Maximum Class Complexity                     25.00
+  Average Complexity per Method                   3.18
+    Minimum Method Complexity                     1.00
+    Maximum Method Complexity                    10.00
+</p>
+
+<p>
+Dependencies
+  Global Accesses                                    0
+    Global Constants                                 0 (0.00%)
+    Global Variables                                 0 (0.00%)
+    Super-Global Variables                           0 (0.00%)
+  Attribute Accesses                               115
+    Non-Static                                     115 (100.00%)
+    Static                                           0 (0.00%)
+  Method Calls                                      21
+    Non-Static                                      21 (100.00%)
+    Static                                           0 (0.00%)
+</p>
+
+<p>
+Structure
+  Namespaces                                         0
+  Interfaces                                         0
+  Traits                                             0
+  Classes                                            1
+    Abstract Classes                                 0 (0.00%)
+    Concrete Classes                                 1 (100.00%)
+  Methods                                           11
+    Scope
+      Non-Static Methods                            11 (100.00%)
+      Static Methods                                 0 (0.00%)
+    Visibility
+      Public Methods                                11 (100.00%)
+      Non-Public Methods                             0 (0.00%)
+  Functions                                          1
+    Named Functions                                  1 (100.00%)
+    Anonymous Functions                              0 (0.00%)
+  Constants                                          0
+    Global Constants                                 0 (0.00%)
+    Class Constants                                  0 (0.00%)
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgfafc93e" class="outline-2">
+<h2 id="orgfafc93e"><span class="section-number-2">4</span> Tutorials</h2>
+<div class="outline-text-2" id="text-4">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left"><a href="https://www.pluralsight.com/courses/automated-tests-phpunit">Automated Tests with PHPUnit</a></td>
+<td class="org-left">Anna Filina</td>
+<td class="org-left">testing - PHPUnit</td>
+</tr>
+
+<tr>
+<td class="org-left"><a href="https://industriallogic.com/xp/refactoring/catalog.html">Catalog of Refactoring to Patterns</a></td>
+<td class="org-left">Joshua Kerievsky</td>
+<td class="org-left">patterns</td>
+</tr>
+
+<tr>
+<td class="org-left"><a href="https://refactoring.com/catalog/">Catalog of Refactorings</a></td>
+<td class="org-left">Martin Fowler</td>
+<td class="org-left">refactoring</td>
+</tr>
+
+<tr>
+<td class="org-left"><a href="https://youtu.be/bkjIEywt45Y">Clean Application Development</a></td>
+<td class="org-left">Adam Culp</td>
+<td class="org-left">clean application</td>
+</tr>
+
+<tr>
+<td class="org-left"><a href="https://github.com/jupeter/clean-code-php">Clean Code PHP</a></td>
+<td class="org-left">Piotr Plenik</td>
+<td class="org-left">clean code</td>
+</tr>
+
+<tr>
+<td class="org-left"><a href="https://code.tutsplus.com/courses/detecting-code-smells">Detecting Code Smells</a></td>
+<td class="org-left">Patkós Csaba</td>
+<td class="org-left">refactoring</td>
+</tr>
+
+<tr>
+<td class="org-left"><a href="https://youtu.be/WW2qPKukoZY">Doctrine Best Practices</a></td>
+<td class="org-left">Marco Pivetta (Ocramius)</td>
+<td class="org-left">doctrine</td>
+</tr>
+
+<tr>
+<td class="org-left"><a href="https://www.pluralsight.com/courses/encapsulation-solid">Encapsulation and SOLID</a></td>
+<td class="org-left">Mark Seemann</td>
+<td class="org-left">SOLID</td>
+</tr>
+
+<tr>
+<td class="org-left"><a href="https://youtu.be/7LoShYRnljU">Extremely Defensive PHP Programming</a></td>
+<td class="org-left">Marco Pivetta (Ocramius)</td>
+<td class="org-left">defensive programming</td>
+</tr>
+
+<tr>
+<td class="org-left"><a href="https://youtu.be/Rdc3r2BJzWA">How to Refactor Like a Boss 1</a></td>
+<td class="org-left">Michael Cheng</td>
+<td class="org-left">refactoring</td>
+</tr>
+
+<tr>
+<td class="org-left"><a href="https://youtu.be/2iXayIx4WyQ">How to Refactor Like a Boss 2</a></td>
+<td class="org-left">Michael Cheng</td>
+<td class="org-left">refactoring</td>
+</tr>
+
+<tr>
+<td class="org-left"><a href="https://youtu.be/JCqbdVrIW30">HTTP Smoke Testing</a></td>
+<td class="org-left">Peter Heinz</td>
+<td class="org-left">testing - smoke test</td>
+</tr>
+
+<tr>
+<td class="org-left"><a href="https://www.udemy.com/introduction-to-testing-with-phpunit/">Introduction to Testing with PHPUnit</a></td>
+<td class="org-left">Trevor Sawler</td>
+<td class="org-left">testing - PHPUnit</td>
+</tr>
+
+<tr>
+<td class="org-left"><a href="http://blog.adrianbolboaca.ro/2014/04/legacy-coderetreat/#sessions">Legacy Coderetreat (Java)</a></td>
+<td class="org-left">Adrian Bolboaca</td>
+<td class="org-left">refactoring</td>
+</tr>
+
+<tr>
+<td class="org-left"><a href="https://github.com/exakat/php-static-analysis-tools">List of Static Analysis Tools</a></td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">analysis</td>
+</tr>
+
+<tr>
+<td class="org-left"><a href="https://www.lynda.com/PHP-tutorials/PHP-Testing-Legacy-Applications/669546-2.html">PHP: Testing Legacy Applications</a></td>
+<td class="org-left">Chris Hartjes</td>
+<td class="org-left">testing - PHPUnit</td>
+</tr>
+
+<tr>
+<td class="org-left"><a href="https://knpuniversity.com/screencast/phpunit">PHPUnit: Testing with a Bite</a></td>
+<td class="org-left">Ryan Weaver</td>
+<td class="org-left">testing - PHPUnit</td>
+</tr>
+
+<tr>
+<td class="org-left"><a href="https://www.lynda.com/Developer-Programming-Foundations-tutorials/Foundations-Programming-Refactoring-Code/122457-2.html">Programming Foundations: Refactoring Code</a></td>
+<td class="org-left">Simon Allardice</td>
+<td class="org-left">refactoring</td>
+</tr>
+
+<tr>
+<td class="org-left"><a href="https://www.lynda.com/Software-Development-tutorials/Programming-Foundations-Test-Driven-Development/124398-2.html">Programming Foundations: Test-Driven Development</a></td>
+<td class="org-left">Simon Allardice</td>
+<td class="org-left">testing - TDD</td>
+</tr>
+
+<tr>
+<td class="org-left"><a href="https://youtu.be/0DYIJdX6kB4">Refactoring 101</a></td>
+<td class="org-left">Adam Culp</td>
+<td class="org-left">refactoring</td>
+</tr>
+
+<tr>
+<td class="org-left"><a href="https://code.tutsplus.com/series/refactoring-legacy-code--cms-633">Refactoring Legacy Code</a></td>
+<td class="org-left">Patkós Csaba</td>
+<td class="org-left">refactoring</td>
+</tr>
+
+<tr>
+<td class="org-left"><a href="https://youtu.be/7v9ehGsPm1s">Refactoring Legacy Code</a></td>
+<td class="org-left">Adam Culp</td>
+<td class="org-left">refactoring</td>
+</tr>
+
+<tr>
+<td class="org-left"><a href="https://adamwathan.me/refactoring-to-collections/">Refactoring to Collections</a></td>
+<td class="org-left">Adam Wathan</td>
+<td class="org-left">collections</td>
+</tr>
+
+<tr>
+<td class="org-left"><a href="https://youtu.be/Fca-Ng0bzuk">Solving the N+1 Problem</a></td>
+<td class="org-left">Paul M. Jones</td>
+<td class="org-left">database</td>
+</tr>
+
+<tr>
+<td class="org-left"><a href="https://youtu.be/65NrzJ_5j58">Steps Toward Modernizing a Legacy Codebase</a></td>
+<td class="org-left">Paul M. Jones</td>
+<td class="org-left">refactoring</td>
+</tr>
+
+<tr>
+<td class="org-left"><a href="https://code.tutsplus.com/courses/techniques-for-refactoring-code">Techniques for Refactoring Code</a></td>
+<td class="org-left">Patkós Csaba</td>
+<td class="org-left">refactoring</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="outline-container-orgcef6775" class="outline-2">
+<h2 id="orgcef6775"><span class="section-number-2">5</span> Metrics</h2>
+<div class="outline-text-2" id="text-5">
+</div>
+<div id="outline-container-org0c19b5c" class="outline-3">
+<h3 id="org0c19b5c"><span class="section-number-3">5.1</span> Cyclomatic Complexity Number (CCN)</h3>
+<div class="outline-text-3" id="text-5-1">
+<p>
+Counts the available decision paths in a source code to determine it's complexity.
+Each decision path starts with one of the conditional statements from the following list:
+</p>
+<ul class="org-ul">
+<li>?</li>
+<li>&amp;&amp;</li>
+<li>||</li>
+<li>or</li>
+<li>and</li>
+<li>xor</li>
+<li>case</li>
+<li>catch</li>
+<li>elseif</li>
+<li>for</li>
+<li>foreach</li>
+<li>if</li>
+<li>while</li>
+</ul>
+
+<p>
+Cyclomatic Complexity Number is never less than 1, because there’s always at least one code path.
+</p>
+<ul class="org-ul">
+<li>1-4 has low complexity.</li>
+<li>5-7 is moderate and still easy to understand.</li>
+<li>6-10 has a high complexity.</li>
+<li>10+ is very complex and hard to understand.</li>
+</ul>
+<div class="org-src-container">
+<pre class="src src-php"><span style="color: #00ffff;">final</span> <span style="color: #00ffff;">class</span> <span style="color: #98fb98;">CyclomaticComplexityNumber</span>
+{
+    <span style="color: #ff7f24;">// </span><span style="color: #ff7f24;">Class Cyclomatic Complexity = 1</span>
+}
+
+<span style="color: #00ffff;">final</span> <span style="color: #00ffff;">class</span> <span style="color: #98fb98;">CyclomaticComplexityNumber</span>
+{
+
+    <span style="color: #00ffff;">public</span> <span style="color: #00ffff;">function</span> <span style="color: #87cefa;">one</span>()
+    {
+        <span style="color: #ff7f24;">// </span><span style="color: #ff7f24;">Function Cyclomatic Complexity = 1</span>
+    }
+
+    <span style="color: #00ffff;">public</span> <span style="color: #00ffff;">function</span> <span style="color: #87cefa;">two</span>()
+    {
+        <span style="color: #ff7f24;">// </span><span style="color: #ff7f24;">Function Cyclomatic Complexity = 1</span>
+    }
+
+    <span style="color: #ff7f24;">// </span><span style="color: #ff7f24;">Class Cyclomatic Complexity = 1</span>
+}
+
+<span style="color: #00ffff;">final</span> <span style="color: #00ffff;">class</span> <span style="color: #98fb98;">CyclomaticComplexityNumber</span>
+{
+
+    <span style="color: #00ffff;">public</span> <span style="color: #00ffff;">function</span> <span style="color: #87cefa;">one</span>()
+    {
+        <span style="color: #00ffff;">if</span>(<span style="color: #7fffd4;">true</span>){
+
+        }
+        <span style="color: #ff7f24;">// </span><span style="color: #ff7f24;">Function Cyclomatic Complexity = 2</span>
+    }
+
+    <span style="color: #00ffff;">public</span> <span style="color: #00ffff;">function</span> <span style="color: #87cefa;">two</span>()
+    {
+        <span style="color: #ff7f24;">// </span><span style="color: #ff7f24;">Function Cyclomatic Complexity = 1</span>
+    }
+
+    <span style="color: #ff7f24;">// </span><span style="color: #ff7f24;">Class Cyclomatic Complexity = 1 + 1 = 2</span>
+}
+
+<span style="color: #00ffff;">final</span> <span style="color: #00ffff;">class</span> <span style="color: #98fb98;">CyclomaticComplexityNumber</span>
+{
+
+    <span style="color: #00ffff;">public</span> <span style="color: #00ffff;">function</span> <span style="color: #87cefa;">one</span>()
+    {
+        <span style="color: #00ffff;">if</span>(<span style="color: #7fffd4;">true</span>){
+
+        }
+        <span style="color: #ff7f24;">// </span><span style="color: #ff7f24;">Function Cyclomatic Complexity = 2</span>
+    }
+
+    <span style="color: #00ffff;">public</span> <span style="color: #00ffff;">function</span> <span style="color: #87cefa;">two</span>()
+    {
+        <span style="color: #00ffff;">if</span>(<span style="color: #7fffd4;">true</span>){
+
+        }
+        <span style="color: #ff7f24;">// </span><span style="color: #ff7f24;">Function Cyclomatic Complexity = 2</span>
+    }
+
+    <span style="color: #ff7f24;">// </span><span style="color: #ff7f24;">Class Cyclomatic Complexity = 1 + 1 + 1 = 3</span>
+}
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org61222c8" class="outline-3">
+<h3 id="org61222c8"><span class="section-number-3">5.2</span> NPath Complexity</h3>
+<div class="outline-text-3" id="text-5-2">
+<div class="org-src-container">
+<pre class="src src-php"><span style="color: #00ffff;">function</span> <span style="color: #87cefa;">foo</span>(<span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">a</span>, <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">b</span>)
+{
+    <span style="color: #00ffff;">if</span> (<span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">a</span> &gt; 10) {
+        <span style="color: #00ffff;">echo</span> 1;
+    } <span style="color: #00ffff;">else</span> {
+        <span style="color: #00ffff;">echo</span> 2;
+    }
+    <span style="color: #00ffff;">if</span> (<span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">a</span> &gt; <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">b</span>) {
+        <span style="color: #00ffff;">echo</span> 3;
+    } <span style="color: #00ffff;">else</span> {
+        <span style="color: #00ffff;">echo</span> 4;
+    }
+}
+</pre>
+</div>
+<p>
+So here we have function with 4 possible outcomes, since we have 2 statements that have 2 possible outcomes each (2 * 2 = 4). That means that the functions Npath complexity is 4. If we would add another statement with 2 possible outcomes we would get a complexity of 8 since 2 * 2 * 2 = 8.
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org94361cf" class="outline-2">
+<h2 id="org94361cf"><span class="section-number-2">6</span> About</h2>
+<div class="outline-text-2" id="text-6">
+<p>
+It's a simple site about refactoring in PHP.
+</p>
+
+<p>
+You can contact me at slawomir.grochowski@gmail.com, <a href="https://twitter.com/s_grochowski">https://twitter.com/s_grochowski</a>, <a href="https://www.facebook.com/SlawomirGrochowski">https://www.facebook.com/SlawomirGrochowski</a>
+You can support this site: send some BitCoins 1D8xeRkxssTTLESfGZtPVoqVJDq7MJSqNx , send/buy one of the books I would like to read or just say Hello!
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: slk</p>
+<p class="date">Created: 2019-04-19 pią 10:31</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

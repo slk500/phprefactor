@@ -3,45 +3,80 @@
 #+Title: PHPRefactor
 
 * Books
+** Wake, William C.; Refactoring Workbook; 2003
+*** https://xp123.com/articles/refactoring-workbook/
+**** Taxonomy
+***** [[http://mikamantyla.eu/BadCodeSmellsTaxonomy.html][Mika Mäntylä]]
+***** [[http://www.industriallogic.com/wp-content/uploads/2005/09/smellstorefactorings.pdf][Joshua Kerievsky]]
+
+przerwałem bo mam tylko draft a nie pełną książke
+** Fowler, Martin; 2018
+- With any introductory example, however, I run into a problem. If I pick a large program, describing it and how it is refactored is too complicated for a mortal reader to work through.(...)  However, if I pick a program that is small enough to be comprehensible, refactoring does not look like it is worthwhile.
+ 
+- Thus, if I’m faced with modifying a program with hundreds of lines of code, I’d rather it be structured into a set of functions and other program elements that allow me to understand more easily what the program is doing. If the program lacks structure, it’s usually easier for me to add structure to the program first, and then make the change I need.
+
+- If the code works and doesn’t ever need to change, it’s perfectly fine to leave it alone. It would be nice to improve it, but unless someone needs to understand it, it isn’t causing any real harm. Yet as soon as someone does need to understand how that code works, and struggles to follow it, then you have to do something about it.
+
+- Refactoring changes the programs in small steps, so if you make a mistake, it is easy to find where the bug is.
+
+- Any fool can write code that a computer can understand. Good programmers write code that humans can understand.
+
+- The true test of good code is how easy it is to change it.
+
+- Refactoring (noun): a change made to the internal structure of software to make it easier to understand and cheaper to modify without changing its observable behavior
+
+- Refactoring (verb): to restructure software by applying a series of refactorings without changing its observable behavior.
+
+- Refactoring is very similar to performance optimization, as both involve carrying out code manipulations that don’t change the overall functionality of the program. The difference is the purpose: Refactoring is always done to make the code “easier to understand and cheaper to modify.” This might speed things up or slow things down. With performance optimization, I only care about speeding up the program, and am prepared to end up with code that is harder to work with if I really need that improved performance.
+
+- Without refactoring, the internal design—the architecture—of software tends to decay.As people change code to achieve short­term goals, often without a full comprehensionof the architecture, the code loses its structure. It becomes harder for me to see thedesign by reading the code. Loss of the structure of code has a cumulative effect. Theharder it is to see the design in the code, the harder it is for me to preserve it, and themore rapidly it decays. Regular refactoring helps keep the code in shape.
+
+- It reminds me of a statement Kent Beck often makes about himself: “I’m not a great programmer; I’m just a good programmer with great habits.” Refactoring helps me be much more effective at writing robust code. 
+
+- Branches. As I write this, a common approach in teams is for each team member to work on abranch of the code base using a version control system, and do considerable work onthat branch before integrating with a mainline (often called master or trunk) sharedacross the team. Often, this involves building a whole feature on a branch, notintegrating into the mainline until the feature is ready to be released into production.Fans of this approach claim that it keeps the mainline clear of any in­process code,provides a clear version history of feature additions, and allows features to be revertedeasily should they cause problems.There are downsides to feature branches like this. The longer I work on an isolatedbranch, the harder the job of integrating my work with mainline is going to be when I’mdone. Most people reduce this pain by frequently merging or re­basing from mainlineto my branch. But this doesn’t really solve the problem when several people areworking on individual feature branches. I distinguish between merging and integration.If I merge mainline into my code, this is a oneway movement—my branch changes butthe mainline doesn’t. I use “integrate” to mean a two­way process that pulls changesfrom mainline into my branch and then pushes the result back into mainline, changingboth. If Rachel is working on her branch I don’t see her changes until she integrateswith mainline; at that point, I have to merge her changes into my feature branch, whichmay mean considerable work. The hard part of this work is dealing with semanticchanges. Modern version control systems can do wonders with merging complexchanges to the program text, but they are blind to the semantics of the code. If I’vechanged the name of a function, my version control tool may easily integrate mychanges with Rachel’s. But if, in her branch, she added a call to a function that I’verenamed in mine, the code will fail.The problem of complicated merges gets exponentially worse as the length of featurebranches increases. Integrating branches that are four weeks old is more than twice ashard as those that are a couple of weeks old. Many people, therefore, argue for keepingfeature branches short—perhaps just a couple of days. Others, such as me, want themeven shorter than that. This is an approach called Continuous Integration (CI), alsoknown as Trunk­Based Development. With CI, each team member integrates withmainline at least once per day. This prevents any branches diverting too far from eachother and thus greatly reduces the complexity of merges. CI doesn’t come for free: Itmeans you use practices to ensure the mainline is healthy, learn to break large featuresinto smaller chunks, and use feature toggles (aka feature flags) to switch off any in­process features that can’t be broken down.Fans of CI like it partly because it reduces the complexity of merges, but the dominantreason to favor CI is that it’s far more compatible with refactoring. Refactorings ofteninvolve making lots of little changes all over the code base—which are particularlyprone to semantic merge conflicts (such as renaming a widely used function). Many ofus have seen feature­branching teams that find refactorings so exacerbate mergeproblems that they stop refactoring. CI and re­factoring work well together, which iswhy Kent Beck combined them in Extreme Programming.I’m not saying that you should never use feature branches. If they are sufficiently short,their problems are much reduced. (Indeed, users of CI usually also use branches, butintegrate them with mainline each day.) Feature branches may be the right techniquefor open source projects where you have infrequent commits from programmers whoyou don’t know well (and thus don’t trust). But in a full­time development team, thecost that feature branches impose on refactoring is excessive. Even if you don’t go to fullCI, I certainly urge you to integrate as frequently as possible. You should also considerthe objective evidence [Forsgren et al.] that teams that use CI are more effective insoftware delivery.
+
+131
+** Feathers, Michael; Working Effectively with Legacy Code; 2005
+** Others  
+   
+  | author                                                                            | title                                                                                                                | topic       | info        | year |                                                                                                                                                                                                              |
+  |-----------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------+-------------+-------------+------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+  | Andrew Hunt, David Thomas                                                         | The Pragmatic Programmer: From Journeyman to Master                                                                  | overall     | skip        | 1999 | a lot of tips & tricks but too old                                                                                                                                                                           |
+  | William J. Brown, Raphael C. Malveau, Hays W. "Skip" McCormick, Thomas J. Mowbray | Antipatterns. Refactoring Software, Archtectures and Projects in Crisis                                              |             |             | 1998 |                                                                                                                                                                                                              |
+  |                                                                                   | Refactoring in Large Software Projects                                                                               |             |             | 2006 |                                                                                                                                                                                                              |
+  | Phillip A. Laplante, Colin J. Neill                                               | Antipatterns: Identification, Refactoring, and Management                                                            |             |             | 2005 |                                                                                                                                                                                                              |
+  |                                                                                   | Fifty Quick Ideas To Improve Your Tests                                                                              | tests       |             |      |                                                                                                                                                                                                              |
+  |                                                                                   | Growing Object-Oriented Software, Guided by Tests                                                                    |             |             |      |                                                                                                                                                                                                              |
+  |                                                                                   | Working Effectively with Unit Tests                                                                                  |             |             |      |                                                                                                                                                                                                              |
+  |                                                                                   | Scalable Internet Architectures                                                                                      |             |             |      |                                                                                                                                                                                                              |
+  |                                                                                   | SQL for Smarties: Advanced SQL Programming                                                                           | database    |             | 2005 |                                                                                                                                                                                                              |
+  |                                                                                   | Mastering the SPL Library                                                                                            |             |             |      |                                                                                                                                                                                                              |
+  |                                                                                   | Anthology  The Thoughtworks Anthology - Essays on Software Technology and Innovation                                 |             |             | 2008 |                                                                                                                                                                                                              |
+  |                                                                                   | Anthology  The ThoughtWorks Anthology 2 - More Essays on Software Technology and Innovation                          |             |             | 2012 |                                                                                                                                                                                                              |
+  | Beck, Kent                                                                        | Extreme Programming Explained: Embrace Change                                                                        | overall     | can be read | 1999 |                                                                                                                                                                                                              |
+  | Bernstein, David Scott                                                            | Beyond Legacy Code                                                                                                   |             |             | 2015 | Want to read                                                                                                                                                                                                 |
+  | Bhargava, Aditya                                                                  | Grokking Algorithms: An illustrated guide for programmers and other curious people                                   |             | must read   | 2017 | Fully illustrated, friendly, easy to read guide, worth to read. When you will stumble upon a problem, you will know how to recognize it and chose the right Algorithm                                        |
+  | Bloch, Joshua                                                                     | Effective Java                                                                                                       |             |             | 2018 |                                                                                                                                                                                                              |
+  | Buenosvinos, Carlos                                                               | Domain-Driven Design in PHP                                                                                          |             |             | 2016 |                                                                                                                                                                                                              |
+  | Bugayenko, Yegor                                                                  | Elegant Objects                                                                                                      |             |             | 2016 | Want to read                                                                                                                                                                                                 |
+  | Fowler, Martin                                                                    | Refactoring: Improving the Design of Existing Code                                                                   | refactoring | must have   | 1999 |                                                                                                                                                                                                              |
+  | Fowler, Martin                                                                    | Patterns of Enterprise Application Architecture                                                                      |             |             | 2012 |                                                                                                                                                                                                              |
+  | Francesco Trucchia, Jacopo Romei                                                  | Pro PHP Refactoring                                                                                                  |             |             | 2010 | Old, without PHP 7 but still the best PHP book about refactoring. Great examples. Worth to have.                                                                                                             |
+  | Ganesh, Samarthyam; Tushar, Sharma                                                | Refactoring for Software Design Smells: Managing Technical Debt                                                      |             |             | 2015 | Catalog of smells. Focus on smell point of view. Also they introduce smell classification scheme, naming scheme for design smells which helps to increase awerness of smells. So definetly must read. (Java) |
+  | Halladay, Steve                                                                   | Principle-Based Refactoring: Learning Software Design Principles by Applying Refactoring Rules                       |             |             | 2012 | Want to read                                                                                                                                                                                                 |
+  | Jones, Paul M.                                                                    | Modernizing Legacy Apps In PHP                                                                                       |             |             | 2014 |                                                                                                                                                                                                              |
+  | Junade, Ali                                                                       | Mastering PHP Design Patterns                                                                                        |             |             | 2016 | Little bit inmature, poorly written. Having a lot of tips and information about broad variaty of things which is a good place on website but not in the book. Code examples could be much better.            |
+  | Karwin, Bill                                                                      | SQL Antipatterns - Avoiding The Pitfalls of Database Programming                                                     | database    |             | 2010 |                                                                                                                                                                                                              |
+  | Kerievsky, Joshua                                                                 | Refactoring to Patterns                                                                                              |             |             | 2004 |                                                                                                                                                                                                              |
+  | Martin, Robert C.                                                                 | Agile Software Development: Principles, Patterns, and Practices                                                      |             |             | 2002 |                                                                                                                                                                                                              |
+  | Martin, Robert C.                                                                 | Clean Code: A Handbook of Agile Software Craftsmanship                                                               |             |             | 2009 |                                                                                                                                                                                                              |
+  | Rahman, Mizanur                                                                   | PHP 7 Data Structures and Algorithms                                                                                 | refactoring | must have   | 2017 |                                                                                                                                                                                                              |
+  | Scott J Ambler and Pramod J. Sadalage                                             | Refactoring Databases - Evolutionary Database Design                                                                 | refactoring | must read   | 2006 | It's catalog of refactorings for database                                                                                                                                                                    |
+  | Stephane Faroult, Pascal L'Hermite                                                | Refactoring SQL Application                                                                                          | database    |             | 2008 |                                                                                                                                                                                                              |
+  | Tornhill, Adam                                                                    | Your Code as a Crime Scene - Use Forensic Techniques to Arrest Defects, Bottlenecks, and Bad Design in Your Programs |             |             | 2015 |                                                                                                                                                                                                              |
+  | West, David                                                                       | Object Thinking                                                                                                      |             |             | 2004 |                                                                                                                                                                                                              |
+  | Zandstra, Matt                                                                    | PHP Objects, Patterns, and Practice                                                                                  |             | can be read | 2008 | Pretty old. But written with precise language and with great examples                                                                                                                                        |
   
-| author                                | title                                                                                                                | topic       | info        | year |                                                                                                                                                                                                              |
-|---------------------------------------+----------------------------------------------------------------------------------------------------------------------+-------------+-------------+------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Andrew Hunt, David Thomas             | The Pragmatic Programmer: From Journeyman to Master                                                                  | overall     | skip        | 1999 | a lot of tips & tricks but too old                                                                                                                                                                           |
-|                                       | Antipatterns. Refactoring Software, Archtectures and Projects in Crisis                                              |             |             | 1998 |                                                                                                                                                                                                              |
-|                                       | Refactoring in Large Software Projects                                                                               |             |             | 2006 |                                                                                                                                                                                                              |
-|                                       | Antipatterns: Identification, Refactoring, and Management                                                            |             |             | 2005 |                                                                                                                                                                                                              |
-|                                       | Fifty Quick Ideas To Improve Your Tests                                                                              | tests       |             |      |                                                                                                                                                                                                              |
-|                                       | Growing Object-Oriented Software, Guided by Tests                                                                    |             |             |      |                                                                                                                                                                                                              |
-|                                       | Working Effectively with Unit Tests                                                                                  |             |             |      |                                                                                                                                                                                                              |
-|                                       | Scalable Internet Architectures                                                                                      |             |             |      |                                                                                                                                                                                                              |
-|                                       | SQL for Smarties: Advanced SQL Programming                                                                           | database    |             | 2005 |                                                                                                                                                                                                              |
-|                                       | Mastering the SPL Library                                                                                            |             |             |      |                                                                                                                                                                                                              |
-|                                       | Anthology  The Thoughtworks Anthology - Essays on Software Technology and Innovation                                 |             |             | 2008 |                                                                                                                                                                                                              |
-|                                       | Anthology  The ThoughtWorks Anthology 2 - More Essays on Software Technology and Innovation                          |             |             | 2012 |                                                                                                                                                                                                              |
-| Beck, Kent                            | Extreme Programming Explained: Embrace Change                                                                        | overall     | can be read | 1999 |                                                                                                                                                                                                              |
-| Bernstein, David Scott                | Beyond Legacy Code                                                                                                   |             |             | 2015 | Want to read                                                                                                                                                                                                 |
-| Bhargava, Aditya                      | Grokking Algorithms: An illustrated guide for programmers and other curious people                                   |             | must read   | 2017 | Fully illustrated, friendly, easy to read guide, worth to read. When you will stumble upon a problem, you will know how to recognize it and chose the right Algorithm                                        |
-| Bloch, Joshua                         | Effective Java                                                                                                       |             |             | 2018 |                                                                                                                                                                                                              |
-| Buenosvinos, Carlos                   | Domain-Driven Design in PHP                                                                                          |             |             | 2016 |                                                                                                                                                                                                              |
-| Bugayenko, Yegor                      | Elegant Objects                                                                                                      |             |             | 2016 | Want to read                                                                                                                                                                                                 |
-| Feathers, Michael                     | Working Effectively with Legacy Code                                                                                 |             |             | 2005 |                                                                                                                                                                                                              |
-| Fowler, Martin                        | Refactoring: Improving the Design of Existing Code                                                                   | refactoring | must have   | 1999 |                                                                                                                                                                                                              |
-| Fowler, Martin                        | Patterns of Enterprise Application Architecture                                                                      |             |             | 2012 |                                                                                                                                                                                                              |
-| Francesco Trucchia, Jacopo Romei      | Pro PHP Refactoring                                                                                                  |             |             | 2010 | Old, without PHP 7 but still the best PHP book about refactoring. Great examples. Worth to have.                                                                                                             |
-| Ganesh, Samarthyam; Tushar, Sharma    | Refactoring for Software Design Smells: Managing Technical Debt                                                      |             |             | 2015 | Catalog of smells. Focus on smell point of view. Also they introduce smell classification scheme, naming scheme for design smells which helps to increase awerness of smells. So definetly must read. (Java) |
-| Halladay, Steve                       | Principle-Based Refactoring: Learning Software Design Principles by Applying Refactoring Rules                       |             |             | 2012 | Want to read                                                                                                                                                                                                 |
-| Jones, Paul M.                        | Modernizing Legacy Apps In PHP                                                                                       |             |             | 2014 |                                                                                                                                                                                                              |
-| Junade, Ali                           | Mastering PHP Design Patterns                                                                                        |             |             | 2016 | Little bit inmature, poorly written. Having a lot of tips and information about broad variaty of things which is a good place on website but not in the book. Code examples could be much better.            |
-| Karwin, Bill                          | SQL Antipatterns - Avoiding The Pitfalls of Database Programming                                                     | database    |             | 2010 |                                                                                                                                                                                                              |
-| Kerievsky, Joshua                     | Refactoring to Patterns                                                                                              |             |             | 2004 |                                                                                                                                                                                                              |
-| Martin, Robert C.                     | Agile Software Development: Principles, Patterns, and Practices                                                      |             |             | 2002 |                                                                                                                                                                                                              |
-| Martin, Robert C.                     | Clean Code: A Handbook of Agile Software Craftsmanship                                                               |             |             | 2009 |                                                                                                                                                                                                              |
-| Rahman, Mizanur                       | PHP 7 Data Structures and Algorithms                                                                                 | refactoring | must have   | 2017 |                                                                                                                                                                                                              |
-| Scott J Ambler and Pramod J. Sadalage | Refactoring Databases - Evolutionary Database Design                                                                 | refactoring | must read   | 2006 | It's catalog of refactorings for database                                                                                                                                                                    |
-| Stephane Faroult, Pascal L'Hermite    | Refactoring SQL Application                                                                                          | database    |             | 2008 |                                                                                                                                                                                                              |
-| Tornhill, Adam                        | Your Code as a Crime Scene - Use Forensic Techniques to Arrest Defects, Bottlenecks, and Bad Design in Your Programs |             |             | 2015 |                                                                                                                                                                                                              |
-| West, David                           | Object Thinking                                                                                                      |             |             | 2004 |                                                                                                                                                                                                              |
-| Zandstra, Matt                        | PHP Objects, Patterns, and Practice                                                                                  |             | can be read | 2008 | Pretty old. But written with precise language and with great examples                                                                                                                                        |
 * Tutorials  
 | [[https://www.pluralsight.com/courses/automated-tests-phpunit][Automated Tests with PHPUnit]]                     | Anna Filina              | testing - PHPUnit     |
 | [[https://industriallogic.com/xp/refactoring/catalog.html][Catalog of Refactoring to Patterns]]               | Joshua Kerievsky         | patterns              |
@@ -307,7 +342,7 @@ final class User
 #+END_SRC
 *** Run a test
 ** Extract Class
-     SmellL Large Class
+   SmellL Large Class
 #+BEGIN_SRC php
 final class User
 {
@@ -341,8 +376,10 @@ final class Address
 }
 #+END_SRC
 *** Pass a test
-** Extract Method
-     Smell: Code fragment that can be grouped together
+** Extract Function
+   Alias: Extract Method
+   Inverse of: Inline Function
+   Smell: Code fragment that can be grouped together
 #+BEGIN_SRC php
 public function printInvoice(Invoice $invoice): void
 {
@@ -378,9 +415,33 @@ function printInvoiceFooter(Invoice $invoice): void
     echo '<br>';
     echo $invoice->getDate();
 }
+
+
+
  #+END_SRC
 *** Run a test
+*** Notes
+#+BEGIN_SRC php
+function printInvoice() {
+    $footer=function() {
+        echo "phpRefactor.com \n";
+        echo "2019";
+    };
+    
+    echo "Header \n";
+    $footer();
+}
+printInvoice();
+
+#+END_SRC
+
+#+RESULTS:
+: Header 
+: phpRefactor.com 
+: 2019
+
 ** Extract Variable
+   Alias: Introduce Explaining Variable
    Smell: Complicated expression
 #+BEGIN_SRC php
 if(($stock->checkStatus($order->getItem) > $order->getQuantity()) 
@@ -397,7 +458,6 @@ $addressMatches = $order->getCustomer()->getBillingAddress() === $order->getShip
 if($stockAvailable && $freeShipping && $addressMatches);
 #+END_SRC
 *** Pass a test
-    Info: In the books, this refactoring is called "Introduce Explaining Variable", but most tools and people now use the (better) name "extract variable"
 ** Inline Class
    Smell: A class isn't doing very much
 #+BEGIN_SRC php
@@ -414,24 +474,54 @@ final class TelephoneNumber
     private $number;
 }
 #+END_SRC
-** Inline Method
-   Smell: A method's body is just as clear as its name
+** DONE Inline Function
+   Smell: A function's body is just as clear as it's name
+#+NAME: inline_function
 #+BEGIN_SRC php
-public function calculateAreaOfCircle(float $radius): float
+class Circle
 {
-    return getValueOfPI() * $radius * $radius;
-}
+    public const RADIUS = 2;
 
-public function getValueOfPI(): float
-{
-    return pi();
+    public function getArea(): float
+    {
+        return $this->getValueOfPI() * self::RADIUS * self::RADIUS;
+    }
+
+    private function getValueOfPI(): float
+    {
+        return pi();
+    }
 }
 #+END_SRC
 *** Write a test that pass
+ #+NAME: inline_function_test
+#+BEGIN_SRC phpunit :noweb yes :noweb strip-export :exports both
+<<inline_function>>
+use PHPUnit\Framework\TestCase;
+
+class CircleTest extends TestCase
+{   
+    public function testGetArea()
+    {
+        $circle = new Circle();
+        $this->assertEquals( 12.566370614359172, $circle->getArea());
+    }
+}
+ #+END_SRC
+
+ #+RESULTS: inline_function_test
+ : PHPUnit 7.4.3 by Sebastian Bergmann and contributors.
+ : 
+ : .                                                                   1 / 1 (100%)
+ : 
+ : Time: 53 ms, Memory: 10.00MB
+ : 
+ : OK (1 test, 1 assertion)
+
 *** Refactor the code 
     Put the method's body into the body of its callers and remove the method.
 #+BEGIN_SRC php
-public function calculateAreaOfCircle(float $radius): float
+public function getArea(): float
 {
     return pi() * $radius * $radius;
 }
@@ -831,7 +921,7 @@ final class Item
 }
 #+END_SRC
 *** Pass a test
-** Replace Magic Number With Symbolic Constant
+** DONE Replace Magic Number With Symbolic Constant
    Smell: Number with a particular meaning
     #+NAME: replace_magic_number_with_symbolic_constant
      #+BEGIN_SRC php
@@ -1140,7 +1230,7 @@ $totalDiscountPrice = order.getTotal() - order.getDiscount();
 echo "Price after discount: $totalDiscountPrice";
 #+END_SRC
 *** Pass a test
-* TODO Smells                                                      :noexport:
+* TODO Smells
 ** Booch’s fundamental design principles
 *** abstraction
 **** Missing Abstraction
@@ -1421,19 +1511,71 @@ echo "Price after discount: $totalDiscountPrice";
 *** encapsulation
 *** modularization
 *** hierarchy
-** Normal
-:PROPERTIES:
-:Tile: Duplicated Code	
-:Tag: Within Classes	
-:Description: Same code structure in more than one place
-:Against: Don't Repeat Yourself (DRY)
+** Normal 
+*** Alias Duplicates
+#+BEGIN_SRC php
+use App\Model\Category\Query as CategoryQuery;
+use App\Model\Product\Contract\Query as ProductQueryInterface;
+use App\Contract\Query as
+#+END_SRC
+https://www.tomasvotruba.cz/blog/2019/05/02/alias-as-a-code-smell/
+*** Alternative Classes With Different Interfaces
+*** Comments
+    If you need a comment to explain what a block of code does, try Extract Function (106). If the method is already extracted but you still need a comment to explain what it does, use Change Function Declaration (124) to rename it. If you need to state some rules about the required state of the system, use Introduce Assertion (302).
+*** Data Class
+*** Data Clumps
+    Fix: Use Extract Class (182) on the fields to turn the clumps into an object.
+*** Divergent Change			
+    Within Classes
+*** Duplicated Code 	
+    Within Classes
+    Same code structure in more than one place
+    Don't Repeat Yourself (DRY)
+**** Same expression in different places 
+     The simplest duplicated code problem is when you have the same expression in two
+     methods of the same class. Then all you have to do is Extract Function and invoke the code from both places.
+     
+*** Feature Envy	
+    Between Classes	A method accesses the data of another object more than its own data
+*** Global Data
+    "Global data is especially nasty when it’s mutable. Global data that you can guarantee
+    never changes after the program starts is relatively safe—if you have a language that can
+    enforce that guarantee."
+    Fix: Encapsulate Variable
+*** Insider Trading
+*** Large Class		
+    Within Classes	
+    A class contains too many fields, methods, lines of code.
+    Fix: Extract Class, Extract Superclass, Replace Type Code with Subclass
+*** Lazy Element
+    It may be a function that’s named the same as its body code reads, or a class that is essentially one simple function.
+    Fix: Inline Function, Inline Class, Collapse Hierarchy
+*** Long Function	
+    Within Classes
+    Fix: Extract Function
+*** Long Parameter List			
+    Within Classes
+    Fix: Replace Parameter with Query, Preserve Whole Object, INtroduce PArameter Object, Remove Flag Argument, Combine Functions into Class
+*** Loops
+    Fix: Replace Loop with Pipeline
+*** Message Chains
+    You see message chains when a client asks one object for another object, which the client then asks for yet another object, which the client then asks for yet another another object, and so on.
 
 
-Long Method	Within Classes		
-Long Parameter List	Within Classes		
-Divergent Change	Within Classes		
-Large Class	Within Classes	A class contains to many fields, methods, lines of code	
-Feature Envy	Between Classes	A method accesses the data of another object more than its own data
+95 
+*** Middle Man
+    Fix: Remove Middle Man, Inline Function, Replace Superclass with Delegate, Replace Subclass with Delegate
+*** Mysterious Name
+    Fix: Change Function Declaration, Rename Variable, Rename Field
+*** Primitive Obsession
+    Primitive types: integers, floating point numbers and strings. Money, coordinates or ranges.
+    Fix: Replace Primitive with Object
+*** Refused Bequest
+*** Repeated Switches
+*** Shotgun Surgery
+*** Speculative Generality
+    “Oh, I think we’ll need the ability to do this kind of thing someday”
+*** Temporary Field
 * TODO Tools                                                       :noexport:
 * Codebases
 | Name                              | Lines of Code | Description                                                                                   | Tutorials                       |
@@ -1771,7 +1913,7 @@ if ((age < 20) || ((sales < 1200) && (hrsWorked > 15))) {}
 10	Big Ball of Mud			design	Separation of Concerns (SoC)
 11	Model-View-Controller	• The Model: Captures and centralizes all the domain model behaviour. This layer manages all the data, logic and business rules independently of the data representation. It can be said that the Model layer is the heart and soul of every MVC application. • The Controller: Orchestrates interactions between the other layers. Triggers actions on the model in order to update its state and refreshes the representations associated to the model. Additionally, the Controller can also send messages to the View layer in order to change the specific Model representation. • The View: A layer whose main purpose is to expose the differing representations of the Model layer and to give a way to trigger changes on the Model’s state.		architectural	
 12	Command Query Separation (CQS)			design
-
+** YAGNI
 * TODO PSR                                                         :noexport:
 Name	PSR	Community	Description
 Method names	camelCase() 21/22. lower_under 1/22	camelCase()	Based on an eye tracking study on camelCase and snake_case (PDF) from 2010, snake_case is 20% easier to read than camelCase!
@@ -1885,5 +2027,3 @@ So here we have function with 4 possible outcomes, since we have 2 statements th
   
   You can contact me at slawomir.grochowski@gmail.com, https://twitter.com/s_grochowski, https://www.facebook.com/SlawomirGrochowski
   You can support this site: send some BitCoins 1D8xeRkxssTTLESfGZtPVoqVJDq7MJSqNx , send/buy one of the books I would like to read or just say Hello!
-  
-  

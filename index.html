@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2019-05-06 pon 15:55 -->
+<!-- 2019-05-30 czw 10:27 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>PHPRefactor</title>
@@ -245,286 +245,292 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org3132678">1. Books</a>
+<li><a href="#org0727add">1. Books</a>
 <ul>
-<li><a href="#org9ed0fdb">1.1. Wake, William C.; Refactoring Workbook; 2003</a>
+<li><a href="#org6d553e8">1.1. Wake, William C.; Refactoring Workbook; 2003</a>
 <ul>
-<li><a href="#org0c15ecd">1.1.1. https://xp123.com/articles/refactoring-workbook/</a></li>
+<li><a href="#orgeec1b9e">1.1.1. https://xp123.com/articles/refactoring-workbook/</a></li>
 </ul>
 </li>
-<li><a href="#org4ca9ce4">1.2. Fowler, Martin; 2018</a></li>
-<li><a href="#org2e8c167">1.3. Feathers, Michael; Working Effectively with Legacy Code; 2005</a></li>
-<li><a href="#org3c4feb2">1.4. Others</a></li>
+<li><a href="#org96d4c4a">1.2. Fowler, Martin; 2018</a></li>
+<li><a href="#org4e01671">1.3. Feathers, Michael; Working Effectively with Legacy Code; 2005</a></li>
+<li><a href="#org8e73d5a">1.4. Others</a></li>
 </ul>
 </li>
-<li><a href="#org0dee2d6">2. Tutorials</a></li>
-<li><a href="#orgebab669">3. Refactorings</a>
+<li><a href="#org73dab74">2. Tutorials</a></li>
+<li><a href="#org9d400a3">3. Refactorings</a>
 <ul>
-<li><a href="#org470b2d4">3.1. Add PHPDoc</a>
+<li><a href="#org12eb6af">3.1. Add PHPDoc</a>
 <ul>
-<li><a href="#org8b4ce06">3.1.1. Refactor the code</a></li>
+<li><a href="#orgbfd8cde">3.1.1. Refactor the code</a></li>
 </ul>
 </li>
-<li><a href="#orgd400e16">3.2. Add Type-Hint</a>
+<li><a href="#org49ed99d">3.2. Add Type-Hint</a>
 <ul>
-<li><a href="#org52efd66">3.2.1. Refactor the code</a></li>
-<li><a href="#org1197b37">3.2.2. Helper</a></li>
-<li><a href="#org04c3603">3.2.3. Further Reading</a></li>
+<li><a href="#orgcbb80d6">3.2.1. Refactor the code</a></li>
+<li><a href="#org3c03746">3.2.2. Helper</a></li>
+<li><a href="#orgedfc5ba">3.2.3. Further Reading</a></li>
 </ul>
 </li>
-<li><a href="#orga2923eb">3.3. Consolidate Conditional Expression</a>
+<li><a href="#orgf7b80e2">3.3. Consolidate Conditional Expression</a>
 <ul>
-<li><a href="#orga71c619">3.3.1. Write a test that pass</a></li>
-<li><a href="#orgc442ed3">3.3.2. Refactor the code</a></li>
-<li><a href="#orgafd64d6">3.3.3. Pass a test</a></li>
+<li><a href="#orgd638b18">3.3.1. Write a test that pass</a></li>
+<li><a href="#org782c04e">3.3.2. Refactor the code</a></li>
+<li><a href="#org0cf9a9e">3.3.3. Pass a test</a></li>
 </ul>
 </li>
-<li><a href="#orgb822643">3.4. Consolidate Duplicate Conditional Fragments</a>
+<li><a href="#org8b94766">3.4. Consolidate Duplicate Conditional Fragments</a>
 <ul>
-<li><a href="#org5422c01">3.4.1. Write a test that pass</a></li>
-<li><a href="#org6a88e67">3.4.2. Refactor the code</a></li>
-<li><a href="#org4065e32">3.4.3. Pass a test</a></li>
+<li><a href="#org27f1d6d">3.4.1. Write a test that pass</a></li>
+<li><a href="#org71512fe">3.4.2. Refactor the code</a></li>
+<li><a href="#org7506ec3">3.4.3. Pass a test</a></li>
 </ul>
 </li>
-<li><a href="#orgc4b043a">3.5. Decompose Conditional</a>
+<li><a href="#org6808a2d">3.5. Decompose Conditional</a>
 <ul>
-<li><a href="#org15f022b">3.5.1. Write a test that pass</a></li>
-<li><a href="#org6ff40e9">3.5.2. Refactor the code</a></li>
-<li><a href="#orgd945337">3.5.3. Pass a test</a></li>
+<li><a href="#org0d709c8">3.5.1. Write a test that pass</a></li>
+<li><a href="#orgd6e1b62">3.5.2. Refactor the code</a></li>
+<li><a href="#org8a4a56b">3.5.3. Pass a test</a></li>
 </ul>
 </li>
-<li><a href="#org823d64b">3.6. Encapsulate Field</a>
+<li><a href="#org20d5f9e">3.6. Encapsulate Field</a>
 <ul>
-<li><a href="#orgc682b22">3.6.1. Write a test that pass</a></li>
-<li><a href="#orgb69e492">3.6.2. Refactor the code</a></li>
-<li><a href="#orgd2b6de5">3.6.3. Run a test</a></li>
+<li><a href="#orgdc5145b">3.6.1. Write a test that pass</a></li>
+<li><a href="#orgb4fc260">3.6.2. Refactor the code</a></li>
+<li><a href="#org073dfe0">3.6.3. Run a test</a></li>
 </ul>
 </li>
-<li><a href="#org4a7f6f5">3.7. Extract Class</a>
+<li><a href="#orgf2c501c">3.7. Extract Class</a>
 <ul>
-<li><a href="#orga3b8ca0">3.7.1. Write a test that pass</a></li>
-<li><a href="#orgaed3231">3.7.2. Refactor the code</a></li>
-<li><a href="#orgf4cb166">3.7.3. Pass a test</a></li>
+<li><a href="#org53d81de">3.7.1. Write a test that pass</a></li>
+<li><a href="#org81e93c8">3.7.2. Refactor the code</a></li>
+<li><a href="#orgec01da2">3.7.3. Pass a test</a></li>
 </ul>
 </li>
-<li><a href="#org38b6f0f">3.8. Extract Function</a>
+<li><a href="#org03d9554">3.8. Extract Function</a>
 <ul>
-<li><a href="#org3545ed5">3.8.1. Write a test that pass</a></li>
-<li><a href="#org6873908">3.8.2. Refactor the code</a></li>
-<li><a href="#orgec0b606">3.8.3. Run a test</a></li>
-<li><a href="#org5d30ef5">3.8.4. Notes</a></li>
+<li><a href="#org8c2d975">3.8.1. Write a test that pass</a></li>
+<li><a href="#orgcc7be9b">3.8.2. Refactor the code</a></li>
+<li><a href="#org684a6a1">3.8.3. Run a test</a></li>
+<li><a href="#org407fbe5">3.8.4. Notes</a></li>
 </ul>
 </li>
-<li><a href="#orgd55b7ec">3.9. Extract Variable</a>
+<li><a href="#org170bdff">3.9. Extract Variable</a>
 <ul>
-<li><a href="#org7367ded">3.9.1. Write a test that pass</a></li>
-<li><a href="#org5485612">3.9.2. Refactor the code</a></li>
-<li><a href="#org426ebe9">3.9.3. Pass a test</a></li>
+<li><a href="#org9d74525">3.9.1. Write a test that pass</a></li>
+<li><a href="#org80b4c54">3.9.2. Refactor the code</a></li>
+<li><a href="#org72fb013">3.9.3. Pass a test</a></li>
 </ul>
 </li>
-<li><a href="#org54d3c78">3.10. Inline Class</a></li>
-<li><a href="#org257b435">3.11. <span class="done DONE">DONE</span> Inline Function</a>
+<li><a href="#orgdf9f5a8">3.10. Inline Class</a></li>
+<li><a href="#orgb1c3708">3.11. <span class="done DONE">DONE</span> Inline Function</a>
 <ul>
-<li><a href="#org68db83d">3.11.1. Write a test that pass</a></li>
-<li><a href="#org263d006">3.11.2. Refactor the code</a></li>
-<li><a href="#org06dc190">3.11.3. Pass a test</a></li>
+<li><a href="#org5ee343b">3.11.1. Write a test that pass</a></li>
+<li><a href="#org9df2c4f">3.11.2. Refactor the code</a></li>
+<li><a href="#org9576cbe">3.11.3. Pass a test</a></li>
 </ul>
 </li>
-<li><a href="#org4fabbdd">3.12. Introduce Parameter Object</a>
+<li><a href="#orgd61a4cf">3.12. Inline Variable</a>
 <ul>
-<li><a href="#org1679078">3.12.1. Write a test that pass</a></li>
-<li><a href="#org41dd372">3.12.2. Refactor the code</a></li>
-<li><a href="#org1d4953a">3.12.3. Pass a test</a></li>
+<li><a href="#org7e92b9b">3.12.1. Refactor the code</a></li>
 </ul>
 </li>
-<li><a href="#org21d67ba">3.13. Optimize Imports</a>
+<li><a href="#org0e6376f">3.13. Introduce Parameter Object</a>
 <ul>
-<li><a href="#org0b8309a">3.13.1. Write a test that pass</a></li>
-<li><a href="#orgb9172a9">3.13.2. Refactor the code</a></li>
-<li><a href="#orgf002f36">3.13.3. Pass a test</a></li>
+<li><a href="#org474ab54">3.13.1. Write a test that pass</a></li>
+<li><a href="#orgfdc6cfb">3.13.2. Refactor the code</a></li>
+<li><a href="#orga01e88b">3.13.3. Pass a test</a></li>
 </ul>
 </li>
-<li><a href="#orgd900dc6">3.14. Move Method</a>
+<li><a href="#org86fa778">3.14. Optimize Imports</a>
 <ul>
-<li><a href="#org3455780">3.14.1. Write a test that pass</a></li>
-<li><a href="#org898ced9">3.14.2. Refactor the code</a></li>
-<li><a href="#org75290bd">3.14.3. Pass a test</a></li>
+<li><a href="#org04ba8c9">3.14.1. Write a test that pass</a></li>
+<li><a href="#org56dd567">3.14.2. Refactor the code</a></li>
+<li><a href="#orgdf52719">3.14.3. Pass a test</a></li>
 </ul>
 </li>
-<li><a href="#org7faceae">3.15. Parameterize Method</a>
+<li><a href="#org08d7019">3.15. Move Method</a>
 <ul>
-<li><a href="#org7bc87e9">3.15.1. <span class="todo TODO">TODO</span> Write a test that pass</a></li>
-<li><a href="#org8868835">3.15.2. Refactor the code</a></li>
-<li><a href="#org51080a2">3.15.3. Pass a test</a></li>
+<li><a href="#orgeceea03">3.15.1. Write a test that pass</a></li>
+<li><a href="#orge2f6b9b">3.15.2. Refactor the code</a></li>
+<li><a href="#org5b6c590">3.15.3. Pass a test</a></li>
 </ul>
 </li>
-<li><a href="#org5df337d">3.16. Preserve Whole Object</a>
+<li><a href="#org45ee4d4">3.16. Parameterize Method</a>
 <ul>
-<li><a href="#orgaa6f577">3.16.1. Write a test that pass</a></li>
-<li><a href="#orga181fe7">3.16.2. Refactor the code</a></li>
-<li><a href="#orgc0eab2d">3.16.3. Pass a test</a></li>
-<li><a href="#org4cd4618">3.16.4. Refactor the code</a></li>
-<li><a href="#org30ef161">3.16.5. Pass a test</a></li>
-<li><a href="#org8de0ac7">3.16.6. Refactor the code</a></li>
-<li><a href="#org060a476">3.16.7. Pass a test</a></li>
+<li><a href="#org7b61856">3.16.1. <span class="todo TODO">TODO</span> Write a test that pass</a></li>
+<li><a href="#org7796503">3.16.2. Refactor the code</a></li>
+<li><a href="#orgb3734f4">3.16.3. Pass a test</a></li>
 </ul>
 </li>
-<li><a href="#org8f1c919">3.17. Pull Up Method</a>
+<li><a href="#orgd73e63c">3.17. Preserve Whole Object</a>
 <ul>
-<li><a href="#orgaeea648">3.17.1. Write a test that pass</a></li>
-<li><a href="#org0f431ce">3.17.2. Refactor the code</a></li>
-<li><a href="#orgd279328">3.17.3. Pass a test</a></li>
+<li><a href="#orgf4963d0">3.17.1. Write a test that pass</a></li>
+<li><a href="#org93c739e">3.17.2. Refactor the code</a></li>
+<li><a href="#org608a17c">3.17.3. Pass a test</a></li>
+<li><a href="#org0211510">3.17.4. Refactor the code</a></li>
+<li><a href="#org79f9ec5">3.17.5. Pass a test</a></li>
+<li><a href="#org11ce400">3.17.6. Refactor the code</a></li>
+<li><a href="#org2c18448">3.17.7. Pass a test</a></li>
 </ul>
 </li>
-<li><a href="#org4f66533">3.18. Remove Assignments to Parameters</a>
+<li><a href="#org8c4b4b0">3.18. Pull Up Method</a>
 <ul>
-<li><a href="#org5ac99eb">3.18.1. Write a test that pass</a></li>
-<li><a href="#orge530466">3.18.2. Refactor the code</a></li>
-<li><a href="#org37db70d">3.18.3. Pass a test</a></li>
-<li><a href="#org54e63ae">3.18.4. Info</a></li>
+<li><a href="#org41c1811">3.18.1. Write a test that pass</a></li>
+<li><a href="#org9e17d1c">3.18.2. Refactor the code</a></li>
+<li><a href="#org2ce1e28">3.18.3. Pass a test</a></li>
 </ul>
 </li>
-<li><a href="#org5023377">3.19. Remove PHPDoc</a>
+<li><a href="#org6f349f2">3.19. Remove Assignments to Parameters</a>
 <ul>
-<li><a href="#orgf5e211a">3.19.1. Write a test that pass</a></li>
-<li><a href="#org632bc6a">3.19.2. Refactor the code</a></li>
-<li><a href="#orgf332642">3.19.3. Pass a test</a></li>
+<li><a href="#org7f98786">3.19.1. Write a test that pass</a></li>
+<li><a href="#orgdb16b14">3.19.2. Refactor the code</a></li>
+<li><a href="#org5d12acb">3.19.3. Pass a test</a></li>
+<li><a href="#orgfc310a1">3.19.4. Info</a></li>
 </ul>
 </li>
-<li><a href="#orgd9a3639">3.20. Rename Method</a>
+<li><a href="#org1f1d57c">3.20. Remove PHPDoc</a>
 <ul>
-<li><a href="#org4c30215">3.20.1. Write a test that pass</a></li>
-<li><a href="#org44b3d16">3.20.2. Refactor the code</a></li>
-<li><a href="#org2459e03">3.20.3. Pass a test</a></li>
+<li><a href="#orgbc94424">3.20.1. Write a test that pass</a></li>
+<li><a href="#org45a2c63">3.20.2. Refactor the code</a></li>
+<li><a href="#org4f9ce2f">3.20.3. Pass a test</a></li>
 </ul>
 </li>
-<li><a href="#org7927502">3.21. Replace Global with Dependency Injection</a>
+<li><a href="#org2a31de9">3.21. Rename Method</a>
 <ul>
-<li><a href="#org63d32e5">3.21.1. Write a test that pass</a></li>
-<li><a href="#org1cb3da1">3.21.2. Refactor the code</a></li>
-<li><a href="#org0bb20a9">3.21.3. Pass a test</a></li>
+<li><a href="#org2bcb6fa">3.21.1. Write a test that pass</a></li>
+<li><a href="#org00ecabb">3.21.2. Refactor the code</a></li>
+<li><a href="#org1091f64">3.21.3. Pass a test</a></li>
 </ul>
 </li>
-<li><a href="#org8749a81">3.22. <span class="done DONE">DONE</span> Replace Magic Number With Symbolic Constant</a>
+<li><a href="#org2e86f67">3.22. Replace Global with Dependency Injection</a>
 <ul>
-<li><a href="#org5db8eae">3.22.1. Write a test that pass</a></li>
-<li><a href="#org0950d38">3.22.2. Refactor the code</a></li>
-<li><a href="#orgf25f219">3.22.3. Run a test</a></li>
-<li><a href="#orge763ec6">3.22.4. Helper:</a></li>
+<li><a href="#org2a60e5e">3.22.1. Write a test that pass</a></li>
+<li><a href="#orgb795c10">3.22.2. Refactor the code</a></li>
+<li><a href="#orgc7c65b3">3.22.3. Pass a test</a></li>
 </ul>
 </li>
-<li><a href="#org6593079">3.23. Replace Parameter with Method</a>
+<li><a href="#org5fd31f9">3.23. <span class="done DONE">DONE</span> Replace Magic Number With Symbolic Constant</a>
 <ul>
-<li><a href="#org332f736">3.23.1. Write a test that pass</a></li>
-<li><a href="#org1f4146c">3.23.2. Refactor the code</a></li>
-<li><a href="#orga6bc1b8">3.23.3. Pass a test</a></li>
+<li><a href="#orga8a36cc">3.23.1. Write a test that pass</a></li>
+<li><a href="#org0323854">3.23.2. Refactor the code</a></li>
+<li><a href="#orga6c0f6d">3.23.3. Run a test</a></li>
+<li><a href="#org487990c">3.23.4. Helper:</a></li>
 </ul>
 </li>
-<li><a href="#org51b9a66">3.24. Replace Temp with Query</a>
+<li><a href="#org1f52587">3.24. Replace Parameter with Method</a>
 <ul>
-<li><a href="#orgc89332f">3.24.1. Write a test that pass</a></li>
-<li><a href="#org797d7b8">3.24.2. Refactor the code</a></li>
-<li><a href="#orge6366be">3.24.3. Pass a test</a></li>
-<li><a href="#org33f01f2">3.24.4. Info</a></li>
+<li><a href="#org5944c53">3.24.1. Write a test that pass</a></li>
+<li><a href="#org473e303">3.24.2. Refactor the code</a></li>
+<li><a href="#orga3e50be">3.24.3. Pass a test</a></li>
 </ul>
 </li>
-<li><a href="#org7f1acbf">3.25. Replacing Type Code with Subclasses</a>
+<li><a href="#orgf2c1200">3.25. Replace Temp with Query</a>
 <ul>
-<li><a href="#org766dbba">3.25.1. Write a test that pass</a></li>
-<li><a href="#orge4b6002">3.25.2. Refactor the code</a></li>
-<li><a href="#org54b1735">3.25.3. Pass a test</a></li>
+<li><a href="#org3e9eadf">3.25.1. Write a test that pass</a></li>
+<li><a href="#org7339923">3.25.2. Refactor the code</a></li>
+<li><a href="#org1259ac1">3.25.3. Pass a test</a></li>
+<li><a href="#orga62ee06">3.25.4. Info</a></li>
 </ul>
 </li>
-<li><a href="#org0ae6881">3.26. Separate Query from Modifier</a>
+<li><a href="#org5062e2e">3.26. Replacing Type Code with Subclasses</a>
 <ul>
-<li><a href="#org1a5de25">3.26.1. Write a test that pass</a></li>
-<li><a href="#org0aba3ff">3.26.2. Refactor the code</a></li>
-<li><a href="#org2c7cc99">3.26.3. Pass a test</a></li>
+<li><a href="#org135fe6a">3.26.1. Write a test that pass</a></li>
+<li><a href="#org3d4fb2d">3.26.2. Refactor the code</a></li>
+<li><a href="#org00b2e1c">3.26.3. Pass a test</a></li>
 </ul>
 </li>
-<li><a href="#orga187293">3.27. Split Temporary Variable</a>
+<li><a href="#orgfc896bd">3.27. Separate Query from Modifier</a>
 <ul>
-<li><a href="#orgff001ff">3.27.1. Write a test that pass</a></li>
-<li><a href="#orgea5edf5">3.27.2. Refactor the code</a></li>
-<li><a href="#org55ea2bc">3.27.3. Pass a test</a></li>
+<li><a href="#orgd7db2d7">3.27.1. Write a test that pass</a></li>
+<li><a href="#org108262f">3.27.2. Refactor the code</a></li>
+<li><a href="#org70c7a95">3.27.3. Pass a test</a></li>
 </ul>
 </li>
-</ul>
-</li>
-<li><a href="#org2f5a4f7">4. <span class="todo TODO">TODO</span> Smells</a>
+<li><a href="#orgff8695e">3.28. Split Temporary Variable</a>
 <ul>
-<li><a href="#org3974150">4.1. Booch’s fundamental design principles</a>
-<ul>
-<li><a href="#orgeb8c1ae">4.1.1. abstraction</a></li>
-<li><a href="#org898852d">4.1.2. encapsulation</a></li>
-<li><a href="#org8bce407">4.1.3. modularization</a></li>
-<li><a href="#org15d6343">4.1.4. hierarchy</a></li>
-</ul>
-</li>
-<li><a href="#orgce25c2a">4.2. Normal</a>
-<ul>
-<li><a href="#orgfd2eebf">4.2.1. Alias Duplicates</a></li>
-<li><a href="#org4419248">4.2.2. Alternative Classes With Different Interfaces</a></li>
-<li><a href="#org064c85a">4.2.3. Comments</a></li>
-<li><a href="#org52a97c7">4.2.4. Data Class</a></li>
-<li><a href="#orgeeb5f3d">4.2.5. Data Clumps</a></li>
-<li><a href="#org96c9bf8">4.2.6. Divergent Change</a></li>
-<li><a href="#org5efa4dd">4.2.7. Duplicated Code</a></li>
-<li><a href="#org422dc86">4.2.8. Feature Envy</a></li>
-<li><a href="#org5a7630a">4.2.9. Global Data</a></li>
-<li><a href="#orgb5f4ac6">4.2.10. Insider Trading</a></li>
-<li><a href="#org325c939">4.2.11. Large Class</a></li>
-<li><a href="#org7ef8ca9">4.2.12. Lazy Element</a></li>
-<li><a href="#orgbeba3cf">4.2.13. Long Function</a></li>
-<li><a href="#orgd5c6cdc">4.2.14. Long Parameter List</a></li>
-<li><a href="#orgde5da0d">4.2.15. Loops</a></li>
-<li><a href="#org9141912">4.2.16. Message Chains</a></li>
-<li><a href="#orgd15bc56">4.2.17. Middle Man</a></li>
-<li><a href="#org270ed52">4.2.18. Mysterious Name</a></li>
-<li><a href="#org4d24164">4.2.19. Primitive Obsession</a></li>
-<li><a href="#orgbea8016">4.2.20. Refused Bequest</a></li>
-<li><a href="#orga6f45dc">4.2.21. Repeated Switches</a></li>
-<li><a href="#orgd6e5964">4.2.22. Shotgun Surgery</a></li>
-<li><a href="#orgb84212d">4.2.23. Speculative Generality</a></li>
-<li><a href="#org9665381">4.2.24. Temporary Field</a></li>
+<li><a href="#org1912702">3.28.1. Write a test that pass</a></li>
+<li><a href="#org5a935f3">3.28.2. Refactor the code</a></li>
+<li><a href="#orgce537eb">3.28.3. Pass a test</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#org40a14fa">5. Codebases</a>
+<li><a href="#org0518fc5">4. <span class="todo TODO">TODO</span> Smells</a>
 <ul>
-<li><a href="#org44406da">5.1. Video Rental Shop</a></li>
-<li><a href="#org2484116">5.2. Legacy Code Retreat - Trivia Game</a></li>
+<li><a href="#orgd1a114b">4.1. Booch’s fundamental design principles</a>
+<ul>
+<li><a href="#org0d7ed64">4.1.1. abstraction</a></li>
+<li><a href="#org9f34f1e">4.1.2. encapsulation</a></li>
+<li><a href="#org7e25726">4.1.3. modularization</a></li>
+<li><a href="#orgb339b1f">4.1.4. hierarchy</a></li>
 </ul>
 </li>
-<li><a href="#orgd61bb27">6. Metrics</a>
+<li><a href="#orgdb6e8b5">4.2. Normal</a>
 <ul>
-<li><a href="#org64c2cea">6.1. Cyclomatic Complexity Number (CCN)</a></li>
-<li><a href="#org3a22647">6.2. NPath Complexity</a></li>
+<li><a href="#org4cba639">4.2.1. Alias Duplicates</a></li>
+<li><a href="#org2068a50">4.2.2. Alternative Classes With Different Interfaces</a></li>
+<li><a href="#orgfd35c88">4.2.3. Comments</a></li>
+<li><a href="#org6840448">4.2.4. Data Class</a></li>
+<li><a href="#org3bb8ec4">4.2.5. Data Clumps</a></li>
+<li><a href="#org76c8df7">4.2.6. Divergent Change</a></li>
+<li><a href="#orgd982e2b">4.2.7. Duplicated Code</a></li>
+<li><a href="#org5e8dda6">4.2.8. Feature Envy</a></li>
+<li><a href="#orgde746db">4.2.9. Global Data</a></li>
+<li><a href="#org8c90ef3">4.2.10. Insider Trading</a></li>
+<li><a href="#org93cb5ea">4.2.11. Large Class</a></li>
+<li><a href="#orgcfcdadc">4.2.12. Lazy Element</a></li>
+<li><a href="#orga277125">4.2.13. Long Function</a></li>
+<li><a href="#orga1b558e">4.2.14. Long Parameter List</a></li>
+<li><a href="#org2cdf5c5">4.2.15. Loops</a></li>
+<li><a href="#orga4eac2f">4.2.16. Message Chains</a></li>
+<li><a href="#org3b4bcae">4.2.17. Middle Man</a></li>
+<li><a href="#org242e14b">4.2.18. Mysterious Name</a></li>
+<li><a href="#orgbd18f62">4.2.19. Primitive Obsession</a></li>
+<li><a href="#org7d97e3d">4.2.20. Refused Bequest</a></li>
+<li><a href="#orgf8e39cb">4.2.21. Repeated Switches</a></li>
+<li><a href="#org72c6e1d">4.2.22. Shotgun Surgery</a></li>
+<li><a href="#org5cbeabd">4.2.23. Speculative Generality</a></li>
+<li><a href="#org9e174d7">4.2.24. Temporary Field</a></li>
 </ul>
 </li>
-<li><a href="#org36f418d">7. About</a></li>
+</ul>
+</li>
+<li><a href="#org9eeee11">5. Codebases</a>
+<ul>
+<li><a href="#org6252f17">5.1. Video Rental Shop</a></li>
+<li><a href="#org66f4ae4">5.2. Legacy Code Retreat - Trivia Game</a></li>
+</ul>
+</li>
+<li><a href="#org4ca729e">6. Jokes</a></li>
+<li><a href="#org4e919a3">7. Metrics</a>
+<ul>
+<li><a href="#org223a322">7.1. Cyclomatic Complexity Number (CCN)</a></li>
+<li><a href="#org1842568">7.2. NPath Complexity</a></li>
+</ul>
+</li>
+<li><a href="#org63f6d65">8. About</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org3132678" class="outline-2">
-<h2 id="org3132678"><span class="section-number-2">1</span> Books</h2>
+<div id="outline-container-org0727add" class="outline-2">
+<h2 id="org0727add"><span class="section-number-2">1</span> Books</h2>
 <div class="outline-text-2" id="text-1">
 </div>
-<div id="outline-container-org9ed0fdb" class="outline-3">
-<h3 id="org9ed0fdb"><span class="section-number-3">1.1</span> Wake, William C.; Refactoring Workbook; 2003</h3>
+<div id="outline-container-org6d553e8" class="outline-3">
+<h3 id="org6d553e8"><span class="section-number-3">1.1</span> Wake, William C.; Refactoring Workbook; 2003</h3>
 <div class="outline-text-3" id="text-1-1">
 </div>
-<div id="outline-container-org0c15ecd" class="outline-4">
-<h4 id="org0c15ecd"><span class="section-number-4">1.1.1</span> <a href="https://xp123.com/articles/refactoring-workbook/">https://xp123.com/articles/refactoring-workbook/</a></h4>
+<div id="outline-container-orgeec1b9e" class="outline-4">
+<h4 id="orgeec1b9e"><span class="section-number-4">1.1.1</span> <a href="https://xp123.com/articles/refactoring-workbook/">https://xp123.com/articles/refactoring-workbook/</a></h4>
 <div class="outline-text-4" id="text-1-1-1">
 </div>
 <ol class="org-ol">
-<li><a id="orge598868"></a>Taxonomy<br />
+<li><a id="org415388d"></a>Taxonomy<br />
 <ol class="org-ol">
-<li><a id="org7acf274"></a><a href="http://mikamantyla.eu/BadCodeSmellsTaxonomy.html">Mika Mäntylä</a><br /></li>
-<li><a id="org08da805"></a><a href="http://www.industriallogic.com/wp-content/uploads/2005/09/smellstorefactorings.pdf">Joshua Kerievsky</a><br />
+<li><a id="org72f99ae"></a><a href="http://mikamantyla.eu/BadCodeSmellsTaxonomy.html">Mika Mäntylä</a><br /></li>
+<li><a id="org8fccc0a"></a><a href="http://www.industriallogic.com/wp-content/uploads/2005/09/smellstorefactorings.pdf">Joshua Kerievsky</a><br />
 <div class="outline-text-6" id="text-1-1-1-1-2">
 <p>
 przerwałem bo mam tylko draft a nie pełną książke
@@ -536,8 +542,8 @@ przerwałem bo mam tylko draft a nie pełną książke
 </ol>
 </div>
 </div>
-<div id="outline-container-org4ca9ce4" class="outline-3">
-<h3 id="org4ca9ce4"><span class="section-number-3">1.2</span> Fowler, Martin; 2018</h3>
+<div id="outline-container-org96d4c4a" class="outline-3">
+<h3 id="org96d4c4a"><span class="section-number-3">1.2</span> Fowler, Martin; 2018</h3>
 <div class="outline-text-3" id="text-1-2">
 <ul class="org-ul">
 <li>With any introductory example, however, I run into a problem. If I pick a large program, describing it and how it is refactored is too complicated for a mortal reader to work through.(&#x2026;)  However, if I pick a program that is small enough to be comprehensible, refactoring does not look like it is worthwhile.</li>
@@ -565,16 +571,18 @@ przerwałem bo mam tylko draft a nie pełną książke
 <li>Branches. As I write this, a common approach in teams is for each team member to work on abranch of the code base using a version control system, and do considerable work onthat branch before integrating with a mainline (often called master or trunk) sharedacross the team. Often, this involves building a whole feature on a branch, notintegrating into the mainline until the feature is ready to be released into production.Fans of this approach claim that it keeps the mainline clear of any in­process code,provides a clear version history of feature additions, and allows features to be revertedeasily should they cause problems.There are downsides to feature branches like this. The longer I work on an isolatedbranch, the harder the job of integrating my work with mainline is going to be when I’mdone. Most people reduce this pain by frequently merging or re­basing from mainlineto my branch. But this doesn’t really solve the problem when several people areworking on individual feature branches. I distinguish between merging and integration.If I merge mainline into my code, this is a oneway movement—my branch changes butthe mainline doesn’t. I use “integrate” to mean a two­way process that pulls changesfrom mainline into my branch and then pushes the result back into mainline, changingboth. If Rachel is working on her branch I don’t see her changes until she integrateswith mainline; at that point, I have to merge her changes into my feature branch, whichmay mean considerable work. The hard part of this work is dealing with semanticchanges. Modern version control systems can do wonders with merging complexchanges to the program text, but they are blind to the semantics of the code. If I’vechanged the name of a function, my version control tool may easily integrate mychanges with Rachel’s. But if, in her branch, she added a call to a function that I’verenamed in mine, the code will fail.The problem of complicated merges gets exponentially worse as the length of featurebranches increases. Integrating branches that are four weeks old is more than twice ashard as those that are a couple of weeks old. Many people, therefore, argue for keepingfeature branches short—perhaps just a couple of days. Others, such as me, want themeven shorter than that. This is an approach called Continuous Integration (CI), alsoknown as Trunk­Based Development. With CI, each team member integrates withmainline at least once per day. This prevents any branches diverting too far from eachother and thus greatly reduces the complexity of merges. CI doesn’t come for free: Itmeans you use practices to ensure the mainline is healthy, learn to break large featuresinto smaller chunks, and use feature toggles (aka feature flags) to switch off any in­process features that can’t be broken down.Fans of CI like it partly because it reduces the complexity of merges, but the dominantreason to favor CI is that it’s far more compatible with refactoring. Refactorings ofteninvolve making lots of little changes all over the code base—which are particularlyprone to semantic merge conflicts (such as renaming a widely used function). Many ofus have seen feature­branching teams that find refactorings so exacerbate mergeproblems that they stop refactoring. CI and re­factoring work well together, which iswhy Kent Beck combined them in Extreme Programming.I’m not saying that you should never use feature branches. If they are sufficiently short,their problems are much reduced. (Indeed, users of CI usually also use branches, butintegrate them with mainline each day.) Feature branches may be the right techniquefor open source projects where you have infrequent commits from programmers whoyou don’t know well (and thus don’t trust). But in a full­time development team, thecost that feature branches impose on refactoring is excessive. Even if you don’t go to fullCI, I certainly urge you to integrate as frequently as possible. You should also considerthe objective evidence [Forsgren et al.] that teams that use CI are more effective insoftware delivery.</li>
 </ul>
 
+
+
 <p>
 131
 </p>
 </div>
 </div>
-<div id="outline-container-org2e8c167" class="outline-3">
-<h3 id="org2e8c167"><span class="section-number-3">1.3</span> Feathers, Michael; Working Effectively with Legacy Code; 2005</h3>
+<div id="outline-container-org4e01671" class="outline-3">
+<h3 id="org4e01671"><span class="section-number-3">1.3</span> Feathers, Michael; Working Effectively with Legacy Code; 2005</h3>
 </div>
-<div id="outline-container-org3c4feb2" class="outline-3">
-<h3 id="org3c4feb2"><span class="section-number-3">1.4</span> Others</h3>
+<div id="outline-container-org8e73d5a" class="outline-3">
+<h3 id="org8e73d5a"><span class="section-number-3">1.4</span> Others</h3>
 <div class="outline-text-3" id="text-1-4">
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
@@ -923,8 +931,8 @@ przerwałem bo mam tylko draft a nie pełną książke
 </div>
 </div>
 
-<div id="outline-container-org0dee2d6" class="outline-2">
-<h2 id="org0dee2d6"><span class="section-number-2">2</span> Tutorials</h2>
+<div id="outline-container-org73dab74" class="outline-2">
+<h2 id="org73dab74"><span class="section-number-2">2</span> Tutorials</h2>
 <div class="outline-text-2" id="text-2">
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
@@ -1096,12 +1104,12 @@ przerwałem bo mam tylko draft a nie pełną książke
 </table>
 </div>
 </div>
-<div id="outline-container-orgebab669" class="outline-2">
-<h2 id="orgebab669"><span class="section-number-2">3</span> Refactorings</h2>
+<div id="outline-container-org9d400a3" class="outline-2">
+<h2 id="org9d400a3"><span class="section-number-2">3</span> Refactorings</h2>
 <div class="outline-text-2" id="text-3">
 </div>
-<div id="outline-container-org470b2d4" class="outline-3">
-<h3 id="org470b2d4"><span class="section-number-3">3.1</span> Add PHPDoc</h3>
+<div id="outline-container-org12eb6af" class="outline-3">
+<h3 id="org12eb6af"><span class="section-number-3">3.1</span> Add PHPDoc</h3>
 <div class="outline-text-3" id="text-3-1">
 <p>
 Smell: An array with elements of generic type or method which can throw Exception
@@ -1116,8 +1124,8 @@ Smell: An array with elements of generic type or method which can throw Exceptio
 </pre>
 </div>
 </div>
-<div id="outline-container-org8b4ce06" class="outline-4">
-<h4 id="org8b4ce06"><span class="section-number-4">3.1.1</span> Refactor the code</h4>
+<div id="outline-container-orgbfd8cde" class="outline-4">
+<h4 id="orgbfd8cde"><span class="section-number-4">3.1.1</span> Refactor the code</h4>
 <div class="outline-text-4" id="text-3-1-1">
 <p>
 Add PHPDoc - the Object[] notation in addition to an array type-hint to explain what kind of object is expected
@@ -1137,8 +1145,8 @@ Add PHPDoc - the Object[] notation in addition to an array type-hint to explain 
 </div>
 </div>
 </div>
-<div id="outline-container-orgd400e16" class="outline-3">
-<h3 id="orgd400e16"><span class="section-number-3">3.2</span> Add Type-Hint</h3>
+<div id="outline-container-org49ed99d" class="outline-3">
+<h3 id="org49ed99d"><span class="section-number-3">3.2</span> Add Type-Hint</h3>
 <div class="outline-text-3" id="text-3-2">
 <p>
 Smell: A method with no type defined parameters or return type declaration
@@ -1151,8 +1159,8 @@ Smell: A method with no type defined parameters or return type declaration
 </pre>
 </div>
 </div>
-<div id="outline-container-org52efd66" class="outline-4">
-<h4 id="org52efd66"><span class="section-number-4">3.2.1</span> Refactor the code</h4>
+<div id="outline-container-orgcbb80d6" class="outline-4">
+<h4 id="orgcbb80d6"><span class="section-number-4">3.2.1</span> Refactor the code</h4>
 <div class="outline-text-4" id="text-3-2-1">
 <div class="org-src-container">
 <pre class="src src-php"><span style="color: #00ffff;">public</span> <span style="color: #00ffff;">function</span> <span style="color: #87cefa;">setNumber</span>(<span style="color: #98fb98;">int</span> <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">number</span>): <span style="color: #98fb98;">void</span>
@@ -1163,16 +1171,16 @@ Smell: A method with no type defined parameters or return type declaration
 </div>
 </div>
 </div>
-<div id="outline-container-org1197b37" class="outline-4">
-<h4 id="org1197b37"><span class="section-number-4">3.2.2</span> Helper</h4>
+<div id="outline-container-org3c03746" class="outline-4">
+<h4 id="org3c03746"><span class="section-number-4">3.2.2</span> Helper</h4>
 <div class="outline-text-4" id="text-3-2-2">
 <p>
 <a href="https://github.com/dunglas/phpdoc-to-typehint">phpdoc-to-typehint</a> adds automatically scalar type hints and return types to all functions and methods using existing PHPDoc annotations 
 </p>
 </div>
 </div>
-<div id="outline-container-org04c3603" class="outline-4">
-<h4 id="org04c3603"><span class="section-number-4">3.2.3</span> Further Reading</h4>
+<div id="outline-container-orgedfc5ba" class="outline-4">
+<h4 id="orgedfc5ba"><span class="section-number-4">3.2.3</span> Further Reading</h4>
 <div class="outline-text-4" id="text-3-2-3">
 <p>
 <a href="https://www.thecodingmachine.com/type-hint-all-the-things/">https://www.thecodingmachine.com/type-hint-all-the-things/</a>
@@ -1180,8 +1188,8 @@ Smell: A method with no type defined parameters or return type declaration
 </div>
 </div>
 </div>
-<div id="outline-container-orga2923eb" class="outline-3">
-<h3 id="orga2923eb"><span class="section-number-3">3.3</span> Consolidate Conditional Expression</h3>
+<div id="outline-container-orgf7b80e2" class="outline-3">
+<h3 id="orgf7b80e2"><span class="section-number-3">3.3</span> Consolidate Conditional Expression</h3>
 <div class="outline-text-3" id="text-3-3">
 <p>
 Smell: Sequence of conditionals with the same result
@@ -1202,11 +1210,11 @@ Smell: Sequence of conditionals with the same result
 </pre>
 </div>
 </div>
-<div id="outline-container-orga71c619" class="outline-4">
-<h4 id="orga71c619"><span class="section-number-4">3.3.1</span> Write a test that pass</h4>
+<div id="outline-container-orgd638b18" class="outline-4">
+<h4 id="orgd638b18"><span class="section-number-4">3.3.1</span> Write a test that pass</h4>
 </div>
-<div id="outline-container-orgc442ed3" class="outline-4">
-<h4 id="orgc442ed3"><span class="section-number-4">3.3.2</span> Refactor the code</h4>
+<div id="outline-container-org782c04e" class="outline-4">
+<h4 id="org782c04e"><span class="section-number-4">3.3.2</span> Refactor the code</h4>
 <div class="outline-text-4" id="text-3-3-2">
 <p>
 Combine them into a single conditional expression and extract it.
@@ -1238,12 +1246,12 @@ Combine them into a single conditional expression and extract it.
 </div>
 </div>
 </div>
-<div id="outline-container-orgafd64d6" class="outline-4">
-<h4 id="orgafd64d6"><span class="section-number-4">3.3.3</span> Pass a test</h4>
+<div id="outline-container-org0cf9a9e" class="outline-4">
+<h4 id="org0cf9a9e"><span class="section-number-4">3.3.3</span> Pass a test</h4>
 </div>
 </div>
-<div id="outline-container-orgb822643" class="outline-3">
-<h3 id="orgb822643"><span class="section-number-3">3.4</span> Consolidate Duplicate Conditional Fragments</h3>
+<div id="outline-container-org8b94766" class="outline-3">
+<h3 id="org8b94766"><span class="section-number-3">3.4</span> Consolidate Duplicate Conditional Fragments</h3>
 <div class="outline-text-3" id="text-3-4">
 <p>
 Smell: The same fragment of code is in all branches of a conditional expression.
@@ -1266,11 +1274,11 @@ Smell: The same fragment of code is in all branches of a conditional expression.
 </pre>
 </div>
 </div>
-<div id="outline-container-org5422c01" class="outline-4">
-<h4 id="org5422c01"><span class="section-number-4">3.4.1</span> Write a test that pass</h4>
+<div id="outline-container-org27f1d6d" class="outline-4">
+<h4 id="org27f1d6d"><span class="section-number-4">3.4.1</span> Write a test that pass</h4>
 </div>
-<div id="outline-container-org6a88e67" class="outline-4">
-<h4 id="org6a88e67"><span class="section-number-4">3.4.2</span> Refactor the code</h4>
+<div id="outline-container-org71512fe" class="outline-4">
+<h4 id="org71512fe"><span class="section-number-4">3.4.2</span> Refactor the code</h4>
 <div class="outline-text-4" id="text-3-4-2">
 <p>
 Move it outside of the expression.
@@ -1294,12 +1302,12 @@ Move it outside of the expression.
 </div>
 </div>
 </div>
-<div id="outline-container-org4065e32" class="outline-4">
-<h4 id="org4065e32"><span class="section-number-4">3.4.3</span> Pass a test</h4>
+<div id="outline-container-org7506ec3" class="outline-4">
+<h4 id="org7506ec3"><span class="section-number-4">3.4.3</span> Pass a test</h4>
 </div>
 </div>
-<div id="outline-container-orgc4b043a" class="outline-3">
-<h3 id="orgc4b043a"><span class="section-number-3">3.5</span> Decompose Conditional</h3>
+<div id="outline-container-org6808a2d" class="outline-3">
+<h3 id="org6808a2d"><span class="section-number-3">3.5</span> Decompose Conditional</h3>
 <div class="outline-text-3" id="text-3-5">
 <p>
 Smell: Complicated conditional (if-else) statement.
@@ -1328,8 +1336,8 @@ Smell: Complicated conditional (if-else) statement.
 </pre>
 </div>
 </div>
-<div id="outline-container-org15f022b" class="outline-4">
-<h4 id="org15f022b"><span class="section-number-4">3.5.1</span> Write a test that pass</h4>
+<div id="outline-container-org0d709c8" class="outline-4">
+<h4 id="org0d709c8"><span class="section-number-4">3.5.1</span> Write a test that pass</h4>
 <div class="outline-text-4" id="text-3-5-1">
 <div class="org-src-container">
 <pre class="src src-php"><span style="color: #00ffff;">class</span> <span style="color: #98fb98;">SaleTest</span> <span style="color: #00ffff;">extends</span> <span style="color: #98fb98;">TestCase</span>
@@ -1351,8 +1359,8 @@ Smell: Complicated conditional (if-else) statement.
 </div>
 </div>
 </div>
-<div id="outline-container-org6ff40e9" class="outline-4">
-<h4 id="org6ff40e9"><span class="section-number-4">3.5.2</span> Refactor the code</h4>
+<div id="outline-container-orgd6e1b62" class="outline-4">
+<h4 id="orgd6e1b62"><span class="section-number-4">3.5.2</span> Refactor the code</h4>
 <div class="outline-text-4" id="text-3-5-2">
 <p>
 Extract conditional code in a private method. We name the method isExpired() because our conditional chunk of code checks if the sale is expired. We create the private method isExpired() and, with the technique of extract method, we move chunks of code into the new method. The next step is to move each branch of the condition in a private method. We do the same as we did before for each branch. So we create the private method getAmountWithInterest() for the first branch and the method getAmountWithDiscount() for the second branch.
@@ -1393,12 +1401,12 @@ Extract conditional code in a private method. We name the method isExpired() bec
 </div>
 </div>
 </div>
-<div id="outline-container-orgd945337" class="outline-4">
-<h4 id="orgd945337"><span class="section-number-4">3.5.3</span> Pass a test</h4>
+<div id="outline-container-org8a4a56b" class="outline-4">
+<h4 id="org8a4a56b"><span class="section-number-4">3.5.3</span> Pass a test</h4>
 </div>
 </div>
-<div id="outline-container-org823d64b" class="outline-3">
-<h3 id="org823d64b"><span class="section-number-3">3.6</span> Encapsulate Field</h3>
+<div id="outline-container-org20d5f9e" class="outline-3">
+<h3 id="org20d5f9e"><span class="section-number-3">3.6</span> Encapsulate Field</h3>
 <div class="outline-text-3" id="text-3-6">
 <p>
 Smell: A public field
@@ -1414,11 +1422,11 @@ Smell: A public field
 </pre>
 </div>
 </div>
-<div id="outline-container-orgc682b22" class="outline-4">
-<h4 id="orgc682b22"><span class="section-number-4">3.6.1</span> Write a test that pass</h4>
+<div id="outline-container-orgdc5145b" class="outline-4">
+<h4 id="orgdc5145b"><span class="section-number-4">3.6.1</span> Write a test that pass</h4>
 </div>
-<div id="outline-container-orgb69e492" class="outline-4">
-<h4 id="orgb69e492"><span class="section-number-4">3.6.2</span> Refactor the code</h4>
+<div id="outline-container-orgb4fc260" class="outline-4">
+<h4 id="orgb4fc260"><span class="section-number-4">3.6.2</span> Refactor the code</h4>
 <div class="outline-text-4" id="text-3-6-2">
 <p>
 Make it private and provide accessors.
@@ -1445,12 +1453,12 @@ Make it private and provide accessors.
 </div>
 </div>
 </div>
-<div id="outline-container-orgd2b6de5" class="outline-4">
-<h4 id="orgd2b6de5"><span class="section-number-4">3.6.3</span> Run a test</h4>
+<div id="outline-container-org073dfe0" class="outline-4">
+<h4 id="org073dfe0"><span class="section-number-4">3.6.3</span> Run a test</h4>
 </div>
 </div>
-<div id="outline-container-org4a7f6f5" class="outline-3">
-<h3 id="org4a7f6f5"><span class="section-number-3">3.7</span> Extract Class</h3>
+<div id="outline-container-orgf2c501c" class="outline-3">
+<h3 id="orgf2c501c"><span class="section-number-3">3.7</span> Extract Class</h3>
 <div class="outline-text-3" id="text-3-7">
 <p>
 SmellL Large Class
@@ -1469,11 +1477,11 @@ SmellL Large Class
 </pre>
 </div>
 </div>
-<div id="outline-container-orga3b8ca0" class="outline-4">
-<h4 id="orga3b8ca0"><span class="section-number-4">3.7.1</span> Write a test that pass</h4>
+<div id="outline-container-org53d81de" class="outline-4">
+<h4 id="org53d81de"><span class="section-number-4">3.7.1</span> Write a test that pass</h4>
 </div>
-<div id="outline-container-orgaed3231" class="outline-4">
-<h4 id="orgaed3231"><span class="section-number-4">3.7.2</span> Refactor the code</h4>
+<div id="outline-container-org81e93c8" class="outline-4">
+<h4 id="org81e93c8"><span class="section-number-4">3.7.2</span> Refactor the code</h4>
 <div class="outline-text-4" id="text-3-7-2">
 <p>
 Create a new class and move the relevant fields and methods from the old class into the new class.
@@ -1498,12 +1506,12 @@ Create a new class and move the relevant fields and methods from the old class i
 </div>
 </div>
 </div>
-<div id="outline-container-orgf4cb166" class="outline-4">
-<h4 id="orgf4cb166"><span class="section-number-4">3.7.3</span> Pass a test</h4>
+<div id="outline-container-orgec01da2" class="outline-4">
+<h4 id="orgec01da2"><span class="section-number-4">3.7.3</span> Pass a test</h4>
 </div>
 </div>
-<div id="outline-container-org38b6f0f" class="outline-3">
-<h3 id="org38b6f0f"><span class="section-number-3">3.8</span> Extract Function</h3>
+<div id="outline-container-org03d9554" class="outline-3">
+<h3 id="org03d9554"><span class="section-number-3">3.8</span> Extract Function</h3>
 <div class="outline-text-3" id="text-3-8">
 <p>
 Alias: Extract Method
@@ -1524,11 +1532,11 @@ Smell: Code fragment that can be grouped together
 </pre>
 </div>
 </div>
-<div id="outline-container-org3545ed5" class="outline-4">
-<h4 id="org3545ed5"><span class="section-number-4">3.8.1</span> Write a test that pass</h4>
+<div id="outline-container-org8c2d975" class="outline-4">
+<h4 id="org8c2d975"><span class="section-number-4">3.8.1</span> Write a test that pass</h4>
 </div>
-<div id="outline-container-org6873908" class="outline-4">
-<h4 id="org6873908"><span class="section-number-4">3.8.2</span> Refactor the code</h4>
+<div id="outline-container-orgcc7be9b" class="outline-4">
+<h4 id="orgcc7be9b"><span class="section-number-4">3.8.2</span> Refactor the code</h4>
 <div class="outline-text-4" id="text-3-8-2">
 <p>
 Turn the fragment into a method whose name explains the purpose of the method
@@ -1560,11 +1568,11 @@ Turn the fragment into a method whose name explains the purpose of the method
 </div>
 </div>
 </div>
-<div id="outline-container-orgec0b606" class="outline-4">
-<h4 id="orgec0b606"><span class="section-number-4">3.8.3</span> Run a test</h4>
+<div id="outline-container-org684a6a1" class="outline-4">
+<h4 id="org684a6a1"><span class="section-number-4">3.8.3</span> Run a test</h4>
 </div>
-<div id="outline-container-org5d30ef5" class="outline-4">
-<h4 id="org5d30ef5"><span class="section-number-4">3.8.4</span> Notes</h4>
+<div id="outline-container-org407fbe5" class="outline-4">
+<h4 id="org407fbe5"><span class="section-number-4">3.8.4</span> Notes</h4>
 <div class="outline-text-4" id="text-3-8-4">
 <div class="org-src-container">
 <pre class="src src-php"><span style="color: #00ffff;">function</span> <span style="color: #87cefa;">printInvoice</span>() {
@@ -1584,8 +1592,8 @@ printInvoice();
 </div>
 </div>
 
-<div id="outline-container-orgd55b7ec" class="outline-3">
-<h3 id="orgd55b7ec"><span class="section-number-3">3.9</span> Extract Variable</h3>
+<div id="outline-container-org170bdff" class="outline-3">
+<h3 id="org170bdff"><span class="section-number-3">3.9</span> Extract Variable</h3>
 <div class="outline-text-3" id="text-3-9">
 <p>
 Alias: Introduce Explaining Variable
@@ -1598,14 +1606,14 @@ Smell: Complicated expression
 </pre>
 </div>
 </div>
-<div id="outline-container-org7367ded" class="outline-4">
-<h4 id="org7367ded"><span class="section-number-4">3.9.1</span> Write a test that pass</h4>
+<div id="outline-container-org9d74525" class="outline-4">
+<h4 id="org9d74525"><span class="section-number-4">3.9.1</span> Write a test that pass</h4>
 </div>
-<div id="outline-container-org5485612" class="outline-4">
-<h4 id="org5485612"><span class="section-number-4">3.9.2</span> Refactor the code</h4>
+<div id="outline-container-org80b4c54" class="outline-4">
+<h4 id="org80b4c54"><span class="section-number-4">3.9.2</span> Refactor the code</h4>
 <div class="outline-text-4" id="text-3-9-2">
 <p>
-Put the result of the expression, or parts of the expression, in a temporary variable with a name that explains the purpose
+Put the result of the expression, or part of it in a temporary variable with a name that explains the purpose
 </p>
 <div class="org-src-container">
 <pre class="src src-php"><span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">freeShipping</span> = <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">order</span><span style="color: #f5f5f5; background-color: #333333;">-&gt;</span><span style="color: #f5f5f5; background-color: #333333;">getTotal</span>() &gt; 99;
@@ -1616,12 +1624,12 @@ Put the result of the expression, or parts of the expression, in a temporary var
 </div>
 </div>
 </div>
-<div id="outline-container-org426ebe9" class="outline-4">
-<h4 id="org426ebe9"><span class="section-number-4">3.9.3</span> Pass a test</h4>
+<div id="outline-container-org72fb013" class="outline-4">
+<h4 id="org72fb013"><span class="section-number-4">3.9.3</span> Pass a test</h4>
 </div>
 </div>
-<div id="outline-container-org54d3c78" class="outline-3">
-<h3 id="org54d3c78"><span class="section-number-3">3.10</span> Inline Class</h3>
+<div id="outline-container-orgdf9f5a8" class="outline-3">
+<h3 id="orgdf9f5a8"><span class="section-number-3">3.10</span> Inline Class</h3>
 <div class="outline-text-3" id="text-3-10">
 <p>
 Smell: A class isn't doing very much
@@ -1643,14 +1651,14 @@ Smell: A class isn't doing very much
 </div>
 </div>
 </div>
-<div id="outline-container-org257b435" class="outline-3">
-<h3 id="org257b435"><span class="section-number-3">3.11</span> <span class="done DONE">DONE</span> Inline Function</h3>
+<div id="outline-container-orgb1c3708" class="outline-3">
+<h3 id="orgb1c3708"><span class="section-number-3">3.11</span> <span class="done DONE">DONE</span> Inline Function</h3>
 <div class="outline-text-3" id="text-3-11">
 <p>
 Smell: A function's body is just as clear as it's name
 </p>
 <div class="org-src-container">
-<pre class="src src-php" id="org6896f5c"><span style="color: #00ffff;">class</span> <span style="color: #98fb98;">Circle</span>
+<pre class="src src-php" id="org8478691"><span style="color: #00ffff;">class</span> <span style="color: #98fb98;">Circle</span>
 {
     <span style="color: #00ffff;">public</span> <span style="color: #00ffff;">const</span> <span style="color: #7fffd4;">RADIUS</span> = 2;
 
@@ -1667,11 +1675,11 @@ Smell: A function's body is just as clear as it's name
 </pre>
 </div>
 </div>
-<div id="outline-container-org68db83d" class="outline-4">
-<h4 id="org68db83d"><span class="section-number-4">3.11.1</span> Write a test that pass</h4>
+<div id="outline-container-org5ee343b" class="outline-4">
+<h4 id="org5ee343b"><span class="section-number-4">3.11.1</span> Write a test that pass</h4>
 <div class="outline-text-4" id="text-3-11-1">
 <div class="org-src-container">
-<pre class="src src-phpunit" id="org2aa9d54">
+<pre class="src src-phpunit" id="org3775dfc">
 <span style="color: #00ffff;">use</span> <span style="color: #98fb98;">PHPUnit\Framework\TestCase</span>;
 
 <span style="color: #00ffff;">class</span> <span style="color: #98fb98;">CircleTest</span> <span style="color: #00ffff;">extends</span> <span style="color: #98fb98;">TestCase</span>
@@ -1690,7 +1698,7 @@ PHPUnit 7.4.3 by Sebastian Bergmann and contributors.
 
 .                                                                   1 / 1 (100%)
 
-Time: 80 ms, Memory: 10.00MB
+Time: 60 ms, Memory: 10.00MB
 
 OK (1 test, 1 assertion)
 
@@ -1698,8 +1706,8 @@ OK (1 test, 1 assertion)
 </div>
 </div>
 
-<div id="outline-container-org263d006" class="outline-4">
-<h4 id="org263d006"><span class="section-number-4">3.11.2</span> Refactor the code</h4>
+<div id="outline-container-org9df2c4f" class="outline-4">
+<h4 id="org9df2c4f"><span class="section-number-4">3.11.2</span> Refactor the code</h4>
 <div class="outline-text-4" id="text-3-11-2">
 <p>
 Put the method's body into the body of its callers and remove the method.
@@ -1713,13 +1721,35 @@ Put the method's body into the body of its callers and remove the method.
 </div>
 </div>
 </div>
-<div id="outline-container-org06dc190" class="outline-4">
-<h4 id="org06dc190"><span class="section-number-4">3.11.3</span> Pass a test</h4>
+<div id="outline-container-org9576cbe" class="outline-4">
+<h4 id="org9576cbe"><span class="section-number-4">3.11.3</span> Pass a test</h4>
 </div>
 </div>
-<div id="outline-container-org4fabbdd" class="outline-3">
-<h3 id="org4fabbdd"><span class="section-number-3">3.12</span> Introduce Parameter Object</h3>
+<div id="outline-container-orgd61a4cf" class="outline-3">
+<h3 id="orgd61a4cf"><span class="section-number-3">3.12</span> Inline Variable</h3>
 <div class="outline-text-3" id="text-3-12">
+<p>
+Smell: Variable name doesn't really communicate more than the expression itself or gets in the way of refactoring neighboring code.
+</p>
+<div class="org-src-container">
+<pre class="src src-php"><span style="color: #98fb98;">let</span> <span style="color: #eedd82;">basePrice</span> = anOrder.basePrice;
+<span style="color: #00ffff;">return</span> (basePrice &gt; 1000);
+</pre>
+</div>
+</div>
+<div id="outline-container-org7e92b9b" class="outline-4">
+<h4 id="org7e92b9b"><span class="section-number-4">3.12.1</span> Refactor the code</h4>
+<div class="outline-text-4" id="text-3-12-1">
+<div class="org-src-container">
+<pre class="src src-php"><span style="color: #00ffff;">return</span> anOrder.basePrice &gt; 1000;
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-org0e6376f" class="outline-3">
+<h3 id="org0e6376f"><span class="section-number-3">3.13</span> Introduce Parameter Object</h3>
+<div class="outline-text-3" id="text-3-13">
 <p>
 Smell: Long Parameter List and parameters that naturally go together
 </p>
@@ -1734,25 +1764,25 @@ Smell: Long Parameter List and parameters that naturally go together
 </pre>
 </div>
 </div>
-<div id="outline-container-org1679078" class="outline-4">
-<h4 id="org1679078"><span class="section-number-4">3.12.1</span> Write a test that pass</h4>
+<div id="outline-container-org474ab54" class="outline-4">
+<h4 id="org474ab54"><span class="section-number-4">3.13.1</span> Write a test that pass</h4>
 </div>
-<div id="outline-container-org41dd372" class="outline-4">
-<h4 id="org41dd372"><span class="section-number-4">3.12.2</span> Refactor the code</h4>
-<div class="outline-text-4" id="text-3-12-2">
+<div id="outline-container-orgfdc6cfb" class="outline-4">
+<h4 id="orgfdc6cfb"><span class="section-number-4">3.13.2</span> Refactor the code</h4>
+<div class="outline-text-4" id="text-3-13-2">
 <p>
     Replace them with an object.
 #+BEGIN<sub>SRC</sub> php#+END<sub>SRC</sub>
 </p>
 </div>
 </div>
-<div id="outline-container-org1d4953a" class="outline-4">
-<h4 id="org1d4953a"><span class="section-number-4">3.12.3</span> Pass a test</h4>
+<div id="outline-container-orga01e88b" class="outline-4">
+<h4 id="orga01e88b"><span class="section-number-4">3.13.3</span> Pass a test</h4>
 </div>
 </div>
-<div id="outline-container-org21d67ba" class="outline-3">
-<h3 id="org21d67ba"><span class="section-number-3">3.13</span> Optimize Imports</h3>
-<div class="outline-text-3" id="text-3-13">
+<div id="outline-container-org86fa778" class="outline-3">
+<h3 id="org86fa778"><span class="section-number-3">3.14</span> Optimize Imports</h3>
+<div class="outline-text-3" id="text-3-14">
 <p>
 Smell: Imports unused or not in alphabetically order. Multiple use statement
 </p>
@@ -1763,12 +1793,12 @@ Smell: Imports unused or not in alphabetically order. Multiple use statement
 </pre>
 </div>
 </div>
-<div id="outline-container-org0b8309a" class="outline-4">
-<h4 id="org0b8309a"><span class="section-number-4">3.13.1</span> Write a test that pass</h4>
+<div id="outline-container-org04ba8c9" class="outline-4">
+<h4 id="org04ba8c9"><span class="section-number-4">3.14.1</span> Write a test that pass</h4>
 </div>
-<div id="outline-container-orgb9172a9" class="outline-4">
-<h4 id="orgb9172a9"><span class="section-number-4">3.13.2</span> Refactor the code</h4>
-<div class="outline-text-4" id="text-3-13-2">
+<div id="outline-container-org56dd567" class="outline-4">
+<h4 id="org56dd567"><span class="section-number-4">3.14.2</span> Refactor the code</h4>
+<div class="outline-text-4" id="text-3-14-2">
 <p>
 Remove unused imports. Sort imports alphabetically (ascending order). Splits multiple use statement imports into single use statement imports
 </p>
@@ -1778,14 +1808,14 @@ Remove unused imports. Sort imports alphabetically (ascending order). Splits mul
 </div>
 </div>
 </div>
-<div id="outline-container-orgf002f36" class="outline-4">
-<h4 id="orgf002f36"><span class="section-number-4">3.13.3</span> Pass a test</h4>
+<div id="outline-container-orgdf52719" class="outline-4">
+<h4 id="orgdf52719"><span class="section-number-4">3.14.3</span> Pass a test</h4>
 </div>
 </div>
 
-<div id="outline-container-orgd900dc6" class="outline-3">
-<h3 id="orgd900dc6"><span class="section-number-3">3.14</span> Move Method</h3>
-<div class="outline-text-3" id="text-3-14">
+<div id="outline-container-org08d7019" class="outline-3">
+<h3 id="org08d7019"><span class="section-number-3">3.15</span> Move Method</h3>
+<div class="outline-text-3" id="text-3-15">
 <p>
 Smell: Method accessing fields and methods in different class
 </p>
@@ -1812,12 +1842,12 @@ Smell: Method accessing fields and methods in different class
 </pre>
 </div>
 </div>
-<div id="outline-container-org3455780" class="outline-4">
-<h4 id="org3455780"><span class="section-number-4">3.14.1</span> Write a test that pass</h4>
+<div id="outline-container-orgeceea03" class="outline-4">
+<h4 id="orgeceea03"><span class="section-number-4">3.15.1</span> Write a test that pass</h4>
 </div>
-<div id="outline-container-org898ced9" class="outline-4">
-<h4 id="org898ced9"><span class="section-number-4">3.14.2</span> Refactor the code</h4>
-<div class="outline-text-4" id="text-3-14-2">
+<div id="outline-container-orge2f6b9b" class="outline-4">
+<h4 id="orge2f6b9b"><span class="section-number-4">3.15.2</span> Refactor the code</h4>
+<div class="outline-text-4" id="text-3-15-2">
 <p>
 Move all its features into another class and delete it.
 </p>
@@ -1845,13 +1875,13 @@ Move all its features into another class and delete it.
 </div>
 </div>
 </div>
-<div id="outline-container-org75290bd" class="outline-4">
-<h4 id="org75290bd"><span class="section-number-4">3.14.3</span> Pass a test</h4>
+<div id="outline-container-org5b6c590" class="outline-4">
+<h4 id="org5b6c590"><span class="section-number-4">3.15.3</span> Pass a test</h4>
 </div>
 </div>
-<div id="outline-container-org7faceae" class="outline-3">
-<h3 id="org7faceae"><span class="section-number-3">3.15</span> Parameterize Method</h3>
-<div class="outline-text-3" id="text-3-15">
+<div id="outline-container-org45ee4d4" class="outline-3">
+<h3 id="org45ee4d4"><span class="section-number-3">3.16</span> Parameterize Method</h3>
+<div class="outline-text-3" id="text-3-16">
 <p>
 Smell: Several methods do similar things but with different values contained in the method body.
 </p>
@@ -1886,12 +1916,12 @@ Smell: Several methods do similar things but with different values contained in 
 </pre>
 </div>
 </div>
-<div id="outline-container-org7bc87e9" class="outline-4">
-<h4 id="org7bc87e9"><span class="section-number-4">3.15.1</span> <span class="todo TODO">TODO</span> Write a test that pass</h4>
+<div id="outline-container-org7b61856" class="outline-4">
+<h4 id="org7b61856"><span class="section-number-4">3.16.1</span> <span class="todo TODO">TODO</span> Write a test that pass</h4>
 </div>
-<div id="outline-container-org8868835" class="outline-4">
-<h4 id="org8868835"><span class="section-number-4">3.15.2</span> Refactor the code</h4>
-<div class="outline-text-4" id="text-3-15-2">
+<div id="outline-container-org7796503" class="outline-4">
+<h4 id="org7796503"><span class="section-number-4">3.16.2</span> Refactor the code</h4>
+<div class="outline-text-4" id="text-3-16-2">
 <p>
 Create one method that uses a parameter for the different values.
 </p>
@@ -1922,13 +1952,13 @@ Create one method that uses a parameter for the different values.
 </div>
 </div>
 </div>
-<div id="outline-container-org51080a2" class="outline-4">
-<h4 id="org51080a2"><span class="section-number-4">3.15.3</span> Pass a test</h4>
+<div id="outline-container-orgb3734f4" class="outline-4">
+<h4 id="orgb3734f4"><span class="section-number-4">3.16.3</span> Pass a test</h4>
 </div>
 </div>
-<div id="outline-container-org5df337d" class="outline-3">
-<h3 id="org5df337d"><span class="section-number-3">3.16</span> Preserve Whole Object</h3>
-<div class="outline-text-3" id="text-3-16">
+<div id="outline-container-orgd73e63c" class="outline-3">
+<h3 id="orgd73e63c"><span class="section-number-3">3.17</span> Preserve Whole Object</h3>
+<div class="outline-text-3" id="text-3-17">
 <p>
 Smell: More than one value from an object are passing as parameters in a method call
 </p>
@@ -1980,9 +2010,9 @@ Smell: More than one value from an object are passing as parameters in a method 
 </pre>
 </div>
 </div>
-<div id="outline-container-orgaa6f577" class="outline-4">
-<h4 id="orgaa6f577"><span class="section-number-4">3.16.1</span> Write a test that pass</h4>
-<div class="outline-text-4" id="text-3-16-1">
+<div id="outline-container-orgf4963d0" class="outline-4">
+<h4 id="orgf4963d0"><span class="section-number-4">3.17.1</span> Write a test that pass</h4>
+<div class="outline-text-4" id="text-3-17-1">
 <div class="org-src-container">
 <pre class="src src-php"><span style="color: #00ffff;">public</span> <span style="color: #00ffff;">function</span> <span style="color: #87cefa;">testCalculateAverageTemperature</span>()
 {
@@ -1999,9 +2029,9 @@ Smell: More than one value from an object are passing as parameters in a method 
 </div>
 </div>
 </div>
-<div id="outline-container-orga181fe7" class="outline-4">
-<h4 id="orga181fe7"><span class="section-number-4">3.16.2</span> Refactor the code</h4>
-<div class="outline-text-4" id="text-3-16-2">
+<div id="outline-container-org93c739e" class="outline-4">
+<h4 id="org93c739e"><span class="section-number-4">3.17.2</span> Refactor the code</h4>
+<div class="outline-text-4" id="text-3-17-2">
 <p>
 Add object as a new parameter. Set it default value to null, that will help to manage the transitions towards the final version of the method.
 </p>
@@ -2017,12 +2047,12 @@ Add object as a new parameter. Set it default value to null, that will help to m
 </div>
 </div>
 </div>
-<div id="outline-container-orgc0eab2d" class="outline-4">
-<h4 id="orgc0eab2d"><span class="section-number-4">3.16.3</span> Pass a test</h4>
+<div id="outline-container-org608a17c" class="outline-4">
+<h4 id="org608a17c"><span class="section-number-4">3.17.3</span> Pass a test</h4>
 </div>
-<div id="outline-container-org4cd4618" class="outline-4">
-<h4 id="org4cd4618"><span class="section-number-4">3.16.4</span> Refactor the code</h4>
-<div class="outline-text-4" id="text-3-16-4">
+<div id="outline-container-org0211510" class="outline-4">
+<h4 id="org0211510"><span class="section-number-4">3.17.4</span> Refactor the code</h4>
+<div class="outline-text-4" id="text-3-17-4">
 <p>
 Replace values with values coming from the whole object
 </p>
@@ -2038,12 +2068,12 @@ Replace values with values coming from the whole object
 </div>
 </div>
 </div>
-<div id="outline-container-org30ef161" class="outline-4">
-<h4 id="org30ef161"><span class="section-number-4">3.16.5</span> Pass a test</h4>
+<div id="outline-container-org79f9ec5" class="outline-4">
+<h4 id="org79f9ec5"><span class="section-number-4">3.17.5</span> Pass a test</h4>
 </div>
-<div id="outline-container-org8de0ac7" class="outline-4">
-<h4 id="org8de0ac7"><span class="section-number-4">3.16.6</span> Refactor the code</h4>
-<div class="outline-text-4" id="text-3-16-6">
+<div id="outline-container-org11ce400" class="outline-4">
+<h4 id="org11ce400"><span class="section-number-4">3.17.6</span> Refactor the code</h4>
+<div class="outline-text-4" id="text-3-17-6">
 <p>
 Remove useless parameters and default null value of $september object
 </p>
@@ -2059,13 +2089,13 @@ Remove useless parameters and default null value of $september object
 </div>
 </div>
 </div>
-<div id="outline-container-org060a476" class="outline-4">
-<h4 id="org060a476"><span class="section-number-4">3.16.7</span> Pass a test</h4>
+<div id="outline-container-org2c18448" class="outline-4">
+<h4 id="org2c18448"><span class="section-number-4">3.17.7</span> Pass a test</h4>
 </div>
 </div>
-<div id="outline-container-org8f1c919" class="outline-3">
-<h3 id="org8f1c919"><span class="section-number-3">3.17</span> Pull Up Method</h3>
-<div class="outline-text-3" id="text-3-17">
+<div id="outline-container-org8c4b4b0" class="outline-3">
+<h3 id="org8c4b4b0"><span class="section-number-3">3.18</span> Pull Up Method</h3>
+<div class="outline-text-3" id="text-3-18">
 <p>
 Smell: Subclasses have the same method.
 </p>
@@ -2101,12 +2131,12 @@ Smell: Subclasses have the same method.
 </pre>
 </div>
 </div>
-<div id="outline-container-orgaeea648" class="outline-4">
-<h4 id="orgaeea648"><span class="section-number-4">3.17.1</span> Write a test that pass</h4>
+<div id="outline-container-org41c1811" class="outline-4">
+<h4 id="org41c1811"><span class="section-number-4">3.18.1</span> Write a test that pass</h4>
 </div>
-<div id="outline-container-org0f431ce" class="outline-4">
-<h4 id="org0f431ce"><span class="section-number-4">3.17.2</span> Refactor the code</h4>
-<div class="outline-text-4" id="text-3-17-2">
+<div id="outline-container-org9e17d1c" class="outline-4">
+<h4 id="org9e17d1c"><span class="section-number-4">3.18.2</span> Refactor the code</h4>
+<div class="outline-text-4" id="text-3-18-2">
 <p>
 Move the methods to the super class.
 </p>
@@ -2136,13 +2166,13 @@ Move the methods to the super class.
 </div>
 </div>
 </div>
-<div id="outline-container-orgd279328" class="outline-4">
-<h4 id="orgd279328"><span class="section-number-4">3.17.3</span> Pass a test</h4>
+<div id="outline-container-org2ce1e28" class="outline-4">
+<h4 id="org2ce1e28"><span class="section-number-4">3.18.3</span> Pass a test</h4>
 </div>
 </div>
-<div id="outline-container-org4f66533" class="outline-3">
-<h3 id="org4f66533"><span class="section-number-3">3.18</span> Remove Assignments to Parameters</h3>
-<div class="outline-text-3" id="text-3-18">
+<div id="outline-container-org6f349f2" class="outline-3">
+<h3 id="org6f349f2"><span class="section-number-3">3.19</span> Remove Assignments to Parameters</h3>
+<div class="outline-text-3" id="text-3-19">
 <p>
 Smell: Reassign to a parameter
 </p>
@@ -2158,12 +2188,12 @@ Smell: Reassign to a parameter
 </pre>
 </div>
 </div>
-<div id="outline-container-org5ac99eb" class="outline-4">
-<h4 id="org5ac99eb"><span class="section-number-4">3.18.1</span> Write a test that pass</h4>
+<div id="outline-container-org7f98786" class="outline-4">
+<h4 id="org7f98786"><span class="section-number-4">3.19.1</span> Write a test that pass</h4>
 </div>
-<div id="outline-container-orge530466" class="outline-4">
-<h4 id="orge530466"><span class="section-number-4">3.18.2</span> Refactor the code</h4>
-<div class="outline-text-4" id="text-3-18-2">
+<div id="outline-container-orgdb16b14" class="outline-4">
+<h4 id="orgdb16b14"><span class="section-number-4">3.19.2</span> Refactor the code</h4>
+<div class="outline-text-4" id="text-3-19-2">
 <p>
 Use a temporary variable instead
 </p>
@@ -2182,21 +2212,21 @@ Use a temporary variable instead
 </div>
 </div>
 </div>
-<div id="outline-container-org37db70d" class="outline-4">
-<h4 id="org37db70d"><span class="section-number-4">3.18.3</span> Pass a test</h4>
+<div id="outline-container-org5d12acb" class="outline-4">
+<h4 id="org5d12acb"><span class="section-number-4">3.19.3</span> Pass a test</h4>
 </div>
-<div id="outline-container-org54e63ae" class="outline-4">
-<h4 id="org54e63ae"><span class="section-number-4">3.18.4</span> Info</h4>
-<div class="outline-text-4" id="text-3-18-4">
+<div id="outline-container-orgfc310a1" class="outline-4">
+<h4 id="orgfc310a1"><span class="section-number-4">3.19.4</span> Info</h4>
+<div class="outline-text-4" id="text-3-19-4">
 <p>
 The best practice is that if you pass parameters into a method then they should always represent what were passed in and never be reassigned to mean something else. Btw. in Java you can prevent variable’s reassignment by keyword 'final' before a parameter <a href="https://stackoverflow.com/questions/500508/why-should-i-use-the-keyword-final-on-a-method-parameter-in-java">https://stackoverflow.com/questions/500508/why-should-i-use-the-keyword-final-on-a-method-parameter-in-java</a>
 </p>
 </div>
 </div>
 </div>
-<div id="outline-container-org5023377" class="outline-3">
-<h3 id="org5023377"><span class="section-number-3">3.19</span> Remove PHPDoc</h3>
-<div class="outline-text-3" id="text-3-19">
+<div id="outline-container-org1f1d57c" class="outline-3">
+<h3 id="org1f1d57c"><span class="section-number-3">3.20</span> Remove PHPDoc</h3>
+<div class="outline-text-3" id="text-3-20">
 <p>
 Smell: PHPDoc is duplicating type-hint information
 Damage: Adds information which not provides additional value
@@ -2213,12 +2243,12 @@ Damage: Adds information which not provides additional value
 </pre>
 </div>
 </div>
-<div id="outline-container-orgf5e211a" class="outline-4">
-<h4 id="orgf5e211a"><span class="section-number-4">3.19.1</span> Write a test that pass</h4>
+<div id="outline-container-orgbc94424" class="outline-4">
+<h4 id="orgbc94424"><span class="section-number-4">3.20.1</span> Write a test that pass</h4>
 </div>
-<div id="outline-container-org632bc6a" class="outline-4">
-<h4 id="org632bc6a"><span class="section-number-4">3.19.2</span> Refactor the code</h4>
-<div class="outline-text-4" id="text-3-19-2">
+<div id="outline-container-org45a2c63" class="outline-4">
+<h4 id="org45a2c63"><span class="section-number-4">3.20.2</span> Refactor the code</h4>
+<div class="outline-text-4" id="text-3-20-2">
 <p>
 Remove PHPDoc if it's not provides additional value
 </p>
@@ -2228,13 +2258,13 @@ Remove PHPDoc if it's not provides additional value
 </div>
 </div>
 </div>
-<div id="outline-container-orgf332642" class="outline-4">
-<h4 id="orgf332642"><span class="section-number-4">3.19.3</span> Pass a test</h4>
+<div id="outline-container-org4f9ce2f" class="outline-4">
+<h4 id="org4f9ce2f"><span class="section-number-4">3.20.3</span> Pass a test</h4>
 </div>
 </div>
-<div id="outline-container-orgd9a3639" class="outline-3">
-<h3 id="orgd9a3639"><span class="section-number-3">3.20</span> Rename Method</h3>
-<div class="outline-text-3" id="text-3-20">
+<div id="outline-container-org2a31de9" class="outline-3">
+<h3 id="org2a31de9"><span class="section-number-3">3.21</span> Rename Method</h3>
+<div class="outline-text-3" id="text-3-21">
 <p>
 Smell: The name of a method does not reveal it's purpose1
 </p>
@@ -2244,12 +2274,12 @@ Smell: The name of a method does not reveal it's purpose1
 </div>
 </div>
 
-<div id="outline-container-org4c30215" class="outline-4">
-<h4 id="org4c30215"><span class="section-number-4">3.20.1</span> Write a test that pass</h4>
+<div id="outline-container-org2bcb6fa" class="outline-4">
+<h4 id="org2bcb6fa"><span class="section-number-4">3.21.1</span> Write a test that pass</h4>
 </div>
-<div id="outline-container-org44b3d16" class="outline-4">
-<h4 id="org44b3d16"><span class="section-number-4">3.20.2</span> Refactor the code</h4>
-<div class="outline-text-4" id="text-3-20-2">
+<div id="outline-container-org00ecabb" class="outline-4">
+<h4 id="org00ecabb"><span class="section-number-4">3.21.2</span> Refactor the code</h4>
+<div class="outline-text-4" id="text-3-21-2">
 <p>
 Change the name of the method
 </p>
@@ -2259,13 +2289,13 @@ Change the name of the method
 </div>
 </div>
 </div>
-<div id="outline-container-org2459e03" class="outline-4">
-<h4 id="org2459e03"><span class="section-number-4">3.20.3</span> Pass a test</h4>
+<div id="outline-container-org1091f64" class="outline-4">
+<h4 id="org1091f64"><span class="section-number-4">3.21.3</span> Pass a test</h4>
 </div>
 </div>
-<div id="outline-container-org7927502" class="outline-3">
-<h3 id="org7927502"><span class="section-number-3">3.21</span> Replace Global with Dependency Injection</h3>
-<div class="outline-text-3" id="text-3-21">
+<div id="outline-container-org2e86f67" class="outline-3">
+<h3 id="org2e86f67"><span class="section-number-3">3.22</span> Replace Global with Dependency Injection</h3>
+<div class="outline-text-3" id="text-3-22">
 <p>
 Smell: Variable with 'global' keyword
 </p>
@@ -2282,12 +2312,12 @@ Smell: Variable with 'global' keyword
 </div>
 </div>
 
-<div id="outline-container-org63d32e5" class="outline-4">
-<h4 id="org63d32e5"><span class="section-number-4">3.21.1</span> Write a test that pass</h4>
+<div id="outline-container-org2a60e5e" class="outline-4">
+<h4 id="org2a60e5e"><span class="section-number-4">3.22.1</span> Write a test that pass</h4>
 </div>
-<div id="outline-container-org1cb3da1" class="outline-4">
-<h4 id="org1cb3da1"><span class="section-number-4">3.21.2</span> Refactor the code</h4>
-<div class="outline-text-4" id="text-3-21-2">
+<div id="outline-container-orgb795c10" class="outline-4">
+<h4 id="orgb795c10"><span class="section-number-4">3.22.2</span> Refactor the code</h4>
+<div class="outline-text-4" id="text-3-22-2">
 <p>
 Move global variable in class to the constructor
 </p>
@@ -2313,18 +2343,18 @@ Move global variable in class to the constructor
 </div>
 </div>
 </div>
-<div id="outline-container-org0bb20a9" class="outline-4">
-<h4 id="org0bb20a9"><span class="section-number-4">3.21.3</span> Pass a test</h4>
+<div id="outline-container-orgc7c65b3" class="outline-4">
+<h4 id="orgc7c65b3"><span class="section-number-4">3.22.3</span> Pass a test</h4>
 </div>
 </div>
-<div id="outline-container-org8749a81" class="outline-3">
-<h3 id="org8749a81"><span class="section-number-3">3.22</span> <span class="done DONE">DONE</span> Replace Magic Number With Symbolic Constant</h3>
-<div class="outline-text-3" id="text-3-22">
+<div id="outline-container-org5fd31f9" class="outline-3">
+<h3 id="org5fd31f9"><span class="section-number-3">3.23</span> <span class="done DONE">DONE</span> Replace Magic Number With Symbolic Constant</h3>
+<div class="outline-text-3" id="text-3-23">
 <p>
 Smell: Number with a particular meaning
 </p>
 <div class="org-src-container">
-<pre class="src src-php" id="org6e257d2"><span style="color: #00ffff;">final</span> <span style="color: #00ffff;">class</span> <span style="color: #98fb98;">Circle</span>
+<pre class="src src-php" id="orge8f0d20"><span style="color: #00ffff;">final</span> <span style="color: #00ffff;">class</span> <span style="color: #98fb98;">Circle</span>
 {
     <span style="color: #ffa07a;">/**</span>
 <span style="color: #ffa07a;">     * </span><span style="color: #7fffd4;">@var</span><span style="color: #ffa07a;"> </span><span style="color: #98fb98;">float</span>
@@ -2344,11 +2374,11 @@ Smell: Number with a particular meaning
 </pre>
 </div>
 </div>
-<div id="outline-container-org5db8eae" class="outline-4">
-<h4 id="org5db8eae"><span class="section-number-4">3.22.1</span> Write a test that pass</h4>
-<div class="outline-text-4" id="text-3-22-1">
+<div id="outline-container-orga8a36cc" class="outline-4">
+<h4 id="orga8a36cc"><span class="section-number-4">3.23.1</span> Write a test that pass</h4>
+<div class="outline-text-4" id="text-3-23-1">
 <div class="org-src-container">
-<pre class="src src-phpunit" id="org2843260">
+<pre class="src src-phpunit" id="org7813abf">
 <span style="color: #00ffff;">use</span> <span style="color: #98fb98;">PHPUnit\Framework\TestCase</span>;
 
 <span style="color: #00ffff;">class</span> <span style="color: #98fb98;">CircleTest</span> <span style="color: #00ffff;">extends</span> <span style="color: #98fb98;">TestCase</span>
@@ -2375,9 +2405,9 @@ OK (1 test, 1 assertion)
 </div>
 </div>
 
-<div id="outline-container-org0950d38" class="outline-4">
-<h4 id="org0950d38"><span class="section-number-4">3.22.2</span> Refactor the code</h4>
-<div class="outline-text-4" id="text-3-22-2">
+<div id="outline-container-org0323854" class="outline-4">
+<h4 id="org0323854"><span class="section-number-4">3.23.2</span> Refactor the code</h4>
+<div class="outline-text-4" id="text-3-23-2">
 <p>
 Create a constant, name it after the meaning, and replace the number with it
 </p>
@@ -2408,33 +2438,33 @@ Create a constant, name it after the meaning, and replace the number with it
 </div>
 </div>
 </div>
-<div id="outline-container-orgf25f219" class="outline-4">
-<h4 id="orgf25f219"><span class="section-number-4">3.22.3</span> Run a test</h4>
-<div class="outline-text-4" id="text-3-22-3">
+<div id="outline-container-orga6c0f6d" class="outline-4">
+<h4 id="orga6c0f6d"><span class="section-number-4">3.23.3</span> Run a test</h4>
+<div class="outline-text-4" id="text-3-23-3">
 <pre class="example">
 PHPUnit 7.4.3 by Sebastian Bergmann and contributors.
 
 .                                                                   1 / 1 (100%)
 
-Time: 60 ms, Memory: 10.00MB
+Time: 61 ms, Memory: 10.00MB
 
 OK (1 test, 1 assertion)
 
 </pre>
 </div>
 </div>
-<div id="outline-container-orge763ec6" class="outline-4">
-<h4 id="orge763ec6"><span class="section-number-4">3.22.4</span> Helper:</h4>
-<div class="outline-text-4" id="text-3-22-4">
+<div id="outline-container-org487990c" class="outline-4">
+<h4 id="org487990c"><span class="section-number-4">3.23.4</span> Helper:</h4>
+<div class="outline-text-4" id="text-3-23-4">
 <p>
 <a href="https://github.com/povils/phpmnd">PHP Magic Number Detector</a> is a tool to detect magic numbers in your PHP code
 </p>
 </div>
 </div>
 </div>
-<div id="outline-container-org6593079" class="outline-3">
-<h3 id="org6593079"><span class="section-number-3">3.23</span> Replace Parameter with Method</h3>
-<div class="outline-text-3" id="text-3-23">
+<div id="outline-container-org1f52587" class="outline-3">
+<h3 id="org1f52587"><span class="section-number-3">3.24</span> Replace Parameter with Method</h3>
+<div class="outline-text-3" id="text-3-24">
 <p>
 Smell: A method runs different code depending on the values of parameters
 </p>
@@ -2453,12 +2483,12 @@ Smell: A method runs different code depending on the values of parameters
 </pre>
 </div>
 </div>
-<div id="outline-container-org332f736" class="outline-4">
-<h4 id="org332f736"><span class="section-number-4">3.23.1</span> Write a test that pass</h4>
+<div id="outline-container-org5944c53" class="outline-4">
+<h4 id="org5944c53"><span class="section-number-4">3.24.1</span> Write a test that pass</h4>
 </div>
-<div id="outline-container-org1f4146c" class="outline-4">
-<h4 id="org1f4146c"><span class="section-number-4">3.23.2</span> Refactor the code</h4>
-<div class="outline-text-4" id="text-3-23-2">
+<div id="outline-container-org473e303" class="outline-4">
+<h4 id="org473e303"><span class="section-number-4">3.24.2</span> Refactor the code</h4>
+<div class="outline-text-4" id="text-3-24-2">
 <p>
 Create a separate method for each value of the parameter
 </p>
@@ -2479,13 +2509,13 @@ Create a separate method for each value of the parameter
 </div>
 </div>
 </div>
-<div id="outline-container-orga6bc1b8" class="outline-4">
-<h4 id="orga6bc1b8"><span class="section-number-4">3.23.3</span> Pass a test</h4>
+<div id="outline-container-orga3e50be" class="outline-4">
+<h4 id="orga3e50be"><span class="section-number-4">3.24.3</span> Pass a test</h4>
 </div>
 </div>
-<div id="outline-container-org51b9a66" class="outline-3">
-<h3 id="org51b9a66"><span class="section-number-3">3.24</span> Replace Temp with Query</h3>
-<div class="outline-text-3" id="text-3-24">
+<div id="outline-container-orgf2c1200" class="outline-3">
+<h3 id="orgf2c1200"><span class="section-number-3">3.25</span> Replace Temp with Query</h3>
+<div class="outline-text-3" id="text-3-25">
 <p>
 Smell: Using a temporary variable to hold the result of an expression.
 Damage: Temporary variable increase the temptation to write longer methods. Temporaries aren’t necessarily bad, but sometimes they attract new code.
@@ -2503,12 +2533,12 @@ Damage: Temporary variable increase the temptation to write longer methods. Temp
 </pre>
 </div>
 </div>
-<div id="outline-container-orgc89332f" class="outline-4">
-<h4 id="orgc89332f"><span class="section-number-4">3.24.1</span> Write a test that pass</h4>
+<div id="outline-container-org3e9eadf" class="outline-4">
+<h4 id="org3e9eadf"><span class="section-number-4">3.25.1</span> Write a test that pass</h4>
 </div>
-<div id="outline-container-org797d7b8" class="outline-4">
-<h4 id="org797d7b8"><span class="section-number-4">3.24.2</span> Refactor the code</h4>
-<div class="outline-text-4" id="text-3-24-2">
+<div id="outline-container-org7339923" class="outline-4">
+<h4 id="org7339923"><span class="section-number-4">3.25.2</span> Refactor the code</h4>
+<div class="outline-text-4" id="text-3-25-2">
 <p>
 Extract the expression into a method. Replace all references to the temp with the expression. The new method can then be used in other methods.
 </p>
@@ -2529,21 +2559,21 @@ Extract the expression into a method. Replace all references to the temp with th
 </div>
 </div>
 </div>
-<div id="outline-container-orge6366be" class="outline-4">
-<h4 id="orge6366be"><span class="section-number-4">3.24.3</span> Pass a test</h4>
+<div id="outline-container-org1259ac1" class="outline-4">
+<h4 id="org1259ac1"><span class="section-number-4">3.25.3</span> Pass a test</h4>
 </div>
-<div id="outline-container-org33f01f2" class="outline-4">
-<h4 id="org33f01f2"><span class="section-number-4">3.24.4</span> Info</h4>
-<div class="outline-text-4" id="text-3-24-4">
+<div id="outline-container-orga62ee06" class="outline-4">
+<h4 id="orga62ee06"><span class="section-number-4">3.25.4</span> Info</h4>
+<div class="outline-text-4" id="text-3-25-4">
 <p>
 Now, but wait, you might say. Isn't this more inefficient? Because if we created the temp the old way, we'd only have to execute the expression once, but if we turn it into a method, we might be calling it many different times. And yes, you're absolutely right, but remember, the pure efficiency of the code is not our first goal in refactoring. Clarity is. The likelihood is that a typical expression you would deal with in this sort of refactoring is going to be so undemanding, it wouldn't be noticeable at all, even having to call it several more times. But if it is an intensive operation, an intensive expression, well you should really be working on that later, after you've refactored using profilers. And other tools to make sure you're not doing pointless, premature optimization. And the real benefit is that by creating this as its own method, we will also have use of it anywhere else in the class, which wasn't the case before. As the original temp was scoped to the original method. So, we won't be tempted to add more code to the original method just to have access to that temp.
 </p>
 </div>
 </div>
 </div>
-<div id="outline-container-org7f1acbf" class="outline-3">
-<h3 id="org7f1acbf"><span class="section-number-3">3.25</span> Replacing Type Code with Subclasses</h3>
-<div class="outline-text-3" id="text-3-25">
+<div id="outline-container-org5062e2e" class="outline-3">
+<h3 id="org5062e2e"><span class="section-number-3">3.26</span> Replacing Type Code with Subclasses</h3>
+<div class="outline-text-3" id="text-3-26">
 <p>
 Smell: Immutable type code affecting the class behavior.
 </p>
@@ -2610,12 +2640,12 @@ Smell: Immutable type code affecting the class behavior.
 </pre>
 </div>
 </div>
-<div id="outline-container-org766dbba" class="outline-4">
-<h4 id="org766dbba"><span class="section-number-4">3.25.1</span> Write a test that pass</h4>
+<div id="outline-container-org135fe6a" class="outline-4">
+<h4 id="org135fe6a"><span class="section-number-4">3.26.1</span> Write a test that pass</h4>
 </div>
-<div id="outline-container-orge4b6002" class="outline-4">
-<h4 id="orge4b6002"><span class="section-number-4">3.25.2</span> Refactor the code</h4>
-<div class="outline-text-4" id="text-3-25-2">
+<div id="outline-container-org3d4fb2d" class="outline-4">
+<h4 id="org3d4fb2d"><span class="section-number-4">3.26.2</span> Refactor the code</h4>
+<div class="outline-text-4" id="text-3-26-2">
 <p>
 Replace the type code with subclasses.
 </p>
@@ -2662,13 +2692,13 @@ Replace the type code with subclasses.
 </div>
 </div>
 </div>
-<div id="outline-container-org54b1735" class="outline-4">
-<h4 id="org54b1735"><span class="section-number-4">3.25.3</span> Pass a test</h4>
+<div id="outline-container-org00b2e1c" class="outline-4">
+<h4 id="org00b2e1c"><span class="section-number-4">3.26.3</span> Pass a test</h4>
 </div>
 </div>
-<div id="outline-container-org0ae6881" class="outline-3">
-<h3 id="org0ae6881"><span class="section-number-3">3.26</span> Separate Query from Modifier</h3>
-<div class="outline-text-3" id="text-3-26">
+<div id="outline-container-orgfc896bd" class="outline-3">
+<h3 id="orgfc896bd"><span class="section-number-3">3.27</span> Separate Query from Modifier</h3>
+<div class="outline-text-3" id="text-3-27">
 <p>
 Smell: A method that returns a value but also changes the state of an object.
 </p>
@@ -2689,12 +2719,12 @@ Smell: A method that returns a value but also changes the state of an object.
 </pre>
 </div>
 </div>
-<div id="outline-container-org1a5de25" class="outline-4">
-<h4 id="org1a5de25"><span class="section-number-4">3.26.1</span> Write a test that pass</h4>
+<div id="outline-container-orgd7db2d7" class="outline-4">
+<h4 id="orgd7db2d7"><span class="section-number-4">3.27.1</span> Write a test that pass</h4>
 </div>
-<div id="outline-container-org0aba3ff" class="outline-4">
-<h4 id="org0aba3ff"><span class="section-number-4">3.26.2</span> Refactor the code</h4>
-<div class="outline-text-4" id="text-3-26-2">
+<div id="outline-container-org108262f" class="outline-4">
+<h4 id="org108262f"><span class="section-number-4">3.27.2</span> Refactor the code</h4>
+<div class="outline-text-4" id="text-3-27-2">
 <p>
 Create two methods, one for the query and one for the modification.
 </p>
@@ -2720,13 +2750,13 @@ Create two methods, one for the query and one for the modification.
 </div>
 </div>
 </div>
-<div id="outline-container-org2c7cc99" class="outline-4">
-<h4 id="org2c7cc99"><span class="section-number-4">3.26.3</span> Pass a test</h4>
+<div id="outline-container-org70c7a95" class="outline-4">
+<h4 id="org70c7a95"><span class="section-number-4">3.27.3</span> Pass a test</h4>
 </div>
 </div>
-<div id="outline-container-orga187293" class="outline-3">
-<h3 id="orga187293"><span class="section-number-3">3.27</span> Split Temporary Variable</h3>
-<div class="outline-text-3" id="text-3-27">
+<div id="outline-container-orgff8695e" class="outline-3">
+<h3 id="orgff8695e"><span class="section-number-3">3.28</span> Split Temporary Variable</h3>
+<div class="outline-text-3" id="text-3-28">
 <p>
 Smell: Temporary variable is assigned to more than once (overwrite), but is not a loop variable nor a collecting temporary variable.
 </p>
@@ -2738,12 +2768,12 @@ Smell: Temporary variable is assigned to more than once (overwrite), but is not 
 </pre>
 </div>
 </div>
-<div id="outline-container-orgff001ff" class="outline-4">
-<h4 id="orgff001ff"><span class="section-number-4">3.27.1</span> Write a test that pass</h4>
+<div id="outline-container-org1912702" class="outline-4">
+<h4 id="org1912702"><span class="section-number-4">3.28.1</span> Write a test that pass</h4>
 </div>
-<div id="outline-container-orgea5edf5" class="outline-4">
-<h4 id="orgea5edf5"><span class="section-number-4">3.27.2</span> Refactor the code</h4>
-<div class="outline-text-4" id="text-3-27-2">
+<div id="outline-container-org5a935f3" class="outline-4">
+<h4 id="org5a935f3"><span class="section-number-4">3.28.2</span> Refactor the code</h4>
+<div class="outline-text-4" id="text-3-28-2">
 <p>
 Make a separate temporary variable for each assignment.
 </p>
@@ -2756,25 +2786,25 @@ Make a separate temporary variable for each assignment.
 </div>
 </div>
 </div>
-<div id="outline-container-org55ea2bc" class="outline-4">
-<h4 id="org55ea2bc"><span class="section-number-4">3.27.3</span> Pass a test</h4>
+<div id="outline-container-orgce537eb" class="outline-4">
+<h4 id="orgce537eb"><span class="section-number-4">3.28.3</span> Pass a test</h4>
 </div>
 </div>
 </div>
-<div id="outline-container-org2f5a4f7" class="outline-2">
-<h2 id="org2f5a4f7"><span class="section-number-2">4</span> <span class="todo TODO">TODO</span> Smells</h2>
+<div id="outline-container-org0518fc5" class="outline-2">
+<h2 id="org0518fc5"><span class="section-number-2">4</span> <span class="todo TODO">TODO</span> Smells</h2>
 <div class="outline-text-2" id="text-4">
 </div>
-<div id="outline-container-org3974150" class="outline-3">
-<h3 id="org3974150"><span class="section-number-3">4.1</span> Booch’s fundamental design principles</h3>
+<div id="outline-container-orgd1a114b" class="outline-3">
+<h3 id="orgd1a114b"><span class="section-number-3">4.1</span> Booch’s fundamental design principles</h3>
 <div class="outline-text-3" id="text-4-1">
 </div>
-<div id="outline-container-orgeb8c1ae" class="outline-4">
-<h4 id="orgeb8c1ae"><span class="section-number-4">4.1.1</span> abstraction</h4>
+<div id="outline-container-org0d7ed64" class="outline-4">
+<h4 id="org0d7ed64"><span class="section-number-4">4.1.1</span> abstraction</h4>
 <div class="outline-text-4" id="text-4-1-1">
 </div>
 <ol class="org-ol">
-<li><a id="org7baf0d6"></a>Missing Abstraction<br />
+<li><a id="org03a224a"></a>Missing Abstraction<br />
 <div class="outline-text-5" id="text-4-1-1-1">
 <p>
 Clumps of data or encoded strings are used instead of creating a class or an interface
@@ -2844,7 +2874,7 @@ occur together in lots of places instead of creating a class.
 </p>
 </div>
 </li>
-<li><a id="orga67ed5a"></a>Imperative Abstraction<br />
+<li><a id="org5c909f8"></a>Imperative Abstraction<br />
 <div class="outline-text-5" id="text-4-1-1-2">
 <p>
 Consider the case of a large-sized financial application. This application employs
@@ -2896,7 +2926,7 @@ have been a method within a class has been turned into a class itself.
 </p>
 </div>
 </li>
-<li><a id="org24dfd55"></a>Incomplete Abstraction<br />
+<li><a id="orgd97c47f"></a>Incomplete Abstraction<br />
 <div class="outline-text-5" id="text-4-1-1-3">
 <p>
 An abstraction (entity or interface) does not support complementary or interrelated methods completely
@@ -2962,7 +2992,7 @@ runtime problems.
 </p>
 </div>
 </li>
-<li><a id="org3f02a21"></a>Multifaceted Abstraction<br />
+<li><a id="org1018a83"></a>Multifaceted Abstraction<br />
 <div class="outline-text-5" id="text-4-1-1-4">
 <p>
 This smell arises when an abstraction has more than one responsibility assigned to it.
@@ -3001,7 +3031,7 @@ abstractions.
 </p>
 </div>
 </li>
-<li><a id="org3622f00"></a>Unnecessary Abstraction<br />
+<li><a id="org86313d6"></a>Unnecessary Abstraction<br />
 <div class="outline-text-5" id="text-4-1-1-5">
 <p>
 An abstraction that is not needed
@@ -3015,7 +3045,7 @@ Agent classes - class serve as an “agent” (i.e., they only pass messages fro
 </p>
 </div>
 </li>
-<li><a id="org0be4a05"></a>Unutilized Abstraction<br />
+<li><a id="orgb6b12e1"></a>Unutilized Abstraction<br />
 <div class="outline-text-5" id="text-4-1-1-6">
 <p>
 UNUTILIZED ABSTRACTION
@@ -3119,7 +3149,7 @@ artifacts are replicated throughout the architecture.
 </p>
 </div>
 </li>
-<li><a id="orgb621452"></a>Duplicate Abstraction<br />
+<li><a id="org108d31f"></a>Duplicate Abstraction<br />
 <div class="outline-text-5" id="text-4-1-1-7">
 <p>
 UNUTILIZED ABSTRACTION
@@ -3186,22 +3216,22 @@ artifacts are replicated throughout the architecture.
 </li>
 </ol>
 </div>
-<div id="outline-container-org898852d" class="outline-4">
-<h4 id="org898852d"><span class="section-number-4">4.1.2</span> encapsulation</h4>
+<div id="outline-container-org9f34f1e" class="outline-4">
+<h4 id="org9f34f1e"><span class="section-number-4">4.1.2</span> encapsulation</h4>
 </div>
-<div id="outline-container-org8bce407" class="outline-4">
-<h4 id="org8bce407"><span class="section-number-4">4.1.3</span> modularization</h4>
+<div id="outline-container-org7e25726" class="outline-4">
+<h4 id="org7e25726"><span class="section-number-4">4.1.3</span> modularization</h4>
 </div>
-<div id="outline-container-org15d6343" class="outline-4">
-<h4 id="org15d6343"><span class="section-number-4">4.1.4</span> hierarchy</h4>
+<div id="outline-container-orgb339b1f" class="outline-4">
+<h4 id="orgb339b1f"><span class="section-number-4">4.1.4</span> hierarchy</h4>
 </div>
 </div>
-<div id="outline-container-orgce25c2a" class="outline-3">
-<h3 id="orgce25c2a"><span class="section-number-3">4.2</span> Normal</h3>
+<div id="outline-container-orgdb6e8b5" class="outline-3">
+<h3 id="orgdb6e8b5"><span class="section-number-3">4.2</span> Normal</h3>
 <div class="outline-text-3" id="text-4-2">
 </div>
-<div id="outline-container-orgfd2eebf" class="outline-4">
-<h4 id="orgfd2eebf"><span class="section-number-4">4.2.1</span> Alias Duplicates</h4>
+<div id="outline-container-org4cba639" class="outline-4">
+<h4 id="org4cba639"><span class="section-number-4">4.2.1</span> Alias Duplicates</h4>
 <div class="outline-text-4" id="text-4-2-1">
 <div class="org-src-container">
 <pre class="src src-php"><span style="color: #00ffff;">use</span> <span style="color: #98fb98;">App\Model\Category\Query</span> <span style="color: #00ffff;">as</span> <span style="color: #98fb98;">CategoryQuery</span>;
@@ -3214,38 +3244,38 @@ artifacts are replicated throughout the architecture.
 </p>
 </div>
 </div>
-<div id="outline-container-org4419248" class="outline-4">
-<h4 id="org4419248"><span class="section-number-4">4.2.2</span> Alternative Classes With Different Interfaces</h4>
+<div id="outline-container-org2068a50" class="outline-4">
+<h4 id="org2068a50"><span class="section-number-4">4.2.2</span> Alternative Classes With Different Interfaces</h4>
 </div>
-<div id="outline-container-org064c85a" class="outline-4">
-<h4 id="org064c85a"><span class="section-number-4">4.2.3</span> Comments</h4>
+<div id="outline-container-orgfd35c88" class="outline-4">
+<h4 id="orgfd35c88"><span class="section-number-4">4.2.3</span> Comments</h4>
 <div class="outline-text-4" id="text-4-2-3">
 <p>
 If you need a comment to explain what a block of code does, try Extract Function (106). If the method is already extracted but you still need a comment to explain what it does, use Change Function Declaration (124) to rename it. If you need to state some rules about the required state of the system, use Introduce Assertion (302).
 </p>
 </div>
 </div>
-<div id="outline-container-org52a97c7" class="outline-4">
-<h4 id="org52a97c7"><span class="section-number-4">4.2.4</span> Data Class</h4>
+<div id="outline-container-org6840448" class="outline-4">
+<h4 id="org6840448"><span class="section-number-4">4.2.4</span> Data Class</h4>
 </div>
-<div id="outline-container-orgeeb5f3d" class="outline-4">
-<h4 id="orgeeb5f3d"><span class="section-number-4">4.2.5</span> Data Clumps</h4>
+<div id="outline-container-org3bb8ec4" class="outline-4">
+<h4 id="org3bb8ec4"><span class="section-number-4">4.2.5</span> Data Clumps</h4>
 <div class="outline-text-4" id="text-4-2-5">
 <p>
 Fix: Use Extract Class (182) on the fields to turn the clumps into an object.
 </p>
 </div>
 </div>
-<div id="outline-container-org96c9bf8" class="outline-4">
-<h4 id="org96c9bf8"><span class="section-number-4">4.2.6</span> Divergent Change</h4>
+<div id="outline-container-org76c8df7" class="outline-4">
+<h4 id="org76c8df7"><span class="section-number-4">4.2.6</span> Divergent Change</h4>
 <div class="outline-text-4" id="text-4-2-6">
 <p>
 Within Classes
 </p>
 </div>
 </div>
-<div id="outline-container-org5efa4dd" class="outline-4">
-<h4 id="org5efa4dd"><span class="section-number-4">4.2.7</span> Duplicated Code</h4>
+<div id="outline-container-orgd982e2b" class="outline-4">
+<h4 id="orgd982e2b"><span class="section-number-4">4.2.7</span> Duplicated Code</h4>
 <div class="outline-text-4" id="text-4-2-7">
 <p>
 Within Classes
@@ -3254,7 +3284,7 @@ Don't Repeat Yourself (DRY)
 </p>
 </div>
 <ol class="org-ol">
-<li><a id="orgef760a1"></a>Same expression in different places<br />
+<li><a id="org2582876"></a>Same expression in different places<br />
 <div class="outline-text-5" id="text-4-2-7-1">
 <p>
 The simplest duplicated code problem is when you have the same expression in two
@@ -3265,16 +3295,16 @@ methods of the same class. Then all you have to do is Extract Function and invok
 </ol>
 </div>
 
-<div id="outline-container-org422dc86" class="outline-4">
-<h4 id="org422dc86"><span class="section-number-4">4.2.8</span> Feature Envy</h4>
+<div id="outline-container-org5e8dda6" class="outline-4">
+<h4 id="org5e8dda6"><span class="section-number-4">4.2.8</span> Feature Envy</h4>
 <div class="outline-text-4" id="text-4-2-8">
 <p>
 Between Classes	A method accesses the data of another object more than its own data
 </p>
 </div>
 </div>
-<div id="outline-container-org5a7630a" class="outline-4">
-<h4 id="org5a7630a"><span class="section-number-4">4.2.9</span> Global Data</h4>
+<div id="outline-container-orgde746db" class="outline-4">
+<h4 id="orgde746db"><span class="section-number-4">4.2.9</span> Global Data</h4>
 <div class="outline-text-4" id="text-4-2-9">
 <p>
 "Global data is especially nasty when it’s mutable. Global data that you can guarantee
@@ -3284,11 +3314,11 @@ Fix: Encapsulate Variable
 </p>
 </div>
 </div>
-<div id="outline-container-orgb5f4ac6" class="outline-4">
-<h4 id="orgb5f4ac6"><span class="section-number-4">4.2.10</span> Insider Trading</h4>
+<div id="outline-container-org8c90ef3" class="outline-4">
+<h4 id="org8c90ef3"><span class="section-number-4">4.2.10</span> Insider Trading</h4>
 </div>
-<div id="outline-container-org325c939" class="outline-4">
-<h4 id="org325c939"><span class="section-number-4">4.2.11</span> Large Class</h4>
+<div id="outline-container-org93cb5ea" class="outline-4">
+<h4 id="org93cb5ea"><span class="section-number-4">4.2.11</span> Large Class</h4>
 <div class="outline-text-4" id="text-4-2-11">
 <p>
 Within Classes	
@@ -3297,8 +3327,8 @@ Fix: Extract Class, Extract Superclass, Replace Type Code with Subclass
 </p>
 </div>
 </div>
-<div id="outline-container-org7ef8ca9" class="outline-4">
-<h4 id="org7ef8ca9"><span class="section-number-4">4.2.12</span> Lazy Element</h4>
+<div id="outline-container-orgcfcdadc" class="outline-4">
+<h4 id="orgcfcdadc"><span class="section-number-4">4.2.12</span> Lazy Element</h4>
 <div class="outline-text-4" id="text-4-2-12">
 <p>
 It may be a function that’s named the same as its body code reads, or a class that is essentially one simple function.
@@ -3306,8 +3336,8 @@ Fix: Inline Function, Inline Class, Collapse Hierarchy
 </p>
 </div>
 </div>
-<div id="outline-container-orgbeba3cf" class="outline-4">
-<h4 id="orgbeba3cf"><span class="section-number-4">4.2.13</span> Long Function</h4>
+<div id="outline-container-orga277125" class="outline-4">
+<h4 id="orga277125"><span class="section-number-4">4.2.13</span> Long Function</h4>
 <div class="outline-text-4" id="text-4-2-13">
 <p>
 Within Classes
@@ -3315,8 +3345,8 @@ Fix: Extract Function
 </p>
 </div>
 </div>
-<div id="outline-container-orgd5c6cdc" class="outline-4">
-<h4 id="orgd5c6cdc"><span class="section-number-4">4.2.14</span> Long Parameter List</h4>
+<div id="outline-container-orga1b558e" class="outline-4">
+<h4 id="orga1b558e"><span class="section-number-4">4.2.14</span> Long Parameter List</h4>
 <div class="outline-text-4" id="text-4-2-14">
 <p>
 Within Classes
@@ -3324,16 +3354,16 @@ Fix: Replace Parameter with Query, Preserve Whole Object, INtroduce PArameter Ob
 </p>
 </div>
 </div>
-<div id="outline-container-orgde5da0d" class="outline-4">
-<h4 id="orgde5da0d"><span class="section-number-4">4.2.15</span> Loops</h4>
+<div id="outline-container-org2cdf5c5" class="outline-4">
+<h4 id="org2cdf5c5"><span class="section-number-4">4.2.15</span> Loops</h4>
 <div class="outline-text-4" id="text-4-2-15">
 <p>
 Fix: Replace Loop with Pipeline
 </p>
 </div>
 </div>
-<div id="outline-container-org9141912" class="outline-4">
-<h4 id="org9141912"><span class="section-number-4">4.2.16</span> Message Chains</h4>
+<div id="outline-container-orga4eac2f" class="outline-4">
+<h4 id="orga4eac2f"><span class="section-number-4">4.2.16</span> Message Chains</h4>
 <div class="outline-text-4" id="text-4-2-16">
 <p>
 You see message chains when a client asks one object for another object, which the client then asks for yet another object, which the client then asks for yet another another object, and so on.
@@ -3345,24 +3375,24 @@ You see message chains when a client asks one object for another object, which t
 </p>
 </div>
 </div>
-<div id="outline-container-orgd15bc56" class="outline-4">
-<h4 id="orgd15bc56"><span class="section-number-4">4.2.17</span> Middle Man</h4>
+<div id="outline-container-org3b4bcae" class="outline-4">
+<h4 id="org3b4bcae"><span class="section-number-4">4.2.17</span> Middle Man</h4>
 <div class="outline-text-4" id="text-4-2-17">
 <p>
 Fix: Remove Middle Man, Inline Function, Replace Superclass with Delegate, Replace Subclass with Delegate
 </p>
 </div>
 </div>
-<div id="outline-container-org270ed52" class="outline-4">
-<h4 id="org270ed52"><span class="section-number-4">4.2.18</span> Mysterious Name</h4>
+<div id="outline-container-org242e14b" class="outline-4">
+<h4 id="org242e14b"><span class="section-number-4">4.2.18</span> Mysterious Name</h4>
 <div class="outline-text-4" id="text-4-2-18">
 <p>
 Fix: Change Function Declaration, Rename Variable, Rename Field
 </p>
 </div>
 </div>
-<div id="outline-container-org4d24164" class="outline-4">
-<h4 id="org4d24164"><span class="section-number-4">4.2.19</span> Primitive Obsession</h4>
+<div id="outline-container-orgbd18f62" class="outline-4">
+<h4 id="orgbd18f62"><span class="section-number-4">4.2.19</span> Primitive Obsession</h4>
 <div class="outline-text-4" id="text-4-2-19">
 <p>
 Primitive types: integers, floating point numbers and strings. Money, coordinates or ranges.
@@ -3370,30 +3400,30 @@ Fix: Replace Primitive with Object
 </p>
 </div>
 </div>
-<div id="outline-container-orgbea8016" class="outline-4">
-<h4 id="orgbea8016"><span class="section-number-4">4.2.20</span> Refused Bequest</h4>
+<div id="outline-container-org7d97e3d" class="outline-4">
+<h4 id="org7d97e3d"><span class="section-number-4">4.2.20</span> Refused Bequest</h4>
 </div>
-<div id="outline-container-orga6f45dc" class="outline-4">
-<h4 id="orga6f45dc"><span class="section-number-4">4.2.21</span> Repeated Switches</h4>
+<div id="outline-container-orgf8e39cb" class="outline-4">
+<h4 id="orgf8e39cb"><span class="section-number-4">4.2.21</span> Repeated Switches</h4>
 </div>
-<div id="outline-container-orgd6e5964" class="outline-4">
-<h4 id="orgd6e5964"><span class="section-number-4">4.2.22</span> Shotgun Surgery</h4>
+<div id="outline-container-org72c6e1d" class="outline-4">
+<h4 id="org72c6e1d"><span class="section-number-4">4.2.22</span> Shotgun Surgery</h4>
 </div>
-<div id="outline-container-orgb84212d" class="outline-4">
-<h4 id="orgb84212d"><span class="section-number-4">4.2.23</span> Speculative Generality</h4>
+<div id="outline-container-org5cbeabd" class="outline-4">
+<h4 id="org5cbeabd"><span class="section-number-4">4.2.23</span> Speculative Generality</h4>
 <div class="outline-text-4" id="text-4-2-23">
 <p>
 “Oh, I think we’ll need the ability to do this kind of thing someday”
 </p>
 </div>
 </div>
-<div id="outline-container-org9665381" class="outline-4">
-<h4 id="org9665381"><span class="section-number-4">4.2.24</span> Temporary Field</h4>
+<div id="outline-container-org9e174d7" class="outline-4">
+<h4 id="org9e174d7"><span class="section-number-4">4.2.24</span> Temporary Field</h4>
 </div>
 </div>
 </div>
-<div id="outline-container-org40a14fa" class="outline-2">
-<h2 id="org40a14fa"><span class="section-number-2">5</span> Codebases</h2>
+<div id="outline-container-org9eeee11" class="outline-2">
+<h2 id="org9eeee11"><span class="section-number-2">5</span> Codebases</h2>
 <div class="outline-text-2" id="text-5">
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
@@ -3447,8 +3477,8 @@ Fix: Replace Primitive with Object
 </table>
 </div>
 
-<div id="outline-container-org44406da" class="outline-3">
-<h3 id="org44406da"><span class="section-number-3">5.1</span> <a href="https://github.com/adamculp/refactoring101">Video Rental Shop</a></h3>
+<div id="outline-container-org6252f17" class="outline-3">
+<h3 id="org6252f17"><span class="section-number-3">5.1</span> <a href="https://github.com/adamculp/refactoring101">Video Rental Shop</a></h3>
 <div class="outline-text-3" id="text-5-1">
 <p>
    phploc
@@ -3467,6 +3497,29 @@ Size
     Functions                                        0 (0.00%)
       Average Function Length                        0
     Not in classes or functions                      8 (16.67%)
+</p>
+
+<p>
+Structure
+  Namespaces                                         0
+  Interfaces                                         0
+  Traits                                             0
+  Classes                                            3
+    Abstract Classes                                 0 (0.00%)
+    Concrete Classes                                 3 (100.00%)
+  Methods                                           11
+    Scope
+      Non-Static Methods                            11 (100.00%)
+      Static Methods                                 0 (0.00%)
+    Visibility
+      Public Methods                                11 (100.00%)
+      Non-Public Methods                             0 (0.00%)
+  Functions                                          0
+    Named Functions                                  0 (0.00%)
+    Anonymous Functions                              0 (0.00%)
+  Constants                                          3
+    Global Constants                                 0 (0.00%)
+    Class Constants                                  3 (100.00%)
 </p>
 
 <p>
@@ -3493,33 +3546,10 @@ Dependencies
     Non-Static                                      14 (100.00%)
     Static                                           0 (0.00%)
 </p>
-
-<p>
-Structure
-  Namespaces                                         0
-  Interfaces                                         0
-  Traits                                             0
-  Classes                                            3
-    Abstract Classes                                 0 (0.00%)
-    Concrete Classes                                 3 (100.00%)
-  Methods                                           11
-    Scope
-      Non-Static Methods                            11 (100.00%)
-      Static Methods                                 0 (0.00%)
-    Visibility
-      Public Methods                                11 (100.00%)
-      Non-Public Methods                             0 (0.00%)
-  Functions                                          0
-    Named Functions                                  0 (0.00%)
-    Anonymous Functions                              0 (0.00%)
-  Constants                                          3
-    Global Constants                                 0 (0.00%)
-    Class Constants                                  3 (100.00%)
-</p>
 </div>
 </div>
-<div id="outline-container-org2484116" class="outline-3">
-<h3 id="org2484116"><span class="section-number-3">5.2</span> <a href="https://github.com/jbrains/trivia/tree/master/php">Legacy Code Retreat - Trivia Game</a></h3>
+<div id="outline-container-org66f4ae4" class="outline-3">
+<h3 id="org66f4ae4"><span class="section-number-3">5.2</span> <a href="https://github.com/jbrains/trivia/tree/master/php">Legacy Code Retreat - Trivia Game</a></h3>
 <div class="outline-text-3" id="text-5-2">
 <p>
    phploc
@@ -3590,13 +3620,21 @@ Structure
 </div>
 </div>
 </div>
-<div id="outline-container-orgd61bb27" class="outline-2">
-<h2 id="orgd61bb27"><span class="section-number-2">6</span> Metrics</h2>
+<div id="outline-container-org4ca729e" class="outline-2">
+<h2 id="org4ca729e"><span class="section-number-2">6</span> Jokes</h2>
 <div class="outline-text-2" id="text-6">
+<p>
+“There is so much spaghetti I might as well open a restaurant!”
+</p>
 </div>
-<div id="outline-container-org64c2cea" class="outline-3">
-<h3 id="org64c2cea"><span class="section-number-3">6.1</span> Cyclomatic Complexity Number (CCN)</h3>
-<div class="outline-text-3" id="text-6-1">
+</div>
+<div id="outline-container-org4e919a3" class="outline-2">
+<h2 id="org4e919a3"><span class="section-number-2">7</span> Metrics</h2>
+<div class="outline-text-2" id="text-7">
+</div>
+<div id="outline-container-org223a322" class="outline-3">
+<h3 id="org223a322"><span class="section-number-3">7.1</span> Cyclomatic Complexity Number (CCN)</h3>
+<div class="outline-text-3" id="text-7-1">
 <p>
 Counts the available decision paths in a source code to determine it's complexity.
 Each decision path starts with one of the conditional statements from the following list:
@@ -3693,9 +3731,9 @@ Cyclomatic Complexity Number is never less than 1, because there’s always at l
 </div>
 </div>
 
-<div id="outline-container-org3a22647" class="outline-3">
-<h3 id="org3a22647"><span class="section-number-3">6.2</span> NPath Complexity</h3>
-<div class="outline-text-3" id="text-6-2">
+<div id="outline-container-org1842568" class="outline-3">
+<h3 id="org1842568"><span class="section-number-3">7.2</span> NPath Complexity</h3>
+<div class="outline-text-3" id="text-7-2">
 <div class="org-src-container">
 <pre class="src src-php"><span style="color: #00ffff;">function</span> <span style="color: #87cefa;">foo</span>(<span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">a</span>, <span style="color: #f5f5f5; background-color: #333333;">$</span><span style="color: #eedd82;">b</span>)
 {
@@ -3718,9 +3756,9 @@ So here we have function with 4 possible outcomes, since we have 2 statements th
 </div>
 </div>
 </div>
-<div id="outline-container-org36f418d" class="outline-2">
-<h2 id="org36f418d"><span class="section-number-2">7</span> About</h2>
-<div class="outline-text-2" id="text-7">
+<div id="outline-container-org63f6d65" class="outline-2">
+<h2 id="org63f6d65"><span class="section-number-2">8</span> About</h2>
+<div class="outline-text-2" id="text-8">
 <p>
 It's a simple site about refactoring in PHP.
 </p>
@@ -3734,7 +3772,7 @@ You can support this site: send some BitCoins 1D8xeRkxssTTLESfGZtPVoqVJDq7MJSqNx
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: slk</p>
-<p class="date">Created: 2019-05-06 pon 15:55</p>
+<p class="date">Created: 2019-05-30 czw 10:27</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

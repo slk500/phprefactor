@@ -35,6 +35,8 @@ przerwałem bo mam tylko draft a nie pełną książke
 
 - Branches. As I write this, a common approach in teams is for each team member to work on abranch of the code base using a version control system, and do considerable work onthat branch before integrating with a mainline (often called master or trunk) sharedacross the team. Often, this involves building a whole feature on a branch, notintegrating into the mainline until the feature is ready to be released into production.Fans of this approach claim that it keeps the mainline clear of any in­process code,provides a clear version history of feature additions, and allows features to be revertedeasily should they cause problems.There are downsides to feature branches like this. The longer I work on an isolatedbranch, the harder the job of integrating my work with mainline is going to be when I’mdone. Most people reduce this pain by frequently merging or re­basing from mainlineto my branch. But this doesn’t really solve the problem when several people areworking on individual feature branches. I distinguish between merging and integration.If I merge mainline into my code, this is a oneway movement—my branch changes butthe mainline doesn’t. I use “integrate” to mean a two­way process that pulls changesfrom mainline into my branch and then pushes the result back into mainline, changingboth. If Rachel is working on her branch I don’t see her changes until she integrateswith mainline; at that point, I have to merge her changes into my feature branch, whichmay mean considerable work. The hard part of this work is dealing with semanticchanges. Modern version control systems can do wonders with merging complexchanges to the program text, but they are blind to the semantics of the code. If I’vechanged the name of a function, my version control tool may easily integrate mychanges with Rachel’s. But if, in her branch, she added a call to a function that I’verenamed in mine, the code will fail.The problem of complicated merges gets exponentially worse as the length of featurebranches increases. Integrating branches that are four weeks old is more than twice ashard as those that are a couple of weeks old. Many people, therefore, argue for keepingfeature branches short—perhaps just a couple of days. Others, such as me, want themeven shorter than that. This is an approach called Continuous Integration (CI), alsoknown as Trunk­Based Development. With CI, each team member integrates withmainline at least once per day. This prevents any branches diverting too far from eachother and thus greatly reduces the complexity of merges. CI doesn’t come for free: Itmeans you use practices to ensure the mainline is healthy, learn to break large featuresinto smaller chunks, and use feature toggles (aka feature flags) to switch off any in­process features that can’t be broken down.Fans of CI like it partly because it reduces the complexity of merges, but the dominantreason to favor CI is that it’s far more compatible with refactoring. Refactorings ofteninvolve making lots of little changes all over the code base—which are particularlyprone to semantic merge conflicts (such as renaming a widely used function). Many ofus have seen feature­branching teams that find refactorings so exacerbate mergeproblems that they stop refactoring. CI and re­factoring work well together, which iswhy Kent Beck combined them in Extreme Programming.I’m not saying that you should never use feature branches. If they are sufficiently short,their problems are much reduced. (Indeed, users of CI usually also use branches, butintegrate them with mainline each day.) Feature branches may be the right techniquefor open source projects where you have infrequent commits from programmers whoyou don’t know well (and thus don’t trust). But in a full­time development team, thecost that feature branches impose on refactoring is excessive. Even if you don’t go to fullCI, I certainly urge you to integrate as frequently as possible. You should also considerthe objective evidence [Forsgren et al.] that teams that use CI are more effective insoftware delivery.
 
+
+
 131
 ** Feathers, Michael; Working Effectively with Legacy Code; 2005
 ** Others  
@@ -450,7 +452,7 @@ if(($stock->checkStatus($order->getItem) > $order->getQuantity())
 #+END_SRC
 *** Write a test that pass
 *** Refactor the code
-    Put the result of the expression, or parts of the expression, in a temporary variable with a name that explains the purpose
+    Put the result of the expression, or part of it in a temporary variable with a name that explains the purpose
 #+BEGIN_SRC php
 $freeShipping = $order->getTotal() > 99;
 $stockAvailable = $stock->checkStatus($order->getItem) > $order->getQuantity();
@@ -527,6 +529,16 @@ public function getArea(): float
 }
  #+END_SRC
 *** Pass a test
+** Inline Variable
+   Smell: Variable name doesn't really communicate more than the expression itself or gets in the way of refactoring neighboring code.
+#+BEGIN_SRC php
+let basePrice = anOrder.basePrice;
+return (basePrice > 1000);
+#+END_SRC
+*** Refactor the code
+#+BEGIN_SRC php
+return anOrder.basePrice > 1000;
+#+END_SRC
 ** Introduce Parameter Object
    Smell: Long Parameter List and parameters that naturally go together
 #+BEGIN_SRC php
@@ -1603,27 +1615,6 @@ Size
       Average Function Length                        0
     Not in classes or functions                      8 (16.67%)
 
-Cyclomatic Complexity
-  Average Complexity per LLOC                     0.17
-  Average Complexity per Class                    3.67
-    Minimum Class Complexity                      1.00
-    Maximum Class Complexity                      9.00
-  Average Complexity per Method                   1.73
-    Minimum Method Complexity                     1.00
-    Maximum Method Complexity                     9.00
-
-Dependencies
-  Global Accesses                                    0
-    Global Constants                                 0 (0.00%)
-    Global Variables                                 0 (0.00%)
-    Super-Global Variables                           0 (0.00%)
-  Attribute Accesses                                15
-    Non-Static                                      15 (100.00%)
-    Static                                           0 (0.00%)
-  Method Calls                                      14
-    Non-Static                                      14 (100.00%)
-    Static                                           0 (0.00%)
-
 Structure
   Namespaces                                         0
   Interfaces                                         0
@@ -1644,6 +1635,27 @@ Structure
   Constants                                          3
     Global Constants                                 0 (0.00%)
     Class Constants                                  3 (100.00%)
+
+Cyclomatic Complexity
+  Average Complexity per LLOC                     0.17
+  Average Complexity per Class                    3.67
+    Minimum Class Complexity                      1.00
+    Maximum Class Complexity                      9.00
+  Average Complexity per Method                   1.73
+    Minimum Method Complexity                     1.00
+    Maximum Method Complexity                     9.00
+
+Dependencies
+  Global Accesses                                    0
+    Global Constants                                 0 (0.00%)
+    Global Variables                                 0 (0.00%)
+    Super-Global Variables                           0 (0.00%)
+  Attribute Accesses                                15
+    Non-Static                                      15 (100.00%)
+    Static                                           0 (0.00%)
+  Method Calls                                      14
+    Non-Static                                      14 (100.00%)
+    Static                                           0 (0.00%)
 ** [[https://github.com/jbrains/trivia/tree/master/php][Legacy Code Retreat - Trivia Game]]
    phploc
 Size
@@ -1724,7 +1736,7 @@ Structure
     - testability
     - truly OOP
 * TODO Practices                                                   :noexport:
-** Always use 'declare(stric_types=1)'
+** Always Use 'declare(stric_types=1)'
 #+BEGIN_SRC php
 declare(stric_types=1);
 
@@ -1788,10 +1800,10 @@ if (count == 0){
 ...
 }
 #+END_SRC
-** Don't use 'clone'
+** Don't Use 'clone'
 *** https://dcsg.me/articles/dont-clone-your-php-objects-deepcopy-them/
 *** TODO show example with Doctrine
-** Don't use 'else if'
+** Don't Use 'else if'
    Else if is not compatible with the colon syntax for if|elseif blocks. For this reason, use elseif for conditionals
 #+BEGIN_SRC php
 <?php if ($user) { ?>
@@ -1863,6 +1875,7 @@ Refactoring: Replace Magic Number with Symbolic Constant
    Refactoring: Replace Parameter with Method
 ** Don't Use Traits
    Further Reading: https://dev.to/barryosull/why-i-dont-like-traits
+** fully-qualified class name (FQCN)
 ** Eliminate or Reduce Number of Comments
 ** Eliminate or Reduce Number of Parameters
    Functions should have a small number of arguments. No argument is best, followed by one, two, and three. More than three is very questionable and should be avoided with prejudice.
@@ -1918,6 +1931,8 @@ if ((age < 20) || ((sales < 1200) && (hrsWorked > 15))) {}
 Name	PSR	Community	Description
 Method names	camelCase() 21/22. lower_under 1/22	camelCase()	Based on an eye tracking study on camelCase and snake_case (PDF) from 2010, snake_case is 20% easier to read than camelCase!
 Properties names	$StudlyCaps or $camelCase or $under_score	$camelCase XMLHttpRequest is still a great tragedy
+* Jokes
+  “There is so much spaghetti I might as well open a restaurant!”
 * Metrics
 ** Cyclomatic Complexity Number (CCN) 
    Counts the available decision paths in a source code to determine it's complexity.

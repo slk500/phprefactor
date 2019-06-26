@@ -10,8 +10,41 @@
 ***** [[http://www.industriallogic.com/wp-content/uploads/2005/09/smellstorefactorings.pdf][Joshua Kerievsky]]
 
 przerwałem bo mam tylko draft a nie pełną książke
+** Working effectivly with legacy code
+ - To me, legacy code is simply code without tests. I’ve gotten some grief for
+ this definition. What do tests have to do with whether code is bad? To me, the
+ answer is straightforward, and it is a point that I elaborate throughout the
+ book:
+
+ 'Code without tests is bad code. It doesn’t matter how well written it is; it doesn’t matter how pretty or object-oriented or well-encapsulated it is. With tests, we can change the behavior of our code quickly and verifiably. Without them, we really don’t know if our code is getting better or worse.'
+
+ being able to confidently make changes in any code base.
+
+ Preserving existing behavior
+
+ Changes in a system can be made in two primary ways. I like to call them Edit
+ and Pray and Cover and Modify. Unfortunately, Edit and Pray is pretty much
+ the industry standard. When you use Edit and Pray, you carefully plan the
+ changes you are going to make, you make sure that you understand the code
+ you are going to modify, and then you start to make the changes. When you’re
+ done, you run the system to see if the change was enabled, and then you poke
+ around further to make sure that you didn’t break anything. The poking
+ around is essential. When you make your changes, you are hoping and praying
+ that you’ll get them right, and you take extra time when you are done to make
+ sure that you did.
+
+ ...testing is a tough problem, and people are often seduced by the idea that they can test through a GUI or web interface without having to do anything special to their
+ application. It can be done, but it is usually more work than anyone on a team
+ is prepared to admit. In addition, a user interface often isn’t the best place to
+ write tests. UIs are often volatile and too far from the functionality being tested.
+ When UI-based tests fail, it can be hard to figure out why. Regardless, people
+ often spend considerable money trying to do all of their testing with those sorts
+ of tools.
+
+ Pay now or pay more later
+
 ** Fowler, Martin; 2018
-- With any introductory example, however, I run into a problem. If I pick a large program, describing it and how it is refactored is too complicated for a mortal reader to work through.(...)  However, if I pick a program that is small enough to be comprehensible, refactoring does not look like it is worthwhile.
+- With any introductory example, however, I run into a problem. If I pick a large program, describing it and how it is refactored is too complicated for a mortal reader to work through.(...) However, if I pick a program that is small enough to be comprehensible, refactoring does not look like it is worthwhile.
  
 - Thus, if I’m faced with modifying a program with hundreds of lines of code, I’d rather it be structured into a set of functions and other program elements that allow me to understand more easily what the program is doing. If the program lacks structure, it’s usually easier for me to add structure to the program first, and then make the change I need.
 
@@ -539,6 +572,7 @@ return (basePrice > 1000);
 #+BEGIN_SRC php
 return anOrder.basePrice > 1000;
 #+END_SRC
+140
 ** Introduce Parameter Object
    Smell: Long Parameter List and parameters that naturally go together
 #+BEGIN_SRC php
@@ -884,7 +918,8 @@ Remove PHPDoc if it's not provides additional value
 
 #+END_SRC
 *** Pass a test
-** Rename Method
+** Rename Function
+   Alias: Rename Method, Change Function Declaration
    Smell: The name of a method does not reveal it's purpose1
 #+BEGIN_SRC php
 public function getInvcdtlmt()
@@ -1242,6 +1277,209 @@ $totalDiscountPrice = order.getTotal() - order.getDiscount();
 echo "Price after discount: $totalDiscountPrice";
 #+END_SRC
 *** Pass a test
+* Database
+** Refactorings
+*** Add CRUD Methods 
+    Introduce stored procedures (methods) to implement the creation,
+    retrieval, update, and deletion (CRUD) of the data representing a business entity.
+*** Add Foreign Key Constraint
+    Add a foreign key constraint to an existing table to enforce
+    a relationship to another table.
+*** Add Lookup Table
+    Create a lookup table for an existing column.
+*** Add Mirror Table
+    Create a mirror table, an exact duplicate of an existing table in one
+    database, in another database.
+*** Add Parameter
+    Existing method needs information that was not passed in before.
+*** Add Read Method 
+    Introduce a methodin this case, a stored procedureto implement the
+    retrieval of the data representing zero or more business entities from the database.
+*** Add Trigger For Calculated Column 
+    Introduce a new trigger to update the value
+    contained in a calculated column.
+*** Apply Standard Codes 
+    Apply a standard set of code values to a single column to ensure
+    that it conforms to the values of similar columns stored elsewhere in the database.
+*** Apply Standard Type
+    Ensure that the data type of a column is consistent with the data
+    type of other similar columns within the database.
+*** Consolidate Conditional Expression 
+    Combine sequence of conditional tests into a
+    single conditional expression and extract it.
+*** Consolidate Key Strategy 
+    Choose a single key strategy for an entity and apply it
+    consistently throughout your database.
+*** Decompose Conditional
+    Extract methods from the condition.
+*** Drop Column 
+    Remove a column from an existing table.
+*** Drop Column Constraint 
+    Remove a column constraint from an existing table.
+*** Drop Default Value 
+    Remove the default value that is provided by a database from an
+    existing table column.
+*** Drop Foreign Key Constraint 
+    Remove a foreign key constraint from an existing table so
+    that a relationship to another table is no longer enforced by the database.
+*** Drop Non-Nullable 
+    Change an existing non-nullable column so that it accepts null
+    values.
+*** Drop Table 
+    Remove an existing table from the database.
+*** Drop View 
+    Remove an existing view.
+*** Encapsulate Table With View 
+    Wrap access to an existing table with a view.
+*** Extract Method 
+    Turn the code fragment into a method whose name explains the
+    purpose of the method.Insert Data (page 296): Insert data into an existing table.
+*** Introduce Calculated Column 
+    Introduce a new column based on calculations involving
+    data in one or more tables.
+*** Introduce Calculation Method
+    Introduce a new method, typically a stored function,
+    which implements a calculation that uses data stored within the database.
+*** Introduce Cascading Delete
+    Ensure that the database automatically deletes the
+    appropriate "child records" when a "parent record" is deleted.
+*** Introduce Column Constraint
+    Introduce a column constraint in an existing table.
+*** Introduce Common Format
+    Apply a consistent format to all the data values in an
+    existing table column.
+*** Introduce Default Value 
+    Let the database provide a default value for an existing table
+    column.
+*** Introduce Hard Delete 
+    Remove an existing column which indicates that a row has been
+    deleted and instead actually delete the row.
+*** Introduce Index 
+    Introduce a new index of either unique or non-unique type.
+*** Introduce New Column 
+    Introduce a new column in an existing table.
+*** Introduce New Table 
+    Introduce a new table in an existing database.
+*** Introduce Read-Only Table 
+    Create a read-only data store based on existing tables in
+    the database.
+*** Introduce Soft Delete 
+    Introduce a flag to an existing table which indicates that a row
+    has been deleted instead of actually deleting the row.
+**** Motivation 
+     preserve all application data, typically for historical means.
+**** Tradeoffs 
+***** more data - table have to store valid rows and those mark as deleted 
+***** performace - more data means reduction in query performace - the additional work of distinguishing between deleted and nondeleted rows
+***** code complexity 
+****** mostly in every query we would have to remember add 'where isDeleted = false'
+****** You may have associations going from Table A to Table B and when you soft delete something from Table A, you need to ensure that independent queries on Table B take care of that fact. 
+**** How
+***** Introduce New Column
+****** isDeleted 
+******* bool not null false 
+******* date/timestamp null
+***** Update 
+****** application 
+****** database trigger - it is simple and it avoids the risk that the applications will not update the column properly      
+**** Opposite
+     Introduce Hard Delete
+*** Introduce Surrogate Key 
+    Replace an existing natural key with a surrogate key.
+*** Introduce Trigger For History 
+    Introduce a new trigger to capture data changes for historical purposes.
+**** Motivation
+     delegate the tracking of data changes to the database itself
+   
+*** Introduce Variable 
+    Put the result of the expression, or parts of the expression, in a
+    temporary variable with a name that explains the purpose.
+*** Introduce View 
+    Create a view based on existing tables in the database.
+**** Motivation
+***** Summarize data for reporting. Many reports require summary data, which can be generated via the view definition.
+***** Replace redundant reads. Several external programs, or stored procedures for that matter, often implement the same retrieval query. These queries can be replaced by a common readonly table or view.
+***** Data security. A view can be used to provide end users with read access to data but not update privileges.
+***** Encapsulate access to a table. Some organizations choose to encapsulate access to tables by defining updateable views that external programs access instead of the source tables. This enables the organization to easily perform database refactorings such as Rename Column (page 109) or Rename Table (page 113) without impacting the external applications, because views add an encapsulation layer between your tables and your application.
+***** Reduce SQL duplication. When you have complex SQL queries in an application, it is common to discover that parts of the SQL are duplicated in many places. When this is the case, you should introduce views to extract out the duplicate SQL, as shown in the example section.
+
+**** Tradeoffs
+***** poor performance of the joins
+***** increases the coupling with database schemas
+
+*** Make Column Non-Nullable 
+    Change an existing column so that it does not accept any
+    null values.
+*** Merge Columns 
+    Merge two or more columns within a single table.
+*** Merge Tables
+    Merge two or more tables into a single table.
+*** Migrate Method From Database
+    Rehost an existing database method (a stored
+    procedure, stored function, or trigger) in the application(s) which currently invoke it.
+*** Migrate Method To Database 
+    Rehost existing application logic in the database.
+*** Move Column 
+    Migrate a table column, with all of its data, to another existing table.
+*** Move Data 
+    Move the data contained within a table, either all or a subset of its columns,
+    to another existing table.
+*** Parameterize Method 
+    Create one method that uses a parameter for the different
+    values.
+*** Remove Control Flag 
+    Use return or break instead of a variable acting as a control flag.
+*** Remove Middle Man 
+    Get the caller to call the method directly.
+*** Remove Parameter 
+    Remove a parameter no longer used by the method body.
+*** Rename Column
+    Rename an existing table column with a name that explains its purpose.
+*** Rename Method
+    Rename an existing method with a name that explains its purpose.
+*** Rename Table
+    Rename an existing table with a name that explains its purpose.
+*** Rename View
+    Rename an existing view with a name that explains its purpose.
+*** Reorder Parameters 
+    Change the order of the parameters of a method.
+*** Replace Column 
+    Replace an existing non-key column with a new one.
+*** Replace LOB With Table 
+    Replace a large object (LOB) column that contains structured data with a new table or in the same table.
+*** Replace Literal With Table Lookup 
+    Replace code constants with values from database tables.
+*** Replace Method(s) With View 
+    Create a view based on one or more existing database
+    methods (stored procedures, stored functions, or triggers) within the database.
+*** Replace Nested Conditional With Guard Clauses 
+    Remove nested if conditions with a series of separate IF statements.
+*** Replace One-To-Many With Associative Table 
+    Replace a one-to-many association between two tables with an associative table.
+*** Replace Parameter With Explicit Methods 
+    Create a separate method for each value of the parameter.
+*** Replace Surrogate Key With Natural Key 
+    Replace a surrogate key with an existing natural key.
+*** Replace Type Code With Property Flags 
+    Replace a code column with individual property flags, usually implemented as Boolean columns, within the same table column.
+*** Replace View With Method(s) 
+    Replace an existing view with one or more existing
+    methods (stored procedures, stored functions, or triggers) within the database.
+*** Split Column 
+    Split a column into one or more columns within a single table.
+*** Split Table 
+    Vertically split (e.g., by columns) an existing table into one or more tables.
+*** Split Temporary Variable 
+    Make a separate temporary variable for each assignment.
+*** Substitute Algorithm 
+    Replace the body of the method with the new algorithm.
+*** Update Data 
+    Update data within an existing table.
+*** Use Official Data Source 
+    Use the official data source for a given entity, instead of the
+    current one you are using.
+** Links
+- https://use-the-index-luke.com/
 * TODO Smells
 ** Booch’s fundamental design principles
 *** abstraction
@@ -1735,6 +1973,9 @@ Structure
     - clean code 
     - testability
     - truly OOP
+** Characterization Test
+ A characterization test is test that characterizes the actual behavior of a piece of code. It acts as a change detector, protecting legacy code from unintended changes.
+
 * TODO Practices                                                   :noexport:
 ** Always Use 'declare(stric_types=1)'
 #+BEGIN_SRC php
@@ -1931,6 +2172,68 @@ if ((age < 20) || ((sales < 1200) && (hrsWorked > 15))) {}
 Name	PSR	Community	Description
 Method names	camelCase() 21/22. lower_under 1/22	camelCase()	Based on an eye tracking study on camelCase and snake_case (PDF) from 2010, snake_case is 20% easier to read than camelCase!
 Properties names	$StudlyCaps or $camelCase or $under_score	$camelCase XMLHttpRequest is still a great tragedy
+* TODO Patterns                                                    :noexport:
+  Patterns are formalized best practices.
+** ADR
+ http://martinbean.co.uk/blog/2016/10/20/implementing-adr-in-laravel/
+
+** MVC
+*** Controllers
+**** are what the user interacts with
+**** they receive a request from the user, decide what to do, and send request back
+**** it's the only component that interacts with the models
+*** Models
+**** are where an anpplication's data are stored
+**** responsible for storing and retrieving data
+**** kno nothing about the user interface
+*** Views
+**** are what the user sees on the screen
+**** they present the data to the user
+**** kno nothing about the models
+*** Why use MVC?
+**** business logic separate from presentation: Separation Of Concerns
+**** developer specialisation
+***** designers can focus on the front end without worrying about the business logic
+***** developers of the models can focus on the business logic or back end without worrying about the look and feel
+*** Front controller
+**** provide a central entry point for all request. All request are sent through one page 
+
+*** Action suffix
+**** _call is exectued for a non-existent or non-public method call
+**** Stack
+     No it wasn't just a naming convention. It was used to execute some code before or after every controller 'action' method. Like checking is user has logged in. 
+  It is based on magic __call function which is executed for a non-existent or non-public method call.
+  #+BEGIN_SRC php 
+
+  $controller = new Posts();
+  $controller->index();
+
+  class Posts
+  {
+    public function __call($name, $args)
+  {
+  //run code before
+  call_user_func_array()[$this, "$nameAction"], $args);
+  //run code after
+  }
+    public function indexAction()
+  {
+  }
+  }
+  #+END_SRC
+
+
+  tutorial ended on 31 video
+** MVVM
+   Magento was here.
+** Links
+https://designpatternsphp.readthedocs.io/en/latest/
+* Tools
+** serializer
+   - https://thomas.jarrand.fr/blog/serialization/
+   - https://matthiasnoback.nl/2017/07/designing-a-json-serializer/
+   - https://stackoverflow.com/questions/35365141/symfony-serializer-set-circular-reference-global/35365239
+   - https://speakerdeck.com/dunglas/mastering-the-symfony-serializer?slide=1
 * Jokes
   “There is so much spaghetti I might as well open a restaurant!”
 * Metrics
@@ -2042,3 +2345,5 @@ So here we have function with 4 possible outcomes, since we have 2 statements th
   
   You can contact me at slawomir.grochowski@gmail.com, https://twitter.com/s_grochowski, https://www.facebook.com/SlawomirGrochowski
   You can support this site: send some BitCoins 1D8xeRkxssTTLESfGZtPVoqVJDq7MJSqNx , send/buy one of the books I would like to read or just say Hello!
+  
+

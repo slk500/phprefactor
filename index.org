@@ -1480,6 +1480,100 @@ echo "Price after discount: $totalDiscountPrice";
     current one you are using.
 ** Links
 - https://use-the-index-luke.com/
+** views 
+ select y.table_schema,
+	y.table_name,
+	y.view_len,
+	y.referenced_views
+                                                           views,
+	cast((y.view_len - y.wo_from) / 4 - 1 as unsigned) subqueries,
+	cast((y.view_len - y.wo_union) / 5 as unsigned)
+                                                           unions,
+	cast((y.view_len - y.wo_distinct) / 8 as unsigned) distincts,
+	cast((y.view_len - y.wo_group) / 5 as unsigned)
+                                                           groups
+ from (select x.table_schema,
+              x.table_name,
+              x.view_len,
+              cast(x.referenced_views as unsigned) referenced_views,
+              length(replace(upper(x.view_definition), 'FROM', '')) wo_from,
+              length(replace(upper(x.view_definition), 'UNION', '')) wo_union,
+              length(replace(upper(x.view_definition), 'DISTINCT', '')) wo_distinct,
+              length(replace(upper(x.view_definition), 'GROUP', '')) wo_group
+       from (select v1.table_schema,
+                    v1.table_name,
+                    v1.view_definition,
+                    length(v1.view_definition) view_len,
+                    sum(case
+                          when v2.table_name is not null
+                                  then (length(v1.view_definition)
+                                          - length(replace(v1.view_definition,
+                                                           v2.table_name, '')))
+                                         /length(v2.table_name)
+                          else 0
+                            end) referenced_views
+             from information_schema.views v1
+                    left outer join information_schema.views v2
+                      on v1.table_schema = v2.table_schema
+             where v1.table_name <> v2.table_name
+             group by v1.table_schema,
+                      v1.table_name,
+                      v1.view_definition) x
+       group by x.table_schema,
+		x.table_name) y
+ order by 1, 2;
+** indexes 
+ select t.table_name,
+	t.table_rows,
+	count(distinct s.index_name) indexes,
+	case
+          when min(s.unicity) is null then 'N'
+          when min(s.unicity) = 0 then 'Y'
+          else 'N'
+            end unique_index,
+	sum(case s.columns
+              when 1 then 1
+              else 0
+		end) single_column,
+	sum(case
+              when s.columns is null then 0
+              when s.columns = 1 then 0
+              else 1
+		end) multi_column
+ from information_schema.tables t
+	left outer join (select table_schema,
+				table_name,
+				index_name,
+				max(seq_in_index) columns,
+				min(non_unique) unicity
+                         from information_schema.statistics
+                         where table_schema = schema( )
+                         group by table_schema,
+                                  table_name,
+                                  index_name) s
+          on s.table_schema = t.table_schema
+               and s.table_name = t.table_name
+ where t.table_schema = schema( )
+ group by t.table_name,
+          t.table_rows
+ order by 3, 1;
+** copy
+ If you want to copy the table structure including its keys, then you should use:
+
+#+BEGIN_SRC sql
+ CREATE TABLE `new_table_name` LIKE `old_table_name`;
+ #+END_SRC
+
+ #+BEGIN_SRC sql
+ CREATE TABLE `new_table_name` SELECT * FROM `old_table_name`;
+ #+END_SRC
+
+ #+BEGIN_SRC sql
+ (select * from A) except (select * from B) union (select * from B) except select * from A)
+ #+END_SRC
+
+** dump
+ mysqldump -R --triggers -u root -p culture > file.sql
 * TODO Smells
 ** Booch’s fundamental design principles
 *** abstraction
@@ -1826,7 +1920,6 @@ https://www.tomasvotruba.cz/blog/2019/05/02/alias-as-a-code-smell/
 *** Speculative Generality
     “Oh, I think we’ll need the ability to do this kind of thing someday”
 *** Temporary Field
-* TODO Tools                                                       :noexport:
 * Codebases
 | Name                              | Lines of Code | Description                                                                                   | Tutorials                       |
 |-----------------------------------+---------------+-----------------------------------------------------------------------------------------------+---------------------------------|
@@ -1953,7 +2046,7 @@ Structure
   Constants                                          0
     Global Constants                                 0 (0.00%)
     Class Constants                                  0 (0.00%)
-* TODO Definitions                                                 :noexport:
+* Definitions
 ** Anemic Domain Model
 - focus on data
 - structured
@@ -1974,9 +2067,60 @@ Structure
     - testability
     - truly OOP
 ** Characterization Test
- A characterization test is test that characterizes the actual behavior of a piece of code. It acts as a change detector, protecting legacy code from unintended changes.
+ Test that characterizes the actual behavior of a piece of code. It acts as a change detector, protecting legacy code from unintended changes.
+** Polymorphism
+   describes a pattern in object oriented programming in which classes have different functionality while sharing a common interface.
+** Parameter vs. argument
+   A parameter is the variable which is part of the method’s signature (method declaration). An argument is an expression used when calling the method.
 
-* TODO Practices                                                   :noexport:
+Consider the following code:
+
+void Foo(int i, float f)
+{
+// Do things
+}
+
+void Bar()
+{
+int anInt = 1;
+Foo(anInt, 2.0);
+}
+
+Here i and f are the parameters, and anInt and 2.0 are the arguments.
+
+https://stackoverflow.com/questions/1788923/parameter-vs-argument
+** Principle vs. Practices
+ The Boy scout motto– “Be prepared”–is a timeless principle. “Buy a plunger before you need a plunger” is a practice that applies this principle in a memorable way.
+
+ Principles are good ideas or good values stated in a context-independent manner. Practices are applications of theses principles stated in a context-dependent way.
+
+ Principle: a fundamental, primary or general law or truth
+
+ Practice: the action or process of performing or doing something
+** Logical operators  
+They are used for different purposes and in fact have different operator precedences. The && and || operators are intended for Boolean conditions, whereas and and or are intended for control flow.
+
+For example, the following is a Boolean condition:
+
+if ($foo == $bar && $baz != $quxx) {
+
+This differs from control flow:
+
+doSomething() or die();
+** Value Object
+- measures, quantifies or describe a thing in the domain
+- identity is based on composition of values
+- immutable
+- compared using all values
+- no side effects
+** Service
+   an object that dose work
+** Technical Dept
+   is the debt that accumulate when you knowingly or unknowingly make
+ wrong or non-optimal design decisions.
+
+ http://blog.insight.sensiolabs.com/2014/11/04/technical-debt-relevant-projects.html
+* TODO Practices
 ** Always Use 'declare(stric_types=1)'
 #+BEGIN_SRC php
 declare(stric_types=1);
@@ -2152,58 +2296,504 @@ if ((age < 20) || ((sales < 1200) && (hrsWorked > 15))) {}
 *** variable
 *** method
    - isX() or hasX() for bool return type
-* TODO Principles                                                  :noexport:
+* TODO Principles
 ** Don't Repeat Yourself (DRY)
+   http://web-techno.net/dry-principle-explained/
+** SOLID
 
-1	Composition Over Inheritance				
-2	Single Responsibilty (SRP)	A class should have only one reason to change - doing one thing, and do it well The object should be able to do the job completely The class has only one well-defined responsibility which is exclusively handling user data. No more, no less.		solid	
-3	Open/Closed Principle (OCP)	Software entities (classes, modules, functions, etc.) should be open for extension, but closed for modification. Interface is open for extension but closed for modification.		solid	
-4	Liskov Substitution (LSP)	Metody do klas bazowych, muszą być w stanie używać również obiektów klas dziedziczących po klasach bazowych.	Program to an, interface, not an implementation.	solid	
-5	Interface Segregation (ISP)	A client should never be forced to implement an interface that it doesn't use or clients shouldn't be forced to depend on methods they do not use.		solid	
-6	Dependency Inversion (DIP)	Depend on abstractions, not concretions	Program to an, interface, not an implementation.	solid	
-7	The Law of Demeter (LoD)	Each unit should only talk to its friends; don't talk to strangers.	Object Calisthenics - One Arrow Per Line		
-8	Don't Repeat Yourself (DRY)				
-9	Separation of Concerns (SoC)	The no.1 - the most important		design	Big Ball of Mud
-10	Big Ball of Mud			design	Separation of Concerns (SoC)
-11	Model-View-Controller	• The Model: Captures and centralizes all the domain model behaviour. This layer manages all the data, logic and business rules independently of the data representation. It can be said that the Model layer is the heart and soul of every MVC application. • The Controller: Orchestrates interactions between the other layers. Triggers actions on the model in order to update its state and refreshes the representations associated to the model. Additionally, the Controller can also send messages to the View layer in order to change the specific Model representation. • The View: A layer whose main purpose is to expose the differing representations of the Model layer and to give a way to trigger changes on the Model’s state.		architectural	
-12	Command Query Separation (CQS)			design
+There is a strong relationship beetween each of those principles. If you take each of those principles in isolation and try to apply them in your codebase you will get limited benefit out of that. its only when you take enterly package apply it in it entarity. Applying it all at once. Strong sinergy efect.
+
+ 1	Composition Over Inheritance				
+ 2	Single Responsibilty (SRP)	A class should have only one reason to change - doing one thing, and do it well The object should be able to do the job completely The class has only one well-defined responsibility which is exclusively handling user data. No more, no less.		solid	
+ 3	Open/Closed Principle (OCP)	Software entities (classes, modules, functions, etc.) should be open for extension, but closed for modification. Interface is open for extension but closed for modification.		solid	
+ 4	Liskov Substitution (LSP)	Metody do klas bazowych, muszą być w stanie używać również obiektów klas dziedziczących po klasach bazowych.	Program to an, interface, not an implementation.	solid	
+ 5	Interface Segregation (ISP)	A client should never be forced to implement an interface that it doesn't use or clients shouldn't be forced to depend on methods they do not use.		solid	
+ 6	Dependency Inversion (DIP)	Depend on abstractions, not concretions	Program to an, interface, not an implementation.	solid	
+ 7	The Law of Demeter (LoD)	Each unit should only talk to its friends; don't talk to strangers.	Object Calisthenics - One Arrow Per Line		
+ 8	Don't Repeat Yourself (DRY)				
+ 9	Separation of Concerns (SoC)	The no.1 - the most important		design	Big Ball of Mud
+ 10	Big Ball of Mud			design	Separation of Concerns (SoC)
+ 11	Model-View-Controller	• The Model: Captures and centralizes all the domain model behaviour. This layer manages all the data, logic and business rules independently of the data representation. It can be said that the Model layer is the heart and soul of every MVC application. • The Controller: Orchestrates interactions between the other layers. Triggers actions on the model in order to update its state and refreshes the representations associated to the model. Additionally, the Controller can also send messages to the View layer in order to change the specific Model representation. • The View: A layer whose main purpose is to expose the differing representations of the Model layer and to give a way to trigger changes on the Model’s state.		architectural	
+ 12	Command Query Separation (CQS)			design
 ** YAGNI
-* TODO PSR                                                         :noexport:
+* TODO PSR
 Name	PSR	Community	Description
 Method names	camelCase() 21/22. lower_under 1/22	camelCase()	Based on an eye tracking study on camelCase and snake_case (PDF) from 2010, snake_case is 20% easier to read than camelCase!
 Properties names	$StudlyCaps or $camelCase or $under_score	$camelCase XMLHttpRequest is still a great tragedy
-* TODO Patterns                                                    :noexport:
+* TODO Patterns
   Patterns are formalized best practices.
-** ADR
- http://martinbean.co.uk/blog/2016/10/20/implementing-adr-in-laravel/
+** Software design patterns
+*** Creational
+    Creation of objects themselves - separate the instantiation of a class from the usage of that instance
 
-** MVC
-*** Controllers
-**** are what the user interacts with
-**** they receive a request from the user, decide what to do, and send request back
-**** it's the only component that interacts with the models
-*** Models
-**** are where an anpplication's data are stored
-**** responsible for storing and retrieving data
-**** kno nothing about the user interface
-*** Views
-**** are what the user sees on the screen
-**** they present the data to the user
-**** kno nothing about the models
-*** Why use MVC?
-**** business logic separate from presentation: Separation Of Concerns
-**** developer specialisation
-***** designers can focus on the front end without worrying about the business logic
-***** developers of the models can focus on the business logic or back end without worrying about the look and feel
-*** Front controller
-**** provide a central entry point for all request. All request are sent through one page 
+**** Simple Factory
+**** Method Factory
+**** Abstract Factory
+**** Builder
+**** Prototype
+**** Dependency Injection
+https://www.sitepoint.com/php-dependency-injection-container-performance-benchmarks/
 
-*** Action suffix
-**** _call is exectued for a non-existent or non-public method call
-**** Stack
-     No it wasn't just a naming convention. It was used to execute some code before or after every controller 'action' method. Like checking is user has logged in. 
-  It is based on magic __call function which is executed for a non-existent or non-public method call.
-  #+BEGIN_SRC php 
+– The Dependency Injection pattern is a software design pattern in which a class receives its dependencies from external sources rather than creating them itself.
+That is, following the Dependency Inversion principle.
+
+– Types of injection
+***** Construction injection: dependencies are injected when creating the object. It can
+    be used for required and optional dependencies.
+***** Setter injection: dependencies are injected through setters, and they are always
+    optional.
+***** Property injection: dependencies are injected directly through public properties.
+    This type of injection is not recommended as there is no control at all of what is
+    being injected.
+**** Factory
+  separating the creation of an object from the actual implementation
+  The second possible benefit is that if creating the object is a complicated job you can do all of the work in the factory, instead of repeating it every time you want to create a new instance.
+  refactoring to use this can be painful
+  subclasses may have a lot of boilerplate
+  There are several implementations and variants of design pattern among of which we have: Simple Factory Factory Method - The Factory Method differs from the ordinary Simple Factory on the basis that instead of us having one factory, we can have many. Abstract Factory Cleaner Code with Static Factory Methods https://stackify.com/static-factory-methods/
+*** Structural
+    They act as interconnectors between entities. It serves as a blueprint for how basic classes can be combined to form bigger  entities. Structural patterns describe the static architecture of a design;
+**** Bridge
+  The Bridge pattern can be quite straightforward; it effectively allows us to decouple an abstraction from an implementation so the two can vary independently.
+**** Facade
+http://designpatternsphp.readthedocs.io/en/latest/Structural/Facade/README.html they essentially act as a simple interface to a complex system. A Facade design pattern works providing a single class that in itself instantiates other classes and provides a simple interface to use those functions. A warning when using such pattern is that, as classes are instantiated within the Facade, you are essentially tightly coupling the classes that it utilizes. There are cases where you want this, but there are cases where you do not. Where do you do not want this behavior, you are better suited to using dependency injection. I have found this to be useful when wrapping a set of poor APIs into a single unified API. It reduces external dependencies, allowing complexity to be internalized; this process can make your code more readable. In other situations, where the various classes were loosely coupled together, we may find it better to use dependency injection. By injecting objects that perform various actions into the ToyFactory class we can benefit from making testing easier by being able to inject fake classes that the ToyFactory class can manipulate. Personally, I am a huge believer in making code as easily testable as possible; hence why I don't like this approach.
+
+
+	 Class Adapter pattern
+	 Object Adapter pattern
+	 Flyweight pattern
+	 Composite pattern
+	 Bridge pattern
+	 Proxy pattern
+**** Composite
+Problem: The pieces don't fit
+Hiding bad design
+Composite Imagine an audio system consisting of individual songs and also playlists of songs. Yes, playlists consist of songs, but we want both to be treated individually. Both are types of music, both can be played. The Composite design pattern can help here; it allows us to ignore the differences between compositions of objects and individual objects. It allows us to treat both with identical or nearly-identical code. Let's put together a little example; a song is our example of a leaf, with playlists being composites. Music is our abstraction of playlists and songs; therefore, we can call this our component. The client of all this is our index.php file. By not discriminating between leaf-nodes and branches, our code becomes less complex and therefore less error prone.
+**** Adapter (Wrapper)
+  Trzeba wymyślić jakiś fajny przykład, może prąd że 220V i 110V albo jakas przejsciowka USB? The ADAPTER encapsulated the interaction with the API and provides a single place to change when the API evolves. służy do przystosowania interfejsów obiektowych, tak aby możliwa była współpraca obiektów o niezgodnych interfejsach. It is often used to make existing classes work with others without modifying their source code. https://code.tutsplus.com/tutorials/design-patterns-the-adapter-pattern--cms-22262 Class Adapter In a Class Adapter, we use inheritance to create an adapter. A class (the adapter) can inherit another (the adaptee); using standard inheritance we are able to add additional functionality to the adaptee. Object Adapter The Composite Reuse Principle states that classes should achieve polymorphic behavior and code reuse by their composition. By applying this principle, classes should contain instances of other classes when they want to implement a particular piece of functionality, as opposed to inheriting the functionality from a base or parent class.
+
+
+   getData and
+  setData (not as “pretty”).
+*** Behavioral
+    They work to explain how objects interact with each other; how they can send messages between each of the objects and how you can divide the steps of various tasks up among classes. Describe a flowing process.
+
+**** Chain Of Responsibility
+  is an object oriented version of the if ... else if ... else if ....... else ... endif idiom
+
+  Problem:
+                 
+
+  class ChainOfResponsibilityTest extends TestCase
+  {
+      public function testOne()
+      {
+          $this->expectOutputString('Director purchased');
+
+          $associate = new AssociatePurchaser();
+          $manager = new ManagerPurchaser();
+          $director = new DirectorPurchaser();
+          $associate->setNextPurchaser($manager);
+          $manager->setNextPurchaser($director);
+
+          $associate->buy(299);
+      }
+  }
+
+  interface PurchaserInterface
+  {
+      public function setNextPurchaser(PurchaserInterface $nextPurchaser): void;
+
+      public function buy($price): void;
+  }
+
+  final class AssociatePurchaser implements PurchaserInterface
+  {
+      /**
+       * @var PurchaserInterface
+       */
+      private $nextPurchaser;
+
+      public function setNextPurchaser(PurchaserInterface $nextPurchaser): void
+      {
+          $this->nextPurchaser = $nextPurchaser;
+      }
+
+      public function buy($price): void
+      {
+          if ($price < 100) {
+              echo('Associate purchased');
+              return;
+          }
+
+          if($this->nextPurchaser) {
+              $this->nextPurchaser->buy($price);
+              return;
+          }
+
+          echo 'Associate could not buy';
+      }
+  }
+
+  final class ManagerPurchaser implements PurchaserInterface
+  {
+      /**
+       * @var PurchaserInterface
+       */
+      private $nextPurchaser;
+
+      public function setNextPurchaser(PurchaserInterface $nextPurchaser): void
+      {
+          $this->nextPurchaser = $nextPurchaser;
+      }
+
+      public function buy($price): void
+      {
+          if ($price < 200) {
+              echo('Manager purchased');
+              return;
+          }
+
+          if($this->nextPurchaser) {
+              $this->nextPurchaser->buy($price);
+              return;
+          }
+
+          echo 'Manager could not buy';
+      }
+  }
+
+  final class DirectorPurchaser implements PurchaserInterface
+  {
+      /**
+       * @var PurchaserInterface
+       */
+      private $nextPurchaser;
+
+      public function setNextPurchaser(PurchaserInterface $nextPurchaser): void
+      {
+          $this->nextPurchaser = $nextPurchaser;
+      }
+
+      public function buy($price): void
+      {
+          if ($price < 300) {
+              echo('Director purchased');
+              return;
+          }
+
+          if($this->nextPurchaser) {
+              $this->nextPurchaser->buy($price);
+              return;
+          }
+
+          echo 'Director could not buy';
+      }
+  }
+**** Observer
+     The Observer design pattern essentially allows an object (the subject) to maintain a list of observers that are automatically notified when the state of the that object changes. This pattern applies a one-to-many dependency between objects; there is always one subject that updates many observers. This pattern applies a one-to-many dependency between objects; there is always one subject that updates many observers.
+**** Strategy
+Allow us to alter the behavior of an object at runtime.
+Problem: null
+We defined a family of algorithms, bound by one common interface
+These algorithms are interchangeable; they can be swapped in and out without affecting the client implementation
+We encapsulated each algorithm within a class
+                 
+
+
+class StrategyTest extends TestCase
+{
+    public function testOne()
+    {
+        $this->expectOutputString('Total: 15');
+
+        //Normal billing
+        $customer = new Customer(new NormalStrategy());
+        $customer->addBeer(10);
+
+        //Start Happy Hour
+        $customer->setStrategy(new HappyHourStrategy());
+        $customer->addBeer(10);
+
+        $customer->printBill();
+    }
+}
+
+class Customer
+{
+    /**
+     * @var float
+     */
+    private $bill;
+
+    /**
+     * @var BillingStrategyInterface
+     */
+    private $strategy;
+
+    public function __construct(BillingStrategyInterface $strategy)
+    {
+        $this->strategy = $strategy;
+    }
+
+    public function setStrategy(BillingStrategyInterface $strategy)
+    {
+        $this->strategy = $strategy;
+    }
+
+    public function addBeer(float $price): void
+    {
+        $this->bill += $this->strategy->getPrice($price);
+    }
+
+    public function printBill(): void
+    {
+        echo "Total: $this->bill";
+    }
+}
+
+interface BillingStrategyInterface
+{
+    public function getPrice(float $rawPrice): float;
+}
+
+class NormalStrategy implements BillingStrategyInterface
+{
+    public function getPrice(float $rawPrice): float
+    {
+        return $rawPrice;
+    }
+}
+
+class HappyHourStrategy implements BillingStrategyInterface
+{
+    public function getPrice(float $rawPrice): float
+    {
+        return $rawPrice * 0.5;
+    }
+}
+                
+
+            
+WARNING printBill() function should be moved out of Customer class. But stays just for simplicity of example
+**** Command 
+     Command objects encapsulate an action and its parameters
+**** Iterator 
+     Iterators are used to access the elements of an aggregate object sequentially without exposing its underlying representation
+**** Null Object
+      Designed to act as a default value of an object
+**** Template method:
+     Describes the program skeleton of a program
+*** Concurrency
+
+** Architectural patterns
+This is not strictly a design pattern (but the Gang of Four didn't cover Architectural patterns
+in their book); but it is incredibly relevant for PHP developers due to the web-oriented
+nature of PHP. Architectural patterns address various different constraints in computer
+systems through addressing performance limitations, high availability, and also
+minimization of business risk.
+Most developers will be familiar with the Model-View-Controller architecture when it
+comes to web frameworks, more recently other architectures have started to emerge; for
+example, a microservices architecture works by a set of RESTful APIs that are independent
+and interconnected. Some people believe microservices move problems from the software
+development layer to the systems architecture layer. The opposite of microservices often
+referred to as a monolithic architecture, is where all the code is together in one application.
+*** Active Record
+Problem: Accessing data in a database
+prevent duplication & centralize access
+don't have to add any properties to class, just add new column to table
+objects are tightly coupled to the database schema - hard to test without actually using database
+breaking SOLID's Single Responsibility Principle - object is responsible for knowing how to create, retrieve, update and delete database entry
+                    
+
+<?php declare(strict_types=1);
+
+class User
+{
+
+    /**
+     * @var int
+     */
+    private $id;
+
+    /**
+     * @var string
+     */
+    private $name;
+
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    public function setId(int $id)
+    {
+        $this->id = $id;
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name)
+    {
+        $this->name = $name;
+    }
+
+}
+
+$id = 1;
+$pdo = new PDO('sqlite:test.db');
+$sth = $pdo->prepare("SELECT * FROM user WHERE id =:id");
+$sth->bindParam(":id", $id, PDO::PARAM_INT);
+$sth->execute();
+$row = $sth->fetch(PDO::FETCH_ASSOC);
+$user = new User();
+$user->SetId((int) $row['id']);
+$user->SetName($row['name']);
+                    
+
+                
+cons: hardcoded columns name, every time we add new column to database we have to manually add it in code in multiple places, hard to maintain,
+                    
+
+<?php declare(strict_types=1);
+
+class User
+{
+    private $pdo;
+
+    public function __construct(PDO $pdo)
+    {
+        $this->pdo = $pdo;
+    }
+    public function load(int $id)
+    {
+        $sth = $this->pdo->prepare("SELECT * FROM user WHERE id =:id");
+
+        $sth->bindParam(":id", $id, PDO::PARAM_INT);
+        $sth->execute();
+        $row = $sth->fetch(PDO::FETCH_ASSOC);
+
+        $i = 0;
+        foreach($row as $column => $value) {
+
+            $meta = $sth->getColumnMeta($i);
+
+            if($meta['sqlite:decl_type'] === 'INTEGER')
+            {
+                $this->$column = (int) $value;
+            }else{
+                $this->$column = $value;
+            }
+
+            $i++;
+        }
+    }
+}
+
+$pdo = new PDO('sqlite:test.db');
+$user = new User($pdo);
+$user->load(1);
+                            
+
+                
+pros: you don’t have to specify the properties of the object and how they relate to the database. The model is able to determine the properties automatically by looking at the schema of the database.
+*** Data Transfer Object DTO
+    class IssResponse
+ {
+     /**
+      * @var float
+      */
+     private $latitude;
+
+     /**
+      * @var float
+      */
+     private $longitude;
+
+     public function __construct(array $array)
+     {
+         $this->latitude = $array['latitude'];
+         $this->longitude = $array['longitude'];
+     }
+
+     public function getLatitude(): float
+     {
+         return $this->latitude;
+     }
+
+
+     public function getLongitude(): float
+     {
+         return $this->longitude;
+     }
+
+ }
+
+ final class PositionDTO
+ {
+ /**
+  @var float
+ */
+ private $latitude;
+
+ /**
+  @var float
+ */
+ private $longitude;
+
+ public function __construct(float $latitude, float $longitude)
+ {
+ $this->latitude = $latitude;
+ $this->longitude = $longitude;
+ }
+
+ public function getLatitude(): float
+ {
+ return $this->latitude;
+ }
+
+ public function getLongitude(): float
+ {
+ return $this->longitude;
+ }
+ }
+
+            
+
+ "a class with public variables and no functions" clean code str. 100. But in PHP we still can't declare type of variable, just type-hint parameters of methods. Like setters, so we can do it indirectly. Another great benefit it the standard rule is to not have public properties so we can stay consisten with this one. But more of great adventage of if we can make our DTO object immutable. So create only getters, without setters. Add all in constructor.
+*** ADR
+  http://martinbean.co.uk/blog/2016/10/20/implementing-adr-in-laravel/
+
+*** MVC
+**** Controllers
+***** are what the user interacts with
+***** they receive a request from the user, decide what to do, and send request back
+***** it's the only component that interacts with the models
+**** Models
+***** are where an anpplication's data are stored
+***** responsible for storing and retrieving data
+***** kno nothing about the user interface
+**** Views
+***** are what the user sees on the screen
+***** they present the data to the user
+***** kno nothing about the models
+**** Why use MVC?
+***** business logic separate from presentation: Separation Of Concerns
+***** developer specialisation
+****** designers can focus on the front end without worrying about the business logic
+****** developers of the models can focus on the business logic or back end without worrying about the look and feel
+**** Front controller
+***** provide a central entry point for all request. All request are sent through one page 
+
+**** Action suffix
+***** _call is exectued for a non-existent or non-public method call
+***** Stack
+      No it wasn't just a naming convention. It was used to execute some code before or after every controller 'action' method. Like checking is user has logged in. 
+   It is based on magic __call function which is executed for a non-existent or non-public method call.
+   #+BEGIN_SRC php 
 
   $controller = new Posts();
   $controller->index();
@@ -2220,20 +2810,212 @@ Properties names	$StudlyCaps or $camelCase or $under_score	$camelCase XMLHttpReq
   {
   }
   }
-  #+END_SRC
+   #+END_SRC
 
 
-  tutorial ended on 31 video
-** MVVM
-   Magento was here.
+   tutorial ended on 31 video
+*** MVVM
+    Magento was here.
+
 ** Links
-https://designpatternsphp.readthedocs.io/en/latest/
+   https://designpatternsphp.readthedocs.io/en/latest/
+* Antipatterns
+God objects
+Essentially, a God object is an object with either too many methods or too many properties;
+essentially, it's a class that knows too much or does too much. The God object soon becomes
+tightly coupled to (referenced by) lots of other bits of code in the application.
+So what's actually wrong with this? Well, in short, when you have one bit of code tied into
+every single other bit of code, you quickly find a maintenance disaster. If you adjust the
+logic for a method in a God object for one use case, you might find it having unintended
+consequences for another element.
+
+The flip side to God objects being an anti-pattern is when developing embedded systems.
+Embedded systems are used to process data on anything from a calculator to LED signage;
+they are small chips that are essentially self-contained computers and quite low cost. In this
+use case, with restricted computational power you can often find that programming
+elegance and maintainability become peripheral concerns. Slight performance increase and
+centralization of control can be more important, meaning using God objects can be
+somewhat sensible. Fortunately, PHP is incredibly seldom used to program embedded
+systems, so you are incredibly unlikely to find yourself in this particular situation.
+
+Another anti-pattern, called Fear of Adding Classes,
+
+Singleton
+
+<?php
+class{
+Singleton
+private static $instance;
+public static function getInstance()
+{
+if (null === static::$instance) {
+static::$instance = new static();
+}
+}
+return static::$instance;
+protected function __construct()
+{
+}
+private function __clone()
+{
+}
+private function __wakeup()
+{
+}
+}
+
+So here are the reasons why this should be avoided:
+They are inherently tightly coupled meaning they are difficult to test, for example
+using unit tests. They even maintain their state throughout the life cycle of the
+application.
+They violate the Single Responsibility Principle by controlling their own creation
+and life cycle.
+Fundamentally, it results in you hiding the dependencies of your application in a
+global instance. You can no longer effectively follow your dependencies around
+your code as you can't follow where they are injected as function arguments.
+They make it ineffective to find the dependency chain should you need to
+analyze it.
+
+
+ Objects should typically be self-contained; they should
+only know problems about themselves and also should only solve one set of problems, its
+own problems. Anything that isn't relevant to this aim doesn't belong in that class.
+
+Database as IPC
+Let me clear this up for you; your database isn't a message queuing system. You don't use it
+schedule jobs or queue up tasks to be completed. If you need something to do that, use a
+queuing system. Your database is for data...the clue is in the name; don't shove temporary
+messages in there.
+There are many reasons why this is a bad idea. One major issue is the fact that in databases
+there is no real way to not enforce a policy by which you can guarantee that a double-read
+will not occur, and that is by utilizing row locks. This in turn, results in processes (either
+incoming out outgoing) being blocked, which in turn results in processing only being able
+to be done in a serial fashion.
+Furthermore, in order to check if there is any work to do you end up essentially counting
+the rows of data in the database to see if there is work to do; you run this on a continuous
+basis. MySQL doesn't support push notifications; unlike PostgreSQL it doesn't have the
+NOTIFY command to pair with a LISTEN channel.
+Also note that when you merge a job queue with a database table that stores real data, you
+also invalidate the cache every time you complete a job and update a flag, in turn making
+MySQL far slower.
+In short, it results in your database performing worse and can force it to slow critical
+messages to a standstill. You must be careful not to turn your database into a job queue by
+having this functionality sneak up on you; instead, use the database exclusively for data,
+and bear this in mind when extending your database.
+RabbitMQ provides an open source queuing system with some great PHP SDKs.
+
+Interface Bloat
+Interfaces shouldn't contain thousands of methods that reference internal operations of the
+class. They should be lightweight and considered a way of guaranteeing that when
+something is queried that it is definitely there.
+
+Interfaces should be used sparingly; do you actually need an interface if the class is only
+ever going to be implemented once and once alone (and realistically, no one is never going
+to need to tamper with such code?). If so, you might want to consider avoiding an interface
+in such a situation.
+
+So, let me draw you to one implementation of Interface Bloat. Let's take a look at the
+Pheanstalk interface class in the Pheanstalk open source library (note I have stripped the
+comments to make it more readable):
+<?php
+namespace Pheanstalk;
+interface PheanstalkInterface
+{
+const DEFAULT_PORT = 11300;
+const DEFAULT_DELAY = 0;
+const DEFAULT_PRIORITY = 1024;
+const DEFAULT_TTR = 60;
+const DEFAULT_TUBE = 'default';
+public function setConnection(Connection $connection);
+public function getConnection();
+public function bury($job, $priority = self::DEFAULT_PRIORITY);
+public function delete($job);
+[ 49 ]
+Anti-Patterns
+public function ignore($tube);
+public function kick($max);
+public function kickJob($job);
+public function listTubes();
+public function listTubesWatched($askServer = false);
+public function listTubeUsed($askServer = false);
+public function pauseTube($tube, $delay);
+public function resumeTube($tube);
+public function peek($jobId);
+public function peekReady($tube = null);
+public function peekDelayed($tube = null);
+public function peekBuried($tube = null);
+public function put($data, $priority = self::DEFAULT_PRIORITY, $delay =
+self::DEFAULT_DELAY, $ttr = self::DEFAULT_TTR);
+public function putInTube($tube, $data, $priority =
+self::DEFAULT_PRIORITY, $delay = self::DEFAULT_DELAY, $ttr =
+self::DEFAULT_TTR);
+public function release($job, $priority = self::DEFAULT_PRIORITY,
+$delay = self::DEFAULT_DELAY);
+public function reserve($timeout = null);
+public function reserveFromTube($tube, $timeout = null);
+public function statsJob($job);
+public function statsTube($tube);
+public function stats();
+public function touch($job);
+public function useTube($tube);
+public function watch($tube);
+public function watchOnly($tube);
+}
+Yuck! Notice how even constants have been put in the implement, the one thing you might
+actually want to change. Clearly, this is an interface for a class that can only be
+implemented one way, making the Interface useless.
+
+
+Bloated optimization
+Often, developers may trip over themselves trying to optimize their code or their design
+artifacts to a ridiculous extent, often before their code even performs basic functions, or
+even before any code has been created at all. This can rapidly perform issues in production.
+In this section, I wish to discuss three anti-patterns specifically relating to this topic:
+Analysis paralysis
+Bikeshedding
+Premature optimization
+[ 62 ]
+Anti-Patterns
+Analysis paralysis
+In short, this is where a strategy is over-analyzed to the point where progress is slowed
+down, or even stopped entirely in extreme cases. Not only can such solutions become
+obsolete rapidly, they can be made in under-educated circumstances, for example, in a
+meeting where an over-analytic boss tries to dig too deep into detail in advance without
+allowing their developers to actually do some research.
+Over-analyzing a problem and seeking a perfect solution upfront just does not work;
+programmers should seek to refine their solution, not come up with the refined solution up
+front.
+Bikeshedding
+Essentially, this is where analysis paralysis can occur on the basis of some very trivial
+decisions, for example, the color of a log in page. The only fix that's required is to not waste
+time on trivial decisions. Avoid design by committee where possible as the majority of
+people, regardless of how good they think their design skills are, are largely incompetent at
+design.
+Premature optimization
+In this section, so far, I've largely beaten up project managers; no time to beat up
+developers. Often, developers will seek to optimize their code prematurely without having
+educated data-led conclusions to drive where and when optimizations should be made.
+Writing clean and readable code is your first priority; then you can use some great profiling
+tools to determine where your bottlenecks are. XDebug and New Relic are just some of the
+tools that are good at this.
+That said, there are some cases where optimization must be done, particularly on some long
+computational tasks where it can be mission-critical to reduce something from O(N2) time
+to O(N). This said, most simple PHP web apps will have no real need to use this
+consideration.
 * Tools
-** serializer
+** symfony serializer
    - https://thomas.jarrand.fr/blog/serialization/
    - https://matthiasnoback.nl/2017/07/designing-a-json-serializer/
    - https://stackoverflow.com/questions/35365141/symfony-serializer-set-circular-reference-global/35365239
    - https://speakerdeck.com/dunglas/mastering-the-symfony-serializer?slide=1
+** symfony form
+'https://webmozart.io/blog/2015/09/09/value-objects-in-symfony-forms/#data-mappers',
+'https://stovepipe.systems/post/rethinking-form-development',
+'https://blog.martinhujer.cz/symfony-forms-with-request-objects/',
+'https://speakerdeck.com/webmozart/symfony-forms-101',
+'http://verraes.net/2013/04/decoupling-symfony2-forms-from-entities/' 
+** Code City
+https://www.reddit.com/r/PHP/comments/a079r6/php_implementation_of_code_city/
 * Jokes
   “There is so much spaghetti I might as well open a restaurant!”
 * Metrics
@@ -2340,10 +3122,24 @@ function foo($a, $b)
 }
 #+END_SRC
 So here we have function with 4 possible outcomes, since we have 2 statements that have 2 possible outcomes each (2 * 2 = 4). That means that the functions Npath complexity is 4. If we would add another statement with 2 possible outcomes we would get a complexity of 8 since 2 * 2 * 2 = 8.
+* Notepad
+1) Accurate predictions are an oxymoron in the real world. You can't predict accurately for things that aren't certain, and in almost all cases, developers won't know the systems they are dealing with fully enough. Moreover, they don't know their own personal efficiency from day to day; it just can't be foreseen accurately.
+2) A good property of software is the ability to change 
+3) Anyone can take a chance at improving code, but refactoring brings a discipline
+of safely making changes (with tests) and leveraging the knowledge accumulated by the software development community (through refactorings).
+- After all, like beauty, complexity is in the eye of the beholder. 
+- Using new programming languages will bring you new insights and ideas to already known languages. You get a better understanding.
+- It's not about clever, crAFTY, PREETY CODE. iT'S ABOUT FAST AND EFFECTIVE COMMUNICATION. It's about communication beetween people.
+- Any time someone sees some code that isn't as clear as
+ it should be, they should take the opportunity to fix it right
+ there and then — or at least within a few minutes. This
+ opportunistic refactoring is referred to by Uncle Bob as
+ following the boy-scout rule — always leave the code behind
+ in a better state than you found it.
 * About
   It's a simple site about refactoring in PHP.
   
   You can contact me at slawomir.grochowski@gmail.com, https://twitter.com/s_grochowski, https://www.facebook.com/SlawomirGrochowski
   You can support this site: send some BitCoins 1D8xeRkxssTTLESfGZtPVoqVJDq7MJSqNx , send/buy one of the books I would like to read or just say Hello!
-  
+
 

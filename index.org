@@ -224,7 +224,7 @@ class Sale
         return ($customer->isEmployee || $customer->isGoldCustomer || $customer->isHasACoupon);
     }
 }
- #+END_SRC
+#+END_SRC
 *** Pass a test
 ** Consolidate Duplicate Conditional Fragments
      Smell: The same fragment of code is in all branches of a conditional expression.
@@ -262,7 +262,7 @@ final class Sale
         $this->setTotal($total);
     }
 }
- #+END_SRC
+#+END_SRC
 *** Pass a test
 ** Decompose Conditional
      Smell: Complicated conditional (if-else) statement.
@@ -348,8 +348,8 @@ class Sale
 final class User
 {
     /**
-     * @var string
-     */
+     ,* @var string
+     ,*/
     public $name;
 }
 #+END_SRC
@@ -360,8 +360,8 @@ final class User
 final class User
 {
     /**
-     * @var string
-     */
+     ,* @var string
+     ,*/
     private $name;
 
     public function getName(): string
@@ -453,7 +453,7 @@ function printInvoiceFooter(Invoice $invoice): void
 
 
 
- #+END_SRC
+#+END_SRC
 *** Run a test
 *** Notes
 #+BEGIN_SRC php
@@ -469,11 +469,6 @@ function printInvoice() {
 printInvoice();
 
 #+END_SRC
-
-#+RESULTS:
-: Header 
-: phpRefactor.com 
-: 2019
 
 ** Extract Variable
    Alias: Introduce Explaining Variable
@@ -2324,201 +2319,675 @@ Properties names	$StudlyCaps or $camelCase or $under_score	$camelCase XMLHttpReq
   Patterns are formalized best practices.
 ** Software design patterns
 *** Creational
-    Creation of objects themselves - separate the instantiation of a class from the usage of that instance
+    Creation of objects themselves - separate the construction of a complex object from its representation
 
-**** Simple Factory
-**** Method Factory
-**** Abstract Factory
-**** Builder
-**** Prototype
-**** Dependency Injection
-https://www.sitepoint.com/php-dependency-injection-container-performance-benchmarks/
-
-– The Dependency Injection pattern is a software design pattern in which a class receives its dependencies from external sources rather than creating them itself.
-That is, following the Dependency Inversion principle.
-
-– Types of injection
-***** Construction injection: dependencies are injected when creating the object. It can
-    be used for required and optional dependencies.
-***** Setter injection: dependencies are injected through setters, and they are always
-    optional.
-***** Property injection: dependencies are injected directly through public properties.
-    This type of injection is not recommended as there is no control at all of what is
-    being injected.
 **** Factory
-  separating the creation of an object from the actual implementation
-  The second possible benefit is that if creating the object is a complicated job you can do all of the work in the factory, instead of repeating it every time you want to create a new instance.
-  refactoring to use this can be painful
-  subclasses may have a lot of boilerplate
-  There are several implementations and variants of design pattern among of which we have: Simple Factory Factory Method - The Factory Method differs from the ordinary Simple Factory on the basis that instead of us having one factory, we can have many. Abstract Factory Cleaner Code with Static Factory Methods https://stackify.com/static-factory-methods/
+     Separating the creation of an object from the actual implementation.
+     If creating the object is a complicated job you can do all of the work in the factory, instead of repeating it every time you want to create a new instance.
+***** Simple Factory
+#+BEGIN_SRC php
+class Bicycle
+{
+}
+
+class SimpleFactory
+{
+    public function createBicycle(): Bicycle
+    {
+        return new Bicycle();
+    }
+}      
+#+END_SRC
+
+#+BEGIN_SRC php
+class SimpleFactoryTest extends TestCase
+{
+    public function testCanCreateBicycle()
+    {
+        $bicycle = (new SimpleFactory())->createBicycle();
+        $this->assertInstanceOf(Bicycle::class, $bicycle);
+    }
+}
+#+END_SRC
+***** Method Factory
+#+BEGIN_SRC php
+interface CarFactory 
+{
+    public function makeCar();
+}
+
+interface Car 
+{
+    public function getType();
+}
+
+class SedanFactory implements CarFactory 
+{
+    public function makeCar() 
+    {
+        return new Sedan();
+    }
+}
+
+class Sedan implements Car 
+{
+    public function getType() 
+    {
+        return 'Sedan';
+    }
+}
+
+/* Client */
+$factory = new SedanFactory();
+$car = $factory->makeCar();
+#+END_SRC
+***** Abstract Factory
+***** Links
+     - [[https://stackify.com/static-factory-methods/][Abstract Factory Cleaner Code with Static Factory Methods]]      
+**** Builder
+#+BEGIN_SRC php
+class Car
+{
+    ...
+}
+
+class CarBuilder
+{
+    public function __construct()
+    {
+        $car = new Car;
+    }
+    
+    public function build(): Car
+    {
+        return $car;   
+    }
+
+    public function setSeats(int $seats)
+    {
+        $car->setSeats($seats);
+    }
+}
+#+END_SRC
+**** Prototype
+#+BEGIN_SRC php
+abstract class Prototype{
+    protected $name;
+ 
+    public function __construct($name) {
+        $this->name=$name;
+    }
+    abstract function __clone();
+    public function getName() {
+        return $this->name;
+    }
+}
+ 
+class ConcretePrototype extends Prototype{
+ 
+    public function __construct($name) {
+        parent::__construct($name);
+    }
+    public function __clone() {}
+}
+ 
+// testy
+$prototype = new ConcretePrototype("nazwa");
+echo  $prototype->getName(); // wyswietli "nazwa"
+$prototype2 = clone $prototype;
+echo  $prototype2->getName(); // wyswietli "nazwa"
+
+#+END_SRC
+**** Dependency Injection
+     A class receives its dependencies from external sources rather than creating them itself. That is, following the Dependency Inversion principle.
+***** Types of injection:
+****** Construction injection: 
+       dependencies are injected when creating the object. It can be used for required and optional dependencies.
+****** Setter injection: 
+       dependencies are injected through setters, and they are always optional.
+****** Property injection: 
+       dependencies are injected directly through public properties. This type of injection is not recommended as there is no control at all of what is being injected.
+***** Links
+      - [[https://www.sitepoint.com/php-dependency-injection-container-performance-benchmarks/][PHP Dependency Injection Container Performance Benchmarks]]
 *** Structural
     They act as interconnectors between entities. It serves as a blueprint for how basic classes can be combined to form bigger  entities. Structural patterns describe the static architecture of a design;
+
 **** Bridge
   The Bridge pattern can be quite straightforward; it effectively allows us to decouple an abstraction from an implementation so the two can vary independently.
+#+BEGIN_SRC php
+interface FormatterInterface
+{
+    public function format(string $text);
+}
+
+class PlainTextFormatter implements FormatterInterface
+{
+    public function format(string $text)
+    {
+        return $text;
+    }
+}
+
+class HtmlFormatter implements FormatterInterface
+{
+    public function format(string $text)
+    {
+        return sprintf('<p>%s</p>', $text);
+    }
+}
+
+abstract class Service
+{
+    /**
+     * @var FormatterInterface
+     */
+    protected $implementation;
+
+    /**
+     * @param FormatterInterface $printer
+     */
+    public function __construct(FormatterInterface $printer)
+    {
+        $this->implementation = $printer;
+    }
+
+    /**
+     * @param FormatterInterface $printer
+     */
+    public function setImplementation(FormatterInterface $printer)
+    {
+        $this->implementation = $printer;
+    }
+
+    abstract public function get();
+}
+
+class HelloWorldService extends Service
+{
+    public function get()
+    {
+        return $this->implementation->format('Hello World');
+    }
+}
+
+class BridgeTest extends TestCase
+{
+    public function testCanPrintUsingThePlainTextPrinter()
+    {
+        $service = new HelloWorldService(new PlainTextFormatter());
+        $this->assertEquals('Hello World', $service->get());
+
+        // now change the implementation and use the HtmlFormatter instead
+        $service->setImplementation(new HtmlFormatter());
+        $this->assertEquals('<p>Hello World</p>', $service->get());
+    }
+}
+#+END_SRC
 **** Facade
-http://designpatternsphp.readthedocs.io/en/latest/Structural/Facade/README.html they essentially act as a simple interface to a complex system. A Facade design pattern works providing a single class that in itself instantiates other classes and provides a simple interface to use those functions. A warning when using such pattern is that, as classes are instantiated within the Facade, you are essentially tightly coupling the classes that it utilizes. There are cases where you want this, but there are cases where you do not. Where do you do not want this behavior, you are better suited to using dependency injection. I have found this to be useful when wrapping a set of poor APIs into a single unified API. It reduces external dependencies, allowing complexity to be internalized; this process can make your code more readable. In other situations, where the various classes were loosely coupled together, we may find it better to use dependency injection. By injecting objects that perform various actions into the ToyFactory class we can benefit from making testing easier by being able to inject fake classes that the ToyFactory class can manipulate. Personally, I am a huge believer in making code as easily testable as possible; hence why I don't like this approach.
+- A Facade is meant to decouple a client and a sub-system by embedding many (but sometimes just one) interface, and of course to reduce complexity.
+- That’s why a good facade has no new in it. If there are multiple creations for each method, it is not a Facade, it’s a Builder or a [Abstract|Static|Simple] Factory [Method].
+- The best facade has no new and a constructor with interface-type-hinted parameters. If you need creation of new instances, use a Factory as argument.
+- A Facade design pattern works providing a single class that in itself instantiates other classes and provides a simple interface to use those functions. A warning when using such pattern is that, as classes are instantiated within the Facade, you are essentially tightly coupling the classes that it utilizes. There are cases where you want this, but there are cases where you do not. Where do you do not want this behavior, you are better suited to using dependency injection. I have found this to be useful when wrapping a set of poor APIs into a single unified API. It reduces external dependencies, allowing complexity to be internalized; this process can make your code more readable. In other situations, where the various classes were loosely coupled together, we may find it better to use dependency injection. By injecting objects that perform various actions into the ToyFactory class we can benefit from making testing easier by being able to inject fake classes that the ToyFactory class can manipulate. Personally, I am a huge believer in making code as easily testable as possible; hence why I don't like this approach.
 
+#+BEGIN_SRC php
+class Facade
+{
+    /**
+     * @var OsInterface
+     */
+    private $os;
 
-	 Class Adapter pattern
-	 Object Adapter pattern
-	 Flyweight pattern
-	 Composite pattern
-	 Bridge pattern
-	 Proxy pattern
+    /**
+     * @var BiosInterface
+     */
+    private $bios;
+
+    /**
+     * @param BiosInterface $bios
+     * @param OsInterface   $os
+     */
+    public function __construct(BiosInterface $bios, OsInterface $os)
+    {
+        $this->bios = $bios;
+        $this->os = $os;
+    }
+
+    public function turnOn()
+    {
+        $this->bios->execute();
+        $this->bios->waitForKeyPress();
+        $this->bios->launch($this->os);
+    }
+
+    public function turnOff()
+    {
+        $this->os->halt();
+        $this->bios->powerDown();
+    }
+}
+
+interface OsInterface
+{
+    public function halt();
+
+    public function getName(): string;
+}
+
+interface BiosInterface
+{
+    public function execute();
+
+    public function waitForKeyPress();
+
+    public function launch(OsInterface $os);
+
+    public function powerDown();
+}
+
+class FacadeTest extends TestCase
+{
+    public function testComputerOn()
+    {
+        /** @var OsInterface|\PHPUnit_Framework_MockObject_MockObject $os */
+        $os = $this->createMock('DesignPatterns\Structural\Facade\OsInterface');
+
+        $os->method('getName')
+            ->will($this->returnValue('Linux'));
+
+        $bios = $this->getMockBuilder('DesignPatterns\Structural\Facade\BiosInterface')
+            ->setMethods(['launch', 'execute', 'waitForKeyPress'])
+            ->disableAutoload()
+            ->getMock();
+
+        $bios->expects($this->once())
+            ->method('launch')
+            ->with($os);
+
+        $facade = new Facade($bios, $os);
+
+        // the facade interface is simple
+        $facade->turnOn();
+
+        // but you can also access the underlying components
+        $this->assertEquals('Linux', $os->getName());
+    }
+}
+
+#+END_SRC
 **** Composite
-Problem: The pieces don't fit
-Hiding bad design
-Composite Imagine an audio system consisting of individual songs and also playlists of songs. Yes, playlists consist of songs, but we want both to be treated individually. Both are types of music, both can be played. The Composite design pattern can help here; it allows us to ignore the differences between compositions of objects and individual objects. It allows us to treat both with identical or nearly-identical code. Let's put together a little example; a song is our example of a leaf, with playlists being composites. Music is our abstraction of playlists and songs; therefore, we can call this our component. The client of all this is our index.php file. By not discriminating between leaf-nodes and branches, our code becomes less complex and therefore less error prone.
-**** Adapter (Wrapper)
-  Trzeba wymyślić jakiś fajny przykład, może prąd że 220V i 110V albo jakas przejsciowka USB? The ADAPTER encapsulated the interaction with the API and provides a single place to change when the API evolves. służy do przystosowania interfejsów obiektowych, tak aby możliwa była współpraca obiektów o niezgodnych interfejsach. It is often used to make existing classes work with others without modifying their source code. https://code.tutsplus.com/tutorials/design-patterns-the-adapter-pattern--cms-22262 Class Adapter In a Class Adapter, we use inheritance to create an adapter. A class (the adapter) can inherit another (the adaptee); using standard inheritance we are able to add additional functionality to the adaptee. Object Adapter The Composite Reuse Principle states that classes should achieve polymorphic behavior and code reuse by their composition. By applying this principle, classes should contain instances of other classes when they want to implement a particular piece of functionality, as opposed to inheriting the functionality from a base or parent class.
+To treat a group of objects the same way as a single instance of the object.
 
+
+Composite Imagine an audio system consisting of individual songs and also playlists of songs. Yes, playlists consist of songs, but we want both to be treated individually. Both are types of music, both can be played. The Composite design pattern can help here; it allows us to ignore the differences between compositions of objects and individual objects. It allows us to treat both with identical or nearly-identical code. Let's put together a little example; a song is our example of a leaf, with playlists being composites. Music is our abstraction of playlists and songs; therefore, we can call this our component. The client of all this is our index.php file. By not discriminating between leaf-nodes and branches, our code becomes less complex and therefore less error prone.
+
+#+BEGIN_SRC php
+interface RenderableInterface
+{
+    public function render(): string;
+}
+
+/**
+ * The composite node MUST extend the component contract. This is mandatory for building
+ * a tree of components.
+ */
+class Form implements RenderableInterface
+{
+    /**
+     * @var RenderableInterface[]
+     */
+    private $elements;
+
+    /**
+     * runs through all elements and calls render() on them, then returns the complete representation
+     * of the form.
+     *
+     * from the outside, one will not see this and the form will act like a single object instance
+     *
+     * @return string
+     */
+    public function render(): string
+    {
+        $formCode = '<form>';
+
+        foreach ($this->elements as $element) {
+            $formCode .= $element->render();
+        }
+
+        $formCode .= '</form>';
+
+        return $formCode;
+    }
+
+    /**
+     * @param RenderableInterface $element
+     */
+    public function addElement(RenderableInterface $element)
+    {
+        $this->elements[] = $element;
+    }
+}
+
+class InputElement implements RenderableInterface
+{
+    public function render(): string
+    {
+        return '<input type="text" />';
+    }
+}
+
+class TextElement implements RenderableInterface
+{
+    /**
+     * @var string
+     */
+    private $text;
+
+    public function __construct(string $text)
+    {
+        $this->text = $text;
+    }
+
+    public function render(): string
+    {
+        return $this->text;
+    }
+}
+
+class CompositeTest extends TestCase
+{
+    public function testRender()
+    {
+        $form = new Composite\Form();
+        $form->addElement(new Composite\TextElement('Email:'));
+        $form->addElement(new Composite\InputElement());
+        $embed = new Composite\Form();
+        $embed->addElement(new Composite\TextElement('Password:'));
+        $embed->addElement(new Composite\InputElement());
+        $form->addElement($embed);
+
+        // This is just an example, in a real world scenario it is important to remember that web browsers do not
+        // currently support nested forms
+
+        $this->assertEquals(
+            '<form>Email:<input type="text" /><form>Password:<input type="text" /></form></form>',
+            $form->render()
+        );
+    }
+}
+#+END_SRC
+**** Adapter (Wrapper)
+#+BEGIN_SRC php
+// Concrete Implementation of PayPal Class
+class PayPal {
+     
+    public function __construct() {
+        // Your Code here //
+    }
+     
+    public function sendPayment($amount) {
+        // Paying via Paypal //
+        echo "Paying via PayPal: ". $amount;
+    }
+}
+ 
+// Simple Interface for each Adapter we create
+interface paymentAdapter {
+    public function pay($amount);
+}
+ 
+class paypalAdapter implements paymentAdapter {
+     
+    private $paypal;
+ 
+    public function __construct(PayPal $paypal) {
+        $this->paypal = $paypal;
+    }
+     
+    public function pay($amount) {
+        $this->paypal->sendPayment($amount);
+    }
+}
+
+// Client Code
+$paypal = new paypalAdapter(new PayPal());
+$paypal->pay('2629');
+#+END_SRC
 
    getData and
   setData (not as “pretty”).
+**** Decorator
+Adding new behaviors to objects dynamically by placing them inside special wrapper objects.
+#+BEGIN_SRC php
+class eMailBody 
+{
+    private $header = 'This is email header';
+    private $footer = 'This is email Footer';
+    public $body = '';
+ 
+    public function loadBody() 
+    {
+        $this->body .= "This is Main Email body.<br />";
+    }
+
+    class christmasEmail extends eMailBody 
+    {
+        public function loadBody() {
+            parent::loadBody();
+            $this->body .= "Added Content for Xmas<br />";
+        }
+    }
+ 
+    $christmasEmail = new christmasEmail();
+    $christmasEmail->loadBody();
+    echo $christmasEmail->body;
+#+END_SRC
 *** Behavioral
     They work to explain how objects interact with each other; how they can send messages between each of the objects and how you can divide the steps of various tasks up among classes. Describe a flowing process.
 
 **** Chain Of Responsibility
-  is an object oriented version of the if ... else if ... else if ....... else ... endif idiom
+  Is an object oriented version of the if ... else if ... else if ....... else ... endif idiom
 
-  Problem:
-                 
-
-  class ChainOfResponsibilityTest extends TestCase
-  {
-      public function testOne()
-      {
-          $this->expectOutputString('Director purchased');
-
-          $associate = new AssociatePurchaser();
-          $manager = new ManagerPurchaser();
-          $director = new DirectorPurchaser();
-          $associate->setNextPurchaser($manager);
-          $manager->setNextPurchaser($director);
-
-          $associate->buy(299);
-      }
-  }
-
-  interface PurchaserInterface
-  {
-      public function setNextPurchaser(PurchaserInterface $nextPurchaser): void;
-
-      public function buy($price): void;
-  }
-
-  final class AssociatePurchaser implements PurchaserInterface
-  {
-      /**
-       * @var PurchaserInterface
-       */
-      private $nextPurchaser;
-
-      public function setNextPurchaser(PurchaserInterface $nextPurchaser): void
-      {
-          $this->nextPurchaser = $nextPurchaser;
-      }
-
-      public function buy($price): void
-      {
-          if ($price < 100) {
-              echo('Associate purchased');
-              return;
-          }
-
-          if($this->nextPurchaser) {
-              $this->nextPurchaser->buy($price);
-              return;
-          }
-
-          echo 'Associate could not buy';
-      }
-  }
-
-  final class ManagerPurchaser implements PurchaserInterface
-  {
-      /**
-       * @var PurchaserInterface
-       */
-      private $nextPurchaser;
-
-      public function setNextPurchaser(PurchaserInterface $nextPurchaser): void
-      {
-          $this->nextPurchaser = $nextPurchaser;
-      }
-
-      public function buy($price): void
-      {
-          if ($price < 200) {
-              echo('Manager purchased');
-              return;
-          }
-
-          if($this->nextPurchaser) {
-              $this->nextPurchaser->buy($price);
-              return;
-          }
-
-          echo 'Manager could not buy';
-      }
-  }
-
-  final class DirectorPurchaser implements PurchaserInterface
-  {
-      /**
-       * @var PurchaserInterface
-       */
-      private $nextPurchaser;
-
-      public function setNextPurchaser(PurchaserInterface $nextPurchaser): void
-      {
-          $this->nextPurchaser = $nextPurchaser;
-      }
-
-      public function buy($price): void
-      {
-          if ($price < 300) {
-              echo('Director purchased');
-              return;
-          }
-
-          if($this->nextPurchaser) {
-              $this->nextPurchaser->buy($price);
-              return;
-          }
-
-          echo 'Director could not buy';
-      }
-  }
-**** Observer
-     The Observer design pattern essentially allows an object (the subject) to maintain a list of observers that are automatically notified when the state of the that object changes. This pattern applies a one-to-many dependency between objects; there is always one subject that updates many observers. This pattern applies a one-to-many dependency between objects; there is always one subject that updates many observers.
-**** Strategy
-Allow us to alter the behavior of an object at runtime.
-Problem: null
-We defined a family of algorithms, bound by one common interface
-These algorithms are interchangeable; they can be swapped in and out without affecting the client implementation
-We encapsulated each algorithm within a class
-                 
-
-
-class StrategyTest extends TestCase
+#+BEGIN_SRC php
+interface PurchaserInterface
 {
-    public function testOne()
+    public function setNextPurchaser(PurchaserInterface $nextPurchaser): void;
+
+    public function buy($price): void;
+}
+
+final class AssociatePurchaser implements PurchaserInterface
+{
+    /**
+     ,* @var PurchaserInterface
+     ,*/
+    private $nextPurchaser;
+
+    public function setNextPurchaser(PurchaserInterface $nextPurchaser): void
     {
-        $this->expectOutputString('Total: 15');
+        $this->nextPurchaser = $nextPurchaser;
+    }
 
-        //Normal billing
-        $customer = new Customer(new NormalStrategy());
-        $customer->addBeer(10);
+    public function buy($price): void
+    {
+        if ($price < 100) {
+            echo('Associate purchased');
+            return;
+        }
 
-        //Start Happy Hour
-        $customer->setStrategy(new HappyHourStrategy());
-        $customer->addBeer(10);
+        if ($this->nextPurchaser) {
+            $this->nextPurchaser->buy($price);
+            return;
+        }
 
-        $customer->printBill();
+        echo 'Associate could not buy';
     }
 }
 
+final class ManagerPurchaser implements PurchaserInterface
+{
+    /**
+     ,* @var PurchaserInterface
+     ,*/
+    private $nextPurchaser;
+
+    public function setNextPurchaser(PurchaserInterface $nextPurchaser): void
+    {
+        $this->nextPurchaser = $nextPurchaser;
+    }
+
+    public function buy($price): void
+    {
+        if ($price < 200) {
+            echo('Manager purchased');
+            return;
+        }
+
+        if($this->nextPurchaser) {
+            $this->nextPurchaser->buy($price);
+            return;
+        }
+
+        echo 'Manager could not buy';
+    }
+}
+
+final class DirectorPurchaser implements PurchaserInterface
+{
+    /**
+     ,* @var PurchaserInterface
+     ,*/
+    private $nextPurchaser;
+
+    public function setNextPurchaser(PurchaserInterface $nextPurchaser): void
+    {
+        $this->nextPurchaser = $nextPurchaser;
+    }
+
+    public function buy($price): void
+    {
+        if ($price < 300) {
+            echo('Director purchased');
+            return;
+        }
+
+        if($this->nextPurchaser) {
+            $this->nextPurchaser->buy($price);
+            return;
+        }
+
+        echo 'Director could not buy';
+    }
+}
+
+class ChainOfResponsibilityTest extends TestCase
+{
+    public function testOne()
+    {
+        $this->expectOutputString('Director purchased');
+
+        $associate = new AssociatePurchaser();
+        $manager = new ManagerPurchaser();
+        $director = new DirectorPurchaser();
+        $associate->setNextPurchaser($manager);
+        $manager->setNextPurchaser($director);
+
+        $associate->buy(299);
+    }
+}
+
+#+END_SRC
+**** Observer
+The Observer design pattern essentially allows an object (the subject) to maintain a list of observers that are automatically notified when the state of the that object changes. This pattern applies a one-to-many dependency between objects; there is always one subject that updates many observers. This pattern applies a one-to-many dependency between objects; there is always one subject that updates many observers.
+#+BEGIN_SRC php
+class User implements \SplSubject
+{
+    /**
+     * @var string
+     */
+    private $email;
+
+    /**
+     * @var \SplObjectStorage
+     */
+    private $observers;
+
+    public function __construct()
+    {
+        $this->observers = new \SplObjectStorage();
+    }
+
+    public function attach(\SplObserver $observer)
+    {
+        $this->observers->attach($observer);
+    }
+
+    public function detach(\SplObserver $observer)
+    {
+        $this->observers->detach($observer);
+    }
+
+    public function changeEmail(string $email)
+    {
+        $this->email = $email;
+        $this->notify();
+    }
+
+    public function notify()
+    {
+        /** @var \SplObserver $observer */
+        foreach ($this->observers as $observer) {
+            $observer->update($this);
+        }
+    }
+}
+
+class UserObserver implements \SplObserver
+{
+    /**
+     * @var User[]
+     */
+    private $changedUsers = [];
+
+    /**
+     * It is called by the Subject, usually by SplSubject::notify()
+     *
+     * @param \SplSubject $subject
+     */
+    public function update(\SplSubject $subject)
+    {
+        $this->changedUsers[] = clone $subject;
+    }
+
+    /**
+     * @return User[]
+     */
+    public function getChangedUsers(): array
+    {
+        return $this->changedUsers;
+    }
+}
+
+class ObserverTest extends TestCase
+{
+    public function testChangeInUserLeadsToUserObserverBeingNotified()
+    {
+        $observer = new UserObserver();
+
+        $user = new User();
+        $user->attach($observer);
+
+        $user->changeEmail('foo@bar.com');
+        $this->assertCount(1, $observer->getChangedUsers());
+    }
+}
+#+END_SRC
+**** Strategy
+Allow us to alter the behavior of an object at runtime.
+We defined a family of algorithms, bound by one common interface
+These algorithms are interchangeable; they can be swapped in and out without affecting the client implementation
+We encapsulated each algorithm within a class                
+
+#+BEGIN_SRC php
 class Customer
 {
     /**
@@ -2572,12 +3041,27 @@ class HappyHourStrategy implements BillingStrategyInterface
         return $rawPrice * 0.5;
     }
 }
-                
 
-            
-WARNING printBill() function should be moved out of Customer class. But stays just for simplicity of example
+class StrategyTest extends TestCase
+{
+    public function testOne()
+    {
+        $this->expectOutputString('Total: 15');
+
+        //Normal billing
+        $customer = new Customer(new NormalStrategy());
+        $customer->addBeer(10);
+
+        //Start Happy Hour
+        $customer->setStrategy(new HappyHourStrategy());
+        $customer->addBeer(10);
+
+        $customer->printBill();
+    }
+}
+#+END_SRC
 **** Command 
-     Command objects encapsulate an action and its parameters
+     Command objects encapsulate an action and its parameters. We have an Invoker and a Receiver
 **** Iterator 
      Iterators are used to access the elements of an aggregate object sequentially without exposing its underlying representation
 **** Null Object
@@ -3141,5 +3625,4 @@ of safely making changes (with tests) and leveraging the knowledge accumulated b
   
   You can contact me at slawomir.grochowski@gmail.com, https://twitter.com/s_grochowski, https://www.facebook.com/SlawomirGrochowski
   You can support this site: send some BitCoins 1D8xeRkxssTTLESfGZtPVoqVJDq7MJSqNx , send/buy one of the books I would like to read or just say Hello!
-
 

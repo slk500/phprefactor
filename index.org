@@ -8,40 +8,18 @@
 **** Taxonomy
 ***** [[http://mikamantyla.eu/BadCodeSmellsTaxonomy.html][Mika Mäntylä]]
 ***** [[http://www.industriallogic.com/wp-content/uploads/2005/09/smellstorefactorings.pdf][Joshua Kerievsky]]
+** Feathers, Michael; Working Effectively with Legacy Code; 2005
+ - To me, legacy code is simply code without tests. I’ve gotten some grief for this definition. What do tests have to do with whether code is bad? To me, the answer is straightforward, and it is a point that I elaborate throughout the book: 'Code without tests is bad code. It doesn’t matter how well written it is; it doesn’t matter how pretty or object-oriented or well-encapsulated it is. With tests, we can change the behavior of our code quickly and verifiably. Without them, we really don’t know if our code is getting better or worse.'
 
-przerwałem bo mam tylko draft a nie pełną książke
-** Working effectivly with legacy code
- - To me, legacy code is simply code without tests. I’ve gotten some grief for
- this definition. What do tests have to do with whether code is bad? To me, the
- answer is straightforward, and it is a point that I elaborate throughout the
- book:
+ - being able to confidently make changes in any code base.
 
- 'Code without tests is bad code. It doesn’t matter how well written it is; it doesn’t matter how pretty or object-oriented or well-encapsulated it is. With tests, we can change the behavior of our code quickly and verifiably. Without them, we really don’t know if our code is getting better or worse.'
+ - Preserving existing behavior
 
- being able to confidently make changes in any code base.
+ - Changes in a system can be made in two primary ways. I like to call them Edit and Pray and Cover and Modify. Unfortunately, Edit and Pray is pretty much the industry standard. When you use Edit and Pray, you carefully plan the changes you are going to make, you make sure that you understand the code you are going to modify, and then you start to make the changes. When you’re done, you run the system to see if the change was enabled, and then you poke around further to make sure that you didn’t break anything. The poking around is essential. When you make your changes, you are hoping and praying that you’ll get them right, and you take extra time when you are done to make sure that you did.
 
- Preserving existing behavior
-
- Changes in a system can be made in two primary ways. I like to call them Edit
- and Pray and Cover and Modify. Unfortunately, Edit and Pray is pretty much
- the industry standard. When you use Edit and Pray, you carefully plan the
- changes you are going to make, you make sure that you understand the code
- you are going to modify, and then you start to make the changes. When you’re
- done, you run the system to see if the change was enabled, and then you poke
- around further to make sure that you didn’t break anything. The poking
- around is essential. When you make your changes, you are hoping and praying
- that you’ll get them right, and you take extra time when you are done to make
- sure that you did.
-
- ...testing is a tough problem, and people are often seduced by the idea that they can test through a GUI or web interface without having to do anything special to their
- application. It can be done, but it is usually more work than anyone on a team
- is prepared to admit. In addition, a user interface often isn’t the best place to
- write tests. UIs are often volatile and too far from the functionality being tested.
- When UI-based tests fail, it can be hard to figure out why. Regardless, people
- often spend considerable money trying to do all of their testing with those sorts
- of tools.
-
- Pay now or pay more later
+ - ...testing is a tough problem, and people are often seduced by the idea that they can test through a GUI or web interface without having to do anything special to their application. It can be done, but it is usually more work than anyone on a team is prepared to admit. In addition, a user interface often isn’t the best place to write tests. UIs are often volatile and too far from the functionality being tested. When UI-based tests fail, it can be hard to figure out why. Regardless, people  often spend considerable money trying to do all of their testing with those sorts of tools.
+   
+ - Pay now or pay more later
 
 ** Fowler, Martin; 2018
 - With any introductory example, however, I run into a problem. If I pick a large program, describing it and how it is refactored is too complicated for a mortal reader to work through.(...) However, if I pick a program that is small enough to be comprehensible, refactoring does not look like it is worthwhile.
@@ -68,10 +46,7 @@ przerwałem bo mam tylko draft a nie pełną książke
 
 - Branches. As I write this, a common approach in teams is for each team member to work on abranch of the code base using a version control system, and do considerable work onthat branch before integrating with a mainline (often called master or trunk) sharedacross the team. Often, this involves building a whole feature on a branch, notintegrating into the mainline until the feature is ready to be released into production.Fans of this approach claim that it keeps the mainline clear of any in­process code,provides a clear version history of feature additions, and allows features to be revertedeasily should they cause problems.There are downsides to feature branches like this. The longer I work on an isolatedbranch, the harder the job of integrating my work with mainline is going to be when I’mdone. Most people reduce this pain by frequently merging or re­basing from mainlineto my branch. But this doesn’t really solve the problem when several people areworking on individual feature branches. I distinguish between merging and integration.If I merge mainline into my code, this is a oneway movement—my branch changes butthe mainline doesn’t. I use “integrate” to mean a two­way process that pulls changesfrom mainline into my branch and then pushes the result back into mainline, changingboth. If Rachel is working on her branch I don’t see her changes until she integrateswith mainline; at that point, I have to merge her changes into my feature branch, whichmay mean considerable work. The hard part of this work is dealing with semanticchanges. Modern version control systems can do wonders with merging complexchanges to the program text, but they are blind to the semantics of the code. If I’vechanged the name of a function, my version control tool may easily integrate mychanges with Rachel’s. But if, in her branch, she added a call to a function that I’verenamed in mine, the code will fail.The problem of complicated merges gets exponentially worse as the length of featurebranches increases. Integrating branches that are four weeks old is more than twice ashard as those that are a couple of weeks old. Many people, therefore, argue for keepingfeature branches short—perhaps just a couple of days. Others, such as me, want themeven shorter than that. This is an approach called Continuous Integration (CI), alsoknown as Trunk­Based Development. With CI, each team member integrates withmainline at least once per day. This prevents any branches diverting too far from eachother and thus greatly reduces the complexity of merges. CI doesn’t come for free: Itmeans you use practices to ensure the mainline is healthy, learn to break large featuresinto smaller chunks, and use feature toggles (aka feature flags) to switch off any in­process features that can’t be broken down.Fans of CI like it partly because it reduces the complexity of merges, but the dominantreason to favor CI is that it’s far more compatible with refactoring. Refactorings ofteninvolve making lots of little changes all over the code base—which are particularlyprone to semantic merge conflicts (such as renaming a widely used function). Many ofus have seen feature­branching teams that find refactorings so exacerbate mergeproblems that they stop refactoring. CI and re­factoring work well together, which iswhy Kent Beck combined them in Extreme Programming.I’m not saying that you should never use feature branches. If they are sufficiently short,their problems are much reduced. (Indeed, users of CI usually also use branches, butintegrate them with mainline each day.) Feature branches may be the right techniquefor open source projects where you have infrequent commits from programmers whoyou don’t know well (and thus don’t trust). But in a full­time development team, thecost that feature branches impose on refactoring is excessive. Even if you don’t go to fullCI, I certainly urge you to integrate as frequently as possible. You should also considerthe objective evidence [Forsgren et al.] that teams that use CI are more effective insoftware delivery.
 
-
-
 131
-** Feathers, Michael; Working Effectively with Legacy Code; 2005
 ** Others  
    
   | author                                                                            | title                                                                                                                | topic       | info        | year |                                                                                                                                                                                                              |
@@ -1857,7 +1832,7 @@ use App\Model\Category\Query as CategoryQuery;
 use App\Model\Product\Contract\Query as ProductQueryInterface;
 use App\Contract\Query as
 #+END_SRC
-https://www.tomasvotruba.cz/blog/2019/05/02/alias-as-a-code-smell/
+- https://www.tomasvotruba.cz/blog/2019/05/02/alias-as-a-code-smell/
 *** Alternative Classes With Different Interfaces
 *** Comments
     If you need a comment to explain what a block of code does, try Extract Function (106). If the method is already extracted but you still need a comment to explain what it does, use Change Function Declaration (124) to rename it. If you need to state some rules about the required state of the system, use Introduce Assertion (302).
@@ -1899,8 +1874,6 @@ https://www.tomasvotruba.cz/blog/2019/05/02/alias-as-a-code-smell/
     Fix: Replace Loop with Pipeline
 *** Message Chains
     You see message chains when a client asks one object for another object, which the client then asks for yet another object, which the client then asks for yet another another object, and so on.
-
-
 95 
 *** Middle Man
     Fix: Remove Middle Man, Inline Function, Replace Superclass with Delegate, Replace Subclass with Delegate
@@ -1919,7 +1892,7 @@ https://www.tomasvotruba.cz/blog/2019/05/02/alias-as-a-code-smell/
 | Name                              | Lines of Code | Description                                                                                   | Tutorials                       |
 |-----------------------------------+---------------+-----------------------------------------------------------------------------------------------+---------------------------------|
 | [[https://github.com/adamculp/refactoring101][Video Rental Shop]]                 |           132 | From Martin Fowler book "Refactoring: Improving the Design of Existing Code" converted to PHP | [[https://youtu.be/0DYIJdX6kB4][Refactoring 101]]                 |
-| [[https://github.com/jbrains/trivia/tree/master/php][Legacy Code Retreat - Trivia Game]] |           196 | Designed for [[https://legacycoderetreat.typepad.com/][Legacy Code Retreat]] events                                                       | [[https://code.tutsplus.com/series/refactoring-legacy-code--cms-633][Refactoring Legacy Code]] |
+| [[https://github.com/jbrains/trivia/tree/master/php][Legacy Code Retreat - Trivia Game]] |           196 | Designed for [[https://legacycoderetreat.typepad.com/][Legacy Code Retreat]] events                                                       | [[https://code.tutsplus.com/series/refactoring-legacy-code--cms-633][Refactoring Legacy Code]]         |
 |                                   |               |                                                                                               | [[https://code.tutsplus.com/courses/techniques-for-refactoring-code][Techniques for Refactoring Code]] |
 |                                   |               |                                                                                               | [[http://blog.adrianbolboaca.ro/2014/04/legacy-coderetreat/#sessions][Legacy Coderetreat (Java)]]       |
 
@@ -2062,10 +2035,10 @@ Structure
     - testability
     - truly OOP
 ** Characterization Test
- Test that characterizes the actual behavior of a piece of code. It acts as a change detector, protecting legacy code from unintended changes.
+   Test that characterizes the actual behavior of a piece of code. It acts as a change detector, protecting legacy code from unintended changes.
 ** Polymorphism
    describes a pattern in object oriented programming in which classes have different functionality while sharing a common interface.
-** Parameter vs. argument
+** Parameter vs. Argument
    A parameter is the variable which is part of the method’s signature (method declaration). An argument is an expression used when calling the method.
 
 Consider the following code:
@@ -2085,13 +2058,10 @@ Here i and f are the parameters, and anInt and 2.0 are the arguments.
 
 https://stackoverflow.com/questions/1788923/parameter-vs-argument
 ** Principle vs. Practices
- The Boy scout motto– “Be prepared”–is a timeless principle. “Buy a plunger before you need a plunger” is a practice that applies this principle in a memorable way.
-
- Principles are good ideas or good values stated in a context-independent manner. Practices are applications of theses principles stated in a context-dependent way.
-
- Principle: a fundamental, primary or general law or truth
-
- Practice: the action or process of performing or doing something
+   - The Boy scout motto – “Be prepared”–is a timeless principle. “Buy a plunger before you need a plunger” is a practice that applies this principle in a memorable way.
+   - Principles are good ideas or good values stated in a context-independent manner. Practices are applications of theses principles stated in a context-dependent way.
+   - Principle: a fundamental, primary or general law or truth
+   - Practice: the action or process of performing or doing something
 ** Logical operators  
 They are used for different purposes and in fact have different operator precedences. The && and || operators are intended for Boolean conditions, whereas and and or are intended for control flow.
 
@@ -2112,10 +2082,10 @@ doSomething() or die();
    an object that dose work
 ** Technical Dept
    is the debt that accumulate when you knowingly or unknowingly make
- wrong or non-optimal design decisions.
+   wrong or non-optimal design decisions.
 
  http://blog.insight.sensiolabs.com/2014/11/04/technical-debt-relevant-projects.html
-* TODO Practices
+* Practices
 ** Always Use 'declare(stric_types=1)'
 #+BEGIN_SRC php
 declare(stric_types=1);
@@ -2291,26 +2261,36 @@ if ((age < 20) || ((sales < 1200) && (hrsWorked > 15))) {}
 *** variable
 *** method
    - isX() or hasX() for bool return type
-* TODO Principles
-** Don't Repeat Yourself (DRY)
-   http://web-techno.net/dry-principle-explained/
+* Principles
 ** SOLID
-
-There is a strong relationship beetween each of those principles. If you take each of those principles in isolation and try to apply them in your codebase you will get limited benefit out of that. its only when you take enterly package apply it in it entarity. Applying it all at once. Strong sinergy efect.
-
- 1	Composition Over Inheritance				
- 2	Single Responsibilty (SRP)	A class should have only one reason to change - doing one thing, and do it well The object should be able to do the job completely The class has only one well-defined responsibility which is exclusively handling user data. No more, no less.		solid	
- 3	Open/Closed Principle (OCP)	Software entities (classes, modules, functions, etc.) should be open for extension, but closed for modification. Interface is open for extension but closed for modification.		solid	
- 4	Liskov Substitution (LSP)	Metody do klas bazowych, muszą być w stanie używać również obiektów klas dziedziczących po klasach bazowych.	Program to an, interface, not an implementation.	solid	
- 5	Interface Segregation (ISP)	A client should never be forced to implement an interface that it doesn't use or clients shouldn't be forced to depend on methods they do not use.		solid	
- 6	Dependency Inversion (DIP)	Depend on abstractions, not concretions	Program to an, interface, not an implementation.	solid	
- 7	The Law of Demeter (LoD)	Each unit should only talk to its friends; don't talk to strangers.	Object Calisthenics - One Arrow Per Line		
- 8	Don't Repeat Yourself (DRY)				
- 9	Separation of Concerns (SoC)	The no.1 - the most important		design	Big Ball of Mud
- 10	Big Ball of Mud			design	Separation of Concerns (SoC)
- 11	Model-View-Controller	• The Model: Captures and centralizes all the domain model behaviour. This layer manages all the data, logic and business rules independently of the data representation. It can be said that the Model layer is the heart and soul of every MVC application. • The Controller: Orchestrates interactions between the other layers. Triggers actions on the model in order to update its state and refreshes the representations associated to the model. Additionally, the Controller can also send messages to the View layer in order to change the specific Model representation. • The View: A layer whose main purpose is to expose the differing representations of the Model layer and to give a way to trigger changes on the Model’s state.		architectural	
- 12	Command Query Separation (CQS)			design
-** YAGNI
+   There is a strong relationship beetween each of those principles. If you take each of those principles in isolation and try to apply them in your codebase you will get limited benefit out of that. it's only when you take enterly package apply it in it entarity. Applying it all at once. Strong sinergy efect.
+*** Single Responsibilty (SRP)
+    A class should have only one reason to change - doing one thing, and do it well The object should be able to do the job completely The class has only one well-defined responsibility which is exclusively handling user data. No more, no less.
+*** Open/Closed Principle (OCP)
+    Software entities (classes, modules, functions, etc.) should be open for extension, but closed for modification. Interface is open for extension but closed for modification.
+*** Liskov Substitution (LSP)
+    Metody do klas bazowych, muszą być w stanie używać również obiektów klas dziedziczących po klasach bazowych.	Program to an, interface, not an implementation.
+*** Interface Segregation (ISP)
+    A client should never be forced to implement an interface that it doesn't use or clients shouldn't be forced to depend on methods they do not use.
+*** Dependency Inversion (DIP)
+    Depend on abstractions, not concretions	Program to an, interface, not an implementation.
+** Design
+*** Separation of Concerns (SoC)
+    The no.1 - the most important
+**** opposite
+     Big Ball of Mud
+*** Big Ball of Mud
+*** Command Query Separation (CQS)
+*** Composition Over Inheritance	
+*** YAGNI
+*** Don't Repeat Yourself (DRY)
+    http://web-techno.net/dry-principle-explained/
+*** The Law of Demeter (LoD)
+    Each unit should only talk to its friends; don't talk to strangers.	
+    - Object Calisthenics - One Arrow Per Line
+** Architectural
+*** Model-View-Controller
+    • The Model: Captures and centralizes all the domain model behaviour. This layer manages all the data, logic and business rules independently of the data representation. It can be said that the Model layer is the heart and soul of every MVC application. • The Controller: Orchestrates interactions between the other layers. Triggers actions on the model in order to update its state and refreshes the representations associated to the model. Additionally, the Controller can also send messages to the View layer in order to change the specific Model representation. • The View: A layer whose main purpose is to expose the differing representations of the Model layer and to give a way to trigger changes on the Model’s state.
 * TODO PSR
 Name	PSR	Community	Description
 Method names	camelCase() 21/22. lower_under 1/22	camelCase()	Based on an eye tracking study on camelCase and snake_case (PDF) from 2010, snake_case is 20% easier to read than camelCase!
@@ -2409,6 +2389,9 @@ class CarBuilder
     }
 }
 #+END_SRC
+***** links
+      - http://blog.codeleak.pl/2014/06/test-data-builders-and-object-mother.html
+      - https://davedevelopment.co.uk/2015/01/28/test-data-builders.html
 **** Prototype
 #+BEGIN_SRC php
 abstract class Prototype{
@@ -3071,7 +3054,7 @@ class StrategyTest extends TestCase
 *** Concurrency
 
 ** Architectural patterns
-This is not strictly a design pattern (but the Gang of Four didn't cover Architectural patterns
+   This is not strictly a design pattern (but the Gang of Four didn't cover Architectural patterns
 in their book); but it is incredibly relevant for PHP developers due to the web-oriented
 nature of PHP. Architectural patterns address various different constraints in computer
 systems through addressing performance limitations, high availability, and also
@@ -3300,192 +3283,195 @@ pros: you don’t have to specify the properties of the object and how they rela
    tutorial ended on 31 video
 *** MVVM
     Magento was here.
+** Antipatterns
+ God objects
+ Essentially, a God object is an object with either too many methods or too many properties;
+ essentially, it's a class that knows too much or does too much. The God object soon becomes
+ tightly coupled to (referenced by) lots of other bits of code in the application.
+ So what's actually wrong with this? Well, in short, when you have one bit of code tied into
+ every single other bit of code, you quickly find a maintenance disaster. If you adjust the
+ logic for a method in a God object for one use case, you might find it having unintended
+ consequences for another element.
 
+ The flip side to God objects being an anti-pattern is when developing embedded systems.
+ Embedded systems are used to process data on anything from a calculator to LED signage;
+ they are small chips that are essentially self-contained computers and quite low cost. In this
+ use case, with restricted computational power you can often find that programming
+ elegance and maintainability become peripheral concerns. Slight performance increase and
+ centralization of control can be more important, meaning using God objects can be
+ somewhat sensible. Fortunately, PHP is incredibly seldom used to program embedded
+ systems, so you are incredibly unlikely to find yourself in this particular situation.
+
+ Another anti-pattern, called Fear of Adding Classes,
+
+ Singleton
+
+ <?php
+ class{
+ Singleton
+ private static $instance;
+ public static function getInstance()
+ {
+ if (null === static::$instance) {
+ static::$instance = new static();
+ }
+ }
+ return static::$instance;
+ protected function __construct()
+ {
+ }
+ private function __clone()
+ {
+ }
+ private function __wakeup()
+ {
+ }
+ }
+
+ So here are the reasons why this should be avoided:
+ They are inherently tightly coupled meaning they are difficult to test, for example
+ using unit tests. They even maintain their state throughout the life cycle of the
+ application.
+ They violate the Single Responsibility Principle by controlling their own creation
+ and life cycle.
+ Fundamentally, it results in you hiding the dependencies of your application in a
+ global instance. You can no longer effectively follow your dependencies around
+ your code as you can't follow where they are injected as function arguments.
+ They make it ineffective to find the dependency chain should you need to
+ analyze it.
+
+
+  Objects should typically be self-contained; they should
+ only know problems about themselves and also should only solve one set of problems, its
+ own problems. Anything that isn't relevant to this aim doesn't belong in that class.
+
+ Database as IPC
+ Let me clear this up for you; your database isn't a message queuing system. You don't use it
+ schedule jobs or queue up tasks to be completed. If you need something to do that, use a
+ queuing system. Your database is for data...the clue is in the name; don't shove temporary
+ messages in there.
+ There are many reasons why this is a bad idea. One major issue is the fact that in databases
+ there is no real way to not enforce a policy by which you can guarantee that a double-read
+ will not occur, and that is by utilizing row locks. This in turn, results in processes (either
+ incoming out outgoing) being blocked, which in turn results in processing only being able
+ to be done in a serial fashion.
+ Furthermore, in order to check if there is any work to do you end up essentially counting
+ the rows of data in the database to see if there is work to do; you run this on a continuous
+ basis. MySQL doesn't support push notifications; unlike PostgreSQL it doesn't have the
+ NOTIFY command to pair with a LISTEN channel.
+ Also note that when you merge a job queue with a database table that stores real data, you
+ also invalidate the cache every time you complete a job and update a flag, in turn making
+ MySQL far slower.
+ In short, it results in your database performing worse and can force it to slow critical
+ messages to a standstill. You must be careful not to turn your database into a job queue by
+ having this functionality sneak up on you; instead, use the database exclusively for data,
+ and bear this in mind when extending your database.
+ RabbitMQ provides an open source queuing system with some great PHP SDKs.
+
+ Interface Bloat
+ Interfaces shouldn't contain thousands of methods that reference internal operations of the
+ class. They should be lightweight and considered a way of guaranteeing that when
+ something is queried that it is definitely there.
+
+ Interfaces should be used sparingly; do you actually need an interface if the class is only
+ ever going to be implemented once and once alone (and realistically, no one is never going
+ to need to tamper with such code?). If so, you might want to consider avoiding an interface
+ in such a situation.
+
+ So, let me draw you to one implementation of Interface Bloat. Let's take a look at the
+ Pheanstalk interface class in the Pheanstalk open source library (note I have stripped the
+ comments to make it more readable):
+ <?php
+ namespace Pheanstalk;
+ interface PheanstalkInterface
+ {
+ const DEFAULT_PORT = 11300;
+ const DEFAULT_DELAY = 0;
+ const DEFAULT_PRIORITY = 1024;
+ const DEFAULT_TTR = 60;
+ const DEFAULT_TUBE = 'default';
+ public function setConnection(Connection $connection);
+ public function getConnection();
+ public function bury($job, $priority = self::DEFAULT_PRIORITY);
+ public function delete($job);
+ [ 49 ]
+ Anti-Patterns
+ public function ignore($tube);
+ public function kick($max);
+ public function kickJob($job);
+ public function listTubes();
+ public function listTubesWatched($askServer = false);
+ public function listTubeUsed($askServer = false);
+ public function pauseTube($tube, $delay);
+ public function resumeTube($tube);
+ public function peek($jobId);
+ public function peekReady($tube = null);
+ public function peekDelayed($tube = null);
+ public function peekBuried($tube = null);
+ public function put($data, $priority = self::DEFAULT_PRIORITY, $delay =
+ self::DEFAULT_DELAY, $ttr = self::DEFAULT_TTR);
+ public function putInTube($tube, $data, $priority =
+ self::DEFAULT_PRIORITY, $delay = self::DEFAULT_DELAY, $ttr =
+ self::DEFAULT_TTR);
+ public function release($job, $priority = self::DEFAULT_PRIORITY,
+ $delay = self::DEFAULT_DELAY);
+ public function reserve($timeout = null);
+ public function reserveFromTube($tube, $timeout = null);
+ public function statsJob($job);
+ public function statsTube($tube);
+ public function stats();
+ public function touch($job);
+ public function useTube($tube);
+ public function watch($tube);
+ public function watchOnly($tube);
+ }
+ Yuck! Notice how even constants have been put in the implement, the one thing you might
+ actually want to change. Clearly, this is an interface for a class that can only be
+ implemented one way, making the Interface useless.
+
+
+ Bloated optimization
+ Often, developers may trip over themselves trying to optimize their code or their design
+ artifacts to a ridiculous extent, often before their code even performs basic functions, or
+ even before any code has been created at all. This can rapidly perform issues in production.
+ In this section, I wish to discuss three anti-patterns specifically relating to this topic:
+ Analysis paralysis
+ Bikeshedding
+ Premature optimization
+ [ 62 ]
+ Anti-Patterns
+ Analysis paralysis
+ In short, this is where a strategy is over-analyzed to the point where progress is slowed
+ down, or even stopped entirely in extreme cases. Not only can such solutions become
+ obsolete rapidly, they can be made in under-educated circumstances, for example, in a
+ meeting where an over-analytic boss tries to dig too deep into detail in advance without
+ allowing their developers to actually do some research.
+ Over-analyzing a problem and seeking a perfect solution upfront just does not work;
+ programmers should seek to refine their solution, not come up with the refined solution up
+ front.
+ Bikeshedding
+ Essentially, this is where analysis paralysis can occur on the basis of some very trivial
+ decisions, for example, the color of a log in page. The only fix that's required is to not waste
+ time on trivial decisions. Avoid design by committee where possible as the majority of
+ people, regardless of how good they think their design skills are, are largely incompetent at
+ design.
+ Premature optimization
+ In this section, so far, I've largely beaten up project managers; no time to beat up
+ developers. Often, developers will seek to optimize their code prematurely without having
+ educated data-led conclusions to drive where and when optimizations should be made.
+ Writing clean and readable code is your first priority; then you can use some great profiling
+ tools to determine where your bottlenecks are. XDebug and New Relic are just some of the
+ tools that are good at this.
+ That said, there are some cases where optimization must be done, particularly on some long
+ computational tasks where it can be mission-critical to reduce something from O(N2) time
+ to O(N). This said, most simple PHP web apps will have no real need to use this
+ consideration.
 ** Links
    https://designpatternsphp.readthedocs.io/en/latest/
-* Antipatterns
-God objects
-Essentially, a God object is an object with either too many methods or too many properties;
-essentially, it's a class that knows too much or does too much. The God object soon becomes
-tightly coupled to (referenced by) lots of other bits of code in the application.
-So what's actually wrong with this? Well, in short, when you have one bit of code tied into
-every single other bit of code, you quickly find a maintenance disaster. If you adjust the
-logic for a method in a God object for one use case, you might find it having unintended
-consequences for another element.
-
-The flip side to God objects being an anti-pattern is when developing embedded systems.
-Embedded systems are used to process data on anything from a calculator to LED signage;
-they are small chips that are essentially self-contained computers and quite low cost. In this
-use case, with restricted computational power you can often find that programming
-elegance and maintainability become peripheral concerns. Slight performance increase and
-centralization of control can be more important, meaning using God objects can be
-somewhat sensible. Fortunately, PHP is incredibly seldom used to program embedded
-systems, so you are incredibly unlikely to find yourself in this particular situation.
-
-Another anti-pattern, called Fear of Adding Classes,
-
-Singleton
-
-<?php
-class{
-Singleton
-private static $instance;
-public static function getInstance()
-{
-if (null === static::$instance) {
-static::$instance = new static();
-}
-}
-return static::$instance;
-protected function __construct()
-{
-}
-private function __clone()
-{
-}
-private function __wakeup()
-{
-}
-}
-
-So here are the reasons why this should be avoided:
-They are inherently tightly coupled meaning they are difficult to test, for example
-using unit tests. They even maintain their state throughout the life cycle of the
-application.
-They violate the Single Responsibility Principle by controlling their own creation
-and life cycle.
-Fundamentally, it results in you hiding the dependencies of your application in a
-global instance. You can no longer effectively follow your dependencies around
-your code as you can't follow where they are injected as function arguments.
-They make it ineffective to find the dependency chain should you need to
-analyze it.
-
-
- Objects should typically be self-contained; they should
-only know problems about themselves and also should only solve one set of problems, its
-own problems. Anything that isn't relevant to this aim doesn't belong in that class.
-
-Database as IPC
-Let me clear this up for you; your database isn't a message queuing system. You don't use it
-schedule jobs or queue up tasks to be completed. If you need something to do that, use a
-queuing system. Your database is for data...the clue is in the name; don't shove temporary
-messages in there.
-There are many reasons why this is a bad idea. One major issue is the fact that in databases
-there is no real way to not enforce a policy by which you can guarantee that a double-read
-will not occur, and that is by utilizing row locks. This in turn, results in processes (either
-incoming out outgoing) being blocked, which in turn results in processing only being able
-to be done in a serial fashion.
-Furthermore, in order to check if there is any work to do you end up essentially counting
-the rows of data in the database to see if there is work to do; you run this on a continuous
-basis. MySQL doesn't support push notifications; unlike PostgreSQL it doesn't have the
-NOTIFY command to pair with a LISTEN channel.
-Also note that when you merge a job queue with a database table that stores real data, you
-also invalidate the cache every time you complete a job and update a flag, in turn making
-MySQL far slower.
-In short, it results in your database performing worse and can force it to slow critical
-messages to a standstill. You must be careful not to turn your database into a job queue by
-having this functionality sneak up on you; instead, use the database exclusively for data,
-and bear this in mind when extending your database.
-RabbitMQ provides an open source queuing system with some great PHP SDKs.
-
-Interface Bloat
-Interfaces shouldn't contain thousands of methods that reference internal operations of the
-class. They should be lightweight and considered a way of guaranteeing that when
-something is queried that it is definitely there.
-
-Interfaces should be used sparingly; do you actually need an interface if the class is only
-ever going to be implemented once and once alone (and realistically, no one is never going
-to need to tamper with such code?). If so, you might want to consider avoiding an interface
-in such a situation.
-
-So, let me draw you to one implementation of Interface Bloat. Let's take a look at the
-Pheanstalk interface class in the Pheanstalk open source library (note I have stripped the
-comments to make it more readable):
-<?php
-namespace Pheanstalk;
-interface PheanstalkInterface
-{
-const DEFAULT_PORT = 11300;
-const DEFAULT_DELAY = 0;
-const DEFAULT_PRIORITY = 1024;
-const DEFAULT_TTR = 60;
-const DEFAULT_TUBE = 'default';
-public function setConnection(Connection $connection);
-public function getConnection();
-public function bury($job, $priority = self::DEFAULT_PRIORITY);
-public function delete($job);
-[ 49 ]
-Anti-Patterns
-public function ignore($tube);
-public function kick($max);
-public function kickJob($job);
-public function listTubes();
-public function listTubesWatched($askServer = false);
-public function listTubeUsed($askServer = false);
-public function pauseTube($tube, $delay);
-public function resumeTube($tube);
-public function peek($jobId);
-public function peekReady($tube = null);
-public function peekDelayed($tube = null);
-public function peekBuried($tube = null);
-public function put($data, $priority = self::DEFAULT_PRIORITY, $delay =
-self::DEFAULT_DELAY, $ttr = self::DEFAULT_TTR);
-public function putInTube($tube, $data, $priority =
-self::DEFAULT_PRIORITY, $delay = self::DEFAULT_DELAY, $ttr =
-self::DEFAULT_TTR);
-public function release($job, $priority = self::DEFAULT_PRIORITY,
-$delay = self::DEFAULT_DELAY);
-public function reserve($timeout = null);
-public function reserveFromTube($tube, $timeout = null);
-public function statsJob($job);
-public function statsTube($tube);
-public function stats();
-public function touch($job);
-public function useTube($tube);
-public function watch($tube);
-public function watchOnly($tube);
-}
-Yuck! Notice how even constants have been put in the implement, the one thing you might
-actually want to change. Clearly, this is an interface for a class that can only be
-implemented one way, making the Interface useless.
-
-
-Bloated optimization
-Often, developers may trip over themselves trying to optimize their code or their design
-artifacts to a ridiculous extent, often before their code even performs basic functions, or
-even before any code has been created at all. This can rapidly perform issues in production.
-In this section, I wish to discuss three anti-patterns specifically relating to this topic:
-Analysis paralysis
-Bikeshedding
-Premature optimization
-[ 62 ]
-Anti-Patterns
-Analysis paralysis
-In short, this is where a strategy is over-analyzed to the point where progress is slowed
-down, or even stopped entirely in extreme cases. Not only can such solutions become
-obsolete rapidly, they can be made in under-educated circumstances, for example, in a
-meeting where an over-analytic boss tries to dig too deep into detail in advance without
-allowing their developers to actually do some research.
-Over-analyzing a problem and seeking a perfect solution upfront just does not work;
-programmers should seek to refine their solution, not come up with the refined solution up
-front.
-Bikeshedding
-Essentially, this is where analysis paralysis can occur on the basis of some very trivial
-decisions, for example, the color of a log in page. The only fix that's required is to not waste
-time on trivial decisions. Avoid design by committee where possible as the majority of
-people, regardless of how good they think their design skills are, are largely incompetent at
-design.
-Premature optimization
-In this section, so far, I've largely beaten up project managers; no time to beat up
-developers. Often, developers will seek to optimize their code prematurely without having
-educated data-led conclusions to drive where and when optimizations should be made.
-Writing clean and readable code is your first priority; then you can use some great profiling
-tools to determine where your bottlenecks are. XDebug and New Relic are just some of the
-tools that are good at this.
-That said, there are some cases where optimization must be done, particularly on some long
-computational tasks where it can be mission-critical to reduce something from O(N2) time
-to O(N). This said, most simple PHP web apps will have no real need to use this
-consideration.
+* Tests
+** Fixtures
+	- http://blog.codeleak.pl/2014/06/test-data-builders-and-object-mother.html
+	- https://davedevelopment.co.uk/2015/01/28/test-data-builders.html
 * Tools
 ** symfony serializer
    - https://thomas.jarrand.fr/blog/serialization/
@@ -3625,4 +3611,3 @@ of safely making changes (with tests) and leveraging the knowledge accumulated b
   
   You can contact me at slawomir.grochowski@gmail.com, https://twitter.com/s_grochowski, https://www.facebook.com/SlawomirGrochowski
   You can support this site: send some BitCoins 1D8xeRkxssTTLESfGZtPVoqVJDq7MJSqNx , send/buy one of the books I would like to read or just say Hello!
-

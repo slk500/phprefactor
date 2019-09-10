@@ -1284,6 +1284,33 @@ Recognizing bad dosen't mean we know how to make good - we know a good/bad, but 
 smells - are indications of problems in your code
 
 CodeSniffer
+** https://cleancoders.com/videos
+** [[https://github.com/slk500/DesignPatternsPHP][Design Patterns PHP]]
+** [[https://github.com/HugoMatilla/Refactoring-Summary][Summary of "Refactoring: Improving the Design of Existing Code" by Martin Fowler]]
+** Symfony
+*** https://github.com/ThomasBerends/symfony-certification-preparation-list
+*** [[https://symfonycasts.com/screencast/symfony4-upgrade][Upgrade to Symfony4 and Flex!]]
+1) Upgrade to Symfony 3.4
+2) See depractions in toolbar
+   1) remove $kernel->loadClassCache(); from app.php & app_dev.php
+   2) "Symfony\Component\Security\Guard\AuthenticatorInterface::supports()"
+   3) logout_on_user_change
+   4) 
+** DateTime
+- [[https://www.lynda.com/PHP-tutorials/PHP-Date-Time-Essential-Training/188214-2.html][PHP Date and Time Essential Training]]
+** Behat
+*** [[https://symfonycasts.com/screencast/behat][BDD, Behat, Mink and other Wonderful Things]]
+- Write the behavior for a feature first
+- Code until the behavioral tests pass
+**** Two types of BDD
+1) Story: is done with Behat & functional tests
+2) Spec: is done with PHPSpec & Unit tests
+**** 4 Steps to BDD
+1) Define Business Value of all big features
+2) Prioritize your features
+3) Break feature down into user stories
+4) Write the code for the feature
+*** [[https://kamilkokot.com/tame-behat-with-the-brand-new-symfony-extension/?fbclid=IwAR17apSVE_yYyXy7a0jxjokr70BcyZ7hbCujDenu6jKoxQcdQhY8zeW_aCo][Tame Behat with the Brand New Symfony Extension]]
 * Books
 ** Wake, William C.; Refactoring Workbook; 2003
 *** https://xp123.com/articles/refactoring-workbook/
@@ -2109,7 +2136,9 @@ use App\Contract\Query as
 | [[https://github.com/adamculp/refactoring101][Video Rental Shop]]                 |           132 | From Martin Fowler book "Refactoring: Improving the Design of Existing Code" converted to PHP | [[https://youtu.be/0DYIJdX6kB4][Refactoring 101]]                 |
 | [[https://github.com/jbrains/trivia/tree/master/php][Legacy Code Retreat - Trivia Game]] |           196 | Designed for [[https://legacycoderetreat.typepad.com/][Legacy Code Retreat]] events                                                       | [[https://code.tutsplus.com/series/refactoring-legacy-code--cms-633][Refactoring Legacy Code]]         |
 |                                   |               |                                                                                               | [[https://code.tutsplus.com/courses/techniques-for-refactoring-code][Techniques for Refactoring Code]] |
-|                                   |               |                                                                                               | [[http://blog.adrianbolboaca.ro/2014/04/legacy-coderetreat/#sessions][Legacy Coderetreat (Java)]]       |
+|                                   |               |                                                                                               | [[http://blog.adrianbolboaca.ro/2014/04/legacy-coderetreat/#sessions][Legacy Coderetreat (Java)]] |
+|                                   |               |                                                                                               | [[https://github.com/slk500/refactoring101][GitHub]]                          |
+|                                   |               |                                                                                               |                           |
 
 ** [[https://github.com/adamculp/refactoring101][Video Rental Shop]]
    phploc
@@ -2229,6 +2258,7 @@ Structure
   Constants                                          0
     Global Constants                                 0 (0.00%)
     Class Constants                                  0 (0.00%)
+** [[https://github.com/jbrains/trivia][Legacy Code Retreat - Trivia Game codebase]]
 * Definitions
 ** Anemic Domain Model
 - focus on data
@@ -3415,69 +3445,70 @@ $user->load(1);
                 
 pros: you don’t have to specify the properties of the object and how they relate to the database. The model is able to determine the properties automatically by looking at the schema of the database.
 *** Data Transfer Object DTO
-    class IssResponse
- {
-     /**
-      * @var float
-      */
-     private $latitude;
+"a class with public variables and no functions" clean code p. 100. 
+But in PHP we still can't declare type of variable, just type-hint parameters of methods. Like setters, so we can do it indirectly. Another great benefit it the standard rule is to not have public properties so we can stay consisten with this one. But more of great adventage of if we can make our DTO object immutable. So create only getters, without setters. Add all in constructor.
 
-     /**
-      * @var float
-      */
-     private $longitude;
+#+BEGIN_SRC php
+class IssResponse
+{
+    /**
+     ,* @var float
+     ,*/
+    private $latitude;
 
-     public function __construct(array $array)
-     {
-         $this->latitude = $array['latitude'];
-         $this->longitude = $array['longitude'];
-     }
+    /**
+     ,* @var float
+     ,*/
+    private $longitude;
 
-     public function getLatitude(): float
-     {
-         return $this->latitude;
-     }
+    public function __construct(array $array)
+    {
+        $this->latitude = $array['latitude'];
+        $this->longitude = $array['longitude'];
+    }
+
+    public function getLatitude(): float
+    {
+        return $this->latitude;
+    }
 
 
-     public function getLongitude(): float
-     {
-         return $this->longitude;
-     }
+    public function getLongitude(): float
+    {
+        return $this->longitude;
+    }
 
- }
+}
 
- final class PositionDTO
- {
- /**
-  @var float
- */
- private $latitude;
+final class PositionDTO
+{
+    /**
+       @var float
+    ,*/
+    private $latitude;
 
- /**
-  @var float
- */
- private $longitude;
+    /**
+       @var float
+    ,*/
+    private $longitude;
 
- public function __construct(float $latitude, float $longitude)
- {
- $this->latitude = $latitude;
- $this->longitude = $longitude;
- }
+    public function __construct(float $latitude, float $longitude)
+    {
+        $this->latitude = $latitude;
+        $this->longitude = $longitude;
+    }
 
- public function getLatitude(): float
- {
- return $this->latitude;
- }
+    public function getLatitude(): float
+    {
+        return $this->latitude;
+    }
 
- public function getLongitude(): float
- {
- return $this->longitude;
- }
- }
-
-            
-
- "a class with public variables and no functions" clean code str. 100. But in PHP we still can't declare type of variable, just type-hint parameters of methods. Like setters, so we can do it indirectly. Another great benefit it the standard rule is to not have public properties so we can stay consisten with this one. But more of great adventage of if we can make our DTO object immutable. So create only getters, without setters. Add all in constructor.
+    public function getLongitude(): float
+    {
+        return $this->longitude;
+    }
+}
+ #+END_SRC
 *** ADR
   http://martinbean.co.uk/blog/2016/10/20/implementing-adr-in-laravel/
 
@@ -3722,6 +3753,8 @@ https://coderwall.com/p/ry1y0a/improve-doctrine-performance-up-to-100-on-your-sy
 ** Fixtures
 	1) http://blog.codeleak.pl/2014/06/test-data-builders-and-object-mother.html
 	2) https://davedevelopment.co.uk/2015/01/28/test-data-builders.html
+** Links
+https://www.youtube.com/watch?v=_LeCyU1X5bY
 ** TDD
 
 | Tests             | Focus on            | Require                    | Speed     | Complexity | Setup Needed |
@@ -3732,10 +3765,10 @@ https://coderwall.com/p/ry1y0a/improve-doctrine-performance-up-to-100-on-your-sy
 
 * Tools
 ** Symfony Serializer
-   - https://thomas.jarrand.fr/blog/serialization/
-   - https://matthiasnoback.nl/2017/07/designing-a-json-serializer/
-   - https://stackoverflow.com/questions/35365141/symfony-serializer-set-circular-reference-global/35365239
-   - https://speakerdeck.com/dunglas/mastering-the-symfony-serializer?slide=1
+- https://thomas.jarrand.fr/blog/serialization/
+- https://matthiasnoback.nl/2017/07/designing-a-json-serializer/
+- https://stackoverflow.com/questions/35365141/symfony-serializer-set-circular-reference-global/35365239
+- https://speakerdeck.com/dunglas/mastering-the-symfony-serializer?slide=1
 ** Symfony Form
 'https://webmozart.io/blog/2015/09/09/value-objects-in-symfony-forms/#data-mappers',
 'https://stovepipe.systems/post/rethinking-form-development',
@@ -3750,7 +3783,14 @@ https://www.reddit.com/r/PHP/comments/a079r6/php_implementation_of_code_city/
 - https://blobfolio.com/2017/03/benchmark-composer-autoloader/
 - https://semver.org/
 ** Git
+- git reset HEAD~1 - move back to recent commit
 
+** Twig
+*** comma
+{% for role in user.roles %}
+{{ role.name }}
+{% if not loop.last %},{% endif %}
+{% endfor %}
 * Jokes
   “There is so much spaghetti I might as well open a restaurant!”
 * Metrics
@@ -3866,6 +3906,18 @@ of safely making changes (with tests) and leveraging the knowledge accumulated b
 - Using new programming languages will bring you new insights and ideas to already known languages. You get a better understanding.
 - It's not about clever, crAFTY, PREETY CODE. iT'S ABOUT FAST AND EFFECTIVE COMMUNICATION. It's about communication beetween people.
 - Any time someone sees some code that isn't as clear as  it should be, they should take the opportunity to fix it right there and then — or at least within a few minutes. This opportunistic refactoring is referred to by Uncle Bob as following the boy-scout rule — always leave the code behind in a better state than you found it.
+** Routing
+from most specific at the top to less specific at the bottom
+*** yml vs. annotations
+It's always have been a war about this. But I would simply divide them in to two options.
+
+Using annotations is quickier and kind of easier to use but it's increase noise in the code.
+
+I think it's great for prototyping small application, when you absolutly sure that app would grow.
+
+Annotations become a tottaly mess when you have big application, it's hard to manage all routing compare to central routing like yaml.
+
+So I would go with word prototiping, Doctrine it's kind the same. It's great for prototyping but when you application finally reach maximum of what can you squize from ORM, you would have to leave it to pure SQL.
 * Data Structures
 ** Array
 *** Avoid complex arrays
@@ -3936,6 +3988,128 @@ The members data and errors MUST NOT coexist in the same document.
 - https://tools.ietf.org/id/draft-ietf-httpbis-semantics-01.txt
 - https://github.com/sendgrid/php-http-client
 - https://www.reddit.com/r/PHP/comments/40u74q/how_to_write_a_sdk_for_our_rest_api_best_practices/
+* Functions Core
+** SPL Library
+Great job on the implementation!
+
+For larger training jobs, wondering if it's worthwhile to investigate implementing SplFixedArray in to the class? While I'm not sure of the PHP7 impacts, for PHP < 7 this resulted in a memory reduction of 144 bytes per array element to 56 bytes per array element.
+
+If you were working with 50M data points total, this would reduce the memory requirements from 7.2GB to 2.8GB.
+** As opposed with isset(), property_exists() returns TRUE even if the property has the value NULL.
+** isset() vs array_key_exist
+In simple terms, isset() checks whether a variable exists or its been declared or not. This can be anything, an array, a particular key in an array or a variable. It also checks if a declared variable, array or array key has null value, if it does, isset() returns false, it returns true otherwise.
+
+On the other hand, array_key_exists() checks whether a particular key or index exists in an array. It does not evaluate the value of the key for any null values. It returns false if it does not find the key in the array and true otherwise.
+
+from the PHP manual: isset() does not return TRUE for array keys that correspond to a NULL value, while array_key_exists() does
+
+** foreach vs array_map
+https://stackoverflow.com/questions/18144782/performance-of-foreach-array-map-with-lambda-and-array-map-with-static-function
+https://www.reddit.com/r/PHP/comments/65ihba/re_array_map_vs_foreach/
+
+#+BEGIN_SRC php
+<?php
+
+// test a simple array_map in the real world.
+function test_array_map($data){
+    return array_map(function($row){
+        return array(
+            'productId' => $row['id'] + 1,
+            'productName' => $row['name'],
+            'desc' => $row['remark']
+        );
+    }, $data);
+}
+
+// Another with local variable $i
+function test_array_map_use_local($data){
+    $i = 0;
+    return array_map(function($row) use ($i) {
+        $i++;
+        return array(
+            'productId' => $row['id'] + $i,
+            'productName' => $row['name'],
+            'desc' => $row['remark']
+        );
+    }, $data);
+}
+
+// test a simple foreach in the real world
+function test_foreach($data){
+    $result = array();
+    foreach ($data as $row) {
+        $tmp = array();
+        $tmp['productId'] = $row['id'] + 1;
+        $tmp['productName'] = $row['name'];
+        $tmp['desc'] = $row['remark'];
+        $result[] = $tmp;
+    }
+    return $result;
+}
+
+// Another with local variable $i
+function test_foreach_use_local($data){
+    $result = array();
+    $i = 0;
+    foreach ($data as $row) {
+        $i++;
+        $tmp = array();
+        $tmp['productId'] = $row['id'] + $i;
+        $tmp['productName'] = $row['name'];
+        $tmp['desc'] = $row['remark'];
+        $result[] = $tmp;
+    }
+    return $result;
+}
+
+$data = array_fill(0, 10000, array(
+    'id' => 1,
+    'name' => 'test',
+    'remark' => 'ok'
+));
+
+$tests = array(
+    'array_map' => array(),
+    'foreach' => array(),
+    'array_map_use_local' => array(),
+    'foreach_use_local' => array(),
+);
+
+for ($i = 0; $i < 100; $i++){
+    foreach ($tests as $testName => &$records) {
+        $start = microtime(true);
+        call_user_func("test_$testName", $data);
+        $delta = microtime(true) - $start;
+        $records[] = $delta;
+    }
+}
+
+// output result:
+foreach ($tests as $name => &$records) {
+    printf('%.4f : %s '.PHP_EOL, 
+           array_sum($records) / count($records), $name);
+}
+#+END_SRC
+https://3v4l.org/lon7l#output
+** create an array
+#+BEGIN_SRC php
+range(1,10);
+#+END_SRC
+** foreach
+#+BEGIN_SRC php
+foreach (range(1, 100) as $i)
+#+END_SRC
+** array
+*** flatten
+#+BEGIN_SRC php
+public function flatten(array $array) {
+    $return = array();
+    array_walk_recursive($array, function($a) use (&$return) { $return[] = $a; });
+    return $return;
+}
+#+END_SRC
+* Links
+[[https://www.tomasvotruba.cz/][Tomas Votruba]]
 * About
   It's a simple site about refactoring in PHP.
   

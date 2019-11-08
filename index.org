@@ -3,8 +3,28 @@
 #+Title: PHPRefactor
 
 * Refactorings
-** Add PHPDoc
-     Smell: An array with elements of generic type or method which can throw Exception
+** Add Type-Hint
+*** If you CAN type-hint, then you MUST type-hint
+Smell: A method with no type defined parameters or return type declaration
+#+BEGIN_SRC php
+public function setNumber($number)
+{
+    $this->number = $number;
+}
+#+END_SRC
+**** Refactor the code
+#+BEGIN_SRC php
+public function setNumber(int $number): void
+{
+    $this->number = $number;
+}
+#+END_SRC
+**** Helper 
+[[https://github.com/dunglas/phpdoc-to-typehint][phpdoc-to-typehint]] adds automatically scalar type hints and return types to all functions and methods using existing PHPDoc annotations 
+**** Further Reading 
+https://thecodingmachine.io/type-hint-all-the-things
+*** If you are type-hinting an array, you MUST document the array type in a docblock
+Smell: An array with elements of generic type or method which can throw Exception
 #+BEGIN_SRC php
 public function printUsersNames(array $users): void
 {
@@ -13,8 +33,8 @@ public function printUsersNames(array $users): void
     }
 }
 #+END_SRC
-*** Refactor the code
-      Add PHPDoc - the Object[] notation in addition to an array type-hint to explain what kind of object is expected
+**** Refactor the code
+Add PHPDoc - the Object[] notation in addition to an array type-hint to explain what kind of object is expected
 #+BEGIN_SRC php
 /**
  ,* @param User[] $users
@@ -26,25 +46,6 @@ public function printUsersNames(array $users): void
     }
 }
 #+END_SRC
-** Add Type-Hint
-     Smell: A method with no type defined parameters or return type declaration
-#+BEGIN_SRC php
-public function setNumber($number)
-{
-    $this->number = $number;
-}
-#+END_SRC
-*** Refactor the code
-#+BEGIN_SRC php
-public function setNumber(int $number): void
-{
-    $this->number = $number;
-}
-#+END_SRC
-*** Helper 
-    [[https://github.com/dunglas/phpdoc-to-typehint][phpdoc-to-typehint]] adds automatically scalar type hints and return types to all functions and methods using existing PHPDoc annotations 
-*** Further Reading 
-    https://www.thecodingmachine.com/type-hint-all-the-things/
 ** Consolidate Conditional Expression
      Smell: Sequence of conditionals with the same result
 #+BEGIN_SRC php
@@ -432,7 +433,7 @@ return anOrder.basePrice > 1000;
 #+END_SRC
 140
 ** Introduce Parameter Object
-   Smell: Long Parameter List and parameters that naturally go together
+Smell: Long Parameter List and parameters that naturally go together
 #+BEGIN_SRC php
 final class Account
 {
@@ -1141,9 +1142,7 @@ echo "Price after discount: $totalDiscountPrice";
 | [[https://refactoring.com/catalog/][Catalog of Refactorings]]                          | Martin Fowler            | refactoring           |
 | [[https://github.com/jupeter/clean-code-php][Clean Code PHP]]                                   | Piotr Plenik             | clean code            |
 | [[https://code.tutsplus.com/courses/detecting-code-smells][Detecting Code Smells]]                            | Patkós Csaba             | refactoring           |
-| [[https://youtu.be/WW2qPKukoZY][Doctrine Best Practices]]                          | Marco Pivetta (Ocramius) | doctrine              |
 | [[https://www.pluralsight.com/courses/encapsulation-solid][Encapsulation and SOLID]]                          | Mark Seemann             | SOLID                 |
-| [[https://youtu.be/7LoShYRnljU][Extremely Defensive PHP Programming]]              | Marco Pivetta (Ocramius) | defensive programming |
 | [[https://youtu.be/Rdc3r2BJzWA][How to Refactor Like a Boss 1]]                    | Michael Cheng            | refactoring           |
 | [[https://youtu.be/2iXayIx4WyQ][How to Refactor Like a Boss 2]]                    | Michael Cheng            | refactoring           |
 | [[https://youtu.be/JCqbdVrIW30][HTTP Smoke Testing]]                               | Peter Heinz              | testing - smoke test  |
@@ -1160,34 +1159,48 @@ echo "Price after discount: $totalDiscountPrice";
 | [[https://youtu.be/65NrzJ_5j58][Steps Toward Modernizing a Legacy Codebase]]       | Paul M. Jones            | refactoring           |
 | [[https://code.tutsplus.com/courses/techniques-for-refactoring-code][Techniques for Refactoring Code]]                  | Patkós Csaba             | refactoring           |
 
+** [[https://youtu.be/7LoShYRnljU][Extremely Defensive PHP Programming]] Marco Pivetta (Ocramius) 
+- poka yoka 
+- code is not reusable - do not trust the code.
+- abstractions are reusable - you trust interfaces, how the code should behave
+- ex. with req
+** [[https://youtu.be/WW2qPKukoZY][Doctrine Best Practices]] Marco Pivetta (Ocramius)
+- entities mostly represent your domain
+- define entities, after that define database
+- disallow collection access from outside the entity
+- soft-deletes
+- query functions are better than repositories
+- separate Repository#get() & Repository#find() 
+  - find() can return null
+  - get() cannot return null - throw an exception 
 ** [[https://www.lynda.com/Developer-Programming-Foundations-tutorials/Foundations-Programming-Refactoring-Code/122457-2.html][Programming Foundations: Refactoring Code]]  Simon Allardice  refactoring
-Because using the formal refactoring technique, brings more conscious awareness to that decision.
+1) Because using the formal refactoring technique, brings more conscious awareness to that decision.
 
-No single technique is the master refactoring. 		 		
-It is the cumulative, additive impact of many small changes done consistently that is the real improvement here.
+2) No single technique is the master refactoring. 		 		
+3) It is the cumulative, additive impact of many small changes done consistently that is the real improvement here.
 
-Just as important, as you start to get a sense of what refactoring is, is that you stay very aware of what refactoring is not. And it's easy to get the wrong ideas because we're saying things like we're improving code. And that could imply all sorts of possible meanings. So, three things that refactoring is not. One, refactoring is not debugging. Your code already needs to work. Either on the small scale, you have some classes and methods that are already functional, testable and working. Or on the large scale you have an entire shipped application that's already in use. 		
+4) Just as important, as you start to get a sense of what refactoring is, is that you stay very aware of what refactoring is not. And it's easy to get the wrong ideas because we're saying things like we're improving code. And that could imply all sorts of possible meanings. So, three things that refactoring is not. One, refactoring is not debugging. Your code already needs to work. Either on the small scale, you have some classes and methods that are already functional, testable and working. Or on the large scale you have an entire shipped application that's already in use. 		
 
-Now it's true, during the process of refactoring you may notice something that you realize is a problem. But the moment that you start to deal with that. You have stopped refactoring and you have started bug fixing which is a very different mindset.
+5) Now it's true, during the process of refactoring you may notice something that you realize is a problem. But the moment that you start to deal with that. You have stopped refactoring and you have started bug fixing which is a very different mindset.
 
-Number two. Refactoring is not performance. This is another very common misconception. That we do this to improve our code. We're cleaning our code up and that's going to make it faster. No, code performance is not the goal of refactoring nor, let me be quite clear here, is it even an expectation. 		 		
-Refactoring might even make your code technically slower because we're making decisions about the construction of code, unlike building construction. The decisions you would make to build a house as well as possible are not the same as the decisions you would make to build a house as fast as possible. Improving pure performance is something we do in software development but that is a separate process with a different set of questions and a different set of tools. But there is one thing that gets faster with refactoring, us, we do, programmers. 
+6) Number two. Refactoring is not performance. This is another very common misconception. That we do this to improve our code. We're cleaning our code up and that's going to make it faster. No, code performance is not the goal of refactoring nor, let me be quite clear here, is it even an expectation. 		 		
+7) Refactoring might even make your code technically slower because we're making decisions about the construction of code, unlike building construction. The decisions you would make to build a house as well as possible are not the same as the decisions you would make to build a house as fast as possible. Improving pure performance is something we do in software development but that is a separate process with a different set of questions and a different set of tools. But there is one thing that gets faster with refactoring, us, we do, programmers. 
 		
-We'll be able to read and understand it, not just individual pieces of code but the bigger application and that can lead to many benefits. Well re-factored code will make us faster. It is not intended to make the code faster. And finally, number three, refactoring is not adding features. If during this process you add a new feature, you support and you use case, you add a single tiny menu item to an application, you are no longer refactoring. Because in refactoring we do not change the behavior of the code.
+8) We'll be able to read and understand it, not just individual pieces of code but the bigger application and that can lead to many benefits. Well re-factored code will make us faster. It is not intended to make the code faster. And finally, number three, refactoring is not adding features. If during this process you add a new feature, you support and you use case, you add a single tiny menu item to an application, you are no longer refactoring. Because in refactoring we do not change the behavior of the code.
  		
-Because well-structured code will make it so much easier to add new features and new capabilities.
+9) Because well-structured code will make it so much easier to add new features and new capabilities.
 
-It will make it easier to start analyzing performance. So we're refactoring to get the future roadblocks out of our way. Now, it can often be difficult for teams to get approval to spend time refactoring when it's not part of the culture, because the benefits aren't immediately apparent. Oh, you're not adding features, you're not working on performance, so why bother? We bother so we can do those things easier. We can add features quicker next week, or next month, or next year. So that we can bring new people onto the team and just point them at well-written code, rather than spend three months having to explain everything about what it does. And so that a year, or two, or three down the line, we don't have code that's such a mess.
+10) It will make it easier to start analyzing performance. So we're refactoring to get the future roadblocks out of our way. Now, it can often be difficult for teams to get approval to spend time refactoring when it's not part of the culture, because the benefits aren't immediately apparent. Oh, you're not adding features, you're not working on performance, so why bother? We bother so we can do those things easier. We can add features quicker next week, or next month, or next year. So that we can bring new people onto the team and just point them at well-written code, rather than spend three months having to explain everything about what it does. And so that a year, or two, or three down the line, we don't have code that's such a mess.
 
-if you don't have a reason to re-factor, then you don't re-factor. 
+11) if you don't have a reason to re-factor, then you don't re-factor. 
 
-unforeseen consequences
+12) unforeseen consequences
 
-Bringing multiple sets of eyes to the same code. 
+13) Bringing multiple sets of eyes to the same code. 
 
-Something about this code that just smells bad. And we use it as an indicator we have something to improve.  
+14) Something about this code that just smells bad. And we use it as an indicator we have something to improve.  
 
-We're changing code and that brings risk. The single best way to prove that the changes you make when refactoring do what you intend. Only what you intend, and don't unwittingly mess everything else up is to have a set of automated unit tests you can run on your code before and after. So, using a test framework something like j unit for java, n unit for .Net, rspec for Ruby and so on.
+15) We're changing code and that brings risk. The single best way to prove that the changes you make when refactoring do what you intend. Only what you intend, and don't unwittingly mess everything else up is to have a set of automated unit tests you can run on your code before and after. So, using a test framework something like j unit for java, n unit for .Net, rspec for Ruby and so on.
 ** [[https://knpuniversity.com/screencast/phpunit][PHPUnit: Testing with a Bite]] 
 *** 3 Types of Tests
 1) Unit Test - Test one specific function on a class. Fake any needed database connecnions.
@@ -1387,11 +1400,15 @@ CodeSniffer
   | Tornhill, Adam                                                                    | Your Code as a Crime Scene - Use Forensic Techniques to Arrest Defects, Bottlenecks, and Bad Design in Your Programs |             |             | 2015 |                                                                                                                                                                                                              |
   | West, David                                                                       | Object Thinking                                                                                                      |             |             | 2004 |                                                                                                                                                                                                              |
   | Zandstra, Matt                                                                    | PHP Objects, Patterns, and Practice                                                                                  |             | can be read | 2008 | Pretty old. But written with precise language and with great examples                                                                                                                                        |
+  |                                                                                   |                                                                                                                      |             |             |      |                                                                                                                                                                                                              |
+  |                                                                                   |                                                                                                                      |             |             |      |                                                                                                                                                                                                              |
+  |                                                                                   |                                                                                                                      |             |             |      |                                                                                                                                                                                                              |
 ** xUnit Test Patterns - Refactoring Test Code LOOKING FOR
 http://xunitpatterns.com/index.html
 
 ** Object Design Style Guide Matthias Noback
 ** Build APIs You Won't Hate
+** McConnel, Steve "Code Complete 2"
 ** Joe Celko’s Trees and Hierarchies in SQL for Smarties
 ** Wake, William C.; Refactoring Workbook; 2003
 *** https://xp123.com/articles/refactoring-workbook/
@@ -1411,7 +1428,7 @@ http://xunitpatterns.com/index.html
    
  - Pay now or pay more later
 
-** Fowler, Martin; 2018
+** Fowler, Martin; Refactoring: Improving the Design of Existing Code; 2018
 - With any introductory example, however, I run into a problem. If I pick a large program, describing it and how it is refactored is too complicated for a mortal reader to work through.(...) However, if I pick a program that is small enough to be comprehensible, refactoring does not look like it is worthwhile.
  
 - Thus, if I’m faced with modifying a program with hundreds of lines of code, I’d rather it be structured into a set of functions and other program elements that allow me to understand more easily what the program is doing. If the program lacks structure, it’s usually easier for me to add structure to the program first, and then make the change I need.
@@ -1585,21 +1602,25 @@ Classes and objects should have noun or noun phrase names like Customer, WikiPag
 *** Introduce New Column 
     Introduce a new column in an existing table.
 *** Introduce New Table 
-    Introduce a new table in an existing database.
+Introduce a new table in an existing database.
 *** Introduce Read-Only Table 
     Create a read-only data store based on existing tables in
     the database.
-*** Introduce Soft Delete 
-    Introduce a flag to an existing table which indicates that a row
-    has been deleted instead of actually deleting the row.
+*** DONE Introduce Soft Delete 
+Introduce a flag to an existing table which indicates that a row has been deleted instead of actually deleting the row.
 **** Motivation 
-     preserve all application data, typically for historical means.
+preserve all application data, typically for historical means.
 **** Tradeoffs 
 ***** more data - table have to store valid rows and those mark as deleted 
-***** performace - more data means reduction in query performace - the additional work of distinguishing between deleted and nondeleted rows
+***** performance - more data means reduction in query performace - the additional work of distinguishing between deleted and nondeleted rows
 ***** code complexity 
 ****** mostly in every query we would have to remember add 'where isDeleted = false'
-****** You may have associations going from Table A to Table B and when you soft delete something from Table A, you need to ensure that independent queries on Table B take care of that fact. 
+****** you may have associations going from Table A to Table B and when you soft delete something from Table A, you need to ensure that independent queries on Table B take care of that fact. 
+***** break immutability
+ORM - objects are not deleted they are being mutated - you are modyfing data not deleting
+***** break data integrity
+- like a half of data in database is valid other half is invalid
+- can happen - foreign key from valid to invalid data
 **** How
 ***** Introduce New Column
 ****** isDeleted 
@@ -1609,14 +1630,13 @@ Classes and objects should have noun or noun phrase names like Customer, WikiPag
 ****** application 
 ****** database trigger - it is simple and it avoids the risk that the applications will not update the column properly      
 **** Opposite
-     Introduce Hard Delete
+Introduce Hard Delete
 *** Introduce Surrogate Key 
-    Replace an existing natural key with a surrogate key.
+Replace an existing natural key with a surrogate key.
 *** Introduce Trigger For History 
-    Introduce a new trigger to capture data changes for historical purposes.
+Introduce a new trigger to capture data changes for historical purposes.
 **** Motivation
-     delegate the tracking of data changes to the database itself
-   
+delegate the tracking of data changes to the database itself
 *** Introduce Variable 
     Put the result of the expression, or parts of the expression, in a
     temporary variable with a name that explains the purpose.
@@ -1738,7 +1758,12 @@ guarantees that once a transaction has been committed, it will remain committed 
 - https://opensource.com/article/17/5/speed-your-mysql-queries-300-times 
 - [[https://codeshack.io/super-fast-php-mysql-database-class/][Super-fast PHP MySQL Database Class]]
 - [[https://phpdelusions.net/mysqli/mysqli_connect][How to connect properly using mysqli]]
-** views 
+** actions
+*** Add Auto-Increment ID to existing table?
+ALTER TABLE `table` ADD COLUMN `id` INT AUTO_INCREMENT UNIQUE FIRST;
+*** How to change collation of a column?
+ALTER TABLE <table_name> MODIFY <column_name> VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+*** views 
  select y.table_schema,
 	y.table_name,
 	y.view_len,
@@ -1780,7 +1805,24 @@ guarantees that once a transaction has been committed, it will remain committed 
        group by x.table_schema,
 		x.table_name) y
  order by 1, 2;
-** indexes 
+*** copy
+ If you want to copy the table structure including its keys, then you should use:
+
+#+BEGIN_SRC sql
+ CREATE TABLE `new_table_name` LIKE `old_table_name`;
+ #+END_SRC
+
+ #+BEGIN_SRC sql
+ CREATE TABLE `new_table_name` SELECT * FROM `old_table_name`;
+ #+END_SRC
+
+ #+BEGIN_SRC sql
+ (select * from A) except (select * from B) union (select * from B) except select * from A)
+ #+END_SRC
+
+*** dump
+ mysqldump -R --triggers -u root -p culture > file.sql
+*** indexes 
  select t.table_name,
 	t.table_rows,
 	count(distinct s.index_name) indexes,
@@ -1815,28 +1857,192 @@ guarantees that once a transaction has been committed, it will remain committed 
  group by t.table_name,
           t.table_rows
  order by 3, 1;
-** copy
- If you want to copy the table structure including its keys, then you should use:
+ massive hardware injection
+
+ --log-slow-queries
+ --log-queries-not-using-indexes
+** ORM
+[[https://odetocode.com/blogs/scott/archive/2010/06/13/repositories-and-the-save-method.aspx][Repositories and the Save Method]]
+Online Transaction Processing (OLTP)
+ast prototaping
+*** Doctrine 
+**** first last name search
+#+BEGIN_SRC php
+$qb->where($qb->expr()->andX(
+    $qb->expr()->orX(
+        $qb->expr()->like(
+            $qb->expr()->concat('employee_alias.firstName', $qb->expr()->concat($qb->expr()->literal(' '), 'employee_alias.lastName')),
+            $qb->expr()->literal($phrase.'%')
+        ),
+        $qb->expr()->like(
+            $qb->expr()->concat('employee_alias.lastName', $qb->expr()->concat($qb->expr()->literal(' '), 'employee_alias.firstName')),
+            $qb->expr()->literal($phrase.'%')
+        )
+    ))
+);
+#+END_SRC
+**** rawSQL from query builder
+#+BEGIN_SRC php
+$sql = $query->getSQL();
+
+$parameters = [];
+foreach ($query->getParameters() as $parameter) {
+    $parameters[] = $parameter->getValue();
+}
+
+$result = $connection->executeQuery($sql, $parameters)
+                     ->fetchAll();
+#+END_SRC
+**** mariaDb error
+https://marenkay.com/2018/06/12/symfony-doctrine-mariadb/
+** Mysqli
+https://stackoverflow.com/questions/2552545/mysqli-prepared-statements-error-reporting
+** SLOW QUERY LOG
+- open my.cnf
+  slow_query_log = ON
+  long_query = 2
+  slow_query_log_file=/path/to/file
+- queries taking 2s or longer will be logged
+- open the log file and analyze the queries
+
+
+https://www.red-gate.com/simple-talk/sql/t-sql-programming/database-refactoring/
+
+
+
+TIPS
+Avoid functions on an indexed columns
+SELECT id, title FRMO PICTURE
+WHERE YEAR(create_date) >= 2001
+The index won't be used here
+
+LIMIT
+
+BETWEEN
+AND picture.id BETWEEN 26 AND 50;
+Only makes sense if that column is indexed
+
+IN
+AND picture.id IN (10,15,16)
+
+Archive Tables?
+Split Databases and tables
+
+Remove unused index
+
+B-Tree Index
+- each leaf node contains a link to the next node for the fast range traversals
+- values are stored in order
+- each leaf page is at the same distance from root level
+- InnoDB
+
+- storage engine traverses from root node to leaf node with the help of pointers
+- increase performance of following query patterns:
+  - full value (e.g: Pluralsight, Pinal Dave)
+  - leftmost value or column prefix (e.g: Plural from Pluralsight, Pinal from Pinal Dave)
+  - range of value (e.g 1 to 99, AAron to Fritz, Aaron to Kei%)
+- helps ORDER BY clause to increase the performance
+
+  Clustered Index
+  + rows with adjacent key values are stored close to each other
+  + related data is stored close to each other leading less disk I/O while retrieving sequential or range data
+  + faster data access as data and index are stored together at leaf node
+
+  - data insertion speed is dependent on the order of the Primary Key
+  - updating the clustered index column is expensive as data is moved based on its size to different on location
+    Secondary Index
+** int vs varchar id
+https://stackoverflow.com/questions/332300/is-there-a-real-performance-difference-between-int-and-varchar-primary-keys
+** Information Schema
+select t.table_name, count(*)
+from information_schema.columns c
+join information_schema.tables t on t.table_name = c.table_name
+where t.Table_type = 'BASE TABLE'
+group by t.TABLE_NAME
+
+select t.table_name
+from information_schema.tables t
+where t.Table_type = 'BASE TABLE'
+group by t.TABLE_NAME
+** Count 
+select lecture_id, count(*) as Count
+from customer_service_contract_to_lecture
+group by lecture_id
+having count(*) > 1
+massive hardware injection
+
+--log-slow-queries
+--log-queries-not-using-indexes
+
+** testing 
+*** compare output of 2 queries
+
+If you want to copy the table structure including its keys, then you should use:
 
 #+BEGIN_SRC sql
- CREATE TABLE `new_table_name` LIKE `old_table_name`;
- #+END_SRC
+CREATE TABLE `new_table_name` LIKE `old_table_name`;
 
- #+BEGIN_SRC sql
- CREATE TABLE `new_table_name` SELECT * FROM `old_table_name`;
- #+END_SRC
+--view 
+CREATE TABLE query_invoice_first_positions_golden_master AS (
+SELECT *
+FROM query_invoice_first_positions
+) 
+#+END_SRC
 
- #+BEGIN_SRC sql
- (select * from A) except (select * from B) union (select * from B) except select * from A)
- #+END_SRC
+#+BEGIN_SRC sql
+CREATE TABLE `new_table_name` SELECT * FROM `old_table_name`;
+#+END_SRC
 
-** dump
- mysqldump -R --triggers -u root -p culture > file.sql
-** actions
-*** Add Auto-Increment ID to existing table?
-ALTER TABLE `table` ADD COLUMN `id` INT AUTO_INCREMENT UNIQUE FIRST;
-*** How to change collation of a  column?
-ALTER TABLE <table_name> MODIFY <column_name> VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+#+BEGIN_SRC sql
+--mardiadb 10.3
+(select * from A) except (select * from B) union (select * from B) except select * from A)
+#+END_SRC
+
+#+BEGIN_SRC sql
+--mardiadb 10.3
+select invoice_id, name
+from(
+select qi.invoice_id, qi.name
+from query_invoice_first_positions qi
+union all
+select gold.invoice_id, gold.name
+from query_invoice_first_positions_golden_master gold
+) t
+group by invoice_id, name
+having count(*) = 1
+order by invoice_id
+#+END_SRC
+
+not case sensitive!
+** cardinality
+select t.table_name,
+t.table_rows,
+s.index_name,
+s.column_name,
+s.cardinality
+from information_schema.tables t
+left outer join information_schema.statistics s
+on s.table_schema = t.table_schema
+and s.table_name = t.table_name
+where t.table_schema = schema( )
+order by t.table_name,
+s.index_name,
+s.seq_in_index;
+** SQL_FOUND_ROWS
+http://developers-club.com/posts/81034/
+** Collation key length
+https://stackoverflow.com/questions/1814532/1071-specified-key-was-too-long-max-key-length-is-767-bytes
+#+BEGIN_SRC sql
+ALTER TABLE subscribe_user_tag ADD UNIQUE `key_user_id_tag_slug_id` (user_id, tag_slug_id);
+
+SELECT * FROM INFORMATION_SCHEMA.SCHEMATA;
+
+SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME LIKE '%subscribe%'
+
+ALTER TABLE subscribe_user_tag MODIFY COLUMN tag_slug_id varchar(255) COLLATE latin1_general_ci
+#+END_SRC
+** Not Empty
+https://stackoverflow.com/questions/24424363/mysql-column-constraint-as-not-empty-required
 * Smells
 ** Booch’s fundamental design principles
 *** abstraction
@@ -2338,17 +2544,18 @@ Structure
    A parameter is the variable which is part of the method’s signature (method declaration). An argument is an expression used when calling the method.
 
 Consider the following code:
-
+#+begin_src php
 void Foo(int i, float f)
 {
-// Do things
+    // Do things
 }
 
 void Bar()
 {
-int anInt = 1;
-Foo(anInt, 2.0);
+    int anInt = 1;
+    Foo(anInt, 2.0);
 }
+#+end_src
 
 Here i and f are the parameters, and anInt and 2.0 are the arguments.
 
@@ -2374,6 +2581,32 @@ doSomething() or die();
 - immutable
 - compared using all values
 - no side effects
+- value object should never be mocked
+#+begin_src php
+final class PaymentInstrument
+{
+
+/** @var string */
+private $token;
+
+private function __construct(string $token)
+{
+Assert::that($token)->lengt(32);
+$this->token = $token;
+}
+
+public static function fromToken(string $token) : self 
+{
+return new self($token);
+}
+
+public function getToken() : string
+{
+return $this-token;
+}
+}
+#+end_src>
+https://www.youtube.com/watch?time_continue=221&v=z3BDOoB8csA
 ** Service
    an object that dose work
 ** Technical Dept
@@ -2580,17 +2813,17 @@ http://www.cs.loyola.edu/~binkley/papers/icpc09-clouds.pdf?fbclid=IwAR2lZJWpYcV-
 
 * Principles
 ** SOLID
-   There is a strong relationship beetween each of those principles. If you take each of those principles in isolation and try to apply them in your codebase you will get limited benefit out of that. it's only when you take enterly package apply it in it entarity. Applying it all at once. Strong sinergy efect.
+  There is a strong relationship beetween each of those principles. If you take each of those principles in isolation and try to apply them in your codebase you will get limited benefit out of that. it's only when you take enterly package apply it in it entarity. Applying it all at once. Strong sinergy efect.
 *** Single Responsibilty (SRP)
-    A class should have only one reason to change - doing one thing, and do it well The object should be able to do the job completely The class has only one well-defined responsibility which is exclusively handling user data. No more, no less.
+A class should have only one reason to change - doing one thing, and do it well The object should be able to do the job completely The class has only one well-defined responsibility which is exclusively handling user data. No more, no less.
 *** Open/Closed Principle (OCP)
-    Software entities (classes, modules, functions, etc.) should be open for extension, but closed for modification. Interface is open for extension but closed for modification.
+Software entities (classes, modules, functions, etc.) should be open for extension, but closed for modification. Interface is open for extension but closed for modification.
 *** Liskov Substitution (LSP)
-    Metody do klas bazowych, muszą być w stanie używać również obiektów klas dziedziczących po klasach bazowych.	Program to an, interface, not an implementation.
+Metody do klas bazowych, muszą być w stanie używać również obiektów klas dziedziczących po klasach bazowych.	Program to an, interface, not an implementation.
 *** Interface Segregation (ISP)
-    A client should never be forced to implement an interface that it doesn't use or clients shouldn't be forced to depend on methods they do not use.
+A client should never be forced to implement an interface that it doesn't use or clients shouldn't be forced to depend on methods they do not use.
 *** Dependency Inversion (DIP)
-    Depend on abstractions, not concretions	Program to an, interface, not an implementation.
+Depend on abstractions, not concretions. Program to an, interface, not an implementation.
 ** GRASP General Responsibility Assignment Software Patterns
 - Craig Larman 1997 - Applying UML and Patterns (BN)
 ** Design
@@ -2605,11 +2838,11 @@ http://www.cs.loyola.edu/~binkley/papers/icpc09-clouds.pdf?fbclid=IwAR2lZJWpYcV-
 *** Don't Repeat Yourself (DRY)
     http://web-techno.net/dry-principle-explained/
 *** The Law of Demeter (LoD)
-    Each unit should only talk to its friends; don't talk to strangers.	
-    - Object Calisthenics - One Arrow Per Line
+Each unit should only talk to its friends; don't talk to strangers.	
+- Object Calisthenics - One Arrow Per Line
 ** Architectural
 *** Model-View-Controller
-    • The Model: Captures and centralizes all the domain model behaviour. This layer manages all the data, logic and business rules independently of the data representation. It can be said that the Model layer is the heart and soul of every MVC application. • The Controller: Orchestrates interactions between the other layers. Triggers actions on the model in order to update its state and refreshes the representations associated to the model. Additionally, the Controller can also send messages to the View layer in order to change the specific Model representation. • The View: A layer whose main purpose is to expose the differing representations of the Model layer and to give a way to trigger changes on the Model’s state.
+• The Model: Captures and centralizes all the domain model behaviour. This layer manages all the data, logic and business rules independently of the data representation. It can be said that the Model layer is the heart and soul of every MVC application. • The Controller: Orchestrates interactions between the other layers. Triggers actions on the model in order to update its state and refreshes the representations associated to the model. Additionally, the Controller can also send messages to the View layer in order to change the specific Model representation. • The View: A layer whose main purpose is to expose the differing representations of the Model layer and to give a way to trigger changes on the Model’s state.
 *** Api
 **** Tools
 [[https://github.com/Crell/ApiProblem][APIProblem]]
@@ -2862,7 +3095,7 @@ echo  $prototype2->getName(); // wyswietli "nazwa"
 
 #+END_SRC
 **** Dependency Injection
-     A class receives its dependencies from external sources rather than creating them itself. That is, following the Dependency Inversion principle.
+A class receives its dependencies from external sources rather than creating them itself. It's a method of decoupling code & following the Dependency Inversion principle.
 ***** Types of injection:
 ****** Construction injection: 
        dependencies are injected when creating the object. It can be used for required and optional dependencies.
@@ -2871,7 +3104,10 @@ echo  $prototype2->getName(); // wyswietli "nazwa"
 ****** Property injection: 
        dependencies are injected directly through public properties. This type of injection is not recommended as there is no control at all of what is being injected.
 ***** Links
-      - [[https://www.sitepoint.com/php-dependency-injection-container-performance-benchmarks/][PHP Dependency Injection Container Performance Benchmarks]]
+- [[https://www.sitepoint.com/php-dependency-injection-container-performance-benchmarks/][PHP Dependency Injection Container Performance Benchmarks]]
+- http://joebubna.github.io/Cora/documentation/v2/dependency-injection/overview/#avoiding-the-antipattern
+***** Books
+****** Dependency Injection Principles, Practices, and Patterns Mark Seemann, Steven van Deursen
 *** Structural
     They act as interconnectors between entities. It serves as a blueprint for how basic classes can be combined to form bigger  entities. Structural patterns describe the static architecture of a design;
 
@@ -3496,7 +3732,11 @@ class StrategyTest extends TestCase
 **** Command 
      Command objects encapsulate an action and its parameters. We have an Invoker and a Receiver
 **** Iterator 
-     Iterators are used to access the elements of an aggregate object sequentially without exposing its underlying representation
+Iterators are used to access the elements of an aggregate object sequentially without exposing its underlying representation
+**** Interpreter
+GOF
+***** Query Builder
+
 **** Null Object
       Designed to act as a default value of an object
 **** Template method:
@@ -3691,9 +3931,10 @@ final class PositionDTO
 ***** they receive a request from the user, decide what to do, and send request back
 ***** it's the only component that interacts with the models
 **** Models
+***** classes that are designed to work with information in your database
 ***** are where an anpplication's data are stored
 ***** responsible for storing and retrieving data
-***** kno nothing about the user interface
+***** know nothing about the user interface
 **** Views
 ***** are what the user sees on the screen
 ***** they present the data to the user
@@ -4054,23 +4295,44 @@ http://blog.codepipes.com/testing/software-testing-antipatterns.html
 behat/mink-extension
 *** config
 base_url: 'http://localhost' Remember that have to be with http:// 
+** PHPUnit
+*** Types of Test Doubles:
+**** Dummy 
+Used only as a placeholder when an argument needs to be filled in.
+**** Stub 
+Provides fake data to the System Under Test
+**** Spy
+Records information about how it is used, and can provide that information back to the test.
+**** Mock
+Defines an expectation on how it will be used, and with what parameters. Will cause a test to fail automatically if the expectation isn’t met.
+**** Fake
+An actual implementation of the contract, but is unsuitable for production.
+*** Static vs. Non-Static Usage of Assertion Methods
+- https://phpunit.de/manual/6.5/en/appendixes.assertions.html#appendixes.assertions.static-vs-non-static-usage-of-assertion-methods
+- https://github.com/sebastianbergmann/phpunit/issues/1914
 * Tools
-** Symfony
-*** Serializer
+** Frameworks
+*** Symfony
+**** Serializer
 - https://thomas.jarrand.fr/blog/serialization/
 - https://matthiasnoback.nl/2017/07/designing-a-json-serializer/
 - https://stackoverflow.com/questions/35365141/symfony-serializer-set-circular-reference-global/35365239
 - https://speakerdeck.com/dunglas/mastering-the-symfony-serializer?slide=1
-*** Form
-'https://webmozart.io/blog/2015/09/09/value-objects-in-symfony-forms/#data-mappers',
-'https://stovepipe.systems/post/rethinking-form-development',
-'https://blog.martinhujer.cz/symfony-forms-with-request-objects/',
-'https://speakerdeck.com/webmozart/symfony-forms-101',
-'http://verraes.net/2013/04/decoupling-symfony2-forms-from-entities/' 
-*** Problems
-After update to Symfony 4 - blank page - have to remove var/bootstrap.php.cache
-** Code City
+**** Form
+- https://webmozart.io/blog/2015/09/09/value-objects-in-symfony-forms/#data-mappers
+- https://stovepipe.systems/post/rethinking-form-development
+- https://blog.martinhujer.cz/symfony-forms-with-request-objects/
+- https://speakerdeck.com/webmozart/symfony-forms-101
+- http://verraes.net/2013/04/decoupling-symfony2-forms-from-entities/ 
+**** Problems
+After update to Symfony 4 - blank page - remove var/bootstrap.php.cache
+*** CodeIgniter
+*** Cora
+http://joebubna.github.io/Cora/
+** Code Analize
+*** Code City
 https://www.reddit.com/r/PHP/comments/a079r6/php_implementation_of_code_city/
+*** https://www.phpmetrics.org/
 ** Composer
 - https://getcomposer.org/doc/articles/autoloader-optimization.md
 - http://mouf-php.com/optimizing-composer-autoloader-performance
@@ -4088,7 +4350,8 @@ https://www.reddit.com/r/PHP/comments/a079r6/php_implementation_of_code_city/
 sudo lsof -i -P -n | grep LISTEN
 sudo lsof -i:22 ## see a specific port such as 22 ##
 * Style
-[[https://shkspr.mobi/blog/2014/11/why-i-vertically-align-my-code-and-you-should-too/][Why I vertically align my code (and you should too!)]]
+- [[https://shkspr.mobi/blog/2014/11/why-i-vertically-align-my-code-and-you-should-too/][Why I vertically align my code (and you should too!)]]
+- [[https://www.huridocs.org/2016/07/file-naming-conventions-why-you-want-them-and-how-to-create-them/][file-naming-conventions-why-you-want-them-and-how-to-create-them]]
 * Jokes
 - There is so much spaghetti I might as well open a restaurant!
 - I echo all of my code as a string in the command line and then use ">" to redirect it in to a new file. I don't have time to open an edit
@@ -4209,19 +4472,15 @@ of safely making changes (with tests) and leveraging the knowledge accumulated b
 ** Routing
 from most specific at the top to less specific at the bottom
 *** yml vs. annotations
-It's always have been a war about this. But I would simply divide them in to two options.
-
-Using annotations is quickier and kind of easier to use but it's increase noise in the code.
-
-I think it's great for prototyping small application, when you absolutly sure that app would grow.
-
-Annotations become a tottaly mess when you have big application, it's hard to manage all routing compare to central routing like yaml.
-
-So I would go with word prototiping, Doctrine it's kind the same. It's great for prototyping but when you application finally reach maximum of what can you squize from ORM, you would have to leave it to pure SQL.
+It's always have been a war about this. But I would simply divide them in to two options. Using annotations is quickier and kind of easier to use but it's increase noise in the code. I think it's great for prototyping small application, when you absolutly sure that app would not grow. Annotations become a tottaly mess when you have big application, it's hard to manage all routing compare to central routing like yaml.
+So I would go with word prototyping. Doctrine it's kind the same. It's great for prototyping but when you application finally reach maximum of what can you squize from ORM, you would have to leave it to pure SQL.
+*** benchmarks
+http://nikic.github.io/2014/02/18/Fast-request-routing-using-regular-expressions.html
 * Data Structures
 ** Array
 *** Avoid complex arrays
 http://mamchenkov.net/wordpress/2018/11/27/avoid-complex-arrays-in-php/
+*** [[https://stackoverflow.com/questions/10057671/how-does-php-foreach-actually-work][How does PHP 'foreach' actually work?]]
 * Functions Core
 ** SPL Library
 Great job on the implementation!
@@ -4355,16 +4614,107 @@ usort($inventory, function ($item1, $item2) {
 });
 #+END_SRC
 * Links
-- [[https://www.tomasvotruba.cz/][Tomas Votruba
-]]- https://dantleech.com/ Phpactor
+1) [[https://www.tomasvotruba.cz/][Tomas Votruba]]
+2) https://dantleech.com/ Phpactor
+3) [[https://24daysindecember.net/2018/12/15/php-and-the-secrets-of-emergent-architecture/][PHP and the secrets of emergent architecture]]
 * Quirks
 ** More parameter than expected: no error in PHP?
 https://bugs.php.net/bug.php?id=13892&fbclid=IwAR0r2lrYMJ5cuE9o9sygoCORtmQ9R-dca76OfmRoadijMjqHoVzMpQXHl9c
+** Adding float numbers
+#+BEGIN_SRC php
+var_dump(0.1 + 0.2 - 0.3);
+#+END_SRC
+
+#+RESULTS:
+: Standard input code:2:
+: double(5.5511151231258E-17)
+* Security
+** Cross-Site Request Forgery CSRF  
+also known as XSRF, Sea Surf or Session Riding
+is an attack that forces an end user to execute unwanted actions on a web application in which they're currently autheniticated.
+*** GET
+GET http://bank.com/transer.do?to=Attacker&amount=100 HTTP/1.1
+<a href="http://bank.com/transer.do?to=Attacker&amount=100"> View my picture! </a>
+<img src="http://bank.com/transer.do?to=Attacker&amount=100" witdth="0", height="0", border="0">
+
+Next, he can distribute the hyperlink via email to a large number of bank customers. Those who click on the link while logged into their bank account will unintentionally initiate the $100 transfer.
+
+Note that if the bank’s website is only using POST requests, it’s impossible to frame malicious requests using a <a> href tag. However, the attack could be delivered in a <form> tag with automatic execution of the embedded JavaScript.
+This is how such a form may look like:
+*** POST
+POST http://bank.com/transer.do HTTP/1.1
+#+BEGIN_SRC html
+<body onload="document.forms[0].submit()">
+  <form action="http://netbank.com/transfer.do" method="POST">
+    <input type="hidden" name="acct" value="Attacker"/>
+    <input type="hidden" name="amount" value="$100"/>
+    <input type="submit" value="View my pictures!"/>
+  </form>
+</body>
+#+END_SRC
+** Cross-Site Scripting (XSS)
+XSS enables attackers to inject client-side scripts into web pages viewed by other users.
+* Interface and User Experience
+**  [[https://en.wikipedia.org/wiki/Post/Redirect/Get][Redirect after a POST]] if that POST was successful, to prevent a refresh from submitting again.
 * Topics
 ** Rewrite
 - [[https://www.joelonsoftware.com/2000/04/06/things-you-should-never-do-part-i/][Things You Should Never Do, Part I]]
+** Crawler
+** Namespace
+https://www.oligriffiths.com/2015/06/30/namespacing-in-PHP-and-how-we-broke-it/
+http://e-wojtowicz.pl/tag/spl_autoload_register/
+** Functional PHP
+- https://apiumhub.com/tech-blog-barcelona/functional-php/
+** ReactPHP 
+https://www.youtube.com/channel/UC3EThWvNp4EabJD7PyCOzGw
+https://sergeyzhuk.me
+* Performance
+https://github.com/JoeDog/siege - have to compile
+Apache Bench
+http://www.phpbenchmarks.com
+
+https://blobfolio.com/2017/09/25-easy-php7-micro-optimizations/
+
+** Baseline Performance  
+*** Stock install (Amazon EC2 Large, Ubuntu, Apache, PHP, MySQL)
+*** Static index.html (Hello World!)
+*** Dynamic index.php (<?php echo 'Hello World!';)
+*** Database connect (PDO)
+#+BEGIN_SRC php
+$pdo = new PDO('mysql:host=host;dbname=dbname', 'user, 'pass');
+   echo 'PDO Connect!';
+#+END_SRC
+
+#+RESULTS:
+
+*** Database connect, query, and fetch (PDO)
+
+*** Table
+5 runs of 10 users for 60 sec, avg
+|                           | relative | req/s |
+|---------------------------+----------+-------|
+| html                      | 1,25     | 2 726 |
+| php                       | 1        | 2 178 |
+| pdo connect               | 0,83     | 1 818 |
+| pdo connect, query, fetch | 0,73     | 1 611 |
+
+** CRUD vs. BREAD
+** N+1 Problem
+*** Single-Query Solution
+select all results, including relationships in a single query
+*** Query-and-Stitch Solution
+** Array vs. StdClass 
+https://steemit.com/php/@crell/php-use-associative-arrays-basically-never
+https://blog.fox21.at/2018/11/21/avoid-dynamic-data-structures-in-php.html
+** Benchmark
+https://3v4l.org/UYaFY
+*** Fastest way to insert new records where one doesn’t already exist
+http://cc.davelozinski.com/sql/fastest-way-to-insert-new-records-where-one-doesnt-already-exist
+** micro
+https://veewee.github.io/blog/optimizing-php-performance-by-fq-function-calls/?fbclid=IwAR2EW0FMAUX_LkCy_Kjo94-WxGyIwllSUQwNxIx6EwTkROp4kKlyZgkDlTQ
 * About
   It's a simple site about refactoring in PHP.
   
   You can contact me at slawomir.grochowski@gmail.com, https://twitter.com/s_grochowski, https://www.facebook.com/SlawomirGrochowski
   You can support this site: send some BitCoins 1D8xeRkxssTTLESfGZtPVoqVJDq7MJSqNx , send/buy one of the books I would like to read or just say Hello!
+

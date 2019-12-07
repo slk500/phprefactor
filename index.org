@@ -1,4 +1,4 @@
-#+SETUPFILE: export/setup/theme-darksun-local.setup
+1#+SETUPFILE: export/setup/theme-darksun-local.setup
 
 #+Title: PHPRefactor
 
@@ -1135,7 +1135,7 @@ echo "Total: $totalPrice";
 $totalDiscountPrice = order.getTotal() - order.getDiscount();
 echo "Price after discount: $totalDiscountPrice";
 #+END_SRC
-*** Pass a test
+*** [#B] Pass a test
 * Tutorials
 | [[https://www.pluralsight.com/courses/automated-tests-phpunit][Automated Tests with PHPUnit]]                     | Anna Filina              | testing - PHPUnit     |
 | [[https://industriallogic.com/xp/refactoring/catalog.html][Catalog of Refactoring to Patterns]]               | Joshua Kerievsky         | patterns              |
@@ -1337,6 +1337,13 @@ smells - are indications of problems in your code
 CodeSniffer
 ** https://cleancoders.com/videos
 ** [[https://github.com/slk500/DesignPatternsPHP][Design Patterns PHP]]
+** [[https://youtu.be/a-BOSpxYJ9M][Agile is Dead • Pragmatic Dave Thomas]] 
+1) agile is adjective not noun
+2) No Rules Are Universal. All Rules Need Context. All rules are contextual.
+3) Agile is not what you do. Agility is how you do it.
+4) If you about to jump put of airplane for the first time you don't care about the theory of aerodynamics you what to know what you pull and when
+
+
 ** [[https://github.com/HugoMatilla/Refactoring-Summary][Summary of "Refactoring: Improving the Design of Existing Code" by Martin Fowler]]
 ** Symfony
 *** https://github.com/ThomasBerends/symfony-certification-preparation-list
@@ -1376,7 +1383,6 @@ CodeSniffer
   |                                                                                   | Working Effectively with Unit Tests                                                                                  |             |             |      |                                                                                                                                                                                                              |
   |                                                                                   | Scalable Internet Architectures                                                                                      |             |             |      |                                                                                                                                                                                                              |
   |                                                                                   | SQL for Smarties: Advanced SQL Programming                                                                           | database    |             | 2005 |                                                                                                                                                                                                              |
-  |                                                                                   | Mastering the SPL Library                                                                                            |             |             |      |                                                                                                                                                                                                              |
   |                                                                                   | Anthology  The Thoughtworks Anthology - Essays on Software Technology and Innovation                                 |             |             | 2008 |                                                                                                                                                                                                              |
   |                                                                                   | Anthology  The ThoughtWorks Anthology 2 - More Essays on Software Technology and Innovation                          |             |             | 2012 |                                                                                                                                                                                                              |
   | Beck, Kent                                                                        | Extreme Programming Explained: Embrace Change                                                                        | overall     | can be read | 1999 |                                                                                                                                                                                                              |
@@ -1385,7 +1391,6 @@ CodeSniffer
   | Bloch, Joshua                                                                     | Effective Java                                                                                                       |             |             | 2018 |                                                                                                                                                                                                              |
   | Buenosvinos, Carlos                                                               | Domain-Driven Design in PHP                                                                                          |             |             | 2016 |                                                                                                                                                                                                              |
   | Bugayenko, Yegor                                                                  | Elegant Objects                                                                                                      |             |             | 2016 | Want to read                                                                                                                                                                                                 |
-  | Fowler, Martin                                                                    | Refactoring: Improving the Design of Existing Code                                                                   | refactoring | must have   | 1999 |                                                                                                                                                                                                              |
   | Fowler, Martin                                                                    | Patterns of Enterprise Application Architecture                                                                      |             |             | 2012 |                                                                                                                                                                                                              |
   | Francesco Trucchia, Jacopo Romei                                                  | Pro PHP Refactoring                                                                                                  |             |             | 2010 | Old, without PHP 7 but still the best PHP book about refactoring. Great examples. Worth to have.                                                                                                             |
   | Ganesh, Samarthyam; Tushar, Sharma                                                | Refactoring for Software Design Smells: Managing Technical Debt                                                      |             |             | 2015 | Catalog of smells. Focus on smell point of view. Also they introduce smell classification scheme, naming scheme for design smells which helps to increase awerness of smells. So definetly must read. (Java) |
@@ -1400,6 +1405,7 @@ CodeSniffer
   | Tornhill, Adam                                                                    | Your Code as a Crime Scene - Use Forensic Techniques to Arrest Defects, Bottlenecks, and Bad Design in Your Programs |             |             | 2015 |                                                                                                                                                                                                              |
   | West, David                                                                       | Object Thinking                                                                                                      |             |             | 2004 |                                                                                                                                                                                                              |
   | Zandstra, Matt                                                                    | PHP Objects, Patterns, and Practice                                                                                  |             | can be read | 2008 | Pretty old. But written with precise language and with great examples                                                                                                                                        |
+  |                                                                                   |                                                                                                                      |             |             |      |                                                                                                                                                                                                              |
   |                                                                                   |                                                                                                                      |             |             |      |                                                                                                                                                                                                              |
   |                                                                                   |                                                                                                                      |             |             |      |                                                                                                                                                                                                              |
   |                                                                                   |                                                                                                                      |             |             |      |                                                                                                                                                                                                              |
@@ -1520,6 +1526,8 @@ Readers shouldn’t have to mentally translate your names into other names they 
 **** Class Names
 Classes and objects should have noun or noun phrase names like Customer, WikiPage, Account, and AddressParser. Avoid words like Manager, Processor, Data, or Info in the name of a class. A class name should not be a verb.
 ** Martin, Robert C.; Agile Software Development: Principles, Patterns, and Practices; 2002
+** Design It!: From Programmer to Software Architect (The Pragmatic Programmers) 1st Edition by Michael Keelin
+** Mastering the SPL Library
 * Database
 ** Refactorings
 *** Add CRUD Methods 
@@ -2043,6 +2051,40 @@ ALTER TABLE subscribe_user_tag MODIFY COLUMN tag_slug_id varchar(255) COLLATE la
 #+END_SRC
 ** Not Empty
 https://stackoverflow.com/questions/24424363/mysql-column-constraint-as-not-empty-required
+** notes
+SHOW GLOBAL VARIABLES
+
+SHOW GLOBAL STATUS
+
+optimizer_max_permutations w Oraclu -> co sie dzieje kiedy idzie zapytanie -> wpierw optimizer probuje znalezc optimal
+
+innodb_buffer_pool_size    134217728 -> 400M
+join_buffer_size    262144 -> 1M
+query_cache_type    OFF -> 1
+query_cache_size    1048576 -> 50M
+query_cache_limit    1048576 -> 4M
+
+MariaDB [(none)]> set global innodb_buffer_pool_size = 419430400;
+
+MariaDB [(none)]> SET GLOBAL query_cache_size = 1000000;
+
+MariaDB [(none)]> SET GLOBAL query_cache_limit = (select 4*1024*1024);
+
+MariaDB [(none)]> SET GLOBAL join_buffer_size = (select 4*1024*1024);
+
+CREATE DATABASE testdb;
+CREATE USER 'testuser'@'localhost' IDENTIFIED BY 'password';
+GRANT ALL PRIVILEGES ON testdb.* TO testuser@localhost;
+FLUSH PRIVILEGES;
+quit
+
+mysqldump -R --triggers -u root -p culture > file.sql
+
+From the mysql console:
+
+mysql> use DATABASE_NAME;
+
+mysql> source path/to/file.sql;
 * Smells
 ** Booch’s fundamental design principles
 *** abstraction
@@ -2851,21 +2893,19 @@ Each unit should only talk to its friends; don't talk to strangers.
 - https://stackoverflow.com/questions/10302179/hyphen-underscore-or-camelcase-as-word-delimiter-in-uris
 **** Info
 Pluralization of resource names in REST URIs is the widely adopted standard followed by the overwhelming majority of public and private APIs.
-Beyond being "the standard approach" it also makes sense and is the most simple.
 
-For example:
- 
-
-GET    /resources  returns a list of resource items
-POST   /resources  creates one or many resource items
-PUT    /resources  updates one or many resource items
-PATCH  /resources  partially updates one or many resource items
-DELETE /resources  deletes all resource items And for single resource items:
-GET    /resources/:id  returns a specific resource item based on :id parameter
-POST   /resources/:id  creates one resource item with specified id (requires validation)
-PUT    /resources/:id  updates a specific resource item
-PATCH  /resources/:id  partially updates a specific resource item
-DELETE /resources/:id   deletes a specific resource item
+| method | endpoint       | controller | info                                                              |
+|--------+----------------+------------+-------------------------------------------------------------------|
+| GET    | /resources     | list       | returns a list of resource items                                  |
+| POST   | /resources     |            | creates one or many resource items                                |
+| PUT    | /resources     |            | updates one or many resource items                                |
+| PATCH  | /resources     |            | partially updates one or many resource items                      |
+| DELETE | /resources     |            | deletes all resource items And for single resource items:         |
+| GET    | /resources/:id | show       | returns a specific resource item based on :id parameter           |
+| POST   | /resources/:id | create     | creates one resource item with specified id (requires validation) |
+| PUT    | /resources/:id | update     | updates a specific resource item                                  |
+| PATCH  | /resources/:id |            | partially updates a specific resource item                        |
+| DELETE | /resources/:id | delete     | deletes a specific resource item                                  |
 
 
 *****  Sorting
@@ -2913,23 +2953,21 @@ The members data and errors MUST NOT coexist in the same document.
 - uses statements that change a program's state
 - focuses on describing how a program operates
 - The term is often used in contrast to declarative programming, which focuses on what the program should accomplish without specifying how the program should achieve the result.
-** Declaraive
-*** Functional Programming
-that treats computation as the evaluation of mathematical functions and avoids changing-state and mutable data. It is a declarative programming paradigm in that programming is done with expressions or declarations[1] instead of statements.
-** OOP
+*** Procedural
+*** OOP
 data before action vs. procedual action before data
 https://www.youtube.com/watch?v=lbXsrHGhBAU
-*** definition
-**** class (data type definition)
-***** field (data member)
-***** method (function member) - function associate woth class
+**** definition
+***** class (data type definition)
+****** field (data member)
+****** method (function member) - function associate woth class
 
 object/instance (piece of data)
 
-*** Principles
-**** encapsulution - methods act as 'interface' to object's fields.  
+**** Principles
+***** encapsulution - methods act as 'interface' to object's fields.  
 Fields of an object and instance should only be read or written by methods of that instances class.
-**** inheritance
+***** inheritance
 
 
 My design goals are :
@@ -2954,8 +2992,85 @@ object-oriented & functional (do both)
 
 Can't find the answear on internet. I would like to play offline, set broadcast to lan, play offline. Then when I join the server I see only console. How I can jump in to the game? 
 
-** Procedural
-** Sources
+** Declarative
+*** Functional Programming
+that treats computation as the evaluation of mathematical functions and avoids changing-state and mutable data. It is a declarative programming paradigm in that programming is done with expressions or declarations instead of statements. Here are some important properties of mathematical functions that we’ll
+want our Lisp functions to obey as well:
+
+- The function always returns the same result, as long as the same arguments are passed into it. (This is often referred to as referential transparency.)
+- The function never references variables that are defined outside the function, unless we are certain that these variables will remain constant.
+- No variables are modified (or mutated, as functional programmers like to say) by the function.
+  - The purpose of the function is to do nothing other than to return a result.
+  - The function doesn’t do anything that is visible to the outside world, such as pop up a dialog box on the screen or make your computer go “Bing!”
+  - The function doesn’t take information from an outside source, such as the keyboard or the hard drive.
+
+If we obey these rules whenever possible, we can say that our code is written in the functional style.
+ 
+This leads us to the central philosophy of functional programming. It states that you should break your program into two parts:
+
+- The first, and biggest part, should be completely functional and free of side effects. This is the clean part of your program.
+- The second, smaller part of your program is the part that has all the side effects, interacting with the user and the rest of the outside world. This code is dirty and should be kept as small as possible.
+
+Furthermore, sharing of structures can be done safely, since one of the tenets of functional programming is to never modify old pieces of data.
+
+***** Functional Programming Reduces Bugs
+Bugs in computer programs usually happen because, under certain circum-stances, the code behaves in ways the programmer didn’t expect when the code was written. In functional programming, the behavior of your functions depends on one and only one thing: the arguments explicitly passed into the function. This makes it much easier for a programmer to appreciate all the circumstances a program could possibly encounter, including circumstances that could lead to errors. Writing functions that depend on only their arguments for their behavior also makes bugs easy to duplicate. If you call a function with the same data passed in through its arguments, it should do the same exact thing every time. This is the property we called referential transparency.
+***** Functional Code Is More Elegant
+The biggest advantage of functional programming is that it brings all of computer programming back to the domain of mathematics. It wouldn’t make sense for a math equation to pop up a dialog box or write to the hard drive. It can be argued that if we get our computer code back to this same level of purity, it will be far more elegant. Additionally, if our code is closer to the world of mathematics, we may be able to use tools in mathematics to write better computer code. In fact, a lot of research continues to be done in using mathematical proofs to check for the correctness of functional computer programs. Although this research still isn’t to the point where a practical programmer would use such techniques, they may be more common in the future. And, almost cer- tainly, a functional programming style will be essential in making correctness proofs on your code possible
+***** Functional Programs Are More Compact
+It turns out a lot of the work in run-of-the-mill computer programs involves creating, initializing, and updating variables. Functional programs don’t do any of this. As we discussed earlier, functional programs make use of higher order functions, which don’t require us to create tons of temporary variables in our code, and that makes our code more compact.
+**** links
+- [[https://apiumhub.com/tech-blog-barcelona/functional-php/][FUNCTIONAL PHP: A FIRST APPROACH]]
+- http://scott.sauyet.com/Javascript/Talk/2014/01/FuncProgTalk/
+**** tutorials
+***** [[https://www.youtube.com/watch?v=7Zlp9rKHGD4][Robert C Martin - Functional Programming; What? Why? When?]]
+****** what is state?
+1; // a value
+int x = // x is an id that has a value
+x = x + 1 //now x has changed state 
+****** is this stateless?
+#+begin_src java
+void main() {
+    printf("Hello, world\n");
+}
+#+end_src
+Yes, there is no state being change anywhere. But it does hava a side effect it prints something on the screen.
+****** squares of integers 
+******* statefull
+#+begin_src java
+public class Squint {
+    public static void main(String[] args) {
+	for (int i=1; i<=20; i++)
+	    System.out.format("%d, \t%d\n"), i, i*i)
+}
+}
+#+end_src
+for loop change a state of variable i
+******* stateless
+#+begin_src java
+public class Squint {
+    public static void main(String[] args){
+	printSquares(20);
+    }
+}
+
+private static void printSquares(int n){
+    if(n > 0) {
+	printSquares(n-1);
+	System.out.format("%d, \t%d\n", n, n*n);
+	    }
+}
+#+end_src
+stateles. No variable is altered. Squint calls itself. New variable is being recreated but it dosent change state.
+****** side effect
+its assignment statement, all side effects are result of assignment statements, if there are not assignments statements there cannot be side effects. Only assignment statements change the state of variable. When you have a function that gives you a side effect you need another function to undo the side effect.
+Open->Close malloc->free - they are seperated in time, one must come before other first open then close. 
+****** multi core problem
+** Structured
+Aimed at improving the clarity, quality, and development time of a computer program by making extensive use of the structured control flow constructs of selection (if/then/else) and repetition (while and for), block structures, and subroutines.
+** Non-structured
+A program in a non-structured language uses unstructured jumps to labels or instruction addresses. The lines are usually numbered or may have labels: this allows the flow of execution to jump to any line in the program. This is in contrast to structured programming which uses structured constructs of selection (if/then/else) and repetition (while and for).
+** Links
 *** [[https://youtu.be/cgVVZMfLjEI][4 Programming Paradigms In 40 Minutes]]
 **** OOP
 - everything is an object
@@ -2972,10 +3087,8 @@ Can't find the answear on internet. I would like to play offline, set broadcast 
 ** Software design patterns
 *** Creational
     Creation of objects themselves - separate the construction of a complex object from its representation
-
 **** Factory
-     Separating the creation of an object from the actual implementation.
-     If creating the object is a complicated job you can do all of the work in the factory, instead of repeating it every time you want to create a new instance.
+     Separating the creation of an object from the actual implementation. If creating the object is a complicated job you can do all of the work in the factory, instead of repeating it every time you want to create a new instance.
 ***** Simple Factory
 #+BEGIN_SRC php
 class Bicycle
@@ -3451,7 +3564,7 @@ echo $christmasEmail->body;
 ***** Benchmark
 [[https://www.sitepoint.com/php-dependency-injection-container-performance-benchmarks/][PHP Dependency Injection Container Performance Benchmarks]]
 *** Behavioral
-    They work to explain how objects interact with each other; how they can send messages between each of the objects and how you can divide the steps of various tasks up among classes. Describe a flowing process.
+  They work to explain how objects interact with each other; how they can send messages between each of the objects and how you can divide the steps of various tasks up among classes. Describe a flowing process.
 
 **** Chain Of Responsibility
   Is an object oriented version of the if ... else if ... else if ....... else ... endif idiom
@@ -3741,6 +3854,8 @@ GOF
       Designed to act as a default value of an object
 **** Template method:
      Describes the program skeleton of a program
+**** State
+https://stitcher.io/blog/laravel-beyond-crud-05-states
 *** Concurrency
 
 ** Architectural patterns
@@ -4185,7 +4300,15 @@ composer require myclabs/php-enum
 | Unit Tests        | a class/method      | the source code            | very fast | low        | no           |
 | Integration Tests | a component/service | part of the running system | slow      | medium     | yes          |
 |                   |                     |                            |           |            |              |
+|                   |                     |                            |           |            |              |
+** Behat
+*** install
+behat/mink-extension
+*** config
+base_url: 'http://localhost' Remember that have to be with http:// 
 ** Notes 
+There are numerous benefits to writing unit tests; they help with regression, provide documentation, and facilitate good design. 
+
 Two Approach
 Test First 
 Test After
@@ -4207,12 +4330,13 @@ A double is a substitue for a real dependency
 
 Assertions base test - most framework
 
-dummies, fakes, spies, stubs, mocks
+dummies, spies, stubs, mocks, fakes
 
 dummies - a stand-in for a dependency when class signatures or functionality don't matter, like PHP stdObject - but fail on type hints :/
-fakes - dependency built without the use of framework tools
 stubs - substitue for a dependency and it matches the class signature, use stubs if you use type hints
 mocks - a stub that uses the framework tools - most common
+
+fakes - dependency built without the use of framework tools
 
 feedback loop
 
@@ -4280,22 +4404,55 @@ things don't break when you rewrite or refactor them.
 
 Isoloate One Method
 
+Pinpointing the problem
+
+** naming
+https://www.petrikainulainen.net/programming/testing/writing-clean-tests-naming-matters/
+https://docs.microsoft.com/en-us/dotnet/core/testing/unit-testing-best-practices
+** anitpatterns
+http://blog.codepipes.com/testing/software-testing-antipatterns.html
+** Why?
+*** Less coupled code
+When code is tightly coupled, it can be difficult to unit test. Without creating unit tests for the code that you're writing, coupling may be less apparent.
+Writing tests for your code will naturally decouple your code, because it would be more difficult to test otherwise.
+** PHPUnit
 $this->getMockBuilder(Object:class)
 ->setMethodExcept(['someMethod'])
 ->getMock();
+https://devstyle.pl/2013/04/22/testy-jednostkowe-materialy-do-nauki/
+*** xdebug
+#+BEGIN_SRC php
+private function getDebugQuery()
+{
+    $debuggingQuerystring = '';
+    if (isset($_GET['XDEBUG_SESSION_START'])) { // xdebug
+        $debuggingQuerystring = 'XDEBUG_SESSION_START=' . $_GET['XDEBUG_SESSION_START'];
+    }
+    if (isset($_COOKIE['XDEBUG_SESSION'])) { // xdebug (cookie)
+        $debuggingQuerystring = 'XDEBUG_SESSION_START=PHPSTORM';
+    }
+    if (isset($_GET['start_debug'])) { // zend debugger
+        $debuggingQuerystring = 'start_debug=' . $_GET['start_debug'];
+    }
+    if (empty($debuggingQuerystring)) {
+        $debuggingQuerystring = 'XDEBUG_SESSION_START=PHPSTORM';
+    }
 
-Pinpointing the problem
+    return $debuggingQuerystring;
+}
+#+END_SRC
 
-*** naming
-https://www.petrikainulainen.net/programming/testing/writing-clean-tests-naming-matters/
-*** anitpatterns
-http://blog.codepipes.com/testing/software-testing-antipatterns.html
-** Behat
-*** install
-behat/mink-extension
-*** config
-base_url: 'http://localhost' Remember that have to be with http:// 
-** PHPUnit
+php -dxdebug.remote_enable=1 -dxdebug.remote_autostart=1 --stop-on-failure vendor/bin/phpunit --colors=always
+*** naming 
+https://dzone.com/articles/7-popular-unit-test-naming
+**** MethodName_StateUnderTest_ExpectedBehavior
+***** MethodName - method name that being tested
+***** StateUnderTest - input value
+***** ExpectedBehaviour - what methods returns for specified input
+**** Feature to be tested: Many suggests that it is better to simply write the feature to be tested because one is anyway using annotations to identify method as test methods. It is also recommended for the reason that it makes unit tests as alternate form of documentation and avoid code smells. Following is how tests in first example would read like if named using this technique:
+***** IsNotAnAdultIfAgeLessThan18
+***** FailToWithdrawMoneyIfAccountIsInvalid
+***** StudentIsNotAdmittedIfMandatoryFieldsAreMissing
 *** Types of Test Doubles:
 **** Dummy 
 Used only as a placeholder when an argument needs to be filled in.
@@ -4310,6 +4467,15 @@ An actual implementation of the contract, but is unsuitable for production.
 *** Static vs. Non-Static Usage of Assertion Methods
 - https://phpunit.de/manual/6.5/en/appendixes.assertions.html#appendixes.assertions.static-vs-non-static-usage-of-assertion-methods
 - https://github.com/sebastianbergmann/phpunit/issues/1914
+** Mockery
+Mockery mocks out only the method which we specifically told it to. This means that the original constructor of the class we are mocking will be called.
+** structure/organize tests
+tests/
+\ unit/
+| - module1
+| - module2
+- integration/
+- functional/
 * Tools
 ** Frameworks
 *** Symfony
@@ -4326,13 +4492,29 @@ An actual implementation of the contract, but is unsuitable for production.
 - http://verraes.net/2013/04/decoupling-symfony2-forms-from-entities/ 
 **** Problems
 After update to Symfony 4 - blank page - remove var/bootstrap.php.cache
+**** Links
+- [[https://medium.com/@peter.lafferty/converting-a-json-post-in-symfony-13a24c98fc0e][Converting a json request to an array in Symfony]]
+- [[http://blog.code4hire.com/2017/07/loading-sql-sequentially-with-doctrine-fixtures-in-symfony-project/][Loading SQL sequentially with doctrine fixtures in Symfony project]]
 *** CodeIgniter
+*** Laravel
+**** tests
+https://www.youtube.com/watch?v=0Rjsuw1ScXg&list=PLpzy7FIRqpGAbkfdxo1MwOS9xjG3O3z1y
 *** Cora
 http://joebubna.github.io/Cora/
+*** Links
+- [[https://github.com/PatrickLouys/no-framework-tutorial][no-framework-tutorial]]
+- 
 ** Code Analize
 *** Code City
 https://www.reddit.com/r/PHP/comments/a079r6/php_implementation_of_code_city/
 *** https://www.phpmetrics.org/
+*** phploc
+#+begin_src shell
+wget https://phar.phpunit.de/phploc.phar
+chmod +x phploc.phar
+sudo mv phploc.phar /usr/local/bin/phploc
+#+end_src
+
 ** Composer
 - https://getcomposer.org/doc/articles/autoloader-optimization.md
 - http://mouf-php.com/optimizing-composer-autoloader-performance
@@ -4463,12 +4645,11 @@ So here we have function with 4 possible outcomes, since we have 2 statements th
 * Notepad
 1) Accurate predictions are an oxymoron in the real world. You can't predict accurately for things that aren't certain, and in almost all cases, developers won't know the systems they are dealing with fully enough. Moreover, they don't know their own personal efficiency from day to day; it just can't be foreseen accurately.
 2) A good property of software is the ability to change 
-3) Anyone can take a chance at improving code, but refactoring brings a discipline
-of safely making changes (with tests) and leveraging the knowledge accumulated by the software development community (through refactorings).
-- After all, like beauty, complexity is in the eye of the beholder. 
-- Using new programming languages will bring you new insights and ideas to already known languages. You get a better understanding.
-- It's not about clever, crAFTY, PREETY CODE. iT'S ABOUT FAST AND EFFECTIVE COMMUNICATION. It's about communication beetween people.
-- Any time someone sees some code that isn't as clear as  it should be, they should take the opportunity to fix it right there and then — or at least within a few minutes. This opportunistic refactoring is referred to by Uncle Bob as following the boy-scout rule — always leave the code behind in a better state than you found it.
+3) Anyone can take a chance at improving code, but refactoring brings a discipline of safely making changes (with tests) and leveraging the knowledge accumulated by the software development community (through refactorings).
+4) After all, like beauty, complexity is in the eye of the beholder. 
+5) Using new programming languages will bring you new insights and ideas to already known languages. You get a better understanding.
+6) It's not about clever, crAFTY, PREETY CODE. iT'S ABOUT FAST AND EFFECTIVE COMMUNICATION. It's about communication beetween people.
+7) Any time someone sees some code that isn't as clear as  it should be, they should take the opportunity to fix it right there and then — or at least within a few minutes. This opportunistic refactoring is referred to by Uncle Bob as following the boy-scout rule — always leave the code behind in a better state than you found it.
 ** Routing
 from most specific at the top to less specific at the bottom
 *** yml vs. annotations
@@ -4617,6 +4798,11 @@ usort($inventory, function ($item1, $item2) {
 1) [[https://www.tomasvotruba.cz/][Tomas Votruba]]
 2) https://dantleech.com/ Phpactor
 3) [[https://24daysindecember.net/2018/12/15/php-and-the-secrets-of-emergent-architecture/][PHP and the secrets of emergent architecture]]
+* Problems
+** PHP Add comma to every item but last one
+#+begin_src php
+$comma_separated = implode(", ", $vars);
+#+end_src
 * Quirks
 ** More parameter than expected: no error in PHP?
 https://bugs.php.net/bug.php?id=13892&fbclid=IwAR0r2lrYMJ5cuE9o9sygoCORtmQ9R-dca76OfmRoadijMjqHoVzMpQXHl9c
@@ -4654,6 +4840,10 @@ POST http://bank.com/transer.do HTTP/1.1
 #+END_SRC
 ** Cross-Site Scripting (XSS)
 XSS enables attackers to inject client-side scripts into web pages viewed by other users.
+** Links
+https://arstechnica.com/information-technology/2015/08/cracking-all-hacked-ashley-madison-passwords-could-take-a-lifetime/
+
+https://www.rdegges.com/2018/please-stop-using-local-storage/
 * Interface and User Experience
 **  [[https://en.wikipedia.org/wiki/Post/Redirect/Get][Redirect after a POST]] if that POST was successful, to prevent a refresh from submitting again.
 * Topics
@@ -4663,8 +4853,6 @@ XSS enables attackers to inject client-side scripts into web pages viewed by oth
 ** Namespace
 https://www.oligriffiths.com/2015/06/30/namespacing-in-PHP-and-how-we-broke-it/
 http://e-wojtowicz.pl/tag/spl_autoload_register/
-** Functional PHP
-- https://apiumhub.com/tech-blog-barcelona/functional-php/
 ** ReactPHP 
 https://www.youtube.com/channel/UC3EThWvNp4EabJD7PyCOzGw
 https://sergeyzhuk.me
@@ -4712,9 +4900,14 @@ https://3v4l.org/UYaFY
 http://cc.davelozinski.com/sql/fastest-way-to-insert-new-records-where-one-doesnt-already-exist
 ** micro
 https://veewee.github.io/blog/optimizing-php-performance-by-fq-function-calls/?fbclid=IwAR2EW0FMAUX_LkCy_Kjo94-WxGyIwllSUQwNxIx6EwTkROp4kKlyZgkDlTQ
+** questions
+- [[https://stackoverflow.com/questions/2617672/how-important-is-it-to-unset-variables-in-php][How important is it to unset variables in PHP?]]
+- [[https://stackoverflow.com/questions/584960/whats-better-at-freeing-memory-with-php-unset-or-var-null][What's better at freeing memory with PHP: unset() or $var = null]]
 * About
   It's a simple site about refactoring in PHP.
   
   You can contact me at slawomir.grochowski@gmail.com, https://twitter.com/s_grochowski, https://www.facebook.com/SlawomirGrochowski
   You can support this site: send some BitCoins 1D8xeRkxssTTLESfGZtPVoqVJDq7MJSqNx , send/buy one of the books I would like to read or just say Hello!
 
+#pytanieRekrutacyjne
+Dostajesz legacy projekt. Jest 100 testów. Odpalasz je - jedna połowa to 'errory i faile' druga połowa przechodzi 'na zielono'. Czas nagli. Co robisz?

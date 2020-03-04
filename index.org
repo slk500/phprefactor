@@ -23,6 +23,8 @@ public function setNumber(int $number): void
 [[https://github.com/dunglas/phpdoc-to-typehint][phpdoc-to-typehint]] adds automatically scalar type hints and return types to all functions and methods using existing PHPDoc annotations 
 **** Further Reading 
 https://thecodingmachine.io/type-hint-all-the-things
+/** @return Collection|Order[] */
+
 *** If you are type-hinting an array, you MUST document the array type in a docblock
 Smell: An array with elements of generic type or method which can throw Exception
 #+BEGIN_SRC php
@@ -1119,46 +1121,45 @@ final class Account
 #+END_SRC
 *** Pass a test
 ** Split Temporary Variable
-   Smell: Temporary variable is assigned to more than once (overwrite), but is not a loop variable nor a collecting temporary variable.
+Smell: Temporary variable is assigned to more than once (overwrite), but is not a loop variable nor a collecting temporary variable.
 #+BEGIN_SRC php
-$temp = $item.getPrice() * item.getQuantity();
+$temp = $itemPrice * $itemQuantity;
 echo "Total: $temp";
-$temp = order.getTotal() - order.getDiscount();
+$temp = $orderTotal - $orderDiscount;
 echo "Price after discount: $temp;"
 #+END_SRC
 *** Write a test that pass
 *** Refactor the code
-    Make a separate temporary variable for each assignment.
+Make a separate temporary variable for each assignment.
 #+BEGIN_SRC php
-$totalPrice = $item.getPrice() * item.getQuantity();
+$totalPrice = $itemPrice * $itemQuantity;
 echo "Total: $totalPrice";
-$totalDiscountPrice = order.getTotal() - order.getDiscount();
+$totalDiscountPrice = $orderTotal - $orderDiscount;
 echo "Price after discount: $totalDiscountPrice";
 #+END_SRC
-*** [#B] Pass a test
+*** Pass a test
 * Tutorials
-| [[https://www.pluralsight.com/courses/automated-tests-phpunit][Automated Tests with PHPUnit]]                     | Anna Filina              | testing - PHPUnit     |
-| [[https://industriallogic.com/xp/refactoring/catalog.html][Catalog of Refactoring to Patterns]]               | Joshua Kerievsky         | patterns              |
-| [[https://refactoring.com/catalog/][Catalog of Refactorings]]                          | Martin Fowler            | refactoring           |
-| [[https://github.com/jupeter/clean-code-php][Clean Code PHP]]                                   | Piotr Plenik             | clean code            |
-| [[https://code.tutsplus.com/courses/detecting-code-smells][Detecting Code Smells]]                            | Patkós Csaba             | refactoring           |
-| [[https://www.pluralsight.com/courses/encapsulation-solid][Encapsulation and SOLID]]                          | Mark Seemann             | SOLID                 |
-| [[https://youtu.be/Rdc3r2BJzWA][How to Refactor Like a Boss 1]]                    | Michael Cheng            | refactoring           |
-| [[https://youtu.be/2iXayIx4WyQ][How to Refactor Like a Boss 2]]                    | Michael Cheng            | refactoring           |
-| [[https://youtu.be/JCqbdVrIW30][HTTP Smoke Testing]]                               | Peter Heinz              | testing - smoke test  |
-| [[https://www.udemy.com/introduction-to-testing-with-phpunit/][Introduction to Testing with PHPUnit]]             | Trevor Sawler            | testing - PHPUnit     |
-| [[http://blog.adrianbolboaca.ro/2014/04/legacy-coderetreat/#sessions][Legacy Coderetreat (Java)]]                        | Adrian Bolboaca          | refactoring           |
-| [[https://github.com/exakat/php-static-analysis-tools][List of Static Analysis Tools]]                    |                          | analysis              |
-| [[https://www.lynda.com/PHP-tutorials/PHP-Testing-Legacy-Applications/669546-2.html][PHP: Testing Legacy Applications]]                 | Chris Hartjes            | testing - PHPUnit     |
-| [[https://www.lynda.com/Software-Development-tutorials/Programming-Foundations-Test-Driven-Development/124398-2.html][Programming Foundations: Test-Driven Development]] | Simon Allardice          | testing - TDD         |
-| [[https://youtu.be/0DYIJdX6kB4][Refactoring 101]]                                  | Adam Culp                | refactoring           |
-| [[https://code.tutsplus.com/series/refactoring-legacy-code--cms-633][Refactoring Legacy Code]]                          | Patkós Csaba             | refactoring           |
-| [[https://youtu.be/7v9ehGsPm1s][Refactoring Legacy Code]]                          | Adam Culp                | refactoring           |
-| [[https://adamwathan.me/refactoring-to-collections/][Refactoring to Collections]]                       | Adam Wathan              | collections           |
-| [[https://youtu.be/Fca-Ng0bzuk][Solving the N+1 Problem]]                          | Paul M. Jones            | database              |
-| [[https://youtu.be/65NrzJ_5j58][Steps Toward Modernizing a Legacy Codebase]]       | Paul M. Jones            | refactoring           |
-| [[https://code.tutsplus.com/courses/techniques-for-refactoring-code][Techniques for Refactoring Code]]                  | Patkós Csaba             | refactoring           |
-
+** [[https://www.pluralsight.com/courses/automated-tests-phpunit][Automated Tests with PHPUnit]]                      Anna Filina       testing - PHPUnit    
+** [[https://industriallogic.com/xp/refactoring/catalog.html][Catalog of Refactoring to Patterns]]                Joshua Kerievsky  patterns             
+** [[https://refactoring.com/catalog/][Catalog of Refactorings]]                           Martin Fowler     refactoring          
+** [[https://github.com/jupeter/clean-code-php][Clean Code PHP]]                                    Piotr Plenik      clean code           
+** [[https://code.tutsplus.com/courses/detecting-code-smells][Detecting Code Smells]]                             Patkós Csaba      refactoring          
+** [[https://www.pluralsight.com/courses/encapsulation-solid][Encapsulation and SOLID]]                           Mark Seemann      SOLID                
+** [[https://youtu.be/Rdc3r2BJzWA][How to Refactor Like a Boss 1]]                     Michael Cheng     refactoring          
+** [[https://youtu.be/2iXayIx4WyQ][How to Refactor Like a Boss 2]]                     Michael Cheng     refactoring          
+** [[https://youtu.be/JCqbdVrIW30][HTTP Smoke Testing]]                                Peter Heinz       testing - smoke test 
+** [[https://www.udemy.com/introduction-to-testing-with-phpunit/][Introduction to Testing with PHPUnit]]              Trevor Sawler     testing - PHPUnit    
+** [[http://blog.adrianbolboaca.ro/2014/04/legacy-coderetreat/#sessions][Legacy Coderetreat (Java)]]                         Adrian Bolboaca   refactoring          
+** [[https://github.com/exakat/php-static-analysis-tools][List of Static Analysis Tools]]                                       analysis             
+** [[https://www.lynda.com/PHP-tutorials/PHP-Testing-Legacy-Applications/669546-2.html][PHP: Testing Legacy Applications]]                  Chris Hartjes     testing - PHPUnit    
+** [[https://www.lynda.com/Software-Development-tutorials/Programming-Foundations-Test-Driven-Development/124398-2.html][Programming Foundations: Test-Driven Development]]  Simon Allardice   testing - TDD        
+** [[https://youtu.be/0DYIJdX6kB4][Refactoring 101]]                                   Adam Culp         refactoring          
+** [[https://code.tutsplus.com/series/refactoring-legacy-code--cms-633][Refactoring Legacy Code]]                           Patkós Csaba      refactoring          
+** [[https://youtu.be/7v9ehGsPm1s][Refactoring Legacy Code]]                           Adam Culp         refactoring          
+** [[https://adamwathan.me/refactoring-to-collections/][Refactoring to Collections]]                        Adam Wathan       collections          
+** [[https://youtu.be/Fca-Ng0bzuk][Solving the N+1 Problem]]                           Paul M. Jones     database             
+** [[https://youtu.be/65NrzJ_5j58][Steps Toward Modernizing a Legacy Codebase]]        Paul M. Jones     refactoring          
+** [[https://code.tutsplus.com/courses/techniques-for-refactoring-code][Techniques for Refactoring Code]]                   Patkós Csaba      refactoring
 ** [[https://youtu.be/7LoShYRnljU][Extremely Defensive PHP Programming]] Marco Pivetta (Ocramius) 
 - poka yoka 
 - code is not reusable - do not trust the code.
@@ -1342,9 +1343,19 @@ CodeSniffer
 2) No Rules Are Universal. All Rules Need Context. All rules are contextual.
 3) Agile is not what you do. Agility is how you do it.
 4) If you about to jump put of airplane for the first time you don't care about the theory of aerodynamics you what to know what you pull and when
-
-
 ** [[https://github.com/HugoMatilla/Refactoring-Summary][Summary of "Refactoring: Improving the Design of Existing Code" by Martin Fowler]]
+** [[https://vimeo.com/108441214][Greg Young - The art of destroying software]]  
+creating code
+refactoring code
+deleting code
+
+delete ability
+small programs
+unix philospohy
+rewrite ability
+alan kay object orientation
+diff great & sucky code is size of the program
+good code - small isolated programs that can be deleted on the fly
 ** Symfony
 *** https://github.com/ThomasBerends/symfony-certification-preparation-list
 *** [[https://symfonycasts.com/screencast/symfony4-upgrade][Upgrade to Symfony4 and Flex!]]
@@ -1371,47 +1382,48 @@ CodeSniffer
 *** [[https://kamilkokot.com/tame-behat-with-the-brand-new-symfony-extension/?fbclid=IwAR17apSVE_yYyXy7a0jxjokr70BcyZ7hbCujDenu6jKoxQcdQhY8zeW_aCo][Tame Behat with the Brand New Symfony Extension]]
 *** [[https://speakerdeck.com/doncallisto/behat-from-zero-to-hero-a-practical-guide-to-symfony-integration-and-usage?slide=118][Behat from zero to hero - A practical guide to symfony integration and usage]]
 * Books
-** Others   
-  | author                                                                            | title                                                                                                                | topic       | info        | year |                                                                                                                                                                                                              |
-  |-----------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------+-------------+-------------+------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-  | Andrew Hunt, David Thomas                                                         | The Pragmatic Programmer: From Journeyman to Master                                                                  | overall     | skip        | 1999 | a lot of tips & tricks but too old                                                                                                                                                                           |
-  | William J. Brown, Raphael C. Malveau, Hays W. "Skip" McCormick, Thomas J. Mowbray | Antipatterns. Refactoring Software, Archtectures and Projects in Crisis                                              |             |             | 1998 |                                                                                                                                                                                                              |
-  |                                                                                   | Refactoring in Large Software Projects                                                                               |             |             | 2006 |                                                                                                                                                                                                              |
-  | Phillip A. Laplante, Colin J. Neill                                               | Antipatterns: Identification, Refactoring, and Management                                                            |             |             | 2005 |                                                                                                                                                                                                              |
-  |                                                                                   | Fifty Quick Ideas To Improve Your Tests                                                                              | tests       |             |      |                                                                                                                                                                                                              |
-  |                                                                                   | Growing Object-Oriented Software, Guided by Tests                                                                    |             |             |      |                                                                                                                                                                                                              |
-  |                                                                                   | Working Effectively with Unit Tests                                                                                  |             |             |      |                                                                                                                                                                                                              |
-  |                                                                                   | Scalable Internet Architectures                                                                                      |             |             |      |                                                                                                                                                                                                              |
-  |                                                                                   | SQL for Smarties: Advanced SQL Programming                                                                           | database    |             | 2005 |                                                                                                                                                                                                              |
-  |                                                                                   | Anthology  The Thoughtworks Anthology - Essays on Software Technology and Innovation                                 |             |             | 2008 |                                                                                                                                                                                                              |
-  |                                                                                   | Anthology  The ThoughtWorks Anthology 2 - More Essays on Software Technology and Innovation                          |             |             | 2012 |                                                                                                                                                                                                              |
-  | Beck, Kent                                                                        | Extreme Programming Explained: Embrace Change                                                                        | overall     | can be read | 1999 |                                                                                                                                                                                                              |
-  | Bernstein, David Scott                                                            | Beyond Legacy Code                                                                                                   |             |             | 2015 | Want to read                                                                                                                                                                                                 |
-  | Bhargava, Aditya                                                                  | Grokking Algorithms: An illustrated guide for programmers and other curious people                                   |             | must read   | 2017 | Fully illustrated, friendly, easy to read guide, worth to read. When you will stumble upon a problem, you will know how to recognize it and chose the right Algorithm                                        |
-  | Bloch, Joshua                                                                     | Effective Java                                                                                                       |             |             | 2018 |                                                                                                                                                                                                              |
-  | Buenosvinos, Carlos                                                               | Domain-Driven Design in PHP                                                                                          |             |             | 2016 |                                                                                                                                                                                                              |
-  | Bugayenko, Yegor                                                                  | Elegant Objects                                                                                                      |             |             | 2016 | Want to read                                                                                                                                                                                                 |
-  | Fowler, Martin                                                                    | Patterns of Enterprise Application Architecture                                                                      |             |             | 2012 |                                                                                                                                                                                                              |
-  | Francesco Trucchia, Jacopo Romei                                                  | Pro PHP Refactoring                                                                                                  |             |             | 2010 | Old, without PHP 7 but still the best PHP book about refactoring. Great examples. Worth to have.                                                                                                             |
-  | Ganesh, Samarthyam; Tushar, Sharma                                                | Refactoring for Software Design Smells: Managing Technical Debt                                                      |             |             | 2015 | Catalog of smells. Focus on smell point of view. Also they introduce smell classification scheme, naming scheme for design smells which helps to increase awerness of smells. So definetly must read. (Java) |
-  | Halladay, Steve                                                                   | Principle-Based Refactoring: Learning Software Design Principles by Applying Refactoring Rules                       |             |             | 2012 | Want to read                                                                                                                                                                                                 |
-  | Jones, Paul M.                                                                    | Modernizing Legacy Apps In PHP                                                                                       |             |             | 2014 |                                                                                                                                                                                                              |
-  | Junade, Ali                                                                       | Mastering PHP Design Patterns                                                                                        |             |             | 2016 | Little bit inmature, poorly written. Having a lot of tips and information about broad variaty of things which is a good place on website but not in the book. Code examples could be much better.            |
-  | Karwin, Bill                                                                      | SQL Antipatterns - Avoiding The Pitfalls of Database Programming                                                     | database    |             | 2010 |                                                                                                                                                                                                              |
-  | Kerievsky, Joshua                                                                 | Refactoring to Patterns                                                                                              |             |             | 2004 |                                                                                                                                                                                                              |
-  | Rahman, Mizanur                                                                   | PHP 7 Data Structures and Algorithms                                                                                 | refactoring | must have   | 2017 |                                                                                                                                                                                                              |
-  | Scott J Ambler and Pramod J. Sadalage                                             | Refactoring Databases - Evolutionary Database Design                                                                 | refactoring | must read   | 2006 | It's catalog of refactorings for database                                                                                                                                                                    |
-  | Stephane Faroult, Pascal L'Hermite                                                | Refactoring SQL Application                                                                                          | database    |             | 2008 |                                                                                                                                                                                                              |
-  | Tornhill, Adam                                                                    | Your Code as a Crime Scene - Use Forensic Techniques to Arrest Defects, Bottlenecks, and Bad Design in Your Programs |             |             | 2015 |                                                                                                                                                                                                              |
-  | West, David                                                                       | Object Thinking                                                                                                      |             |             | 2004 |                                                                                                                                                                                                              |
-  | Zandstra, Matt                                                                    | PHP Objects, Patterns, and Practice                                                                                  |             | can be read | 2008 | Pretty old. But written with precise language and with great examples                                                                                                                                        |
-  |                                                                                   |                                                                                                                      |             |             |      |                                                                                                                                                                                                              |
-  |                                                                                   |                                                                                                                      |             |             |      |                                                                                                                                                                                                              |
-  |                                                                                   |                                                                                                                      |             |             |      |                                                                                                                                                                                                              |
-  |                                                                                   |                                                                                                                      |             |             |      |                                                                                                                                                                                                              |
-** xUnit Test Patterns - Refactoring Test Code LOOKING FOR
+** Andrew Hunt, David Thomas - The Pragmatic Programmer: From Journeyman to Master	
+overall	skip	1999	a lot of tips & tricks but too old
+** William J. Brown, Raphael C. Malveau, Hays W. "Skip" McCormick, Thomas J. Mowbray Antipatterns. Refactoring Software, Archtectures and Projects in Crisis	1998
+** Refactoring in Large Software Projects 2006	
+** Phillip A. Laplante, Colin J. Neill	Antipatterns: Identification, Refactoring, and Management 2005	
+** Fifty Quick Ideas To Improve Your Tests tests			
+** Growing Object-Oriented Software, Guided by Tests				
+** Working Effectively with Unit Tests				
+** Scalable Internet Architectures 	
+** SQL for Smarties: Advanced SQL Programming	database 2005
+** Anthology  The Thoughtworks Anthology - Essays on Software Technology and Innovation 2008	
+** Anthology  The ThoughtWorks Anthology 2 - More Essays on Software Technology and Innovation 2012	
+** Beck, Kent	Extreme Programming Explained: Embrace Change	overall	can be read 1999	
+** Bernstein, David Scott Beyond Legacy Code 2015 Want to read
+** Bhargava, Aditya	Grokking Algorithms: An illustrated guide for programmers and other curious people 
+mmust read	2017	Fully illustrated, friendly, easy to read guide, worth to read. When you will stumble upon a problem, you will know how to recognize it and chose the right Algorithm
+** Bloch, Joshua	Effective Java	2018	
+** Buenosvinos, Carlos	Domain-Driven Design in PHP 2016	
+** Bugayenko, Yegor	Elegant Objects	2016
+Want to read
+** Fowler, Martin	Patterns of Enterprise Application Architecture 2012	
+** Francesco Trucchia, Jacopo Romei	Pro PHP Refactoring 2010
+Old, without PHP 7 but still the best PHP book about refactoring. Great examples. Worth to have.
+** Ganesh, Samarthyam; Tushar, Sharma	Refactoring for Software Design Smells: Managing Technical Debt 2015
+Catalog of smells. Focus on smell point of view. Also they introduce smell classification scheme, naming scheme for design smells which helps to increase awerness of smells. So definetly must read. (Java)
+** Halladay, Steve Principle-Based Refactoring: Learning Software Design Principles by Applying Refactoring Rules 2012
+Want to read
+** Jones, Paul M. Modernizing Legacy Apps In PHP 2014	
+** Junade, Ali	Mastering PHP Design Patterns 2016 
+Little bit inmature, poorly written. Having a lot of tips and information about broad variaty of things which is a good place on website but not in the book. Code examples could be much better.
+** Karwin, Bill SQL Antipatterns - Avoiding The Pitfalls of Database Programming 2010	
+** Kerievsky, Joshua	Refactoring to Patterns	2004	
+** Rahman, Mizanur	PHP 7 Data Structures and Algorithms 2017	
+** Scott J Ambler and Pramod J. Sadalage Refactoring Databases - Evolutionary Database Design 2006
+refactoring	must read It's catalog of refactorings for database
+** Stephane Faroult, Pascal L'Hermite	Refactoring SQL Application 2008	
+** Tornhill, Adam	Your Code as a Crime Scene - Use Forensic Techniques to Arrest Defects, Bottlenecks, and Bad Design in Your Programs 2015	
+** West, David Object Thinking  2004
+** Back-end Performance
+https://www.oreilly.com/library/view/back-end-performance/9781492069362/
+** TODO xUnit Test Patterns - Refactoring Test Code
 http://xunitpatterns.com/index.html
-
 ** Object Design Style Guide Matthias Noback
 ** Build APIs You Won't Hate
 ** McConnel, Steve "Code Complete 2"
@@ -1528,565 +1540,12 @@ Classes and objects should have noun or noun phrase names like Customer, WikiPag
 ** Martin, Robert C.; Agile Software Development: Principles, Patterns, and Practices; 2002
 ** Design It!: From Programmer to Software Architect (The Pragmatic Programmers) 1st Edition by Michael Keelin
 ** Mastering the SPL Library
-* Database
-** Refactorings
-*** Add CRUD Methods 
-    Introduce stored procedures (methods) to implement the creation,
-    retrieval, update, and deletion (CRUD) of the data representing a business entity.
-*** Add Foreign Key Constraint
-    Add a foreign key constraint to an existing table to enforce
-    a relationship to another table.
-*** Add Lookup Table
-    Create a lookup table for an existing column.
-*** Add Mirror Table
-    Create a mirror table, an exact duplicate of an existing table in one
-    database, in another database.
-*** Add Parameter
-    Existing method needs information that was not passed in before.
-*** Add Read Method 
-    Introduce a methodin this case, a stored procedureto implement the
-    retrieval of the data representing zero or more business entities from the database.
-*** Add Trigger For Calculated Column 
-    Introduce a new trigger to update the value
-    contained in a calculated column.
-*** Apply Standard Codes 
-    Apply a standard set of code values to a single column to ensure
-    that it conforms to the values of similar columns stored elsewhere in the database.
-*** Apply Standard Type
-    Ensure that the data type of a column is consistent with the data
-    type of other similar columns within the database.
-*** Consolidate Conditional Expression 
-    Combine sequence of conditional tests into a
-    single conditional expression and extract it.
-*** Consolidate Key Strategy 
-    Choose a single key strategy for an entity and apply it
-    consistently throughout your database.
-*** Decompose Conditional
-    Extract methods from the condition.
-*** Drop Column 
-    Remove a column from an existing table.
-*** Drop Column Constraint 
-    Remove a column constraint from an existing table.
-*** Drop Default Value 
-    Remove the default value that is provided by a database from an
-    existing table column.
-*** Drop Foreign Key Constraint 
-    Remove a foreign key constraint from an existing table so
-    that a relationship to another table is no longer enforced by the database.
-*** Drop Non-Nullable 
-    Change an existing non-nullable column so that it accepts null
-    values.
-*** Drop Table 
-    Remove an existing table from the database.
-*** Drop View 
-    Remove an existing view.
-*** Encapsulate Table With View 
-    Wrap access to an existing table with a view.
-*** Extract Method 
-    Turn the code fragment into a method whose name explains the
-    purpose of the method.Insert Data (page 296): Insert data into an existing table.
-*** Introduce Calculated Column 
-    Introduce a new column based on calculations involving
-    data in one or more tables.
-*** Introduce Calculation Method
-    Introduce a new method, typically a stored function,
-    which implements a calculation that uses data stored within the database.
-*** Introduce Cascading Delete
-    Ensure that the database automatically deletes the
-    appropriate "child records" when a "parent record" is deleted.
-*** Introduce Column Constraint
-    Introduce a column constraint in an existing table.
-*** Introduce Common Format
-    Apply a consistent format to all the data values in an
-    existing table column.
-*** Introduce Default Value 
-    Let the database provide a default value for an existing table
-    column.
-*** Introduce Hard Delete 
-    Remove an existing column which indicates that a row has been
-    deleted and instead actually delete the row.
-*** Introduce Index 
-    Introduce a new index of either unique or non-unique type.
-*** Introduce New Column 
-    Introduce a new column in an existing table.
-*** Introduce New Table 
-Introduce a new table in an existing database.
-*** Introduce Read-Only Table 
-    Create a read-only data store based on existing tables in
-    the database.
-*** DONE Introduce Soft Delete 
-Introduce a flag to an existing table which indicates that a row has been deleted instead of actually deleting the row.
-**** Motivation 
-preserve all application data, typically for historical means.
-**** Tradeoffs 
-***** more data - table have to store valid rows and those mark as deleted 
-***** performance - more data means reduction in query performace - the additional work of distinguishing between deleted and nondeleted rows
-***** code complexity 
-****** mostly in every query we would have to remember add 'where isDeleted = false'
-****** you may have associations going from Table A to Table B and when you soft delete something from Table A, you need to ensure that independent queries on Table B take care of that fact. 
-***** break immutability
-ORM - objects are not deleted they are being mutated - you are modyfing data not deleting
-***** break data integrity
-- like a half of data in database is valid other half is invalid
-- can happen - foreign key from valid to invalid data
-**** How
-***** Introduce New Column
-****** isDeleted 
-******* bool not null false 
-******* date/timestamp null
-***** Update 
-****** application 
-****** database trigger - it is simple and it avoids the risk that the applications will not update the column properly      
-**** Opposite
-Introduce Hard Delete
-*** Introduce Surrogate Key 
-Replace an existing natural key with a surrogate key.
-*** Introduce Trigger For History 
-Introduce a new trigger to capture data changes for historical purposes.
-**** Motivation
-delegate the tracking of data changes to the database itself
-*** Introduce Variable 
-    Put the result of the expression, or parts of the expression, in a
-    temporary variable with a name that explains the purpose.
-*** Introduce View 
-    Create a view based on existing tables in the database.
-**** Motivation
-***** Summarize data for reporting. Many reports require summary data, which can be generated via the view definition.
-***** Replace redundant reads. Several external programs, or stored procedures for that matter, often implement the same retrieval query. These queries can be replaced by a common readonly table or view.
-***** Data security. A view can be used to provide end users with read access to data but not update privileges.
-***** Encapsulate access to a table. Some organizations choose to encapsulate access to tables by defining updateable views that external programs access instead of the source tables. This enables the organization to easily perform database refactorings such as Rename Column (page 109) or Rename Table (page 113) without impacting the external applications, because views add an encapsulation layer between your tables and your application.
-***** Reduce SQL duplication. When you have complex SQL queries in an application, it is common to discover that parts of the SQL are duplicated in many places. When this is the case, you should introduce views to extract out the duplicate SQL, as shown in the example section.
-
-**** Tradeoffs
-***** poor performance of the joins
-***** increases the coupling with database schemas
-
-*** Make Column Non-Nullable 
-    Change an existing column so that it does not accept any
-    null values.
-*** Merge Columns 
-    Merge two or more columns within a single table.
-*** Merge Tables
-    Merge two or more tables into a single table.
-*** Migrate Method From Database
-    Rehost an existing database method (a stored
-    procedure, stored function, or trigger) in the application(s) which currently invoke it.
-*** Migrate Method To Database 
-    Rehost existing application logic in the database.
-*** Move Column 
-    Migrate a table column, with all of its data, to another existing table.
-*** Move Data 
-    Move the data contained within a table, either all or a subset of its columns,
-    to another existing table.
-*** Parameterize Method 
-    Create one method that uses a parameter for the different
-    values.
-*** Remove Control Flag 
-    Use return or break instead of a variable acting as a control flag.
-*** Remove Middle Man 
-    Get the caller to call the method directly.
-*** Remove Parameter 
-    Remove a parameter no longer used by the method body.
-*** Rename Column
-    Rename an existing table column with a name that explains its purpose.
-*** Rename Method
-    Rename an existing method with a name that explains its purpose.
-*** Rename Table
-    Rename an existing table with a name that explains its purpose.
-*** Rename View
-    Rename an existing view with a name that explains its purpose.
-*** Reorder Parameters 
-    Change the order of the parameters of a method.
-*** Replace Column 
-    Replace an existing non-key column with a new one.
-*** Replace LOB With Table 
-    Replace a large object (LOB) column that contains structured data with a new table or in the same table.
-*** Replace Literal With Table Lookup 
-    Replace code constants with values from database tables.
-*** Replace Method(s) With View 
-    Create a view based on one or more existing database
-    methods (stored procedures, stored functions, or triggers) within the database.
-*** Replace Nested Conditional With Guard Clauses 
-    Remove nested if conditions with a series of separate IF statements.
-*** Replace One-To-Many With Associative Table 
-    Replace a one-to-many association between two tables with an associative table.
-*** Replace Parameter With Explicit Methods 
-    Create a separate method for each value of the parameter.
-*** Replace Surrogate Key With Natural Key 
-    Replace a surrogate key with an existing natural key.
-*** Replace Type Code With Property Flags 
-    Replace a code column with individual property flags, usually implemented as Boolean columns, within the same table column.
-*** Replace View With Method(s) 
-    Replace an existing view with one or more existing
-    methods (stored procedures, stored functions, or triggers) within the database.
-*** Split Column 
-    Split a column into one or more columns within a single table.
-*** Split Table 
-    Vertically split (e.g., by columns) an existing table into one or more tables.
-*** Split Temporary Variable 
-    Make a separate temporary variable for each assignment.
-*** Substitute Algorithm 
-    Replace the body of the method with the new algorithm.
-*** Update Data 
-    Update data within an existing table.
-*** Use Official Data Source 
-    Use the official data source for a given entity, instead of the
-    current one you are using.
-** MySQL vs. PostgreSQL
-
-|---------------------------------------+----------------------------------------------|
-| MySQL                                 | PostgreSQL                                   |
-|---------------------------------------+----------------------------------------------|
-| relational database management system | object-relational database management system |
-|---------------------------------------+----------------------------------------------|
-|                                       |                                              |
-
-
-similar to a relational database, but with an object-oriented database model: objects, classes and inheritance are directly supported in database schemas and in the query language. In addition, just as with pure relational systems, it supports extension of the data model with custom data types and methods. 
-
-The characteristic properties of ORDBMS are 1) complex data, 2) type inheritance, and 3) object behavior. Complex data creation in most SQL ORDBMSs is based on preliminary schema definition via the user-defined type (UDT). Hierarchy within structured complex data offers an additional property, type inheritance. That is, a structured type can have subtypes that reuse all of its attributes and contain additional attributes specific to the subtype. Another advantage, the object behavior, is related with access to the program objects
-
-** ACID
-*** Atomicity
-Transactions are often composed of multiple statements. Atomicity guarantees that each transaction is treated as a single "unit", which either succeeds completely, or fails completely: if any of the statements constituting a transaction fails to complete, the entire transaction fails and the database is left unchanged. An atomic system must guarantee atomicity in each and every situation, including power failures, errors and crashes.
-
-*** Consistency
-Consistency ensures that a transaction can only bring the database from one valid state to another, maintaining database invariants: any data written to the database must be valid according to all defined rules, including constraints, cascades, triggers, and any combination thereof. This prevents database corruption by an illegal transaction, but does not guarantee that a transaction is correct. Referential integrity guarantees the primary key - foreign key relationship.
-
-*** Isolation
-Transactions are often executed concurrently (e.g., multiple transactions reading and writing to a table at the same time). Isolation ensures that concurrent execution of transactions leaves the database in the same state that would have been obtained if the transactions were executed sequentially. Isolation is the main goal of concurrency control; depending on the method used, the effects of an incomplete transaction might not even be visible to other transactions.
-Durability
-
-*** Durability  
-guarantees that once a transaction has been committed, it will remain committed even in the case of a system failure (e.g., power outage or crash). This usually means that completed transactions (or their effects) are recorded in non-volatile memory.
-** Links
-- https://use-the-index-luke.com/
-- https://www.alexkras.com/my-sql-pretty-print-in-command-line/
-- [[https://www.percona.com/blog/2018/07/12/why-mysql-stored-procedures-functions-triggers-bad-performance/][Why MySQL Stored Procedures, Functions and Triggers Are Bad For Performance]]
-- https://opensource.com/article/17/5/speed-your-mysql-queries-300-times 
-- [[https://codeshack.io/super-fast-php-mysql-database-class/][Super-fast PHP MySQL Database Class]]
-- [[https://phpdelusions.net/mysqli/mysqli_connect][How to connect properly using mysqli]]
-** actions
-*** Add Auto-Increment ID to existing table?
-ALTER TABLE `table` ADD COLUMN `id` INT AUTO_INCREMENT UNIQUE FIRST;
-*** How to change collation of a column?
-ALTER TABLE <table_name> MODIFY <column_name> VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-*** views 
- select y.table_schema,
-	y.table_name,
-	y.view_len,
-	y.referenced_views
-                                                           views,
-	cast((y.view_len - y.wo_from) / 4 - 1 as unsigned) subqueries,
-	cast((y.view_len - y.wo_union) / 5 as unsigned)
-                                                           unions,
-	cast((y.view_len - y.wo_distinct) / 8 as unsigned) distincts,
-	cast((y.view_len - y.wo_group) / 5 as unsigned)
-                                                           groups
- from (select x.table_schema,
-              x.table_name,
-              x.view_len,
-              cast(x.referenced_views as unsigned) referenced_views,
-              length(replace(upper(x.view_definition), 'FROM', '')) wo_from,
-              length(replace(upper(x.view_definition), 'UNION', '')) wo_union,
-              length(replace(upper(x.view_definition), 'DISTINCT', '')) wo_distinct,
-              length(replace(upper(x.view_definition), 'GROUP', '')) wo_group
-       from (select v1.table_schema,
-                    v1.table_name,
-                    v1.view_definition,
-                    length(v1.view_definition) view_len,
-                    sum(case
-                          when v2.table_name is not null
-                                  then (length(v1.view_definition)
-                                          - length(replace(v1.view_definition,
-                                                           v2.table_name, '')))
-                                         /length(v2.table_name)
-                          else 0
-                            end) referenced_views
-             from information_schema.views v1
-                    left outer join information_schema.views v2
-                      on v1.table_schema = v2.table_schema
-             where v1.table_name <> v2.table_name
-             group by v1.table_schema,
-                      v1.table_name,
-                      v1.view_definition) x
-       group by x.table_schema,
-		x.table_name) y
- order by 1, 2;
-*** copy
- If you want to copy the table structure including its keys, then you should use:
-
-#+BEGIN_SRC sql
- CREATE TABLE `new_table_name` LIKE `old_table_name`;
- #+END_SRC
-
- #+BEGIN_SRC sql
- CREATE TABLE `new_table_name` SELECT * FROM `old_table_name`;
- #+END_SRC
-
- #+BEGIN_SRC sql
- (select * from A) except (select * from B) union (select * from B) except select * from A)
- #+END_SRC
-
-*** dump
- mysqldump -R --triggers -u root -p culture > file.sql
-*** indexes 
- select t.table_name,
-	t.table_rows,
-	count(distinct s.index_name) indexes,
-	case
-          when min(s.unicity) is null then 'N'
-          when min(s.unicity) = 0 then 'Y'
-          else 'N'
-            end unique_index,
-	sum(case s.columns
-              when 1 then 1
-              else 0
-		end) single_column,
-	sum(case
-              when s.columns is null then 0
-              when s.columns = 1 then 0
-              else 1
-		end) multi_column
- from information_schema.tables t
-	left outer join (select table_schema,
-				table_name,
-				index_name,
-				max(seq_in_index) columns,
-				min(non_unique) unicity
-                         from information_schema.statistics
-                         where table_schema = schema( )
-                         group by table_schema,
-                                  table_name,
-                                  index_name) s
-          on s.table_schema = t.table_schema
-               and s.table_name = t.table_name
- where t.table_schema = schema( )
- group by t.table_name,
-          t.table_rows
- order by 3, 1;
- massive hardware injection
-
- --log-slow-queries
- --log-queries-not-using-indexes
-** ORM
-[[https://odetocode.com/blogs/scott/archive/2010/06/13/repositories-and-the-save-method.aspx][Repositories and the Save Method]]
-Online Transaction Processing (OLTP)
-ast prototaping
-*** Doctrine 
-**** first last name search
-#+BEGIN_SRC php
-$qb->where($qb->expr()->andX(
-    $qb->expr()->orX(
-        $qb->expr()->like(
-            $qb->expr()->concat('employee_alias.firstName', $qb->expr()->concat($qb->expr()->literal(' '), 'employee_alias.lastName')),
-            $qb->expr()->literal($phrase.'%')
-        ),
-        $qb->expr()->like(
-            $qb->expr()->concat('employee_alias.lastName', $qb->expr()->concat($qb->expr()->literal(' '), 'employee_alias.firstName')),
-            $qb->expr()->literal($phrase.'%')
-        )
-    ))
-);
-#+END_SRC
-**** rawSQL from query builder
-#+BEGIN_SRC php
-$sql = $query->getSQL();
-
-$parameters = [];
-foreach ($query->getParameters() as $parameter) {
-    $parameters[] = $parameter->getValue();
-}
-
-$result = $connection->executeQuery($sql, $parameters)
-                     ->fetchAll();
-#+END_SRC
-**** mariaDb error
-https://marenkay.com/2018/06/12/symfony-doctrine-mariadb/
-** Mysqli
-https://stackoverflow.com/questions/2552545/mysqli-prepared-statements-error-reporting
-** SLOW QUERY LOG
-- open my.cnf
-  slow_query_log = ON
-  long_query = 2
-  slow_query_log_file=/path/to/file
-- queries taking 2s or longer will be logged
-- open the log file and analyze the queries
-
-
-https://www.red-gate.com/simple-talk/sql/t-sql-programming/database-refactoring/
-
-
-
-TIPS
-Avoid functions on an indexed columns
-SELECT id, title FRMO PICTURE
-WHERE YEAR(create_date) >= 2001
-The index won't be used here
-
-LIMIT
-
-BETWEEN
-AND picture.id BETWEEN 26 AND 50;
-Only makes sense if that column is indexed
-
-IN
-AND picture.id IN (10,15,16)
-
-Archive Tables?
-Split Databases and tables
-
-Remove unused index
-
-B-Tree Index
-- each leaf node contains a link to the next node for the fast range traversals
-- values are stored in order
-- each leaf page is at the same distance from root level
-- InnoDB
-
-- storage engine traverses from root node to leaf node with the help of pointers
-- increase performance of following query patterns:
-  - full value (e.g: Pluralsight, Pinal Dave)
-  - leftmost value or column prefix (e.g: Plural from Pluralsight, Pinal from Pinal Dave)
-  - range of value (e.g 1 to 99, AAron to Fritz, Aaron to Kei%)
-- helps ORDER BY clause to increase the performance
-
-  Clustered Index
-  + rows with adjacent key values are stored close to each other
-  + related data is stored close to each other leading less disk I/O while retrieving sequential or range data
-  + faster data access as data and index are stored together at leaf node
-
-  - data insertion speed is dependent on the order of the Primary Key
-  - updating the clustered index column is expensive as data is moved based on its size to different on location
-    Secondary Index
-** int vs varchar id
-https://stackoverflow.com/questions/332300/is-there-a-real-performance-difference-between-int-and-varchar-primary-keys
-** Information Schema
-select t.table_name, count(*)
-from information_schema.columns c
-join information_schema.tables t on t.table_name = c.table_name
-where t.Table_type = 'BASE TABLE'
-group by t.TABLE_NAME
-
-select t.table_name
-from information_schema.tables t
-where t.Table_type = 'BASE TABLE'
-group by t.TABLE_NAME
-** Count 
-select lecture_id, count(*) as Count
-from customer_service_contract_to_lecture
-group by lecture_id
-having count(*) > 1
-massive hardware injection
-
---log-slow-queries
---log-queries-not-using-indexes
-
-** testing 
-*** compare output of 2 queries
-
-If you want to copy the table structure including its keys, then you should use:
-
-#+BEGIN_SRC sql
-CREATE TABLE `new_table_name` LIKE `old_table_name`;
-
---view 
-CREATE TABLE query_invoice_first_positions_golden_master AS (
-SELECT *
-FROM query_invoice_first_positions
-) 
-#+END_SRC
-
-#+BEGIN_SRC sql
-CREATE TABLE `new_table_name` SELECT * FROM `old_table_name`;
-#+END_SRC
-
-#+BEGIN_SRC sql
---mardiadb 10.3
-(select * from A) except (select * from B) union (select * from B) except select * from A)
-#+END_SRC
-
-#+BEGIN_SRC sql
---mardiadb 10.3
-select invoice_id, name
-from(
-select qi.invoice_id, qi.name
-from query_invoice_first_positions qi
-union all
-select gold.invoice_id, gold.name
-from query_invoice_first_positions_golden_master gold
-) t
-group by invoice_id, name
-having count(*) = 1
-order by invoice_id
-#+END_SRC
-
-not case sensitive!
-** cardinality
-select t.table_name,
-t.table_rows,
-s.index_name,
-s.column_name,
-s.cardinality
-from information_schema.tables t
-left outer join information_schema.statistics s
-on s.table_schema = t.table_schema
-and s.table_name = t.table_name
-where t.table_schema = schema( )
-order by t.table_name,
-s.index_name,
-s.seq_in_index;
-** SQL_FOUND_ROWS
-http://developers-club.com/posts/81034/
-** Collation key length
-https://stackoverflow.com/questions/1814532/1071-specified-key-was-too-long-max-key-length-is-767-bytes
-#+BEGIN_SRC sql
-ALTER TABLE subscribe_user_tag ADD UNIQUE `key_user_id_tag_slug_id` (user_id, tag_slug_id);
-
-SELECT * FROM INFORMATION_SCHEMA.SCHEMATA;
-
-SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME LIKE '%subscribe%'
-
-ALTER TABLE subscribe_user_tag MODIFY COLUMN tag_slug_id varchar(255) COLLATE latin1_general_ci
-#+END_SRC
-** Not Empty
-https://stackoverflow.com/questions/24424363/mysql-column-constraint-as-not-empty-required
-** notes
-SHOW GLOBAL VARIABLES
-
-SHOW GLOBAL STATUS
-
-optimizer_max_permutations w Oraclu -> co sie dzieje kiedy idzie zapytanie -> wpierw optimizer probuje znalezc optimal
-
-innodb_buffer_pool_size    134217728 -> 400M
-join_buffer_size    262144 -> 1M
-query_cache_type    OFF -> 1
-query_cache_size    1048576 -> 50M
-query_cache_limit    1048576 -> 4M
-
-MariaDB [(none)]> set global innodb_buffer_pool_size = 419430400;
-
-MariaDB [(none)]> SET GLOBAL query_cache_size = 1000000;
-
-MariaDB [(none)]> SET GLOBAL query_cache_limit = (select 4*1024*1024);
-
-MariaDB [(none)]> SET GLOBAL join_buffer_size = (select 4*1024*1024);
-
-CREATE DATABASE testdb;
-CREATE USER 'testuser'@'localhost' IDENTIFIED BY 'password';
-GRANT ALL PRIVILEGES ON testdb.* TO testuser@localhost;
-FLUSH PRIVILEGES;
-quit
-
-mysqldump -R --triggers -u root -p culture > file.sql
-
-From the mysql console:
-
-mysql> use DATABASE_NAME;
-
-mysql> source path/to/file.sql;
+** Zandstra, Matt "PHP Objects, Patterns, and Practice" 2008
+Pretty old. But written with precise language and with great examples                                                                                                                                        |
+** TODO The Psychology of Computer Programming
 * Smells
 ** Booch’s fundamental design principles
+based on Ganesh, Samarthyam; Tushar, Sharma	Refactoring for Software Design Smells: Managing Technical Debt
 *** abstraction
 **** Missing Abstraction
  Clumps of data or encoded strings are used instead of creating a class or an interface
@@ -2132,40 +1591,31 @@ mysql> source path/to/file.sql;
  Data clumps — This smell occurs when there are clumps of data items that
  occur together in lots of places instead of creating a class.
 **** Imperative Abstraction
-  Consider the case of a large-sized financial application. This application employs
-             classes named CreateReport, CopyReport, DisplayReport, etc. to deal with its report
-             generation functionality. Each class has exactly one method definition named create,
-             copy, display, etc., respectively, and suffers from Imperative Abstraction smell. The
-             data items relating to a report such as name of the report, data elements that need to be
-             displayed in the report, kind of report, etc. are housed in a “data class” named Report.
-             The smell not only increases the number of classes (in this case there are at least
-             four classes when ideally one could have been used), but also increases the complex-
-             ity involved in development and maintenance because of the unnecessary separation
-             of cohesive methods
+Consider the case of a large-sized financial application. This application employs classes named CreateReport, CopyReport, DisplayReport, etc. to deal with its report generation functionality. Each class has exactly one method definition named create, copy, display, etc., respectively, and suffers from Imperative Abstraction smell. The data items relating to a report such as name of the report, data elements that need to be  displayed in the report, kind of report, etc. are housed in a “data class” named Report. The smell not only increases the number of classes (in this case there are at least four classes when ideally one could have been used), but also increases the complexity involved in development and maintenance because of the unnecessary separation of cohesive methods.
 
-             Reification
-             “Reification” is the promotion or elevation of something that is not an object into an
-             object. When we reify behavior, it is possible to store it, pass it, or transform it. Reifica-
-             tion improves flexibility of the system at the cost of introducing some complexity [52].
-             Many design patterns [54] employ reification. Examples:
+Reification
+“Reification” is the promotion or elevation of something that is not an object into an
+object. When we reify behavior, it is possible to store it, pass it, or transform it. Reifica-
+tion improves flexibility of the system at the cost of introducing some complexity [52].
+Many design patterns [54] employ reification. Examples:
 
 
-             • State pattern: Encoding a state-machine.
+• State pattern: Encoding a state-machine.
 
-             • Command pattern: Encoding requests as command objects. A permitted excep-
-             tion for this smell is when a Command pattern has been used to objectify
-             method requests.
+• Command pattern: Encoding requests as command objects. A permitted excep-
+tion for this smell is when a Command pattern has been used to objectify
+method requests.
 
-             • Strategy pattern: Parameterizing a procedure in terms of an operation it uses.
+• Strategy pattern: Parameterizing a procedure in terms of an operation it uses.
 
-             In other words, when we consciously design in such a way to elevate non-objects
-             to objects for better reusability, flexibility, and extensibility (i.e., for improving
-             design quality), it is not a smell.
+In other words, when we consciously design in such a way to elevate non-objects
+to objects for better reusability, flexibility, and extensibility (i.e., for improving
+design quality), it is not a smell.
 
 
-             ALIASES
-             “Operation class” [51,52] — This smell occurs when an operation that should
-             have been a method within a class has been turned into a class itself.
+ALIASES
+“Operation class” [51,52] — This smell occurs when an operation that should
+have been a method within a class has been turned into a class itself.
 **** Incomplete Abstraction
  An abstraction (entity or interface) does not support complementary or interrelated methods completely
  For example, if we need to be able to add or remove elements in a data
@@ -2429,6 +1879,655 @@ use App\Contract\Query as
 *** Speculative Generality
     “Oh, I think we’ll need the ability to do this kind of thing someday”
 *** Temporary Field
+* Database
+** config
+MySQL configuration file:
+mysql --help | grep "Default options" -A 1
+https://www.digitalocean.com/community/tutorials/how-to-allow-remote-access-to-mysql
+
+*** this works
+Log in to the MySQL on the remote database server and create a user which is allowed to access database server remotely from 203.0.113.2:
+
+mysql> CREATE USER 'root'@'203.0.113.2' IDENTIFIED BY 'root_password';
+mysql> GRANT ALL PRIVILEGES ON *.* TO 'root'@'203.0.113.2' WITH GRANT OPTION;
+mysql> FLUSH PRIVILEGES;
+
+Or database user which can access the server from any host:
+
+mysql> CREATE USER 'root'@'%' IDENTIFIED BY 'root_password';
+mysql> GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' WITH GRANT OPTION;
+mysql> FLUSH PRIVILEGES;
+** commmands
+SELECT @@sql_mode 
+** Stuctures
+*** Hierarchical database model
+The hierarchical database model mandates that each child record has only one parent, whereas each parent record can have one or more child records.
+**** Adjacency List Model
+**** Nested set model
+- The model doesn't allow for multiple parent categories. For example, an 'Oak' could be a child of 'Tree-Type', but also 'Wood-Type'. An additional tagging or taxonomy has to be established to accommodate this, again leading to a design more complex than a straightforward fixed model. [SQL Antipatterns. p. 328.]
+** Refactorings
+*** Add CRUD Methods 
+    Introduce stored procedures (methods) to implement the creation,
+    retrieval, update, and deletion (CRUD) of the data representing a business entity.
+*** Add Foreign Key Constraint
+    Add a foreign key constraint to an existing table to enforce
+    a relationship to another table.
+*** Add Lookup Table
+    Create a lookup table for an existing column.
+*** Add Mirror Table
+    Create a mirror table, an exact duplicate of an existing table in one
+    database, in another database.
+*** Add Parameter
+    Existing method needs information that was not passed in before.
+*** Add Read Method 
+    Introduce a methodin this case, a stored procedureto implement the
+    retrieval of the data representing zero or more business entities from the database.
+*** Add Trigger For Calculated Column 
+    Introduce a new trigger to update the value
+    contained in a calculated column.
+*** Apply Standard Codes 
+    Apply a standard set of code values to a single column to ensure
+    that it conforms to the values of similar columns stored elsewhere in the database.
+*** Apply Standard Type
+    Ensure that the data type of a column is consistent with the data
+    type of other similar columns within the database.
+*** Consolidate Conditional Expression 
+    Combine sequence of conditional tests into a
+    single conditional expression and extract it.
+*** Consolidate Key Strategy 
+    Choose a single key strategy for an entity and apply it
+    consistently throughout your database.
+*** Decompose Conditional
+    Extract methods from the condition.
+*** Drop Column 
+    Remove a column from an existing table.
+*** Drop Column Constraint 
+    Remove a column constraint from an existing table.
+*** Drop Default Value 
+    Remove the default value that is provided by a database from an
+    existing table column.
+*** Drop Foreign Key Constraint 
+    Remove a foreign key constraint from an existing table so
+    that a relationship to another table is no longer enforced by the database.
+*** Drop Non-Nullable 
+    Change an existing non-nullable column so that it accepts null
+    values.
+*** Drop Table 
+    Remove an existing table from the database.
+*** Drop View 
+    Remove an existing view.
+*** Encapsulate Table With View 
+    Wrap access to an existing table with a view.
+*** Extract Method 
+    Turn the code fragment into a method whose name explains the
+    purpose of the method.Insert Data (page 296): Insert data into an existing table.
+*** Introduce Calculated Column 
+    Introduce a new column based on calculations involving
+    data in one or more tables.
+*** Introduce Calculation Method
+    Introduce a new method, typically a stored function,
+    which implements a calculation that uses data stored within the database.
+*** Introduce Cascading Delete
+    Ensure that the database automatically deletes the
+    appropriate "child records" when a "parent record" is deleted.
+*** Introduce Column Constraint
+    Introduce a column constraint in an existing table.
+*** Introduce Common Format
+    Apply a consistent format to all the data values in an
+    existing table column.
+*** Introduce Default Value 
+    Let the database provide a default value for an existing table
+    column.
+*** Introduce Hard Delete 
+    Remove an existing column which indicates that a row has been
+    deleted and instead actually delete the row.
+*** Introduce Index 
+    Introduce a new index of either unique or non-unique type.
+*** Introduce New Column 
+    Introduce a new column in an existing table.
+*** Introduce New Table 
+Introduce a new table in an existing database.
+*** Introduce Read-Only Table 
+    Create a read-only data store based on existing tables in
+    the database.
+*** DONE Introduce Soft Delete 
+Introduce a flag to an existing table which indicates that a row has been deleted instead of actually deleting the row.
+**** Motivation 
+preserve all application data, typically for historical means.
+**** Tradeoffs 
+***** more data - table have to store valid rows and those mark as deleted 
+***** performance - more data means reduction in query performace - the additional work of distinguishing between deleted and nondeleted rows
+***** code complexity 
+****** mostly in every query we would have to remember add 'where isDeleted = false'
+****** you may have associations going from Table A to Table B and when you soft delete something from Table A, you need to ensure that independent queries on Table B take care of that fact. 
+***** break immutability
+ORM - objects are not deleted they are being mutated - you are modyfing data not deleting
+***** break data integrity
+- like a half of data in database is valid other half is invalid
+- can happen - foreign key from valid to invalid data
+**** How
+***** Introduce New Column
+****** isDeleted 
+******* bool not null false 
+******* date/timestamp null
+***** Update 
+****** application 
+****** database trigger - it is simple and it avoids the risk that the applications will not update the column properly      
+**** Opposite
+Introduce Hard Delete
+*** Introduce Surrogate Key 
+Replace an existing natural key with a surrogate key.
+*** Introduce Trigger For History 
+Introduce a new trigger to capture data changes for historical purposes.
+**** Motivation
+delegate the tracking of data changes to the database itself
+*** Introduce Variable 
+    Put the result of the expression, or parts of the expression, in a
+    temporary variable with a name that explains the purpose.
+*** Introduce View 
+    Create a view based on existing tables in the database.
+**** Motivation
+***** Summarize data for reporting. Many reports require summary data, which can be generated via the view definition.
+***** Replace redundant reads. Several external programs, or stored procedures for that matter, often implement the same retrieval query. These queries can be replaced by a common readonly table or view.
+***** Data security. A view can be used to provide end users with read access to data but not update privileges.
+***** Encapsulate access to a table. Some organizations choose to encapsulate access to tables by defining updateable views that external programs access instead of the source tables. This enables the organization to easily perform database refactorings such as Rename Column (page 109) or Rename Table (page 113) without impacting the external applications, because views add an encapsulation layer between your tables and your application.
+***** Reduce SQL duplication. When you have complex SQL queries in an application, it is common to discover that parts of the SQL are duplicated in many places. When this is the case, you should introduce views to extract out the duplicate SQL, as shown in the example section.
+
+**** Tradeoffs
+***** poor performance of the joins
+***** increases the coupling with database schemas
+
+*** Make Column Non-Nullable 
+    Change an existing column so that it does not accept any
+    null values.
+*** Merge Columns 
+    Merge two or more columns within a single table.
+*** Merge Tables
+    Merge two or more tables into a single table.
+*** Migrate Method From Database
+    Rehost an existing database method (a stored
+    procedure, stored function, or trigger) in the application(s) which currently invoke it.
+*** Migrate Method To Database 
+    Rehost existing application logic in the database.
+*** Move Column 
+    Migrate a table column, with all of its data, to another existing table.
+*** Move Data 
+    Move the data contained within a table, either all or a subset of its columns,
+    to another existing table.
+*** Parameterize Method 
+    Create one method that uses a parameter for the different
+    values.
+*** Remove Control Flag 
+    Use return or break instead of a variable acting as a control flag.
+*** Remove Middle Man 
+    Get the caller to call the method directly.
+*** Remove Parameter 
+    Remove a parameter no longer used by the method body.
+*** Rename Column
+    Rename an existing table column with a name that explains its purpose.
+*** Rename Method
+    Rename an existing method with a name that explains its purpose.
+*** Rename Table
+    Rename an existing table with a name that explains its purpose.
+*** Rename View
+    Rename an existing view with a name that explains its purpose.
+*** Reorder Parameters 
+    Change the order of the parameters of a method.
+*** Replace Column 
+    Replace an existing non-key column with a new one.
+*** Replace LOB With Table 
+    Replace a large object (LOB) column that contains structured data with a new table or in the same table.
+*** Replace Literal With Table Lookup 
+    Replace code constants with values from database tables.
+*** Replace Method(s) With View 
+    Create a view based on one or more existing database
+    methods (stored procedures, stored functions, or triggers) within the database.
+*** Replace Nested Conditional With Guard Clauses 
+    Remove nested if conditions with a series of separate IF statements.
+*** Replace One-To-Many With Associative Table 
+    Replace a one-to-many association between two tables with an associative table.
+*** Replace Parameter With Explicit Methods 
+    Create a separate method for each value of the parameter.
+*** Replace Surrogate Key With Natural Key 
+    Replace a surrogate key with an existing natural key.
+*** Replace Type Code With Property Flags 
+    Replace a code column with individual property flags, usually implemented as Boolean columns, within the same table column.
+*** Replace View With Method(s) 
+    Replace an existing view with one or more existing
+    methods (stored procedures, stored functions, or triggers) within the database.
+*** Split Column 
+    Split a column into one or more columns within a single table.
+*** Split Table 
+    Vertically split (e.g., by columns) an existing table into one or more tables.
+*** Split Temporary Variable 
+    Make a separate temporary variable for each assignment.
+*** Substitute Algorithm 
+    Replace the body of the method with the new algorithm.
+*** Update Data 
+    Update data within an existing table.
+*** Use Official Data Source 
+    Use the official data source for a given entity, instead of the
+    current one you are using.
+** NoSQL
+*** [[https://app.pluralsight.com/courses/cc31161d-22da-4590-b95d-83bb67545fef/table-of-contents][Understanding NoSQL]]
+**** don't offer ACID
+**** eventual consistency
+similar to DNS propagation
+**** indexing
+are indexed by key, some allow so-called "secondary" indexes
+**** MapReduce
+** MySQL vs. PostgreSQL
+
+|---------------------------------------+----------------------------------------------|
+| MySQL                                 | PostgreSQL                                   |
+|---------------------------------------+----------------------------------------------|
+| relational database management system | object-relational database management system |
+|---------------------------------------+----------------------------------------------|
+|                                       |                                              |
+
+
+similar to a relational database, but with an object-oriented database model: objects, classes and inheritance are directly supported in database schemas and in the query language. In addition, just as with pure relational systems, it supports extension of the data model with custom data types and methods. 
+
+The characteristic properties of ORDBMS are 1) complex data, 2) type inheritance, and 3) object behavior. Complex data creation in most SQL ORDBMSs is based on preliminary schema definition via the user-defined type (UDT). Hierarchy within structured complex data offers an additional property, type inheritance. That is, a structured type can have subtypes that reuse all of its attributes and contain additional attributes specific to the subtype. Another advantage, the object behavior, is related with access to the program objects
+** Dictionary
+massive hardware injection
+** ACID
+*** Atomicity
+Transactions are often composed of multiple statements. Atomicity guarantees that each transaction is treated as a single "unit", which either succeeds completely, or fails completely: if any of the statements constituting a transaction fails to complete, the entire transaction fails and the database is left unchanged. An atomic system must guarantee atomicity in each and every situation, including power failures, errors and crashes.
+
+*** Consistency
+Consistency ensures that a transaction can only bring the database from one valid state to another, maintaining database invariants: any data written to the database must be valid according to all defined rules, including constraints, cascades, triggers, and any combination thereof. This prevents database corruption by an illegal transaction, but does not guarantee that a transaction is correct. Referential integrity guarantees the primary key - foreign key relationship.
+
+*** Isolation
+Transactions are often executed concurrently (e.g., multiple transactions reading and writing to a table at the same time). Isolation ensures that concurrent execution of transactions leaves the database in the same state that would have been obtained if the transactions were executed sequentially. Isolation is the main goal of concurrency control; depending on the method used, the effects of an incomplete transaction might not even be visible to other transactions.
+Durability
+
+*** Durability  
+guarantees that once a transaction has been committed, it will remain committed even in the case of a system failure (e.g., power outage or crash). This usually means that completed transactions (or their effects) are recorded in non-volatile memory.
+** Links
+- https://use-the-index-luke.com/
+- https://www.alexkras.com/my-sql-pretty-print-in-command-line/
+- [[https://www.percona.com/blog/2018/07/12/why-mysql-stored-procedures-functions-triggers-bad-performance/][Why MySQL Stored Procedures, Functions and Triggers Are Bad For Performance]]
+- https://opensource.com/article/17/5/speed-your-mysql-queries-300-times 
+- [[https://codeshack.io/super-fast-php-mysql-database-class/][Super-fast PHP MySQL Database Class]]
+- [[https://phpdelusions.net/mysqli/mysqli_connect][How to connect properly using mysqli]]
+** actions
+*** Add Auto-Increment ID to existing table?
+ALTER TABLE `table` ADD COLUMN `id` INT AUTO_INCREMENT UNIQUE FIRST;
+*** How to change collation of a column?
+ALTER TABLE <table_name> MODIFY <column_name> VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+*** views 
+ select y.table_schema,
+	y.table_name,
+	y.view_len,
+	y.referenced_views
+                                                           views,
+	cast((y.view_len - y.wo_from) / 4 - 1 as unsigned) subqueries,
+	cast((y.view_len - y.wo_union) / 5 as unsigned)
+                                                           unions,
+	cast((y.view_len - y.wo_distinct) / 8 as unsigned) distincts,
+	cast((y.view_len - y.wo_group) / 5 as unsigned)
+                                                           groups
+ from (select x.table_schema,
+              x.table_name,
+              x.view_len,
+              cast(x.referenced_views as unsigned) referenced_views,
+              length(replace(upper(x.view_definition), 'FROM', '')) wo_from,
+              length(replace(upper(x.view_definition), 'UNION', '')) wo_union,
+              length(replace(upper(x.view_definition), 'DISTINCT', '')) wo_distinct,
+              length(replace(upper(x.view_definition), 'GROUP', '')) wo_group
+       from (select v1.table_schema,
+                    v1.table_name,
+                    v1.view_definition,
+                    length(v1.view_definition) view_len,
+                    sum(case
+                          when v2.table_name is not null
+                                  then (length(v1.view_definition)
+                                          - length(replace(v1.view_definition,
+                                                           v2.table_name, '')))
+                                         /length(v2.table_name)
+                          else 0
+                            end) referenced_views
+             from information_schema.views v1
+                    left outer join information_schema.views v2
+                      on v1.table_schema = v2.table_schema
+             where v1.table_name <> v2.table_name
+             group by v1.table_schema,
+                      v1.table_name,
+                      v1.view_definition) x
+       group by x.table_schema,
+		x.table_name) y
+ order by 1, 2;
+*** copy
+ If you want to copy the table structure including its keys, then you should use:
+
+#+BEGIN_SRC sql
+ CREATE TABLE `new_table_name` LIKE `old_table_name`;
+ #+END_SRC
+
+ #+BEGIN_SRC sql
+ CREATE TABLE `new_table_name` SELECT * FROM `old_table_name`;
+ #+END_SRC
+
+ #+BEGIN_SRC sql
+ (select * from A) except (select * from B) union (select * from B) except select * from A)
+ #+END_SRC
+
+*** dump
+ mysqldump -R --triggers -u root -p culture > file.sql
+*** indexes 
+ select t.table_name,
+	t.table_rows,
+	count(distinct s.index_name) indexes,
+	case
+          when min(s.unicity) is null then 'N'
+          when min(s.unicity) = 0 then 'Y'
+          else 'N'
+            end unique_index,
+	sum(case s.columns
+              when 1 then 1
+              else 0
+		end) single_column,
+	sum(case
+              when s.columns is null then 0
+              when s.columns = 1 then 0
+              else 1
+		end) multi_column
+ from information_schema.tables t
+	left outer join (select table_schema,
+				table_name,
+				index_name,
+				max(seq_in_index) columns,
+				min(non_unique) unicity
+                         from information_schema.statistics
+                         where table_schema = schema( )
+                         group by table_schema,
+                                  table_name,
+                                  index_name) s
+          on s.table_schema = t.table_schema
+               and s.table_name = t.table_name
+ where t.table_schema = schema( )
+ group by t.table_name,
+          t.table_rows
+ order by 3, 1;
+ massive hardware injection
+
+ --log-slow-queries
+ --log-queries-not-using-indexes
+*** add foreign key
+ALTER TABLE tag
+ADD FOREIGN KEY (parent_slug_id) REFERENCES tag(tag_slug_id);
+** ORM
+[[https://odetocode.com/blogs/scott/archive/2010/06/13/repositories-and-the-save-method.aspx][Repositories and the Save Method]]
+Online Transaction Processing (OLTP)
+ast prototaping
+*** Doctrine 
+**** first last name search
+#+BEGIN_SRC php
+$qb->where($qb->expr()->andX(
+    $qb->expr()->orX(
+        $qb->expr()->like(
+            $qb->expr()->concat('employee_alias.firstName', $qb->expr()->concat($qb->expr()->literal(' '), 'employee_alias.lastName')),
+            $qb->expr()->literal($phrase.'%')
+        ),
+        $qb->expr()->like(
+            $qb->expr()->concat('employee_alias.lastName', $qb->expr()->concat($qb->expr()->literal(' '), 'employee_alias.firstName')),
+            $qb->expr()->literal($phrase.'%')
+        )
+    ))
+);
+#+END_SRC
+**** rawSQL from query builder
+#+BEGIN_SRC php
+$sql = $query->getSQL();
+
+$parameters = [];
+foreach ($query->getParameters() as $parameter) {
+    $parameters[] = $parameter->getValue();
+}
+
+$result = $connection->executeQuery($sql, $parameters)
+                     ->fetchAll();
+#+END_SRC
+**** mariaDb error
+https://marenkay.com/2018/06/12/symfony-doctrine-mariadb/
+**** all tables names
+$entities = array();
+$em = $this->getDoctrine()->getManager();
+$meta = $em->getMetadataFactory()->getAllMetadata();
+foreach ($meta as $m) {
+$entities[] = $m->getName();
+//or getTableName()
+}
+
+$em = $this->getDoctrine()->getManager();
+$entity_fields_name = $em->getClassMetadata($selectedEntity)->getFieldNames();
+*** Benchmark
+[[https://github.com/adrianmiu/forked-php-orm-benchmark][php-orm-benchmark]]
+
+| Library                 | Insert | findPk | complex | hydrate | with | memory usage | time |
+|-------------------------+--------+--------+---------+---------+------+--------------+------|
+| PDO                     |     22 |      3 |       8 |      52 |  136 | 1,674,776    | 0.23 |
+| AtlasOrm                |    240 |     39 |     267 |     202 |  176 | 12,160,896   | 0.98 |
+| CycleOrm                |    410 |    177 |     347 |     387 |  839 | 14,245,168   | 2.23 |
+| PHPixie                 |    598 |     74 |     342 |     185 |  256 | 7,906,272    | 1.47 |
+| DoctrineM               |    189 |     37 |     303 |     315 |  267 | 18,874,368   | 1.22 |
+| DoctrineMWithCache      |    201 |     37 |     260 |     259 |  226 | 18,874,368   | 1.09 |
+| DoctrineMArrayHydrate   |    197 |     42 |     250 |     117 |  130 | 16,777,216   | 0.84 |
+| DoctrineMScalarHydrate  |    194 |     37 |     241 |     107 |  112 | 16,777,216   | 0.79 |
+| DoctrineMWithoutProxies |    206 |     39 |     302 |     152 |  336 | 18,874,368   | 1.14 |
+| Eloquent                |    528 |     60 |     279 |     220 |  356 | 12,582,912   | 1.48 |
+| EloquentWithoutEvent    |    507 |     80 |     320 |     152 |  311 | 12,582,912   | 1.40 |
+
+*** Notes
+One of the criticisms of more raw SQL methods is that you end up with all these VOs (value objects) or DTOs (data transfer objects) that are used by simply one query. This is touted as an advantage of ORMs because you get rid of that.
+
+Thing is those problems don't go away with ORMs, they simply move up to the presentation layer. Instead of creating VOs/DTOs for queries, you create custom presentation objects, typically one for every view. How is this better? IMHO it isn't.
+** Mysqli
+https://stackoverflow.com/questions/2552545/mysqli-prepared-statements-error-reporting
+** SLOW QUERY LOG
+- open my.cnf
+  slow_query_log = ON
+  long_query = 2
+  slow_query_log_file=/path/to/file
+- queries taking 2s or longer will be logged
+- open the log file and analyze the queries
+
+
+https://www.red-gate.com/simple-talk/sql/t-sql-programming/database-refactoring/
+
+
+
+TIPS
+Avoid functions on an indexed columns
+SELECT id, title FRMO PICTURE
+WHERE YEAR(create_date) >= 2001
+The index won't be used here
+
+LIMIT
+
+BETWEEN
+AND picture.id BETWEEN 26 AND 50;
+Only makes sense if that column is indexed
+
+IN
+AND picture.id IN (10,15,16)
+
+Archive Tables?
+Split Databases and tables
+
+Remove unused index
+
+B-Tree Index
+- each leaf node contains a link to the next node for the fast range traversals
+- values are stored in order
+- each leaf page is at the same distance from root level
+- InnoDB
+
+- storage engine traverses from root node to leaf node with the help of pointers
+- increase performance of following query patterns:
+  - full value (e.g: Pluralsight, Pinal Dave)
+  - leftmost value or column prefix (e.g: Plural from Pluralsight, Pinal from Pinal Dave)
+  - range of value (e.g 1 to 99, AAron to Fritz, Aaron to Kei%)
+- helps ORDER BY clause to increase the performance
+
+  Clustered Index
+  + rows with adjacent key values are stored close to each other
+  + related data is stored close to each other leading less disk I/O while retrieving sequential or range data
+  + faster data access as data and index are stored together at leaf node
+
+  - data insertion speed is dependent on the order of the Primary Key
+  - updating the clustered index column is expensive as data is moved based on its size to different on location
+    Secondary Index
+** int vs varchar id
+https://stackoverflow.com/questions/332300/is-there-a-real-performance-difference-between-int-and-varchar-primary-keys
+** Information Schema
+select t.table_name, count(*)
+from information_schema.columns c
+join information_schema.tables t on t.table_name = c.table_name
+where t.Table_type = 'BASE TABLE'
+group by t.TABLE_NAME
+
+select t.table_name
+from information_schema.tables t
+where t.Table_type = 'BASE TABLE'
+group by t.TABLE_NAME
+** Count 
+select lecture_id, count(*) as Count
+from customer_service_contract_to_lecture
+group by lecture_id
+having count(*) > 1
+
+--log-slow-queries
+--log-queries-not-using-indexes
+** Benchmark
+*** Percona Monitor
+https://medium.com/@prasadjay/percona-monitoring-and-management-b10b6d84f89a
+
+yum install pmm-client
+on error - https://jira.percona.com/browse/PMM-627 yum install initscripts 
+
+pmm.cnf 
+[mysqld]
+innodb_monitor_enable=all
+performance_schema=ON
+
+https://www.linuxjournal.com/content/if-software-funded-public-source-its-code-should-be-open-source
+
+conventions - are things that aren't forced software we using but user expect them
+** testing 
+*** compare output of 2 queries
+
+If you want to copy the table structure including its keys, then you should use:
+
+#+BEGIN_SRC sql
+CREATE TABLE `new_table_name` LIKE `old_table_name`;
+
+--view 
+CREATE TABLE query_invoice_first_positions_golden_master AS (
+SELECT *
+FROM query_invoice_first_positions
+) 
+#+END_SRC
+
+#+BEGIN_SRC sql
+CREATE TABLE `new_table_name` SELECT * FROM `old_table_name`;
+#+END_SRC
+
+#+BEGIN_SRC sql
+--mardiadb 10.3
+(select * from A) except (select * from B) union (select * from B) except select * from A)
+#+END_SRC
+
+#+BEGIN_SRC sql
+--mardiadb 10.3
+select invoice_id, name
+from(
+select qi.invoice_id, qi.name
+from query_invoice_first_positions qi
+union all
+select gold.invoice_id, gold.name
+from query_invoice_first_positions_golden_master gold
+) t
+group by invoice_id, name
+having count(*) = 1
+order by invoice_id
+#+END_SRC
+
+not case sensitive!
+** cardinality
+select t.table_name,
+t.table_rows,
+s.index_name,
+s.column_name,
+s.cardinality
+from information_schema.tables t
+left outer join information_schema.statistics s
+on s.table_schema = t.table_schema
+and s.table_name = t.table_name
+where t.table_schema = schema( )
+order by t.table_name,
+s.index_name,
+s.seq_in_index;
+** SQL_FOUND_ROWS
+http://developers-club.com/posts/81034/
+** Collation key length
+https://stackoverflow.com/questions/1814532/1071-specified-key-was-too-long-max-key-length-is-767-bytes
+#+BEGIN_SRC sql
+ALTER TABLE subscribe_user_tag ADD UNIQUE `key_user_id_tag_slug_id` (user_id, tag_slug_id);
+
+SELECT * FROM INFORMATION_SCHEMA.SCHEMATA;
+
+SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME LIKE '%subscribe%'
+
+ALTER TABLE subscribe_user_tag MODIFY COLUMN tag_slug_id varchar(255) COLLATE latin1_general_ci
+#+END_SRC
+** Not Empty
+https://stackoverflow.com/questions/24424363/mysql-column-constraint-as-not-empty-required
+** import/export
+*** import
+mysql -u slk -p culture < 28-12-2019_tag_tree_path.sql
+*** export
+mysqldump -R --triggers -u root -p culture > file.sql
+** notes
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'root';
+
+SHOW GLOBAL VARIABLES
+
+SHOW GLOBAL STATUS
+
+optimizer_max_permutations w Oraclu -> co sie dzieje kiedy idzie zapytanie -> wpierw optimizer probuje znalezc optimal
+innodb_buffer_pool_size    134217728 -> 400M
+join_buffer_size    262144 -> 1M
+query_cache_type    OFF -> 1
+query_cache_size    1048576 -> 50M
+query_cache_limit    1048576 -> 4M
+
+MariaDB [(none)]> set global innodb_buffer_pool_size = 419430400;
+
+MariaDB [(none)]> SET GLOBAL query_cache_size = 1000000;
+
+MariaDB [(none)]> SET GLOBAL query_cache_limit = (select 4*1024*1024);
+
+MariaDB [(none)]> SET GLOBAL join_buffer_size = (select 4*1024*1024);
+
+CREATE DATABASE testdb;
+CREATE USER 'testuser'@'localhost' IDENTIFIED BY 'password';
+GRANT ALL PRIVILEGES ON testdb.* TO testuser@localhost;
+FLUSH PRIVILEGES;
+quit
+
+mysql> source path/to/file.sql;
+** Query
+*** NOT IN
+SELECT  *
+FROM    tag m
+WHERE   NOT EXISTS
+(
+SELECT  1
+FROM    video_tag e
+WHERE   e.tag_slug_id = m.tag_slug_id
+)
 * Codebases
 | Name                              | Lines of Code | Description                                                                                   | Tutorials                       |
 |-----------------------------------+---------------+-----------------------------------------------------------------------------------------------+---------------------------------|
@@ -2661,6 +2760,15 @@ https://www.youtube.com/watch?time_continue=221&v=z3BDOoB8csA
 - data never delivered to the user
 *** Links 
 https://www.slideshare.net/dseguy/hunt-for-dead-code
+*** Tombstone
+**** [[https://youtu.be/29UXzfQWOhQ][David Schnepper's Ignite talk, "Isn't That Code Dead?"]]
+https://github.com/scheb/tombstone
+https://github.com/krakjoe/tombs
+https://github.com/SolidWorx/Burial
+
+netstat -a -p --unix
+
+** [[https://en.wikipedia.org/wiki/Bus_factor][Bus Factor]]
 * Practices
 ** Always Use 'declare(stric_types=1)'
 #+BEGIN_SRC php
@@ -2874,11 +2982,12 @@ Depend on abstractions, not concretions. Program to an, interface, not an implem
 **** opposite
      Big Ball of Mud
 *** Big Ball of Mud
+http://www.laputan.org/mud/
 *** Command Query Separation (CQS)
 *** Composition Over Inheritance	
 *** YAGNI
 *** Don't Repeat Yourself (DRY)
-    http://web-techno.net/dry-principle-explained/
+http://web-techno.net/dry-principle-explained/
 *** The Law of Demeter (LoD)
 Each unit should only talk to its friends; don't talk to strangers.	
 - Object Calisthenics - One Arrow Per Line
@@ -2888,6 +2997,7 @@ Each unit should only talk to its friends; don't talk to strangers.
 *** Api
 **** Tools
 [[https://github.com/Crell/ApiProblem][APIProblem]]
+https://medium.com/@ideneal/symfony-4-a-good-way-to-deal-with-exceptions-for-rest-api-afd8b615c923
 **** under_score vs camelCase vs kebab
 - https://github.com/json-api/json-api/issues/1255
 - https://stackoverflow.com/questions/10302179/hyphen-underscore-or-camelcase-as-word-delimiter-in-uris
@@ -2903,12 +3013,21 @@ Pluralization of resource names in REST URIs is the widely adopted standard foll
 | DELETE | /resources     |            | deletes all resource items And for single resource items:         |
 | GET    | /resources/:id | show       | returns a specific resource item based on :id parameter           |
 | POST   | /resources/:id | create     | creates one resource item with specified id (requires validation) |
-| PUT    | /resources/:id | update     | updates a specific resource item                                  |
-| PATCH  | /resources/:id |            | partially updates a specific resource item                        |
+| PUT    | /resources/:id |            | updates a specific resource item                                  |
+| PATCH  | /resources/:id | update     | partially updates a specific resource item                        |
 | DELETE | /resources/:id | delete     | deletes a specific resource item                                  |
 
 
-*****  Sorting
+***** [[https://tools.ietf.org/id/draft-ietf-httpbis-semantics-01.txt][HTTP Semantics]]
+
+****** DELETE
+If a DELETE method is successfully applied, the origin server SHOULD send a 202 (Accepted) status code if the action will likely succeed but has not yet been enacted, a 204 (No Content) status code if the action has been enacted and no further information is to be supplied, or a 200 (OK) status code if the action has been enacted and the response message includes a representation describing the status.
+
+****** PATCH
+???
+
+
+***** Sorting
 We can also add a sort parameter to sort by field. The sort field in turn contains a list of
 comma separated columns to sort on; the first in the list is the highest sort priority. In order
 to negatively sort you prefix a column with a negative sign -
@@ -2945,9 +3064,9 @@ The members data and errors MUST NOT coexist in the same document.
 - http://www.vinaysahni.com/best-practices-for-a-pragmatic-restful-api
 - http://blog.restcase.com/7-rules-for-rest-api-uri-design/
 - https://www.loggly.com/blog/http-status-code-diagram/
-- https://tools.ietf.org/id/draft-ietf-httpbis-semantics-01.txt
 - https://github.com/sendgrid/php-http-client
 - https://www.reddit.com/r/PHP/comments/40u74q/how_to_write_a_sdk_for_our_rest_api_best_practices/
+- [[https://seegatesite.com/php-json-web-token-tutorial-for-beginners/][PHP JSON Web Token Tutorial For Beginners]]
 * Paradigm
 ** Imperative
 - uses statements that change a program's state
@@ -3081,6 +3200,8 @@ A program in a non-structured language uses unstructured jumps to labels or inst
 - Pure Functional
   - don't store state
   - don't mutate incoming data
+* Config
+php -i | grep "Loaded Configuration File"
 * Patterns
   - Patterns are formalized best practices.
   - is a named description of a problem and solution that can be applied to new contexts
@@ -4091,7 +4212,7 @@ final class PositionDTO
 *** MVVM
     Magento was here.
 ** Antipatterns
- God objects
+*** God objects
  Essentially, a God object is an object with either too many methods or too many properties;
  essentially, it's a class that knows too much or does too much. The God object soon becomes
  tightly coupled to (referenced by) lots of other bits of code in the application.
@@ -4110,9 +4231,7 @@ final class PositionDTO
  systems, so you are incredibly unlikely to find yourself in this particular situation.
 
  Another anti-pattern, called Fear of Adding Classes,
-
- Singleton
-
+*** Singleton
  <?php
  class{
  Singleton
@@ -4152,7 +4271,8 @@ final class PositionDTO
  only know problems about themselves and also should only solve one set of problems, its
  own problems. Anything that isn't relevant to this aim doesn't belong in that class.
 
- Database as IPC
+*** Database as IPC
+https://blog.engineyard.com/5-subtle-ways-youre-using-mysql-as-a-queue-and-why-itll-bite-you
  Let me clear this up for you; your database isn't a message queuing system. You don't use it
  schedule jobs or queue up tasks to be completed. If you need something to do that, use a
  queuing system. Your database is for data...the clue is in the name; don't shove temporary
@@ -4273,6 +4393,10 @@ final class PositionDTO
  computational tasks where it can be mission-critical to reduce something from O(N2) time
  to O(N). This said, most simple PHP web apps will have no real need to use this
  consideration.
+*** Is storing types in the database an anti pattern?
+You're then binding the type name to outside data, limiting your refactoring capabilities and making people change stuff in two places when they make a new class.
+https://stackoverflow.com/questions/336958/how-bad-is-it-to-store-class-and-assembly-names-in-the-database
+My hesitation over doing this is that I think it introduces a higher degree of coupling between the layers.
 ** Links
 - https://designpatternsphp.readthedocs.io/en/latest/
 - [[https://blog.pragmaticengineer.com/software-architecture-is-overrated/][Software Architecture is Overrated, Clear and Simple Design is Underrated]]
@@ -4289,10 +4413,12 @@ composer require myclabs/php-enum
 ** Fixtures
 1) http://blog.codeleak.pl/2014/06/test-data-builders-and-object-mother.html
 2) https://davedevelopment.co.uk/2015/01/28/test-data-builders.html
+3) [[http://blog.code4hire.com/2017/07/loading-sql-sequentially-with-doctrine-fixtures-in-symfony-project/][Loading SQL sequentially with doctrine fixtures in Symfony project]]
 ** Links
 - [[https://www.youtube.com/watch?v=_LeCyU1X5bY][Anna Filina - Test Doubles with PHPUnit]]
 - [[https://afilina.com/testing-legacy-php-scripts][Anna Filina - Testing Legacy PHP Scripts]]
 - [[http://martinsson-johan.blogspot.ro/2014/01/golden-master-and-legacy-few-insights.html][Golden Master and legacy - a few insights]]
+- [[https://logansbailey.com/ramsey-uuid-and-unit-tests][Ramsey UUID and Unit Tests]]
 ** TDD
 
 | Tests             | Focus on            | Require                    | Speed     | Complexity | Setup Needed |
@@ -4443,6 +4569,11 @@ private function getDebugQuery()
 #+END_SRC
 
 php -dxdebug.remote_enable=1 -dxdebug.remote_autostart=1 --stop-on-failure vendor/bin/phpunit --colors=always
+*** install
+
+
+
+
 *** naming 
 https://dzone.com/articles/7-popular-unit-test-naming
 **** MethodName_StateUnderTest_ExpectedBehavior
@@ -4467,6 +4598,7 @@ An actual implementation of the contract, but is unsuitable for production.
 *** Static vs. Non-Static Usage of Assertion Methods
 - https://phpunit.de/manual/6.5/en/appendixes.assertions.html#appendixes.assertions.static-vs-non-static-usage-of-assertion-methods
 - https://github.com/sebastianbergmann/phpunit/issues/1914
+** Codeception
 ** Mockery
 Mockery mocks out only the method which we specifically told it to. This means that the original constructor of the class we are mocking will be called.
 ** structure/organize tests
@@ -4495,6 +4627,24 @@ After update to Symfony 4 - blank page - remove var/bootstrap.php.cache
 **** Links
 - [[https://medium.com/@peter.lafferty/converting-a-json-post-in-symfony-13a24c98fc0e][Converting a json request to an array in Symfony]]
 - [[http://blog.code4hire.com/2017/07/loading-sql-sequentially-with-doctrine-fixtures-in-symfony-project/][Loading SQL sequentially with doctrine fixtures in Symfony project]]
+**** KernelBrowser
+$client->request('GET', 'api/clubs', [], [], [
+'HTTP_X-Requested-With' => 'XMLHttpRequest',
+]);
+
+$client->request('POST', '/foo/', array(), array(), array(
+'HTTP_X-Requested-With' => 'XMLHttpRequest',
+'CONTENT_TYPE' => 'application/json',
+), '{"param": "value"}');
+**** Request
+// $_GET parameters
+$request->query->get('name');
+
+albo wszystko ->all()
+// $_POST parameters
+$request->request->get('name');
+**** Config
+- [[https://www.andrew-kirkpatrick.com/2014/08/example-use-symfony-config-component-standalone/][EXAMPLE OF HOW TO USE SYMFONY CONFIG COMPONENT STANDALONE]]
 *** CodeIgniter
 *** Laravel
 **** tests
@@ -4502,8 +4652,7 @@ https://www.youtube.com/watch?v=0Rjsuw1ScXg&list=PLpzy7FIRqpGAbkfdxo1MwOS9xjG3O3
 *** Cora
 http://joebubna.github.io/Cora/
 *** Links
-- [[https://github.com/PatrickLouys/no-framework-tutorial][no-framework-tutorial]]
-- 
+- [[https://github.com/PatrickLouys/no-framework-tutorial][no-framework-tutorial]] 
 ** Code Analize
 *** Code City
 https://www.reddit.com/r/PHP/comments/a079r6/php_implementation_of_code_city/
@@ -4514,12 +4663,25 @@ wget https://phar.phpunit.de/phploc.phar
 chmod +x phploc.phar
 sudo mv phploc.phar /usr/local/bin/phploc
 #+end_src
+*** rector
+https://github.com/rectorphp/rector
+*** [[https://github.com/nunomaduro/phpinsights][phpinsights]]
 
 ** Composer
 - https://getcomposer.org/doc/articles/autoloader-optimization.md
 - http://mouf-php.com/optimizing-composer-autoloader-performance
 - https://blobfolio.com/2017/03/benchmark-composer-autoloader/
 - https://semver.org/
+
+php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+php -r "if (hash_file('sha384', 'composer-setup.php') === 'c5b9b6d368201a9db6f74e2611495f369991b72d9c8cbd3ffbc63edff210eb73d46ffbfce88669ad33695ef77dc76976') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
+php composer-setup.php --install-dir=/usr/bin --filename=composer
+php -r "unlink('composer-setup.php');"
+
+composer global require [package_name]
+
+*** when compsoer update ?    
+Projekt nie jest jeszcze na produkcji, ciągle w fazie development to można raz na jakiś czas odpalić composer update, czyli podnieść wszystkie paczki.
 ** Git
 - git reset HEAD~1 - move back to recent commit
 ** Twig
@@ -4657,11 +4819,77 @@ It's always have been a war about this. But I would simply divide them in to two
 So I would go with word prototyping. Doctrine it's kind the same. It's great for prototyping but when you application finally reach maximum of what can you squize from ORM, you would have to leave it to pure SQL.
 *** benchmarks
 http://nikic.github.io/2014/02/18/Fast-request-routing-using-regular-expressions.html
+** Notes
+Extracting statistical information from hundreds of processes without adversely affecting their performance is not a simple task.
+** Mario
+http://jamie-wong.com/2013/07/12/grep-test/ Grep Test
 * Data Structures
 ** Array
 *** Avoid complex arrays
 http://mamchenkov.net/wordpress/2018/11/27/avoid-complex-arrays-in-php/
 *** [[https://stackoverflow.com/questions/10057671/how-does-php-foreach-actually-work][How does PHP 'foreach' actually work?]]
+*** [[https://szymonkrajewski.pl/why-you-should-use-array-functions-instead-of-basic-loops/#comment-365][Why you should use array functions instead of basic loops]]
+*** array is empty
+**** empty
+#+begin_src php
+// Declare an array and initialize it 
+$non_empty_array = array('URL' => 'https://www.geeksforgeeks.org/'); 
+  
+// Declare an empty array 
+$empty_array = array(); 
+  
+// Condition to check array is empty or not 
+if(!empty($non_empty_array)) 
+    echo "Given Array is not empty <br>"; 
+  
+if(empty($empty_array)) 
+    echo "Given Array is empty"; 
+
+#+end_src
+**** count
+// Declare an empty array  
+$empty_array = array(); 
+   
+// Function to count array  
+// element and use condition 
+if(count($empty_array) == 0) 
+echo "Array is empty"; 
+else
+echo "Array is non- empty"; 
+**** sizeof
+// Declare an empty array 
+$empty_array = array(); 
+   
+// Use array index to check 
+// array is empty or not 
+if( sizeof($empty_array) == 0 ) 
+echo "Empty Array"; 
+else
+echo "Non-Empty Array"; 
+**** if
+$playerList = array();
+if (!$playerList) {
+echo "No players";
+} else {
+echo "Explode stuff...";
+}
+**** compare to empty array
+if ($variableToTest === array()) {
+echo 'this is explicitly an empty array!';
+}
+*** [[https://stackoverflow.com/questions/2477496/php-sort-array-by-subarray-value][PHP Sort Array By SubArray Value]]
+
+usort($array, function ($a, $b) {
+return $a['optionNumber'] <=> $b['optionNumber'];
+});
+
+array_multisort(array_map(function($element) {
+return $element['optionNumber'];
+}, $array), SORT_ASC, $array);
+** String 
+*** empty
+https://thisinterestsme.com/whitespace-php-empty-function/
+
 * Functions Core
 ** SPL Library
 Great job on the implementation!
@@ -4771,7 +4999,7 @@ range(1,10);
 #+END_SRC
 ** foreach
 #+BEGIN_SRC php
-foreach (range(1, 100) as $i)
+foreach (range(1, 100) as $i) 
 #+END_SRC
 ** array
 *** flatten
@@ -4845,23 +5073,51 @@ https://arstechnica.com/information-technology/2015/08/cracking-all-hacked-ashle
 
 https://www.rdegges.com/2018/please-stop-using-local-storage/
 * Interface and User Experience
-**  [[https://en.wikipedia.org/wiki/Post/Redirect/Get][Redirect after a POST]] if that POST was successful, to prevent a refresh from submitting again.
+** [[https://en.wikipedia.org/wiki/Post/Redirect/Get][Redirect after a POST]] if that POST was successful, to prevent a refresh from submitting again.
 * Topics
 ** Rewrite
 - [[https://www.joelonsoftware.com/2000/04/06/things-you-should-never-do-part-i/][Things You Should Never Do, Part I]]
 ** Crawler
+- [[https://vegibit.com/php-simple-html-dom-parser-vs-friendsofphp-goutte/][PHP Simple HTML DOM Parser vs FriendsOfPHP Goutte]]
+- [[http://www.michaelnielsen.org/ddi/how-to-crawl-a-quarter-billion-webpages-in-40-hours/][How to crawl a quarter billion webpages in 40 hours]]
+- 
 ** Namespace
 https://www.oligriffiths.com/2015/06/30/namespacing-in-PHP-and-how-we-broke-it/
 http://e-wojtowicz.pl/tag/spl_autoload_register/
 ** ReactPHP 
 https://www.youtube.com/channel/UC3EThWvNp4EabJD7PyCOzGw
 https://sergeyzhuk.me
+** PHP FPM
+https://www.basezap.com/difference-php-cgi-php-fpm/
+** Nginx
+server {
+listen 80 default_server;
+listen [::]:80 default_server;
+
+root /var/www/html;
+index index.html;
+
+server_name culturevein.com;
+
+location / {
+try_files $uri $uri/ /index.html;
+}
+
+location /api/ {
+try_files $uri $uri/ /index.php;
+}
+
+location ~ \.php$ {
+include snippets/fastcgi-php.conf;
+fastcgi_pass unix:/run/php/php7.4-fpm.sock;
+}
+}
 * Performance
 https://github.com/JoeDog/siege - have to compile
-Apache Bench
 http://www.phpbenchmarks.com
-
 https://blobfolio.com/2017/09/25-easy-php7-micro-optimizations/
+** Apache Bench 
+sudo apt-get install apache2-utils
 
 ** Baseline Performance  
 *** Stock install (Amazon EC2 Large, Ubuntu, Apache, PHP, MySQL)
@@ -4899,15 +5155,102 @@ https://3v4l.org/UYaFY
 *** Fastest way to insert new records where one doesn’t already exist
 http://cc.davelozinski.com/sql/fastest-way-to-insert-new-records-where-one-doesnt-already-exist
 ** micro
-https://veewee.github.io/blog/optimizing-php-performance-by-fq-function-calls/?fbclid=IwAR2EW0FMAUX_LkCy_Kjo94-WxGyIwllSUQwNxIx6EwTkROp4kKlyZgkDlTQ
+[[https://veewee.github.io/blog/optimizing-php-performance-by-fq-function-calls/?fbclid=IwAR2EW0FMAUX_LkCy_Kjo94-WxGyIwllSUQwNxIx6EwTkROp4kKlyZgkDlTQ][Optimizing PHP performance by using fully-qualified function calls]]
 ** questions
 - [[https://stackoverflow.com/questions/2617672/how-important-is-it-to-unset-variables-in-php][How important is it to unset variables in PHP?]]
 - [[https://stackoverflow.com/questions/584960/whats-better-at-freeing-memory-with-php-unset-or-var-null][What's better at freeing memory with PHP: unset() or $var = null]]
+** PHP 7.4 Preload
+https://stitcher.io/blog/php-preload-benchmarks
+** Tools
+- https://github.com/krakjoe/nocheq - Sick of pesky type checking making your code too slow (and correct) ?
 * About
   It's a simple site about refactoring in PHP.
   
   You can contact me at slawomir.grochowski@gmail.com, https://twitter.com/s_grochowski, https://www.facebook.com/SlawomirGrochowski
   You can support this site: send some BitCoins 1D8xeRkxssTTLESfGZtPVoqVJDq7MJSqNx , send/buy one of the books I would like to read or just say Hello!
+* Frontend                                                         :noexport:
+** CSS
+https://purgecss.com/#table-of-contents
+** JS
+*** react
+**** file download
+axios({
+url: 'http://localhost:5000/static/example.pdf',
+method: 'GET',
+responseType: 'blob', // important
+}).then((response) => {
+const url = window.URL.createObjectURL(new Blob([response.data]));
+const link = document.createElement('a');
+link.href = url;
+link.setAttribute('download', 'file.pdf');
+document.body.appendChild(link);
+link.click();
+});
+* Trash                                                            :noexport:
+** order
+#+begin_src php
+public function __construct()
+{
+    $this->setTo(Input::get('args.to')); //order is important! first setTo then setFrom
+    $this->setFrom(Input::get('args.from'));
+}
 
-#pytanieRekrutacyjne
-Dostajesz legacy projekt. Jest 100 testów. Odpalasz je - jedna połowa to 'errory i faile' druga połowa przechodzi 'na zielono'. Czas nagli. Co robisz?
+protected function setTo(?string $to)
+{
+    $this->to = $to ? Carbon::createFromTimeString($to)->endOfDay() : (new Carbon())->endOfDay();
+}
+
+protected function setFrom(?string $from)
+{
+    $carbonFrom = $from ? Carbon::createFromTimeString($from) : $this->to->copy()->subYear();
+
+    if ($carbonFrom->gt($this->to)) {
+        abort(422, trans('error.to-must-be-greater-than-from'));
+    }
+
+    $this->from = $carbonFrom->endOfDay();
+}
+#+end_src
+** cognitive dissonance
+#+begin_src php
+final class NextDateTimeGreaterThanPreviousValidator
+{
+    /**
+     ,* @param Collection|Carbon[] $dates
+     ,*/
+    public function validate(Collection $dates): bool
+    {
+        return $dates->every(function(Carbon $date, $key) use ($dates) {
+            $nextDate = $dates->get($key + 1);
+
+            if(!$nextDate) {
+                return true;
+            }
+
+            return $date->lessThan($nextDate);
+        });
+    }
+}
+#+end_src
+
+#+begin_src php
+final class NextDateTimeGreaterThanPreviousValidator
+{
+    /**
+     ,* @param Collection|Carbon[] $dates
+     ,*/
+    public function validate(Collection $dates): bool
+    {
+        return $dates->every(function(Carbon $date, $key) use ($dates) {
+            $nextDate = $dates->get($key + 1);
+
+            if(!$nextDate) {
+                return true;
+            }
+
+            return $nextDate->greaterThan($date);
+        });
+    }
+}
+#+end_src
+ 

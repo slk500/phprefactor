@@ -1,5 +1,4 @@
-1#+SETUPFILE: export/setup/theme-darksun-local.setup
-
+#+SETUPFILE: export/setup/theme-darksun-local.setup
 #+Title: PHPRefactor
 
 * Refactorings

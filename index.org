@@ -1,6 +1,8 @@
+#+TODO: IN-PROGRESS READING TODO LOOKING-FOR READ DONE 
 #+SETUPFILE: export/setup/theme-darksun-local.setup
 #+Title: PHPRefactor
 
+* Presentation                                                     :noexport:
 * Refactorings
 ** Add Type-Hint
 *** If you CAN type-hint, then you MUST type-hint
@@ -973,7 +975,7 @@ public function getBasePrice(): int
 *** Info 
     Now, but wait, you might say. Isn't this more inefficient? Because if we created the temp the old way, we'd only have to execute the expression once, but if we turn it into a method, we might be calling it many different times. And yes, you're absolutely right, but remember, the pure efficiency of the code is not our first goal in refactoring. Clarity is. The likelihood is that a typical expression you would deal with in this sort of refactoring is going to be so undemanding, it wouldn't be noticeable at all, even having to call it several more times. But if it is an intensive operation, an intensive expression, well you should really be working on that later, after you've refactored using profilers. And other tools to make sure you're not doing pointless, premature optimization. And the real benefit is that by creating this as its own method, we will also have use of it anywhere else in the class, which wasn't the case before. As the original temp was scoped to the original method. So, we won't be tempted to add more code to the original method just to have access to that temp.
 ** Replacing Type Code with Subclasses
-   Smell: Immutable type code affecting the class behavior.
+Smell: Immutable type code affecting the class behavior.
 #+BEGIN_SRC php
 final class Account
 {
@@ -1037,7 +1039,7 @@ final class Account
 #+END_SRC
 *** Write a test that pass
 *** Refactor the code 
-    Replace the type code with subclasses.
+ Replace the type code with subclasses.
 #+BEGIN_SRC php
 abstract class Account
 {
@@ -1355,6 +1357,27 @@ rewrite ability
 alan kay object orientation
 diff great & sucky code is size of the program
 good code - small isolated programs that can be deleted on the fly
+** Java: Refactoring to Design Patterns By Andrejs Doronins
+** Java Refactoring: Best Practices By Andrejs Doronins
+- main programming activity
+  - reading
+  - writing
+  - changing
+- without refactoring
+  - productivity decreases
+    - duplicated code accumulates
+    - logic become more complex
+    - code is difficult to understand
+- reasons for technical debt
+  - not enough exp to code well
+  - lazy coding
+  - tight deadlines
+- boy scout rule : leave the (campground) code cleaner than you found it.
+- don't remove technical debt if:
+  - current code dosent work
+  - deadliness must be met
+  - it results in gold-plating
+** Java: Writing Readable and Maintainable Code
 ** Symfony
 *** https://github.com/ThomasBerends/symfony-certification-preparation-list
 *** [[https://symfonycasts.com/screencast/symfony4-upgrade][Upgrade to Symfony4 and Flex!]]
@@ -1381,9 +1404,15 @@ good code - small isolated programs that can be deleted on the fly
 *** [[https://kamilkokot.com/tame-behat-with-the-brand-new-symfony-extension/?fbclid=IwAR17apSVE_yYyXy7a0jxjokr70BcyZ7hbCujDenu6jKoxQcdQhY8zeW_aCo][Tame Behat with the Brand New Symfony Extension]]
 *** [[https://speakerdeck.com/doncallisto/behat-from-zero-to-hero-a-practical-guide-to-symfony-integration-and-usage?slide=118][Behat from zero to hero - A practical guide to symfony integration and usage]]
 * Books
+** Database
+*** Karwin, Bill SQL Antipatterns - Avoiding The Pitfalls of Database Programming 2010	
+*** Scott J Ambler and Pramod J. Sadalage Refactoring Databases - Evolutionary Database Design 2006
+refactoring	must read It's catalog of refactorings for database
+*** Joe Celko’s Trees and Hierarchies in SQL for Smarties
 ** Andrew Hunt, David Thomas - The Pragmatic Programmer: From Journeyman to Master	
 overall	skip	1999	a lot of tips & tricks but too old
-** William J. Brown, Raphael C. Malveau, Hays W. "Skip" McCormick, Thomas J. Mowbray Antipatterns. Refactoring Software, Archtectures and Projects in Crisis	1998
+** [[pdftools:/home/slk500/Dropbox/books/Refactoring/Antipatterns. Refactoring Software, Archtectures and Projects in Crisis(1998).pdf::1][Antipatterns. Refactoring Software, Archtectures and Projects in Crisis 1998]]
+William J. Brown, Raphael C. Malveau, Hays W. "Skip" McCormick, Thomas J. Mowbray
 ** Refactoring in Large Software Projects 2006	
 ** Phillip A. Laplante, Colin J. Neill	Antipatterns: Identification, Refactoring, and Management 2005	
 ** Fifty Quick Ideas To Improve Your Tests tests			
@@ -1395,38 +1424,318 @@ overall	skip	1999	a lot of tips & tricks but too old
 ** Anthology  The ThoughtWorks Anthology 2 - More Essays on Software Technology and Innovation 2012	
 ** Beck, Kent	Extreme Programming Explained: Embrace Change	overall	can be read 1999	
 ** Bernstein, David Scott Beyond Legacy Code 2015 Want to read
-** Bhargava, Aditya	Grokking Algorithms: An illustrated guide for programmers and other curious people 
-mmust read	2017	Fully illustrated, friendly, easy to read guide, worth to read. When you will stumble upon a problem, you will know how to recognize it and chose the right Algorithm
-** Bloch, Joshua	Effective Java	2018	
+** Bhargava, Aditya Grokking Algorithms: An illustrated guide for programmers and other curious people 
+must read 2017 Fully illustrated, friendly, easy to read guide, worth to read. When you will stumble upon a problem, you will know how to recognize it and chose the right Algorithm
+** [[pdftools:/home/slk500/Dropbox/books/Effective Java by Joshua Bloch (z-lib.org).pdf::1][Bloch, Joshua Effective Java 2018]]	
 ** Buenosvinos, Carlos	Domain-Driven Design in PHP 2016	
-** Bugayenko, Yegor	Elegant Objects	2016
-Want to read
-** Fowler, Martin	Patterns of Enterprise Application Architecture 2012	
+** LOOKING-FOR Bugayenko, Yegor	Elegant Objects	2016
 ** Francesco Trucchia, Jacopo Romei	Pro PHP Refactoring 2010
 Old, without PHP 7 but still the best PHP book about refactoring. Great examples. Worth to have.
-** Ganesh, Samarthyam; Tushar, Sharma	Refactoring for Software Design Smells: Managing Technical Debt 2015
+** [[pdftools:/home/slk500/Dropbox/books/Refactoring/Refactoring for Software Design Smells - Managing Technical Debt (2015).pdf::1][Ganesh, Samarthyam Tushar, Sharma; Refactoring for Software Design Smells: Managing Technical Debt; 2015]]
 Catalog of smells. Focus on smell point of view. Also they introduce smell classification scheme, naming scheme for design smells which helps to increase awerness of smells. So definetly must read. (Java)
-** Halladay, Steve Principle-Based Refactoring: Learning Software Design Principles by Applying Refactoring Rules 2012
-Want to read
+
+http://www.designsmells.com/
+
+bk. Unbuilding Cities: Obduracy in Urban Sociotechnical Change  2008
+
+[[http://scg.unibe.ch/download/oorp/OORP.pdf][Object-Oriented Reengineering Patterns]]
+
+[[https://en.wikipedia.org/wiki/Lehman%2527s_laws_of_software_evolution][https://en.wikipedia.org/wiki/Lehman%27s_laws_of_software_evolution]]
+
+As a program is evolved its complexity increases unless work is done to maintain or reduce it.
+Lehman’s law of Increasing Complexity [1]
+
+Borrowing a phrase from the health care domain “a good doctor is one who knows the medicines but a great doctor is one who knows the disease”
+
+[[https://en.wikipedia.org/wiki/Grady_Booch#cite_note-16][Grady Booch]]
+
+We believe that the impact of a smell can only be judged based on the design context in which it occurs.
+
+However, today, software engineers are expected to build really complex software within a short time frame in an environment where requirements are continuously changing. Needless to say, it is a huge challenge to maintain the quality of the design and overall software in such a context.
+
+In the midst of this struggle, it became clear to us that if we wanted to organize this collection so that we could share it in a beneficial manner with fellow architects, designers, and developers, our classification scheme should be linked to something fundamental, i.e., design principles.
+
+*** design smells?
+Design smells are certain structures in the design that indicate violation of fundamental design principles and negatively impact design quality.
+In other words, a design smell indicates a potential problem in the design structure. The medical domain provides a good analogy for our work on smells. The symptoms of a patient can be likened to a “smell,” and the underlying disease can be likened to the concrete “design problem.”
+*** technical debt
+Technical debt is the debt that accrues when you knowingly or unknowingly make wrong or non-optimal design decisions.  Technical debt is a metaphor coined by Ward Cunningham in a 1992 report [44]. Technical debt is analogous to financial debt. When a person takes a loan (or uses his credit card), he incurs debt. If he regularly pays the installments (or the credit card bill) then the created debt is repaid and does not create further problems.  However, if the person does not pay his installment (or bill), a penalty in the form of interest is applicable and it mounts every time he misses the payment. In case the person is not able to pay the installments (or bill) for a long time, the accrued interest can make the total debt so ominously large that the person may have to declare bankruptcy.
+
+•	Code debt: Static analysis tool violations and inconsistent coding style.
+•	Design debt: Design smells and violations of design rules.
+•	Test debt: Lack of tests, inadequate test coverage, and improper test design.
+•	Documentation debt: No documentation for important concerns, poor docu-
+mentation, and outdated documentation.
+
+Jim Highsmith [45] describes how Cost of Change (CoC) varies wth technical debt.
+
+congitive load
+
+*** smells
+|                | structural | behavioral |
+|----------------+------------+------------|
+| architecture   |            |            |
+| design         | X          |            |
+| implementation |            |            |
+*** PHAME
+We treat the four major elements of Booch’s object model as “design principles” and refer to them collectively as PHAME (Principles of Hierarchy, Abstraction, Modularization, and Encapsulation).
+*** Booch’s fundamental design principles
+**** abstraction
+The principle of abstraction advocates the simplification of entities through reduction and generalization: reduction is by elimination of unnecessary details and generalization is by identification and specification of common and important characteristics.
+
+***** Missing Abstraction
+Clumps of data or encoded strings are used instead of creating a class or an interface
+
+****** Rationale
+- It can expose implementation details to different abstractions, violating the principle of encapsulation.
+- When data and associated behavior are spread across abstractions, it can lead to tight coupling between entities, resulting in brittle and non-reusable code. Hence, not creating necessary abstractions also violates the principle of modularization.
+****** Potential Causes
+******* Inadequate design analysis
+When careful thought is not applied during design, it is easy to overlook creating abstractions and use primitive type values or strings to “get the work done.” In our experience, this often occurs when software is developed under tight deadlines or resource constraints.
+******* Lack of refactoring
+As requirements change, software evolves and entities that were earlier represented using strings or primitive types may need to be refactored into classes or interfaces.  When the existing clumps of data or encoded strings are retained as they are without refactoring them, it can lead to a Missing Abstraction smell.
+******* Misguided focus on minor performance gains 
+This smell often results when designers compromise design quality for minor performance gains. For instance, we have observed developers using arrays directly in the code instead of creating appropriate abstractions since they feel that indexing arrays is faster than accessing members in objects. In most contexts, the performance gains due to such “optimizations” are minimal, and do not justify the resultant trade-off in design quality.
+https://steemit.com/php/@crell/php-use-associative-arrays-basi
+****** Examples
+******* from, to
+data clumps always used together
+****** Refactor
+create abstraction(s) that can internally make use
+of primitive type values or strings.
+****** Alias
+******* Primitive Obsession
+This smell occurs when [[*primitive elements - types][primitive types]] are used for encoding dates, currency, etc. instead of creating classes.
+******* Data clumps
+This smell occurs when there are clumps of data items that occur together in lots of places instead of creating a class.
+***** Imperative Abstraction
+This smell arises when an operation is turned into a class. This smell manifests as a class that has only one method defined within the class. At times, the class name itself may be identical to the one method defined within it. For instance, if you see class with name Read that contains only one method named read() with no data members, then the Read class has Imperative Abstraction smell. Often, it is also seen in the case of this smell that the data on which the method operates is located within a different class.  It should be noted that it is sometimes desirable to turn an operation into a class.
+****** Rationale
+Defining functions or procedures explicitly as classes (when the data is located somewhere else) is a glorified form of structured programing rather than object-oriented programming. One-operation classes cannot be representative of an “abstraction,” especially when the associated data is placed somewhere else. Clearly, this is a violation of the principle of abstraction. Since these classes are ‘doing’ things instead of ‘being’ things, this smell is named Imperative Abstraction.  If operations are turned into classes, the design will suffer from an explosion of one-method classes and increase the complexity of the design. Furthermore, many of these methods that act on the same data would be separated into different classes and thus reduce the cohesiveness of the design. For these reasons, this smell also violates the principles of encapsulation and modularization.
+The smell not only increases the number of classes (in this case there are at least four classes when ideally one could have been used), but also increases the complex- ity involved in development and maintenance because of the unnecessary separation of cohesive methods.
+****** Potential Causes
+******* procedural thinking
+****** Refactor
+To refactor the Imperative Abstraction design smell, you have to either find or create an appropriate abstraction to house the method existing within the Imperative Abstraction. You also have to encapsulate the data needed by the method within the same abstraction to improve cohesion and reduce coupling.
+****** Reification 
+is the promotion or elevation of something that is not an object into an object. When we reify behavior, it is possible to store it, pass it, or transform it. Reification improves flexibility of the system at the cost of introducing some complexity [52].  Many design patterns [54] employ reification. Examples:
+
+• State pattern: Encoding a state-machine.
+
+• Command pattern: Encoding requests as command objects. A permitted exception for this smell is when a Command pattern has been used to objectify method requests.
+
+• Strategy pattern: Parameterizing a procedure in terms of an operation it uses.
+
+In other words, when we consciously design in such a way to elevate non-objects to objects for better reusability, flexibility, and extensibility (i.e., for improving
+design quality), it is not a smell.
+
+****** Aliases
+“Operation class” ??? [51,52] — This smell occurs when an operation that should have been a method within a class has been turned into a class itself.
+***** Incomplete Abstraction
+An abstraction (entity or interface) does not support complementary or interrelated methods completely
+For example, if we need to be able to add or remove elements in a data
+structure, the type abstracting that data structure should support both add() and
+remove() methods. Supporting only one of them makes the abstraction incomplete
+
+| Min/max        | Open/close  | Create/destroy | Get/set   |
+| Read/write     | Print/scan  | First/last     | Begin/end |
+| Start/stop     | Lock/unlock | Show/hide      | Up/down   |
+| First/last     | Push/pull   |                |           |
+| Enable/disable | Left/right  | On/off         |           |
+
+Sometimes, a designer may make a conscious design decision to not provide symmetric or matching methods. For example, in a read-only collection, only add() method may be provided without the corresponding remove() method. In such a case, the abstraction may appear incomplete, but is not a smell.
+
+****** Aliases
+This smell is also known in literature as:
+  
+• “Class supports incomplete behavior” [18]—This smell occurs when the public interface of a class is incomplete and does not support all the behavior needed by objects of that class.
+
+• “Half-hearted operations” [63]—This smell occurs when interrelated methods provided in an incomplete or in an inconsistent way; this smell could lead to runtime problems.
+***** Multifaceted Abstraction
+This smell arises when an abstraction has more than one responsibility assigned to it.
+
+In particular, the Single Responsibility Principle says that an abstraction should have a single well-defined responsibility and that responsibility should be entirely encapsulated
+within that abstraction. 
+
+Since the abstraction has multiple “faces” or “responsibilities”, it is named Multifaceted Abstraction.
+
+Single “Responsibility” Principle) does not mean logical grouping of all functionality related to a concept. Rather “responsibility” refers to a concrete, specific, and precise responsibility that has one reason to change
+
+****** Potential Causes
+******* General-purpose abstractions
+An abstraction with a generic name (Node , Component, Element, and Item ), it often becomes a “placeholder” for providing all the functionality related (but not necessarily belonging) to that abstraction. Hence, general purpose abstractions often exhibit this smell.
+******* Evolution without periodic refactoring
+When a class undergoes extensive changes over a long period of time without refac- toring, other responsibilities start getting introduced in these classes and design decay starts. In this way, negligence toward refactoring leads to the creation of monolithic blobs that exhibit multiple responsibilities.
+******* The burden of processes
+Sometimes the viscosity of the software and environment serves to discourage the adoption of good practices.
+******* Mixing up concerns
+****** Example
+Classes exhibiting Multifaceted Abstraction are usually large and complex.  For example, java.util.Calendar class (in JDK 7) spans 2825 lines of code and has 67 methods and 71 fields! However, large or complex implementation is not an essential characteristic of classes having Multifaceted Abstraction smell; see the discussion on Insufficient Modularization smell (Section 5.2).
+
+****** Aliases
+• “Divergent change” [7]—This smell occurs when a class is changed for different reasons.
+
+• “Conceptualization abuse” [30]—This smell occurs when two or more noncohesive concepts have been packed into a single class of the system.
+	 
+• “Large class” [7,24,57,58]—This smell occurs when a class has “too many” responsibilities.
+	 
+• “Lack of cohesion” [59]—This smell occurs when there is a large type in a design with low cohesion, i.e., a “kitchen sink” type that represents many abstractions.
+
+***** Unnecessary Abstraction
+An abstraction that is not needed
+
+ALIASES:
+Irrelevant class - class does not have any meaningful behavior in the design
+Lazy class / Freeloader — class does “too little”
+Small class - class has no (or too few) variables or no (or too few) methods in it
+Mini-class - a public, non-nested class defines less than three methods and less than three attributes (including constants) in it
+No responsibility - class has no responsibility associated with it
+Agent classes - class serve as an “agent” (i.e., they only pass messages from one class to another), indicating that the class may be unnecessary
+***** Unutilized Abstraction
+UNUTILIZED ABSTRACTION
+An abstraction is left unused (either not directly used or not
+reachable). This smell manifests in two forms:
+
+• Unreferenced abstractions—Concrete classes that are not being used by anyone
+• Orphan abstractions—Stand-alone interfaces/abstract classes that do not have
+any derived abstractions
+
+
+This smell violates the principle YAGNI (You
+Aren’t Gonna Need It), which recommends not adding functionality until deemed
+necessary [53]
+
+When an abstraction is left unused
+in design, it does not serve a meaningful purpose in design, and hence violates the
+principle of abstraction.
+
+POTENTIAL CAUSES:
+Leftover garbage during maintenance or refactoring.
+Speculative generality - abstractions are introduced speculating that they may be required sometime in future.
+
+
+REFACTORING:
+remove the Unutilized Abstraction from the design.
+
+IMPACT:
+pollutes the design space and increases cognitive load. This impacts understandability.
+UNUTILIZED ABSTRACTION
+Two or more abstractions have identical names or identical implementation or both
+
+
+POTENTIAL CAUSES:
+
+Copy-paste programming
+The “get-the-work-done” mindset of a programmer leads him to copy and paste code
+instead of applying proper abstraction.
+Ad hoc maintenance
+When the software undergoes haphazard fixes or enhancements over many years, it
+leaves “crufts”6 with lots of redundant code in it.
+Lack of communication
+Often, in industrial software, code duplication occurs because different people work
+on the same code at different times in the life cycle of the software. They are not
+aware of existing classes or methods and end up re-inventing the wheel.
+
+REFACTORING:
+For identical name form, the suggested refactoring is to rename one of the abstrac-
+tions to a unique name.
+In the case of the identical implementation form of Duplicate Abstraction, if the
+implementations are exactly the same, one of the implementations can be removed.
+If the implementations are slightly different, then the common implementation in
+the duplicate abstractions can be factored out into a common class.
+
+
+IMPACT:
+it affects understandability of the design. Developers of client code will be confused and unclear about the choice
+of the abstraction that should be used by their code.
+
+identical implementation (i.e., they have duplicate code), it becomes difficult to maintain them.
+In summary, this smell indicates a violation of the DRY (Don’t Repeat Yourself)
+principle.
+If the DRY principle is not fol-
+lowed, a modification of an element within the system requires modifications to other
+logically unrelated elements making maintainability a nightmare. Since there is dupli-
+cation among abstractions in the design, this smell is named Duplicate Abstraction.
+
+3.7.6 ALIASES
+This smell is also known in literature as:
+
+•	“Alternative classes with different interfaces” [7]—This smell occurs when
+classes do similar things, but have different names.
+•	“Duplicate design artifacts” [74]—This smell occurs when equivalent design
+artifacts are replicated throughout the architecture.
+***** Duplicate Abstraction
+UNUTILIZED ABSTRACTION
+Two or more abstractions have identical names or identical implementation or both
+
+
+POTENTIAL CAUSES:
+
+Copy-paste programming
+The “get-the-work-done” mindset of a programmer leads him to copy and paste code
+instead of applying proper abstraction.
+Ad hoc maintenance
+When the software undergoes haphazard fixes or enhancements over many years, it
+leaves “crufts”6 with lots of redundant code in it.
+Lack of communication
+Often, in industrial software, code duplication occurs because different people work
+on the same code at different times in the life cycle of the software. They are not
+aware of existing classes or methods and end up re-inventing the wheel.
+
+REFACTORING:
+For identical name form, the suggested refactoring is to rename one of the abstrac-
+tions to a unique name.
+In the case of the identical implementation form of Duplicate Abstraction, if the
+implementations are exactly the same, one of the implementations can be removed.
+If the implementations are slightly different, then the common implementation in
+the duplicate abstractions can be factored out into a common class.
+
+
+IMPACT:
+it affects understandability of the design. Developers of client code will be confused and unclear about the choice
+of the abstraction that should be used by their code.
+
+identical implementation (i.e., they have duplicate code), it becomes difficult to maintain them.
+In summary, this smell indicates a violation of the DRY (Don’t Repeat Yourself)
+principle.
+If the DRY principle is not fol-
+lowed, a modification of an element within the system requires modifications to other
+logically unrelated elements making maintainability a nightmare. Since there is dupli-
+cation among abstractions in the design, this smell is named Duplicate Abstraction.
+
+3.7.6 ALIASES
+This smell is also known in literature as:
+
+•	“Alternative classes with different interfaces” [7]—This smell occurs when
+classes do similar things, but have different names.
+•	“Duplicate design artifacts” [74]—This smell occurs when equivalent design
+artifacts are replicated throughout the architecture.
+**** encapsulation
+**** modularization
+**** hierarchy
+** TODO Halladay, Steve Principle-Based Refactoring: Learning Software Design Principles by Applying Refactoring Rules 2012
 ** Jones, Paul M. Modernizing Legacy Apps In PHP 2014	
 ** Junade, Ali	Mastering PHP Design Patterns 2016 
 Little bit inmature, poorly written. Having a lot of tips and information about broad variaty of things which is a good place on website but not in the book. Code examples could be much better.
-** Karwin, Bill SQL Antipatterns - Avoiding The Pitfalls of Database Programming 2010	
-** Kerievsky, Joshua	Refactoring to Patterns	2004	
-** Rahman, Mizanur	PHP 7 Data Structures and Algorithms 2017	
-** Scott J Ambler and Pramod J. Sadalage Refactoring Databases - Evolutionary Database Design 2006
-refactoring	must read It's catalog of refactorings for database
+** [[pdftools:/home/slk500/Dropbox/books/Refactoring/\[Joshua_Kerievsky\]_Refactoring_to_Patterns (2004).pdf::1][Kerievsky, Joshua; Refactoring to Patterns; 2004]]
+*** Primitive Obsession
+**** Replace Type Code with Class
+if a primitive value controls logic in a class
+**** Replace State-Altering Conditionals with State
+if an object's state transitions are controller by complex conditional logic 
+**** Replace Conditional Logic with Strategy 
+if complicated conditional logic controls which algorithm to run and that logic relies on primitive values
+** Rahman, Mizanur PHP 7 Data Structures and Algorithms 2017
 ** Stephane Faroult, Pascal L'Hermite	Refactoring SQL Application 2008	
-** Tornhill, Adam	Your Code as a Crime Scene - Use Forensic Techniques to Arrest Defects, Bottlenecks, and Bad Design in Your Programs 2015	
+** Tornhill, Adam Your Code as a Crime Scene - Use Forensic Techniques to Arrest Defects, Bottlenecks, and Bad Design in Your Programs 2015	
 ** West, David Object Thinking  2004
 ** Back-end Performance
 https://www.oreilly.com/library/view/back-end-performance/9781492069362/
 ** TODO xUnit Test Patterns - Refactoring Test Code
 http://xunitpatterns.com/index.html
-** Object Design Style Guide Matthias Noback
+** TODO Object Design Style Guide Matthias Noback
 ** Build APIs You Won't Hate
 ** McConnel, Steve "Code Complete 2"
-** Joe Celko’s Trees and Hierarchies in SQL for Smarties
 ** Wake, William C.; Refactoring Workbook; 2003
 *** https://xp123.com/articles/refactoring-workbook/
 **** Taxonomy
@@ -1445,7 +1754,10 @@ http://xunitpatterns.com/index.html
    
  - Pay now or pay more later
 
-** Fowler, Martin; Refactoring: Improving the Design of Existing Code; 2018
+** Fowler, Martin
+*** Refactoring: improving the design of existing codel 2000
+*** Patterns of Enterprise Application Architecture 2012	
+*** Refactoring: Improving the Design of Existing Code; 2018
 - With any introductory example, however, I run into a problem. If I pick a large program, describing it and how it is refactored is too complicated for a mortal reader to work through.(...) However, if I pick a program that is small enough to be comprehensible, refactoring does not look like it is worthwhile.
  
 - Thus, if I’m faced with modifying a program with hundreds of lines of code, I’d rather it be structured into a set of functions and other program elements that allow me to understand more easily what the program is doing. If the program lacks structure, it’s usually easier for me to add structure to the program first, and then make the change I need.
@@ -1458,8 +1770,7 @@ http://xunitpatterns.com/index.html
 
 - The true test of good code is how easy it is to change it.
 
-- Refactoring (noun): a change made to the internal structure of software to make it easier to understand and cheaper to modify without changing its observable behavior
-
+- Refactoring (noun): a change made to the internal structure of software to make it easier to understand and cheaper to modify without changing its observable behavior.
 - Refactoring (verb): to restructure software by applying a series of refactorings without changing its observable behavior.
 
 - Refactoring is very similar to performance optimization, as both involve carrying out code manipulations that don’t change the overall functionality of the program. The difference is the purpose: Refactoring is always done to make the code “easier to understand and cheaper to modify.” This might speed things up or slow things down. With performance optimization, I only care about speeding up the program, and am prepared to end up with code that is harder to work with if I really need that improved performance.
@@ -1471,7 +1782,8 @@ http://xunitpatterns.com/index.html
 - Branches. As I write this, a common approach in teams is for each team member to work on abranch of the code base using a version control system, and do considerable work onthat branch before integrating with a mainline (often called master or trunk) sharedacross the team. Often, this involves building a whole feature on a branch, notintegrating into the mainline until the feature is ready to be released into production.Fans of this approach claim that it keeps the mainline clear of any in­process code,provides a clear version history of feature additions, and allows features to be revertedeasily should they cause problems.There are downsides to feature branches like this. The longer I work on an isolatedbranch, the harder the job of integrating my work with mainline is going to be when I’mdone. Most people reduce this pain by frequently merging or re­basing from mainlineto my branch. But this doesn’t really solve the problem when several people areworking on individual feature branches. I distinguish between merging and integration.If I merge mainline into my code, this is a oneway movement—my branch changes butthe mainline doesn’t. I use “integrate” to mean a two­way process that pulls changesfrom mainline into my branch and then pushes the result back into mainline, changingboth. If Rachel is working on her branch I don’t see her changes until she integrateswith mainline; at that point, I have to merge her changes into my feature branch, whichmay mean considerable work. The hard part of this work is dealing with semanticchanges. Modern version control systems can do wonders with merging complexchanges to the program text, but they are blind to the semantics of the code. If I’vechanged the name of a function, my version control tool may easily integrate mychanges with Rachel’s. But if, in her branch, she added a call to a function that I’verenamed in mine, the code will fail.The problem of complicated merges gets exponentially worse as the length of featurebranches increases. Integrating branches that are four weeks old is more than twice ashard as those that are a couple of weeks old. Many people, therefore, argue for keepingfeature branches short—perhaps just a couple of days. Others, such as me, want themeven shorter than that. This is an approach called Continuous Integration (CI), alsoknown as Trunk­Based Development. With CI, each team member integrates withmainline at least once per day. This prevents any branches diverting too far from eachother and thus greatly reduces the complexity of merges. CI doesn’t come for free: Itmeans you use practices to ensure the mainline is healthy, learn to break large featuresinto smaller chunks, and use feature toggles (aka feature flags) to switch off any in­process features that can’t be broken down.Fans of CI like it partly because it reduces the complexity of merges, but the dominantreason to favor CI is that it’s far more compatible with refactoring. Refactorings ofteninvolve making lots of little changes all over the code base—which are particularlyprone to semantic merge conflicts (such as renaming a widely used function). Many ofus have seen feature­branching teams that find refactorings so exacerbate mergeproblems that they stop refactoring. CI and re­factoring work well together, which iswhy Kent Beck combined them in Extreme Programming.I’m not saying that you should never use feature branches. If they are sufficiently short,their problems are much reduced. (Indeed, users of CI usually also use branches, butintegrate them with mainline each day.) Feature branches may be the right techniquefor open source projects where you have infrequent commits from programmers whoyou don’t know well (and thus don’t trust). But in a full­time development team, thecost that feature branches impose on refactoring is excessive. Even if you don’t go to fullCI, I certainly urge you to integrate as frequently as possible. You should also considerthe objective evidence [Forsgren et al.] that teams that use CI are more effective insoftware delivery.
 
 131
-** Martin, Robert C.; Clean Code: A Handbook of Agile Software Craftsmanship; 2009
+** Martin, Robert C.;
+*** Clean Code: A Handbook of Agile Software Craftsmanship; 2009
 - There are two parts to learning craftsmanship: knowledge and work. You must gain the knowledge of principles, patterns, practices, and heuristics that a craftsman knows, and you must also grind that knowledge into your fingers, eyes, and gut by working hard and practicing.
 - Do not refer to a grouping of accounts as an accountList unless it’s actually a List. The word list means something specific to programmers. If the container holding the accounts is not actually a List, it may lead to false conclusions (even if the container is a List, it’s probably better not to encode the container type into the name). So accountGroup or bunchOfAccounts or just plain accounts would be better.
 - A truly awful example of disinformative names would be the use of lower-case L or uppercase O as variable names, especially in combination. The problem, of course, is that they look almost entirely like the constants one and zero, respectively.
@@ -1479,342 +1791,88 @@ http://xunitpatterns.com/index.html
 #+BEGIN_SRC php
 int a = 1;
 if ( O == 1 )
-a = O1;
+    a = O1;
 else
-l = 01;
+    l = 01;
 #+END_SRC
-  
-*** Naming
-**** Use Intention-Revealing Names
-#+BEGIN_SRC php
-$d; //elapsed time in days
-#+END_SRC
-The name d reveals nothing. It does not evoke a sense of elapsed time, nor of days. We
-should choose a name that specifies what is being measured and the unit of that measure-
-ment:
-#+BEGIN_SRC php
-$elapsedTimeInDays;
-$daysSinceCreation;
-$daysSinceModification;
-$fileAgeInDays;
-#+END_SRC
-**** Make Meaningful Distinctions
-#+BEGIN_SRC php
-public function copyChars(array $a1, array $a2): void {
-    for ($i = 0; i < count($a1); i++) {
-        a2[i] = a1[i];
-    }
-}
-#+END_SRC
-This function reads much better when source and destination are used for the argument
-names.
-**** Use Pronounceable Names
-If you can’t pronounce it, you can’t discuss it without sounding like an idiot. 
-#+BEGIN_SRC php
-class DtaRcrd102 {
-    private Date genymdhms;
-    private Date modymdhms;
-    private final String pszqint = "102";
-    /* ... */
-};
-
-class Customer {
-    private Date generationTimestamp;
-    private Date modificationTimestamp;;
-    private final String recordId = "102";
-    /* ... */
-};
-#+END_SRC
-**** Use Searchable Names
-- Single-letter names and numeric constants have a particular problem in that they are not easy to locate across a body of text.
-- My personal preference is that single-letter names can ONLY be used as local variables inside short methods.
-- The length of a name should correspond to the size of its scope.
-**** Interfaces and Implementations
-- These are sometimes a special case for encodings. For example, say you are building an ABSTRACT FACTORY for the creation of shapes. This factory will be an interface and will be implemented by a concrete class. What should you name them? IShapeFactory and ShapeFactory? I prefer to leave interfaces unadorned. The preceding I, so common in today’s legacy wads, is a distraction at best and too much information at worst. I don’t want my users knowing that I’m handing them an interface. I just want them to know that it’s a ShapeFactory. So if I must encode either the interface or the implementation, I choose the implementation. Calling it ShapeFactoryImp , or even the hideous CShapeFactory, is pref- erable to encoding the interface.
-- [[https://www.php-fig.org/bylaws/psr-naming-conventions/][PSR Naming Conventions]] - Interfaces MUST be suffixed by Interface: e.g. Psr\Foo\BarInterface. 
-**** Avoid Mental Mapping
-Readers shouldn’t have to mentally translate your names into other names they already know. This problem generally arises from a choice to use neither problem domain terms nor solution domain terms.
-**** Class Names
-Classes and objects should have noun or noun phrase names like Customer, WikiPage, Account, and AddressParser. Avoid words like Manager, Processor, Data, or Info in the name of a class. A class name should not be a verb.
-** Martin, Robert C.; Agile Software Development: Principles, Patterns, and Practices; 2002
+*** Agile Software Development: Principles, Patterns, and Practices; 2002
 ** Design It!: From Programmer to Software Architect (The Pragmatic Programmers) 1st Edition by Michael Keelin
 ** Mastering the SPL Library
 ** Zandstra, Matt "PHP Objects, Patterns, and Practice" 2008
 Pretty old. But written with precise language and with great examples                                                                                                                                        |
 ** TODO The Psychology of Computer Programming
+** TODO Timeless Laws of Software Development
 * Smells
-** Booch’s fundamental design principles
-based on Ganesh, Samarthyam; Tushar, Sharma	Refactoring for Software Design Smells: Managing Technical Debt
-*** abstraction
-**** Missing Abstraction
- Clumps of data or encoded strings are used instead of creating a class or an interface
+** Taxonomy
+*** Wake, William C.; Refactoring Workbook; 2003
+*** [[pdftools:../books/Refactoring/articles/subjective evaluation of software evolvability using.pdf::1]["Subjective Evaluation of Software Evolvability Using Code Smells: An Empirical Study" 2006]]
+Mäntylä, M. V. and Lassenius, C.
+http://mikamantyla.eu/BadCodeSmellsTaxonomy.html
+- Cusumano and Selby (Cusumano and Selby, 1995) describe how Microsoft uses 20% of its development effort to re-develop the code base of its products. Cusumano and Yoffie (Cusumano and Yoffie, 1998) report how Netscape’s inability to refactor the code base hindered their software development, and how Microsoft’s redesign efforts in the Internet Explorer 3.0 project later paid off.
+- The agile community, which emphasizes individuals and interactions over tools and processes, has come up with a term called code smell (Fowler and Beck, 2000) to help software developers recognise problematic code. These code smells are general descriptions of bad code that are supposed to help software developers decide when the code needs refactoring. In most cases, the goal of code refactoring is to make the software easier to understand and/or extend. Fowler and Beck (Fowler and Beck, 2000) claim that exact criteria cannot be given to determine when a software needs refactoring. In their words, when it comes to making refactoring decisions: Bno set of metrics rivals informed human intuition.’’ This opinion is in conflict with the idea that the level of software maintainability can be determined with source code or design metrics. A counterexample to Fowler and Beck is provided by Grady (Grady, 1994), who reports that in some HP divisions there were tight threshold limits that a program was not allowed to exceed, e.g., a Fortran program’s cyclomatic complexity (McCabe, 1976) should not exceed 15.  This threshold was determined based on data from previous software projects.  Also, the idea of measuring software maintainability with metrics (Coleman et al., 1994, 1995) seems to be conflicting with the idea of assessing maintainability using vaguely defined qualitative criteria, such as the code smells of Fowler and Beck.
+- Traditionally, the term software maintainability has been used to represent this quality attribute, and IEEE (IEEE, 1990) has defined software maintainability as follows: the ease with which a software system or component can be modified to correct faults, improve performance or other attributes, or to adapt to a changed environment.
+- We think that the term software evolution better describes what happens after the initial software deployment/release...
+- Fowler and Beck (2000) propose a list of 22 bad code smells. Fowler and Beck introduce code smells as a more concrete indication of the need for refactoring than Bsome vague idea of programming aesthetics.’’ They also claim that no set of precise metrics can be given to identify the need for refactoring. Thus, the code smells can be seen as a compromise between precise source code metrics and totally unguided subjective evaluation. In their experience, Fowler and Beck say that when it comes to making refactoring decisions, no set of metrics rivals informed human intuition. The code smells have been developed based on Fowler’s and Beck’s industrial experience in several software projects that according to them varied from successful to nearly catastrophic. Some code smells represent two extremes of the same attribute. For example, the size of a class could be an attribute. Too much of it leads to a smell called 'Large Class’’ and too little to the 'Lazy Class’’ smell. The code smells are somewhat vaguely defined.
+- Structures similar to code smells are described by Brown et al. (1998), who discuss software anti-patterns. These anti-patterns describe code problems on class to architectural levels. Some of them are similar to code smells, e.g., God Class is equal to a Large Class smell and Lava Flow is a synonym for Dead Code. However, the scope of their work is quite wide as they also discuss problems in software processes, badly behaving developers, and many other areas.
+- The Air Force Operation Test and Evaluation Center (AFOTEC) pamphlet (AFOTEC, 1996) provides a rich set of instructions for evaluating software maintainability. 
 
- PROBLEMS:
- - it can expose implementation details to different abstractions, violating the principle of encapsulation.
- - When data and associated behavior are spread across abstractions, it can
- lead to tight coupling between entities, resulting in brittle and non-reusable
- code. Hence, not creating necessary abstractions also violates the principle of
- modularization.
+**** Taxonomy
+***** The Bloaters
+-Long Method
+-Large Class
+-Primitive Obsession
+-Long Parameter List
+-DataClumps
 
- POTENTIAL CAUSES:
+Bloater smells represents something that has grown so large that it cannot be effectively handled.
+It seems likely that these smells grow a little bit at a time. Hopefully nobody designs, e.g., Long Methods.
+Primitive Obsession is actually more of a symptom that causes bloats than a bloat itself. The same holds for Data Clumps. When a Primitive Obsession exists, there are no small classes for small entities (e.g. phone numbers). Thus, the functionality is added to some other class, which increases the class and method size in the software. With Data Clumps there exists a set of primitives that always appear together (e.g. 3 integers for RGB colors). Since these data items are not encapsulated in a class this increases the sizes of methods and classes. 
 
- Inadequate design analysis
- When careful thought is not applied during design, it is easy to overlook creating
- abstractions and use primitive type values or strings to “get the work done.” In our
- experience, this often occurs when software is developed under tight deadlines or
- resource constraints.
+***** The Object-Orientation Abusers
+-Switch Statements
+-Temporary Field
+-Refused Bequest
+-Alternative Classes with Different Interfaces
 
- Lack of refactoring
- As requirements change, software evolves and entities that were earlier represented
- using strings or primitive types may need to be refactored into classes or interfaces.
- When the existing clumps of data or encoded strings are retained as they are without
- refactoring them, it can lead to a Missing Abstraction smell.
+The common denominator for the smells in the Object-Orientation Abuser category is that they represent cases where the solution does not fully exploit the possibilities of object-oriented design.
+For example, a Switch Statement might be considered acceptable or even good design in procedural programming, but is something that should be avoided in object-oriented programming. The situation where switch statements or type codes are needed should be handled by creating subclasses. Parallel Inheritance Hierarchies and Refused Bequest smells lack proper inheritance design, which is one of the key elements in object-oriented programming. The Alternative Classes with Different Interfaces smell lacks a common interface for closely related classes, so it can also be considered a certain type of inheritance misuse. The Temporary Field smell means a case in which a variable is in the class scope, when it should be in method scope. This violates the information hiding principle.
 
- Misguided focus on minor performance gains
- This smell often results when designers compromise design quality for minor performance gains.
- For instance, we have observed developers using arrays directly in the code
- instead of creating appropriate abstractions since they feel that indexing arrays is faster
- than accessing members in objects. In most contexts, the performance gains due to such
- “optimizations” are minimal, and do not justify the resultant trade-off in design quality.
+***** The Change Preventers
+-Divergent Change
+-Shotgun Surgery
+-Parallel Inheritance Hierarchies
 
- https://steemit.com/php/@crell/php-use-associative-arrays-basically-never
+Change Preventers are smells is that hinder changing or further developing the software
+These smells violate the rule suggested by Fowler and Beck which says that classes and possible changes should have a one-to-one relationship. For example, changes to the database only affect one class, while changes to calculation formulas only affect the other class.
 
- REFACTOR - The refactoring for this smell is to create abstraction(s) that can internally make use
- of primitive type values or strings. For example, if a primitive type value is used as a
- “type-code,” then apply “replace type-code with class”.
+The Divergent Change smell means that we have a single class that needs to be modified by many different types of changes. With the Shotgun Surgery smell the situation is the opposite, we need to modify many classes when making a single change to a system (change several classes when changing database from one vendor to another)
 
- ALIAS:
- Primitive Obsession — This smell occurs when primitive types are used for
- encoding dates, currency, etc. instead of creating classes.
+Parallel Inheritance Hierarchies, which means a duplicated class hierarchy, was originally placed in OO-abusers. One could also place it inside of The Dispensables since there is redundant logic that should be replaced.
 
- Data clumps — This smell occurs when there are clumps of data items that
- occur together in lots of places instead of creating a class.
-**** Imperative Abstraction
-Consider the case of a large-sized financial application. This application employs classes named CreateReport, CopyReport, DisplayReport, etc. to deal with its report generation functionality. Each class has exactly one method definition named create, copy, display, etc., respectively, and suffers from Imperative Abstraction smell. The data items relating to a report such as name of the report, data elements that need to be  displayed in the report, kind of report, etc. are housed in a “data class” named Report. The smell not only increases the number of classes (in this case there are at least four classes when ideally one could have been used), but also increases the complexity involved in development and maintenance because of the unnecessary separation of cohesive methods.
+***** The Dispensables
+-Lazy class
+-Data class
+-Duplicate Code
+-Dead Code,
+-Speculative Generality
 
-Reification
-“Reification” is the promotion or elevation of something that is not an object into an
-object. When we reify behavior, it is possible to store it, pass it, or transform it. Reifica-
-tion improves flexibility of the system at the cost of introducing some complexity [52].
-Many design patterns [54] employ reification. Examples:
+The common thing for the Dispensable smells is that they all represent something unnecessary that should be removed from the source code.
+This group contains two types of smells (dispensable classes and dispensable code), but since they violate the same principle, we will look at them together. If a class is not doing enough it needs to be removed or its responsibility needs to be increased. This is the case with the Lazy class and the Data class smells. Code that is not used or is redundant needs to be removed. This is the case with Duplicate Code, Speculative Generality and Dead Code smells. 
 
+***** The Couplers
+-Feature Envy
+-Inappropriate Intimacy
+-Message Chains
+-Middle Man
 
-• State pattern: Encoding a state-machine.
+This group has four coupling-related smells.
+One design principle that has been around for decades is low coupling (Stevens et al. 1974) . This group has 3 smells that represent high coupling. Middle Man smell on the other hand represent a problem that might be created when trying to avoid high coupling with constant delegation. Middle Man is a class that is doing too much simple delegation instead of really contributing to the application.
 
-• Command pattern: Encoding requests as command objects. A permitted excep-
-tion for this smell is when a Command pattern has been used to objectify
-method requests.
+The Feature Envy smell means a case where one method is too interested in other classes, and the Inappropriate Intimacy smell means that two classes are coupled tightly to each other. Message Chains is a smell where class A needs data from class D. To access this data, class A needs to retrieve object C from object B (A and B have a direct reference). When class A gets object C it then asks C to get object D. When class A finally has a reference to class D, A asks D for the data it needs. The problem here is that A becomes unnecessarily coupled to classes B, C, and D, when it only needs some piece of data from class D. The following example illustrates the message chain smell: A.getB().getC().getD().getTheNeededData()
 
-• Strategy pattern: Parameterizing a procedure in terms of an operation it uses.
+Of course, I could make an argument that these smells should belong to the Object-Orientation abusers group, but since they all focus strictly on coupling, I think it makes the taxonomy more understandable if they are introduced in a group of their own.
 
-In other words, when we consciously design in such a way to elevate non-objects
-to objects for better reusability, flexibility, and extensibility (i.e., for improving
-design quality), it is not a smell.
-
-
-ALIASES
-“Operation class” [51,52] — This smell occurs when an operation that should
-have been a method within a class has been turned into a class itself.
-**** Incomplete Abstraction
- An abstraction (entity or interface) does not support complementary or interrelated methods completely
- For example, if we need to be able to add or remove elements in a data
- structure, the type abstracting that data structure should support both add() and
- remove() methods. Supporting only one of them makes the abstraction incomplete
- and incoherent in the context of those interrelated methods.
-
-  missing “complementary and symmetric” methods,
-
- Min/max Open/close Create/destroy Get/set
- Read/write Print/scan First/last Begin/end
- Start/stop Lock/unlock Show/hide Up/down
- First/last Push/pull
- Enable/disable  Left/right On/off
-
- Sometimes, a designer may make a conscious design decision to not provide sym-
- metric or matching methods. For example, in a read-only collection, only add()
- method may be provided without the corresponding remove() method. In such a
- case, the abstraction may appear incomplete, but is not a smell.
-
-
- Sometimes, APIs choose to replace symmetrical methods with a method that takes
- a boolean argument (for instance, to enforce a particular naming convention such as
- naming convention that requires accessors to have prefixes “get,” “is,” or
- “set”). For example, classes such as java.awt.MenuItem and java.awt.Component
- originally supported disable() and enable() methods. These methods were dep-
- recated and are now replaced with setEnabled(boolean) method. Similarly, java.
- awt.Component has the method setVisible(boolean) that deprecates the methods
- show() and hide(). One would be tempted to mark these classes as Incomplete
- Abstractions since they lack symmetric methods, i.e., getEnabled() and getVisi-
- ble() respectively. However, since there is no need for corresponding getter methods
- (as these methods take a boolean argument), these classes do not have Incomplete
- Abstraction smell.
-
-
-
-
- ALIASES
- This smell is also known in literature as:
-  
- • “Class supports incomplete behavior” [18]—This smell occurs when the public
- interface of a class is incomplete and does not support all the behavior needed
- by objects of that class.
-
- • “Half-hearted operations” [63]—This smell occurs when interrelated methods
- provided in an incomplete or in an inconsistent way; this smell could lead to
- runtime problems.
-**** Multifaceted Abstraction
- This smell arises when an abstraction has more than one responsibility assigned to it.
-
- In particular, the Single Responsibility Principle says that an abstraction should have a single
- well-defined responsibility and that responsibility should be entirely encapsulated
- within that abstraction. 
-
- ALIASES
- This smell is also known in literature as:
-
- • “Divergent change” [7]—This smell occurs when a class is changed for differ-
- ent reasons.
-
- • “Conceptualization abuse” [30]—This smell occurs when two or more non-
- cohesive concepts have been packed into a single class of the system.
-	 
- • “Large class” [7,24,57,58]—This smell occurs when a class has “too many”
- responsibilities.
-	 
- • “Lack of cohesion” [59]—This smell occurs when there is a large type in a
- design with low cohesion, i.e., a “kitchen sink” type that represents many
- abstractions.
-**** Unnecessary Abstraction
- An abstraction that is not needed
- ALIASES:
- Irrelevant class - class does not have any meaningful behavior in the design
- Lazy class / Freeloader — class does “too little”
- Small class - class has no (or too few) variables or no (or too few) methods in it
- Mini-class - a public, non-nested class defines less than three methods and less than three attributes (including constants) in it
- No responsibility - class has no responsibility associated with it
- Agent classes - class serve as an “agent” (i.e., they only pass messages from one class to another), indicating that the class may be unnecessary
-**** Unutilized Abstraction
- UNUTILIZED ABSTRACTION
- An abstraction is left unused (either not directly used or not
- reachable). This smell manifests in two forms:
-
- • Unreferenced abstractions—Concrete classes that are not being used by anyone
- • Orphan abstractions—Stand-alone interfaces/abstract classes that do not have
- any derived abstractions
-
-
-                 This smell violates the principle YAGNI (You
- Aren’t Gonna Need It), which recommends not adding functionality until deemed
- necessary [53]
-
-                 When an abstraction is left unused
- in design, it does not serve a meaningful purpose in design, and hence violates the
- principle of abstraction.
-
- POTENTIAL CAUSES:
- Leftover garbage during maintenance or refactoring.
- Speculative generality - abstractions are introduced speculating that they may be required sometime in future.
-
-
- REFACTORING:
- remove the Unutilized Abstraction from the design.
-
- IMPACT:
- pollutes the design space and increases cognitive load. This impacts understandability.
- UNUTILIZED ABSTRACTION
- Two or more abstractions have identical names or identical implementation or both
-
-
- POTENTIAL CAUSES:
-
- Copy-paste programming
- The “get-the-work-done” mindset of a programmer leads him to copy and paste code
- instead of applying proper abstraction.
- Ad hoc maintenance
- When the software undergoes haphazard fixes or enhancements over many years, it
- leaves “crufts”6 with lots of redundant code in it.
- Lack of communication
- Often, in industrial software, code duplication occurs because different people work
- on the same code at different times in the life cycle of the software. They are not
- aware of existing classes or methods and end up re-inventing the wheel.
-
- REFACTORING:
- For identical name form, the suggested refactoring is to rename one of the abstrac-
- tions to a unique name.
- In the case of the identical implementation form of Duplicate Abstraction, if the
- implementations are exactly the same, one of the implementations can be removed.
- If the implementations are slightly different, then the common implementation in
- the duplicate abstractions can be factored out into a common class.
-
-
- IMPACT:
- it affects understandability of the design. Developers of client code will be confused and unclear about the choice
- of the abstraction that should be used by their code.
-
- identical implementation (i.e., they have duplicate code), it becomes difficult to maintain them.
- In summary, this smell indicates a violation of the DRY (Don’t Repeat Yourself)
- principle.
-                 If the DRY principle is not fol-
- lowed, a modification of an element within the system requires modifications to other
- logically unrelated elements making maintainability a nightmare. Since there is dupli-
- cation among abstractions in the design, this smell is named Duplicate Abstraction.
-
- 3.7.6 ALIASES
- This smell is also known in literature as:
-
- •	“Alternative classes with different interfaces” [7]—This smell occurs when
- classes do similar things, but have different names.
- •	“Duplicate design artifacts” [74]—This smell occurs when equivalent design
- artifacts are replicated throughout the architecture.
-**** Duplicate Abstraction
- UNUTILIZED ABSTRACTION
- Two or more abstractions have identical names or identical implementation or both
-
-
- POTENTIAL CAUSES:
-
- Copy-paste programming
- The “get-the-work-done” mindset of a programmer leads him to copy and paste code
- instead of applying proper abstraction.
- Ad hoc maintenance
- When the software undergoes haphazard fixes or enhancements over many years, it
- leaves “crufts”6 with lots of redundant code in it.
- Lack of communication
- Often, in industrial software, code duplication occurs because different people work
- on the same code at different times in the life cycle of the software. They are not
- aware of existing classes or methods and end up re-inventing the wheel.
-
- REFACTORING:
- For identical name form, the suggested refactoring is to rename one of the abstrac-
- tions to a unique name.
- In the case of the identical implementation form of Duplicate Abstraction, if the
- implementations are exactly the same, one of the implementations can be removed.
- If the implementations are slightly different, then the common implementation in
- the duplicate abstractions can be factored out into a common class.
-
-
- IMPACT:
- it affects understandability of the design. Developers of client code will be confused and unclear about the choice
- of the abstraction that should be used by their code.
-
- identical implementation (i.e., they have duplicate code), it becomes difficult to maintain them.
- In summary, this smell indicates a violation of the DRY (Don’t Repeat Yourself)
- principle.
-                 If the DRY principle is not fol-
- lowed, a modification of an element within the system requires modifications to other
- logically unrelated elements making maintainability a nightmare. Since there is dupli-
- cation among abstractions in the design, this smell is named Duplicate Abstraction.
-
- 3.7.6 ALIASES
- This smell is also known in literature as:
-
- •	“Alternative classes with different interfaces” [7]—This smell occurs when
- classes do similar things, but have different names.
- •	“Duplicate design artifacts” [74]—This smell occurs when equivalent design
- artifacts are replicated throughout the architecture.
-*** encapsulation
-*** modularization
-*** hierarchy
+*** [[pdftools:/home/slk500/Dropbox/books/Refactoring/Refactoring for Software Design Smells - Managing Technical Debt (2015).pdf::1][Ganesh, Samarthyam Tushar, Sharma; Refactoring for Software Design Smells: Managing Technical Debt; 2015]]
 ** Normal 
 *** Alias Duplicates
 #+BEGIN_SRC php
@@ -1863,20 +1921,22 @@ use App\Contract\Query as
 *** Loops
     Fix: Replace Loop with Pipeline
 *** Message Chains
-    You see message chains when a client asks one object for another object, which the client then asks for yet another object, which the client then asks for yet another another object, and so on.
+You see message chains when a client asks one object for another object, which the client then asks for yet another object, which the client then asks for yet another another object, and so on.
 95 
 *** Middle Man
     Fix: Remove Middle Man, Inline Function, Replace Superclass with Delegate, Replace Subclass with Delegate
 *** Mysterious Name
-    Fix: Change Function Declaration, Rename Variable, Rename Field
+Fix: Change Function Declaration, Rename Variable, Rename Field
 *** Primitive Obsession
-    Primitive types: integers, floating point numbers and strings. Money, coordinates or ranges.
-    Fix: Replace Primitive with Object
+[[*primitive elements - types][Primitive types]] are generic, classes are more specific  
+Fix: Replace Primitive with Object
+**** links
+***** [[pdftools:/home/slk500/Dropbox/books/Refactoring/\[Joshua_Kerievsky\]_Refactoring_to_Patterns (2004).pdf::84][Kerievsky - Refactoring To Patterns]]
 *** Refused Bequest
 *** Repeated Switches
 *** Shotgun Surgery
 *** Speculative Generality
-    “Oh, I think we’ll need the ability to do this kind of thing someday”
+“Oh, I think we’ll need the ability to do this kind of thing someday”
 *** Temporary Field
 * Database
 ** config
@@ -2533,9 +2593,9 @@ WHERE   e.tag_slug_id = m.tag_slug_id
 | [[https://github.com/adamculp/refactoring101][Video Rental Shop]]                 |           132 | From Martin Fowler book "Refactoring: Improving the Design of Existing Code" converted to PHP | [[https://youtu.be/0DYIJdX6kB4][Refactoring 101]]                 |
 | [[https://github.com/jbrains/trivia/tree/master/php][Legacy Code Retreat - Trivia Game]] |           196 | Designed for [[https://legacycoderetreat.typepad.com/][Legacy Code Retreat]] events                                                       | [[https://code.tutsplus.com/series/refactoring-legacy-code--cms-633][Refactoring Legacy Code]]         |
 |                                   |               |                                                                                               | [[https://code.tutsplus.com/courses/techniques-for-refactoring-code][Techniques for Refactoring Code]] |
-|                                   |               |                                                                                               | [[http://blog.adrianbolboaca.ro/2014/04/legacy-coderetreat/#sessions][Legacy Coderetreat (Java)]] |
+|                                   |               |                                                                                               | [[http://blog.adrianbolboaca.ro/2014/04/legacy-coderetreat/#sessions][Legacy Coderetreat (Java)]]       |
 |                                   |               |                                                                                               | [[https://github.com/slk500/refactoring101][GitHub]]                          |
-|                                   |               |                                                                                               |                           |
+|                                   |               |                                                                                               |                                 |
 
 ** [[https://github.com/adamculp/refactoring101][Video Rental Shop]]
    phploc
@@ -2722,6 +2782,7 @@ doSomething() or die();
 - compared using all values
 - no side effects
 - value object should never be mocked
+- Value objects are powerful yet simple things. The problem that we were trying to solve earlier was that we need to constantly revalidate all of our properties. We do this because at every step, we don't know whether we can trust the object's properties to be valid. What if we could? In order to trust the values, we need two characteristics: for them to be validated and a guarantee that they haven't been changed since the validation. 
 #+begin_src php
 final class PaymentInstrument
 {
@@ -2759,6 +2820,20 @@ https://www.youtube.com/watch?time_continue=221&v=z3BDOoB8csA
 - data never delivered to the user
 *** Links 
 https://www.slideshare.net/dseguy/hunt-for-dead-code
+- [[https://stackoverflow.com/questions/15699995/could-someone-explain-the-pros-of-deleting-or-keeping-unused-code/15700228#15700228][Could someone explain the pros of deleting (or keeping) unused code?]]
+Here are some reasons why unused code should be removed:
+
+- For anyone new working on a project, they not only have to understand the working code, they have to understand unused material also. This is wasted time and creates confusion.
+
+- There is a danger that at sometime someone will make a change which inadvertently involve the 'dormant' code and can introduce bugs. I know it's happened on projects I've worked on.
+
+- The maintenance of any code is an administrative burden. By preserving old redundant code that burden is increased. For example, merging changes in the main branch becomes harder because there is more code to work through and more possibility to make a mistake.
+
+- What happens over time is that more and more old unused code is added to the codebase. This increases the confusion, potential misunderstanding and administrative overhead.
+
+- The chances that the unused code will ever be used again is very unlikely. With time that possibility of re-use diminishes. If code is to be removed and is considered important enough then the code can be branched off and documented.
+
+- Any personal feelings that a coder may have about code they may have worked hard on are understandable. But part of being professional requires that those thoughts have to be put to one side for the better good. Time stands for no-one and there is no place for preserving historical code in a working codebase.
 *** Tombstone
 **** [[https://youtu.be/29UXzfQWOhQ][David Schnepper's Ignite talk, "Isn't That Code Dead?"]]
 https://github.com/scheb/tombstone
@@ -2782,7 +2857,7 @@ if ( !$var ) {
 #+RESULTS:
 : negation
 ** Avoid Else, Return Early (Guard Clause)
-   Return as soon as you know your method cannot do any more meaningful work.
+Return as soon as you know your method cannot do any more meaningful work.
 #+BEGIN_SRC php
  public function foo(int $x): string
     {
@@ -2810,9 +2885,7 @@ if ( !$var ) {
             return 'b';
         }
 
-        if ($x === 3) {
-            return 'c';
-        }
+        return 'c';
     }
 #+END_SRC
 
@@ -2910,7 +2983,7 @@ Refactoring: Replace Magic Number with Symbolic Constant
    Further Reading: https://dev.to/barryosull/why-i-dont-like-traits
 ** Eliminate or Reduce Number of Comments
 ** Eliminate or Reduce Number of Parameters
-   Functions should have a small number of arguments. No argument is best, followed by one, two, and three. More than three is very questionable and should be avoided with prejudice.
+Functions should have a small number of arguments. No argument is best, followed by one, two, and three. More than three is very questionable and should be avoided with prejudice.
 ** Eliminate or Reduce Number of Setters
    Further Reading: https://beberlei.de/2012/08/22/building_an_object_model__no_setters_allowed.html 
 http://williamdurand.fr/2013/06/03/object-calisthenics/#9-no-getterssettersproperties
@@ -2959,6 +3032,16 @@ Based on an  [[http://www.cs.kent.edu/~jmaletic/papers/ICPC2010-CamelCaseUnderSc
 [[http://ieeexplore.ieee.org/xpl/articleDetails.jsp?tp=&arnumber=5521745][eye tracking study on camelCase and snake_case]]
 https://stitcher.io/blog/have-you-thought-about-casing
 http://www.cs.loyola.edu/~binkley/papers/icpc09-clouds.pdf?fbclid=IwAR2lZJWpYcV-TK2HNpy-JmB3A9g0nSeCeSaDr2ZVh30hSlS41n5O48YoiWc
+** instanceof
+#+begin_src php
+class MyClass
+{
+}
+
+$a = new MyClass;
+echo (!($a instanceof stdClass));
+echo (!$a instanceof stdClass); // not
+#+end_src
 
 * Principles
 ** SOLID
@@ -3066,141 +3149,6 @@ The members data and errors MUST NOT coexist in the same document.
 - https://github.com/sendgrid/php-http-client
 - https://www.reddit.com/r/PHP/comments/40u74q/how_to_write_a_sdk_for_our_rest_api_best_practices/
 - [[https://seegatesite.com/php-json-web-token-tutorial-for-beginners/][PHP JSON Web Token Tutorial For Beginners]]
-* Paradigm
-** Imperative
-- uses statements that change a program's state
-- focuses on describing how a program operates
-- The term is often used in contrast to declarative programming, which focuses on what the program should accomplish without specifying how the program should achieve the result.
-*** Procedural
-*** OOP
-data before action vs. procedual action before data
-https://www.youtube.com/watch?v=lbXsrHGhBAU
-**** definition
-***** class (data type definition)
-****** field (data member)
-****** method (function member) - function associate woth class
-
-object/instance (piece of data)
-
-**** Principles
-***** encapsulution - methods act as 'interface' to object's fields.  
-Fields of an object and instance should only be read or written by methods of that instances class.
-***** inheritance
-
-
-My design goals are :
-- The simples code that does what he needs to.
-- complexity has to justyfiy itself
-
-OOP Tutorial
-
-OOP Tutorial 
-4 APIE
-Abstraction
-Polymorphism
-Innheritance
-Encapsulation
-
-[[https://www.youtube.com/watch?v=QM1iUe6IofM][Object-Oriented Programming is Bad]]
-
-procedural & imperative (the default)
-procedural & functional (minimize state)
-object-oriented & imperative (segregate state)
-object-oriented & functional (do both)
-
-Can't find the answear on internet. I would like to play offline, set broadcast to lan, play offline. Then when I join the server I see only console. How I can jump in to the game? 
-
-** Declarative
-*** Functional Programming
-that treats computation as the evaluation of mathematical functions and avoids changing-state and mutable data. It is a declarative programming paradigm in that programming is done with expressions or declarations instead of statements. Here are some important properties of mathematical functions that we’ll
-want our Lisp functions to obey as well:
-
-- The function always returns the same result, as long as the same arguments are passed into it. (This is often referred to as referential transparency.)
-- The function never references variables that are defined outside the function, unless we are certain that these variables will remain constant.
-- No variables are modified (or mutated, as functional programmers like to say) by the function.
-  - The purpose of the function is to do nothing other than to return a result.
-  - The function doesn’t do anything that is visible to the outside world, such as pop up a dialog box on the screen or make your computer go “Bing!”
-  - The function doesn’t take information from an outside source, such as the keyboard or the hard drive.
-
-If we obey these rules whenever possible, we can say that our code is written in the functional style.
- 
-This leads us to the central philosophy of functional programming. It states that you should break your program into two parts:
-
-- The first, and biggest part, should be completely functional and free of side effects. This is the clean part of your program.
-- The second, smaller part of your program is the part that has all the side effects, interacting with the user and the rest of the outside world. This code is dirty and should be kept as small as possible.
-
-Furthermore, sharing of structures can be done safely, since one of the tenets of functional programming is to never modify old pieces of data.
-
-***** Functional Programming Reduces Bugs
-Bugs in computer programs usually happen because, under certain circum-stances, the code behaves in ways the programmer didn’t expect when the code was written. In functional programming, the behavior of your functions depends on one and only one thing: the arguments explicitly passed into the function. This makes it much easier for a programmer to appreciate all the circumstances a program could possibly encounter, including circumstances that could lead to errors. Writing functions that depend on only their arguments for their behavior also makes bugs easy to duplicate. If you call a function with the same data passed in through its arguments, it should do the same exact thing every time. This is the property we called referential transparency.
-***** Functional Code Is More Elegant
-The biggest advantage of functional programming is that it brings all of computer programming back to the domain of mathematics. It wouldn’t make sense for a math equation to pop up a dialog box or write to the hard drive. It can be argued that if we get our computer code back to this same level of purity, it will be far more elegant. Additionally, if our code is closer to the world of mathematics, we may be able to use tools in mathematics to write better computer code. In fact, a lot of research continues to be done in using mathematical proofs to check for the correctness of functional computer programs. Although this research still isn’t to the point where a practical programmer would use such techniques, they may be more common in the future. And, almost cer- tainly, a functional programming style will be essential in making correctness proofs on your code possible
-***** Functional Programs Are More Compact
-It turns out a lot of the work in run-of-the-mill computer programs involves creating, initializing, and updating variables. Functional programs don’t do any of this. As we discussed earlier, functional programs make use of higher order functions, which don’t require us to create tons of temporary variables in our code, and that makes our code more compact.
-**** links
-- [[https://apiumhub.com/tech-blog-barcelona/functional-php/][FUNCTIONAL PHP: A FIRST APPROACH]]
-- http://scott.sauyet.com/Javascript/Talk/2014/01/FuncProgTalk/
-**** tutorials
-***** [[https://www.youtube.com/watch?v=7Zlp9rKHGD4][Robert C Martin - Functional Programming; What? Why? When?]]
-****** what is state?
-1; // a value
-int x = // x is an id that has a value
-x = x + 1 //now x has changed state 
-****** is this stateless?
-#+begin_src java
-void main() {
-    printf("Hello, world\n");
-}
-#+end_src
-Yes, there is no state being change anywhere. But it does hava a side effect it prints something on the screen.
-****** squares of integers 
-******* statefull
-#+begin_src java
-public class Squint {
-    public static void main(String[] args) {
-	for (int i=1; i<=20; i++)
-	    System.out.format("%d, \t%d\n"), i, i*i)
-}
-}
-#+end_src
-for loop change a state of variable i
-******* stateless
-#+begin_src java
-public class Squint {
-    public static void main(String[] args){
-	printSquares(20);
-    }
-}
-
-private static void printSquares(int n){
-    if(n > 0) {
-	printSquares(n-1);
-	System.out.format("%d, \t%d\n", n, n*n);
-	    }
-}
-#+end_src
-stateles. No variable is altered. Squint calls itself. New variable is being recreated but it dosent change state.
-****** side effect
-its assignment statement, all side effects are result of assignment statements, if there are not assignments statements there cannot be side effects. Only assignment statements change the state of variable. When you have a function that gives you a side effect you need another function to undo the side effect.
-Open->Close malloc->free - they are seperated in time, one must come before other first open then close. 
-****** multi core problem
-** Structured
-Aimed at improving the clarity, quality, and development time of a computer program by making extensive use of the structured control flow constructs of selection (if/then/else) and repetition (while and for), block structures, and subroutines.
-** Non-structured
-A program in a non-structured language uses unstructured jumps to labels or instruction addresses. The lines are usually numbered or may have labels: this allows the flow of execution to jump to any line in the program. This is in contrast to structured programming which uses structured constructs of selection (if/then/else) and repetition (while and for).
-** Links
-*** [[https://youtu.be/cgVVZMfLjEI][4 Programming Paradigms In 40 Minutes]]
-**** OOP
-- everything is an object
-- state (properties) & behaviour (methods)
-- modyfing it's own internal state
-**** Functional
-- function take data & output data
-- Pure Functional
-  - don't store state
-  - don't mutate incoming data
-* Config
-php -i | grep "Loaded Configuration File"
 * Patterns
   - Patterns are formalized best practices.
   - is a named description of a problem and solution that can be applied to new contexts
@@ -4665,7 +4613,7 @@ sudo mv phploc.phar /usr/local/bin/phploc
 *** rector
 https://github.com/rectorphp/rector
 *** [[https://github.com/nunomaduro/phpinsights][phpinsights]]
-
+*** [[https://github.com/mamuz/PhpDependencyAnalysis][PhpDependencyAnalysis]]
 ** Composer
 - https://getcomposer.org/doc/articles/autoloader-optimization.md
 - http://mouf-php.com/optimizing-composer-autoloader-performance
@@ -4692,117 +4640,8 @@ Projekt nie jest jeszcze na produkcji, ciągle w fazie development to można raz
 ** Linux
 sudo lsof -i -P -n | grep LISTEN
 sudo lsof -i:22 ## see a specific port such as 22 ##
-* Style
-- [[https://shkspr.mobi/blog/2014/11/why-i-vertically-align-my-code-and-you-should-too/][Why I vertically align my code (and you should too!)]]
-- [[https://www.huridocs.org/2016/07/file-naming-conventions-why-you-want-them-and-how-to-create-them/][file-naming-conventions-why-you-want-them-and-how-to-create-them]]
-* Jokes
-- There is so much spaghetti I might as well open a restaurant!
-- I echo all of my code as a string in the command line and then use ">" to redirect it in to a new file. I don't have time to open an edit
-- We draw exceptional people from exception
-* Metrics
-** Cyclomatic Complexity Number (CCN) 
-   Counts the available decision paths in a source code to determine it's complexity.
-   Each decision path starts with one of the conditional statements from the following list:
-   - ?
-   - &&
-   - ||
-   - or
-   - and
-   - xor
-   - case
-   - catch
-   - elseif
-   - for
-   - foreach
-   - if
-   - while
-
-   Cyclomatic Complexity Number is never less than 1, because there’s always at least one code path.
-   - 1-4 has low complexity.
-   - 5-7 is moderate and still easy to understand.
-   - 6-10 has a high complexity.
-   - 10+ is very complex and hard to understand.
-#+BEGIN_SRC php
-final class CyclomaticComplexityNumber
-{
-    // Class Cyclomatic Complexity = 1
-}
-
-final class CyclomaticComplexityNumber
-{
-
-    public function one()
-    {
-        // Function Cyclomatic Complexity = 1
-    }
-
-    public function two()
-    {
-        // Function Cyclomatic Complexity = 1
-    }
-
-    // Class Cyclomatic Complexity = 1
-}
-
-final class CyclomaticComplexityNumber
-{
-
-    public function one()
-    {
-        if(true){
-
-        }
-        // Function Cyclomatic Complexity = 2
-    }
-
-    public function two()
-    {
-        // Function Cyclomatic Complexity = 1
-    }
-
-    // Class Cyclomatic Complexity = 1 + 1 = 2
-}
-
-final class CyclomaticComplexityNumber
-{
-
-    public function one()
-    {
-        if(true){
-
-        }
-        // Function Cyclomatic Complexity = 2
-    }
-
-    public function two()
-    {
-        if(true){
-
-        }
-        // Function Cyclomatic Complexity = 2
-    }
-
-    // Class Cyclomatic Complexity = 1 + 1 + 1 = 3
-}
-#+END_SRC
-
-** NPath Complexity
-#+BEGIN_SRC php
-function foo($a, $b)
-{
-    if ($a > 10) {
-        echo 1;
-    } else {
-        echo 2;
-    }
-    if ($a > $b) {
-        echo 3;
-    } else {
-        echo 4;
-    }
-}
-#+END_SRC
-So here we have function with 4 possible outcomes, since we have 2 statements that have 2 possible outcomes each (2 * 2 = 4). That means that the functions Npath complexity is 4. If we would add another statement with 2 possible outcomes we would get a complexity of 8 since 2 * 2 * 2 = 8.
+** PHPStorm
+https://plugins.jetbrains.com/plugin/2162-string-manipulation
 * Notepad
 1) Accurate predictions are an oxymoron in the real world. You can't predict accurately for things that aren't certain, and in almost all cases, developers won't know the systems they are dealing with fully enough. Moreover, they don't know their own personal efficiency from day to day; it just can't be foreseen accurately.
 2) A good property of software is the ability to change 
@@ -4811,41 +4650,48 @@ So here we have function with 4 possible outcomes, since we have 2 statements th
 5) Using new programming languages will bring you new insights and ideas to already known languages. You get a better understanding.
 6) It's not about clever, crAFTY, PREETY CODE. iT'S ABOUT FAST AND EFFECTIVE COMMUNICATION. It's about communication beetween people.
 7) Any time someone sees some code that isn't as clear as  it should be, they should take the opportunity to fix it right there and then — or at least within a few minutes. This opportunistic refactoring is referred to by Uncle Bob as following the boy-scout rule — always leave the code behind in a better state than you found it.
-** Routing
-from most specific at the top to less specific at the bottom
-*** yml vs. annotations
-It's always have been a war about this. But I would simply divide them in to two options. Using annotations is quickier and kind of easier to use but it's increase noise in the code. I think it's great for prototyping small application, when you absolutly sure that app would not grow. Annotations become a tottaly mess when you have big application, it's hard to manage all routing compare to central routing like yaml.
-So I would go with word prototyping. Doctrine it's kind the same. It's great for prototyping but when you application finally reach maximum of what can you squize from ORM, you would have to leave it to pure SQL.
-*** benchmarks
-http://nikic.github.io/2014/02/18/Fast-request-routing-using-regular-expressions.html
-** Notes
-Extracting statistical information from hundreds of processes without adversely affecting their performance is not a simple task.
-** Mario
-http://jamie-wong.com/2013/07/12/grep-test/ Grep Test
-* Data Structures
-** Array
-*** Avoid complex arrays
+8) software bugs are domiated by state
+9) where software complexity comes from?
+10) HN is fast because it is feature-barren.
+11) The advantages of less lines of code are evident: a smaller program contains less bugs, is easier to reason about, and – because of its simplicity – is more robust.
+12) Extracting statistical information from hundreds of processes without adversely affecting their performance is not a simple task.
+* PHP
+** language
+*** primitive elements - types
+low-level language elements
+**** Integer
+**** Float
+**** String
+**** Booleans
+**** Array
+**** Object
+**** Resource
+**** NULL
+** Data Structures
+*** Array
+**** Avoid complex arrays
 http://mamchenkov.net/wordpress/2018/11/27/avoid-complex-arrays-in-php/
-*** [[https://stackoverflow.com/questions/10057671/how-does-php-foreach-actually-work][How does PHP 'foreach' actually work?]]
-*** [[https://szymonkrajewski.pl/why-you-should-use-array-functions-instead-of-basic-loops/#comment-365][Why you should use array functions instead of basic loops]]
-*** array is empty
-**** empty
+**** [[https://stackoverflow.com/questions/10057671/how-does-php-foreach-actually-work][How does PHP 'foreach' actually work?]]
+**** [[https://szymonkrajewski.pl/why-you-should-use-array-functions-instead-of-basic-loops/#comment-365][Why you should use array functions instead of basic loops]]
+**** array is empty
+***** empty
 #+begin_src php
 // Declare an array and initialize it 
 $non_empty_array = array('URL' => 'https://www.geeksforgeeks.org/'); 
+                         
+                         // Declare an empty array 
+                         $empty_array = array(); 
+                         
+                         // Condition to check array is empty or not 
+                         if(!empty($non_empty_array))echo "Given Array is not empty <br>"; 
   
-// Declare an empty array 
-$empty_array = array(); 
-  
-// Condition to check array is empty or not 
-if(!empty($non_empty_array)) 
-    echo "Given Array is not empty <br>"; 
-  
-if(empty($empty_array)) 
-    echo "Given Array is empty"; 
+                         if(empty($empty_array)) echo "Given Array is empty"; 
 
+                         if($array) {
+                             echo 'siema';
+                         }
 #+end_src
-**** count
+***** count
 // Declare an empty array  
 $empty_array = array(); 
    
@@ -4855,7 +4701,7 @@ if(count($empty_array) == 0)
 echo "Array is empty"; 
 else
 echo "Array is non- empty"; 
-**** sizeof
+***** sizeof
 // Declare an empty array 
 $empty_array = array(); 
    
@@ -4865,18 +4711,18 @@ if( sizeof($empty_array) == 0 )
 echo "Empty Array"; 
 else
 echo "Non-Empty Array"; 
-**** if
+***** if
 $playerList = array();
 if (!$playerList) {
 echo "No players";
 } else {
 echo "Explode stuff...";
 }
-**** compare to empty array
+***** compare to empty array
 if ($variableToTest === array()) {
 echo 'this is explicitly an empty array!';
 }
-*** [[https://stackoverflow.com/questions/2477496/php-sort-array-by-subarray-value][PHP Sort Array By SubArray Value]]
+**** [[https://stackoverflow.com/questions/2477496/php-sort-array-by-subarray-value][PHP Sort Array By SubArray Value]]
 
 usort($array, function ($a, $b) {
 return $a['optionNumber'] <=> $b['optionNumber'];
@@ -4885,26 +4731,25 @@ return $a['optionNumber'] <=> $b['optionNumber'];
 array_multisort(array_map(function($element) {
 return $element['optionNumber'];
 }, $array), SORT_ASC, $array);
-** String 
-*** empty
+*** String 
+**** empty
 https://thisinterestsme.com/whitespace-php-empty-function/
-
-* Functions Core
-** SPL Library
+** Functions Core
+*** SPL Library
 Great job on the implementation!
 
 For larger training jobs, wondering if it's worthwhile to investigate implementing SplFixedArray in to the class? While I'm not sure of the PHP7 impacts, for PHP < 7 this resulted in a memory reduction of 144 bytes per array element to 56 bytes per array element.
 
 If you were working with 50M data points total, this would reduce the memory requirements from 7.2GB to 2.8GB.
-** As opposed with isset(), property_exists() returns TRUE even if the property has the value NULL.
-** isset() vs array_key_exist
+*** As opposed with isset(), property_exists() returns TRUE even if the property has the value NULL.
+*** isset() vs array_key_exist
 In simple terms, isset() checks whether a variable exists or its been declared or not. This can be anything, an array, a particular key in an array or a variable. It also checks if a declared variable, array or array key has null value, if it does, isset() returns false, it returns true otherwise.
 
 On the other hand, array_key_exists() checks whether a particular key or index exists in an array. It does not evaluate the value of the key for any null values. It returns false if it does not find the key in the array and true otherwise.
 
 from the PHP manual: isset() does not return TRUE for array keys that correspond to a NULL value, while array_key_exists() does
 
-** foreach vs array_map
+*** foreach vs array_map
 https://stackoverflow.com/questions/18144782/performance-of-foreach-array-map-with-lambda-and-array-map-with-static-function
 https://www.reddit.com/r/PHP/comments/65ihba/re_array_map_vs_foreach/
 
@@ -4992,16 +4837,16 @@ foreach ($tests as $name => &$records) {
 }
 #+END_SRC
 https://3v4l.org/lon7l#output
-** create an array
+*** create an array
 #+BEGIN_SRC php
 range(1,10);
 #+END_SRC
-** foreach
+*** foreach
 #+BEGIN_SRC php
 foreach (range(1, 100) as $i) 
 #+END_SRC
-** array
-*** flatten
+*** array
+**** flatten
 #+BEGIN_SRC php
 public function flatten(array $array) {
     $return = array();
@@ -5009,7 +4854,7 @@ public function flatten(array $array) {
     return $return;
 }
 #+END_SRC
-*** sort by value of a given key
+**** sort by value of a given key
 #+BEGIN_SRC php
 //ascending
 usort($inventory, function ($item1, $item2) {
@@ -5021,19 +4866,10 @@ usort($inventory, function ($item1, $item2) {
     return $item2['price'] <=> $item1['price'];
 });
 #+END_SRC
-* Links
-1) [[https://www.tomasvotruba.cz/][Tomas Votruba]]
-2) https://dantleech.com/ Phpactor
-3) [[https://24daysindecember.net/2018/12/15/php-and-the-secrets-of-emergent-architecture/][PHP and the secrets of emergent architecture]]
-* Problems
-** PHP Add comma to every item but last one
-#+begin_src php
-$comma_separated = implode(", ", $vars);
-#+end_src
-* Quirks
-** More parameter than expected: no error in PHP?
+** Quirks
+*** More parameter than expected: no error in PHP?
 https://bugs.php.net/bug.php?id=13892&fbclid=IwAR0r2lrYMJ5cuE9o9sygoCORtmQ9R-dca76OfmRoadijMjqHoVzMpQXHl9c
-** Adding float numbers
+*** Adding float numbers
 #+BEGIN_SRC php
 var_dump(0.1 + 0.2 - 0.3);
 #+END_SRC
@@ -5041,38 +4877,20 @@ var_dump(0.1 + 0.2 - 0.3);
 #+RESULTS:
 : Standard input code:2:
 : double(5.5511151231258E-17)
-* Security
-** Cross-Site Request Forgery CSRF  
-also known as XSRF, Sea Surf or Session Riding
-is an attack that forces an end user to execute unwanted actions on a web application in which they're currently autheniticated.
-*** GET
-GET http://bank.com/transer.do?to=Attacker&amount=100 HTTP/1.1
-<a href="http://bank.com/transer.do?to=Attacker&amount=100"> View my picture! </a>
-<img src="http://bank.com/transer.do?to=Attacker&amount=100" witdth="0", height="0", border="0">
-
-Next, he can distribute the hyperlink via email to a large number of bank customers. Those who click on the link while logged into their bank account will unintentionally initiate the $100 transfer.
-
-Note that if the bank’s website is only using POST requests, it’s impossible to frame malicious requests using a <a> href tag. However, the attack could be delivered in a <form> tag with automatic execution of the embedded JavaScript.
-This is how such a form may look like:
-*** POST
-POST http://bank.com/transer.do HTTP/1.1
-#+BEGIN_SRC html
-<body onload="document.forms[0].submit()">
-  <form action="http://netbank.com/transfer.do" method="POST">
-    <input type="hidden" name="acct" value="Attacker"/>
-    <input type="hidden" name="amount" value="$100"/>
-    <input type="submit" value="View my pictures!"/>
-  </form>
-</body>
-#+END_SRC
-** Cross-Site Scripting (XSS)
-XSS enables attackers to inject client-side scripts into web pages viewed by other users.
-** Links
-https://arstechnica.com/information-technology/2015/08/cracking-all-hacked-ashley-madison-passwords-could-take-a-lifetime/
-
-https://www.rdegges.com/2018/please-stop-using-local-storage/
-* Interface and User Experience
-** [[https://en.wikipedia.org/wiki/Post/Redirect/Get][Redirect after a POST]] if that POST was successful, to prevent a refresh from submitting again.
+** Config
+php -i | grep "Loaded Configuration File"
+** Problems
+*** PHP Add comma to every item but last one
+#+begin_src php
+$comma_separated = implode(", ", $vars);
+#+end_src
+* Links
+** [[https://www.tomasvotruba.cz/][Tomas Votruba]]
+** The Clean Code Blog by Robert C. Martin (Uncle Bob)
+*** [[https://blog.cleancoder.com/uncle-bob/2014/04/03/Code-Hoarders.html][Code Hoarders]]
+It’s also easy to believe that acquiring new stuff is more important than organizing old stuff. After all, organizing old stuff does not add value. It’s acquiring new stuff that counts. So if there’s any spare time, or spare effort, or spare energy, it should be directed towards acquiring new stuff. Organizing the old stuff is a waste.
+** https://dantleech.com/ Phpactor
+** [[https://24daysindecember.net/2018/12/15/php-and-the-secrets-of-emergent-architecture/][PHP and the secrets of emergent architecture]]
 * Topics
 ** Rewrite
 - [[https://www.joelonsoftware.com/2000/04/06/things-you-should-never-do-part-i/][Things You Should Never Do, Part I]]
@@ -5111,18 +4929,170 @@ include snippets/fastcgi-php.conf;
 fastcgi_pass unix:/run/php/php7.4-fpm.sock;
 }
 }
-* Performance
+** Routing
+from most specific at the top to less specific at the bottom
+*** yml vs. annotations
+It's always have been a war about this. But I would simply divide them in to two options. Using annotations is quickier and kind of easier to use but it's increase noise in the code. I think it's great for prototyping small application, when you absolutly sure that app would not grow. Annotations become a tottaly mess when you have big application, it's hard to manage all routing compare to central routing like yaml.
+So I would go with word prototyping. Doctrine it's kind the same. It's great for prototyping but when you application finally reach maximum of what can you squize from ORM, you would have to leave it to pure SQL.
+*** benchmarks
+http://nikic.github.io/2014/02/18/Fast-request-routing-using-regular-expressions.html
+*** How to Pass an Array as URL Parameter in PHP?
+** Security
+*** Cross-Site Request Forgery CSRF  
+also known as XSRF, Sea Surf or Session Riding
+is an attack that forces an end user to execute unwanted actions on a web application in which they're currently autheniticated.
+**** GET
+GET http://bank.com/transer.do?to=Attacker&amount=100 HTTP/1.1
+<a href="http://bank.com/transer.do?to=Attacker&amount=100"> View my picture! </a>
+<img src="http://bank.com/transer.do?to=Attacker&amount=100" witdth="0", height="0", border="0">
+
+Next, he can distribute the hyperlink via email to a large number of bank customers. Those who click on the link while logged into their bank account will unintentionally initiate the $100 transfer.
+
+Note that if the bank’s website is only using POST requests, it’s impossible to frame malicious requests using a <a> href tag. However, the attack could be delivered in a <form> tag with automatic execution of the embedded JavaScript.
+This is how such a form may look like:
+**** POST
+POST http://bank.com/transer.do HTTP/1.1
+#+BEGIN_SRC html
+<body onload="document.forms[0].submit()">
+  <form action="http://netbank.com/transfer.do" method="POST">
+    <input type="hidden" name="acct" value="Attacker"/>
+    <input type="hidden" name="amount" value="$100"/>
+    <input type="submit" value="View my pictures!"/>
+  </form>
+</body>
+#+END_SRC
+*** Cross-Site Scripting (XSS)
+XSS enables attackers to inject client-side scripts into web pages viewed by other users.
+*** Links
+https://arstechnica.com/information-technology/2015/08/cracking-all-hacked-ashley-madison-passwords-could-take-a-lifetime/
+
+https://www.rdegges.com/2018/please-stop-using-local-storage/
+** Style
+- [[https://shkspr.mobi/blog/2014/11/why-i-vertically-align-my-code-and-you-should-too/][Why I vertically align my code (and you should too!)]]
+- [[https://www.huridocs.org/2016/07/file-naming-conventions-why-you-want-them-and-how-to-create-them/][file-naming-conventions-why-you-want-them-and-how-to-create-them]]
+** Grep Test
+- http://jamie-wong.com/2013/07/12/grep-test/
+  I’ll occasionally see code that attempts to use clever mechanisms to reduce code duplication or be terser by using metaprogramming or string concatenation or any number of other mechanisms to DRY up code.
+** Jokes
+- There is so much spaghetti I might as well open a restaurant!
+- I echo all of my code as a string in the command line and then use ">" to redirect it in to a new file. I don't have time to open an edit
+- We draw exceptional people from exception
+** Metrics
+*** Cyclomatic Complexity Number (CCN) 
+Counts the available decision paths in a source code to determine it's complexity.
+Each decision path starts with one of the conditional statements from the following list:
+- ?
+- &&
+- ||
+- or
+- and
+- xor
+- case
+- catch
+- elseif
+- for
+- foreach
+- if
+- while
+
+  Cyclomatic Complexity Number is never less than 1, because there’s always at least one code path.
+  - 1-4 has low complexity.
+  - 5-7 is moderate and still easy to understand.
+  - 6-10 has a high complexity.
+  - 10+ is very complex and hard to understand.
+#+BEGIN_SRC php
+final class CyclomaticComplexityNumber
+{
+    // Class Cyclomatic Complexity = 1
+}
+
+final class CyclomaticComplexityNumber
+{
+
+    public function one()
+    {
+        // Function Cyclomatic Complexity = 1
+    }
+
+    public function two()
+    {
+        // Function Cyclomatic Complexity = 1
+    }
+
+    // Class Cyclomatic Complexity = 1
+}
+
+final class CyclomaticComplexityNumber
+{
+
+    public function one()
+    {
+        if(true){
+
+        }
+        // Function Cyclomatic Complexity = 2
+    }
+
+    public function two()
+    {
+        // Function Cyclomatic Complexity = 1
+    }
+
+    // Class Cyclomatic Complexity = 1 + 1 = 2
+}
+
+final class CyclomaticComplexityNumber
+{
+
+    public function one()
+    {
+        if(true){
+
+        }
+        // Function Cyclomatic Complexity = 2
+    }
+
+    public function two()
+    {
+        if(true){
+
+        }
+        // Function Cyclomatic Complexity = 2
+    }
+
+    // Class Cyclomatic Complexity = 1 + 1 + 1 = 3
+}
+#+END_SRC
+
+*** NPath Complexity
+#+BEGIN_SRC php
+function foo($a, $b)
+{
+    if ($a > 10) {
+        echo 1;
+    } else {
+        echo 2;
+    }
+    if ($a > $b) {
+        echo 3;
+    } else {
+        echo 4;
+    }
+}
+#+END_SRC
+So here we have function with 4 possible outcomes, since we have 2 statements that have 2 possible outcomes each (2 * 2 = 4). That means that the functions Npath complexity is 4. If we would add another statement with 2 possible outcomes we would get a complexity of 8 since 2 * 2 * 2 = 8.
+** Performance
 https://github.com/JoeDog/siege - have to compile
 http://www.phpbenchmarks.com
 https://blobfolio.com/2017/09/25-easy-php7-micro-optimizations/
-** Apache Bench 
+*** Apache Bench 
 sudo apt-get install apache2-utils
 
-** Baseline Performance  
-*** Stock install (Amazon EC2 Large, Ubuntu, Apache, PHP, MySQL)
-*** Static index.html (Hello World!)
-*** Dynamic index.php (<?php echo 'Hello World!';)
-*** Database connect (PDO)
+*** Baseline Performance  
+**** Stock install (Amazon EC2 Large, Ubuntu, Apache, PHP, MySQL)
+**** Static index.html (Hello World!)
+**** Dynamic index.php (<?php echo 'Hello World!';)
+**** Database connect (PDO)
 #+BEGIN_SRC php
 $pdo = new PDO('mysql:host=host;dbname=dbname', 'user, 'pass');
    echo 'PDO Connect!';
@@ -5130,9 +5100,9 @@ $pdo = new PDO('mysql:host=host;dbname=dbname', 'user, 'pass');
 
 #+RESULTS:
 
-*** Database connect, query, and fetch (PDO)
+**** Database connect, query, and fetch (PDO)
 
-*** Table
+**** Table
 5 runs of 10 users for 60 sec, avg
 |                           | relative | req/s |
 |---------------------------+----------+-------|
@@ -5141,26 +5111,26 @@ $pdo = new PDO('mysql:host=host;dbname=dbname', 'user, 'pass');
 | pdo connect               | 0,83     | 1 818 |
 | pdo connect, query, fetch | 0,73     | 1 611 |
 
-** CRUD vs. BREAD
-** N+1 Problem
-*** Single-Query Solution
+*** CRUD vs. BREAD
+*** N+1 Problem
+**** Single-Query Solution
 select all results, including relationships in a single query
-*** Query-and-Stitch Solution
-** Array vs. StdClass 
+**** Query-and-Stitch Solution
+*** Array vs. StdClass 
 https://steemit.com/php/@crell/php-use-associative-arrays-basically-never
 https://blog.fox21.at/2018/11/21/avoid-dynamic-data-structures-in-php.html
-** Benchmark
+*** Benchmark
 https://3v4l.org/UYaFY
-*** Fastest way to insert new records where one doesn’t already exist
+**** Fastest way to insert new records where one doesn’t already exist
 http://cc.davelozinski.com/sql/fastest-way-to-insert-new-records-where-one-doesnt-already-exist
-** micro
+*** micro
 [[https://veewee.github.io/blog/optimizing-php-performance-by-fq-function-calls/?fbclid=IwAR2EW0FMAUX_LkCy_Kjo94-WxGyIwllSUQwNxIx6EwTkROp4kKlyZgkDlTQ][Optimizing PHP performance by using fully-qualified function calls]]
-** questions
+*** questions
 - [[https://stackoverflow.com/questions/2617672/how-important-is-it-to-unset-variables-in-php][How important is it to unset variables in PHP?]]
 - [[https://stackoverflow.com/questions/584960/whats-better-at-freeing-memory-with-php-unset-or-var-null][What's better at freeing memory with PHP: unset() or $var = null]]
-** PHP 7.4 Preload
+*** PHP 7.4 Preload
 https://stitcher.io/blog/php-preload-benchmarks
-** Tools
+*** Tools
 - https://github.com/krakjoe/nocheq - Sick of pesky type checking making your code too slow (and correct) ?
 * About
   It's a simple site about refactoring in PHP.
@@ -5185,6 +5155,8 @@ link.setAttribute('download', 'file.pdf');
 document.body.appendChild(link);
 link.click();
 });
+** Interface and User Experience
+*** [[https://en.wikipedia.org/wiki/Post/Redirect/Get][Redirect after a POST]] if that POST was successful, to prevent a refresh from submitting again.
 * Trash                                                            :noexport:
 ** order
 #+begin_src php
@@ -5231,25 +5203,34 @@ final class NextDateTimeGreaterThanPreviousValidator
     }
 }
 #+end_src
-
+Dziękuje każdemu za cenne wskazówki i uwagi, każdy po troszę ma rację. Myślę, że nie ma tutaj wzorowego rozwiązania. Mnie osobiście raził pewien 'dysonanspoznawczy' że klasa nazywa się 'NextDateTimeGreaterThanPreviousValidator' natomiast na return jest sprawdzane czy 'poprzednia data jest mniejsza od następnej' spójnie z nazwą byłoby sprawdzić czy 'nastęþna data jest większa od poprzedniej'. Chociaż po sugestiach innych, ta moja uwaga wydaje się błahostką.  
 #+begin_src php
-final class NextDateTimeGreaterThanPreviousValidator
+final class NextDateTimeGreaterThanPreviousDateTimeValidator
 {
     /**
      ,* @param Collection|Carbon[] $dates
      ,*/
     public function validate(Collection $dates): bool
     {
-        return $dates->every(function(Carbon $date, $key) use ($dates) {
-            $nextDate = $dates->get($key + 1);
+        return $dates->every(function(Carbon $previousDateTime, int $key) use ($dates) {
+            $nextDateTime = $dates->get($key + 1);
 
-            if(!$nextDate) {
+            if(!$nextDateTime) {
                 return true;
             }
 
-            return $nextDate->greaterThan($date);
+            return $nextDateTime->greaterThan($previousDateTime);
         });
     }
 }
-#+end_src
- 
+#+end_sr
+** refactor
+$cmResponse = $this->getStatus();
+
+private function getStatus(): PaymentResponse
+{
+return resolve(PaymentCardManagerResponseProcessor::class)->process(
+resolve(ProcessCardManagerRequestService::class)
+->process(new GetPaymentStatusRequest($this->payment))
+);
+}

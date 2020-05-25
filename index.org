@@ -2,7 +2,6 @@
 #+SETUPFILE: export/setup/theme-darksun-local.setup
 #+Title: PHPRefactor
 
-* Presentation                                                     :noexport:
 * Refactorings
 ** Add Type-Hint
 *** If you CAN type-hint, then you MUST type-hint
@@ -1140,33 +1139,85 @@ echo "Price after discount: $totalDiscountPrice";
 #+END_SRC
 *** Pass a test
 * Tutorials
-** [[https://www.pluralsight.com/courses/automated-tests-phpunit][Automated Tests with PHPUnit]]                      Anna Filina       testing - PHPUnit    
-** [[https://industriallogic.com/xp/refactoring/catalog.html][Catalog of Refactoring to Patterns]]                Joshua Kerievsky  patterns             
-** [[https://refactoring.com/catalog/][Catalog of Refactorings]]                           Martin Fowler     refactoring          
-** [[https://github.com/jupeter/clean-code-php][Clean Code PHP]]                                    Piotr Plenik      clean code           
-** [[https://code.tutsplus.com/courses/detecting-code-smells][Detecting Code Smells]]                             Patkós Csaba      refactoring          
-** [[https://www.pluralsight.com/courses/encapsulation-solid][Encapsulation and SOLID]]                           Mark Seemann      SOLID                
-** [[https://youtu.be/Rdc3r2BJzWA][How to Refactor Like a Boss 1]]                     Michael Cheng     refactoring          
-** [[https://youtu.be/2iXayIx4WyQ][How to Refactor Like a Boss 2]]                     Michael Cheng     refactoring          
-** [[https://youtu.be/JCqbdVrIW30][HTTP Smoke Testing]]                                Peter Heinz       testing - smoke test 
-** [[https://www.udemy.com/introduction-to-testing-with-phpunit/][Introduction to Testing with PHPUnit]]              Trevor Sawler     testing - PHPUnit    
-** [[http://blog.adrianbolboaca.ro/2014/04/legacy-coderetreat/#sessions][Legacy Coderetreat (Java)]]                         Adrian Bolboaca   refactoring          
-** [[https://github.com/exakat/php-static-analysis-tools][List of Static Analysis Tools]]                                       analysis             
-** [[https://www.lynda.com/PHP-tutorials/PHP-Testing-Legacy-Applications/669546-2.html][PHP: Testing Legacy Applications]]                  Chris Hartjes     testing - PHPUnit    
-** [[https://www.lynda.com/Software-Development-tutorials/Programming-Foundations-Test-Driven-Development/124398-2.html][Programming Foundations: Test-Driven Development]]  Simon Allardice   testing - TDD        
-** [[https://youtu.be/0DYIJdX6kB4][Refactoring 101]]                                   Adam Culp         refactoring          
-** [[https://code.tutsplus.com/series/refactoring-legacy-code--cms-633][Refactoring Legacy Code]]                           Patkós Csaba      refactoring          
-** [[https://youtu.be/7v9ehGsPm1s][Refactoring Legacy Code]]                           Adam Culp         refactoring          
-** [[https://adamwathan.me/refactoring-to-collections/][Refactoring to Collections]]                        Adam Wathan       collections          
-** [[https://youtu.be/Fca-Ng0bzuk][Solving the N+1 Problem]]                           Paul M. Jones     database             
-** [[https://youtu.be/65NrzJ_5j58][Steps Toward Modernizing a Legacy Codebase]]        Paul M. Jones     refactoring          
-** [[https://code.tutsplus.com/courses/techniques-for-refactoring-code][Techniques for Refactoring Code]]                   Patkós Csaba      refactoring
-** [[https://youtu.be/7LoShYRnljU][Extremely Defensive PHP Programming]] Marco Pivetta (Ocramius) 
-- poka yoka 
-- code is not reusable - do not trust the code.
-- abstractions are reusable - you trust interfaces, how the code should behave
-- ex. with req
-** [[https://youtu.be/WW2qPKukoZY][Doctrine Best Practices]] Marco Pivetta (Ocramius)
+** Functional
+** Rewrite
+*** TODO [[REWRITE! | David Heinemeier-Hansson, Basecamp | BoS USA 2015][REWRITE! | David Heinemeier-Hansson, Basecamp | BoS USA 2015]]
+** Refactoring
+*** [[https://refactoring.com/catalog/][Catalog of Refactorings]] Martin Fowler
+*** [[https://code.tutsplus.com/courses/detecting-code-smells][Detecting Code Smells]] Patkós Csaba
+*** [[https://youtu.be/Rdc3r2BJzWA][How to Refactor Like a Boss 1]] Michael Cheng
+*** [[https://youtu.be/2iXayIx4WyQ][How to Refactor Like a Boss 2]] Michael Cheng
+*** [[https://code.tutsplus.com/courses/techniques-for-refactoring-code][Techniques for Refactoring Code]] Patkós Csaba
+*** [[https://youtu.be/65NrzJ_5j58][Steps Toward Modernizing a Legacy Codebase]] Paul M. Jones
+*** [[https://youtu.be/0DYIJdX6kB4][Refactoring 101]] Adam Culp
+*** [[https://code.tutsplus.com/series/refactoring-legacy-code--cms-633][Refactoring Legacy Code]] Patkós Csaba
+*** [[https://youtu.be/7v9ehGsPm1s][Refactoring Legacy Code]] Adam Culp
+*** [[https://www.lynda.com/Developer-Programming-Foundations-tutorials/Foundations-Programming-Refactoring-Code/122457-2.html][Programming Foundations: Refactoring Code]]  Simon Allardice
+*** [[https://nomadphp.com/video/193/refactoring-done-right][Refactoring Done Right - Brandon Savage]]
+- what are we looking for ?
+  - messy & overly complex code, code style, solid violations, dead code
+  - code is meant to be read by humans
+*** [[https://adamwathan.me/refactoring-to-collections/][Refactoring to Collections]]                        Adam Wathan       collections          
+*** Java: Refactoring to Design Patterns By Andrejs Doronins
+*** IN-PROGRESS Java Refactoring: Best Practices By Andrejs Doronins
+- main programming activity
+  - reading
+  - writing
+  - changing
+- without refactoring
+  - productivity decreases
+    - duplicated code accumulates
+    - logic become more complex
+    - code is difficult to understand
+- reasons for technical debt
+  - not enough exp to code well
+  - lazy coding
+  - tight deadlines
+- boy scout rule : leave the (campground) code cleaner than you found it.
+- don't remove technical debt if:
+  - current code dosent work
+  - deadliness must be met
+  - it results in gold-plating
+*** Java: Writing Readable and Maintainable Code
+*** [[http://blog.adrianbolboaca.ro/2014/04/legacy-coderetreat/#sessions][Legacy Coderetreat (Java)]] Adrian Bolboaca
+*** Philippe Bourgau - Live Legacy Code Refactoring with the Golden Master
+- mikado method https://www.manning.com/books/the-mikado-method
+*** Anna Filina - Rewriting Legacy Code
+- null pointer exception
+- rewrite fail
+  - starts with a lot of fancy stuff
+  - too often tool selection for re-writes are based on what will look good on the CV rather than what is really needed. If you start that way you are almost certain to fail. Especialy if you switch from using none of fancy tech to use it all at once 
+*** [[https://youtu.be/XtSAEm1Lrwo][Christophe Thibaut - Stop managing technical debt and start solving problems again]]
+- technical debt - state of solution that is being build on or maintained with conflicting heuristics
+- bk. Koen, Billy Vaughn, Discussion of the Method: Conducting the Engineer’s Approach to Problem Solving
+- there is no such a thing like best practise there is alwayas a practice in a context  
+*** [[https://youtu.be/UrkrhYfOhfk][Mob Programming and Legacy Code" by Woody Zuill (@WoodyZuill)]]
+*** [[https://youtu.be/icDjN3yv4C4]["Improving Legacy" by Carola Lilienthal (@Cairolali)]]
+** Delete
+*** [[https://vimeo.com/108441214][Greg Young - The art of destroying software]] 
+creating code
+refactoring code
+deleting code
+
+delete ability
+small programs
+unix philospohy
+rewrite ability
+alan kay object orientation
+diff great & sucky code is size of the program
+good code - small isolated programs that can be deleted on the fly
+** Testing
+*** [[https://www.pluralsight.com/courses/automated-tests-phpunit][Automated Tests with PHPUnit]] Anna Filina
+*** [[https://youtu.be/JCqbdVrIW30][HTTP Smoke Testing]] Peter Heinz
+*** [[https://www.udemy.com/introduction-to-testing-with-phpunit/][Introduction to Testing with PHPUnit]] Trevor Sawler
+*** [[https://www.lynda.com/PHP-tutorials/PHP-Testing-Legacy-Applications/669546-2.html][PHP: Testing Legacy Applications]] Chris Hartjes
+*** [[https://www.lynda.com/Software-Development-tutorials/Programming-Foundations-Test-Driven-Development/124398-2.html][Programming Foundations: Test-Driven Development]] Simon Allardice
+** Patterns
+*** [[https://industriallogic.com/xp/refactoring/catalog.html][Catalog of Refactoring to Patterns]] Joshua Kerievsky
+*** [[https://www.pluralsight.com/courses/encapsulation-solid][Encapsulation and SOLID]] Mark Seemann
+*** [[https://github.com/slk500/DesignPatternsPHP][Design Patterns PHP]]
+** Database
+*** [[https://youtu.be/WW2qPKukoZY][Doctrine Best Practices]] Marco Pivetta (Ocramius)
 - entities mostly represent your domain
 - define entities, after that define database
 - disallow collection access from outside the entity
@@ -1175,34 +1226,14 @@ echo "Price after discount: $totalDiscountPrice";
 - separate Repository#get() & Repository#find() 
   - find() can return null
   - get() cannot return null - throw an exception 
-** [[https://www.lynda.com/Developer-Programming-Foundations-tutorials/Foundations-Programming-Refactoring-Code/122457-2.html][Programming Foundations: Refactoring Code]]  Simon Allardice  refactoring
-1) Because using the formal refactoring technique, brings more conscious awareness to that decision.
-
-2) No single technique is the master refactoring. 		 		
-3) It is the cumulative, additive impact of many small changes done consistently that is the real improvement here.
-
-4) Just as important, as you start to get a sense of what refactoring is, is that you stay very aware of what refactoring is not. And it's easy to get the wrong ideas because we're saying things like we're improving code. And that could imply all sorts of possible meanings. So, three things that refactoring is not. One, refactoring is not debugging. Your code already needs to work. Either on the small scale, you have some classes and methods that are already functional, testable and working. Or on the large scale you have an entire shipped application that's already in use. 		
-
-5) Now it's true, during the process of refactoring you may notice something that you realize is a problem. But the moment that you start to deal with that. You have stopped refactoring and you have started bug fixing which is a very different mindset.
-
-6) Number two. Refactoring is not performance. This is another very common misconception. That we do this to improve our code. We're cleaning our code up and that's going to make it faster. No, code performance is not the goal of refactoring nor, let me be quite clear here, is it even an expectation. 		 		
-7) Refactoring might even make your code technically slower because we're making decisions about the construction of code, unlike building construction. The decisions you would make to build a house as well as possible are not the same as the decisions you would make to build a house as fast as possible. Improving pure performance is something we do in software development but that is a separate process with a different set of questions and a different set of tools. But there is one thing that gets faster with refactoring, us, we do, programmers. 
-		
-8) We'll be able to read and understand it, not just individual pieces of code but the bigger application and that can lead to many benefits. Well re-factored code will make us faster. It is not intended to make the code faster. And finally, number three, refactoring is not adding features. If during this process you add a new feature, you support and you use case, you add a single tiny menu item to an application, you are no longer refactoring. Because in refactoring we do not change the behavior of the code.
- 		
-9) Because well-structured code will make it so much easier to add new features and new capabilities.
-
-10) It will make it easier to start analyzing performance. So we're refactoring to get the future roadblocks out of our way. Now, it can often be difficult for teams to get approval to spend time refactoring when it's not part of the culture, because the benefits aren't immediately apparent. Oh, you're not adding features, you're not working on performance, so why bother? We bother so we can do those things easier. We can add features quicker next week, or next month, or next year. So that we can bring new people onto the team and just point them at well-written code, rather than spend three months having to explain everything about what it does. And so that a year, or two, or three down the line, we don't have code that's such a mess.
-
-11) if you don't have a reason to re-factor, then you don't re-factor. 
-
-12) unforeseen consequences
-
-13) Bringing multiple sets of eyes to the same code. 
-
-14) Something about this code that just smells bad. And we use it as an indicator we have something to improve.  
-
-15) We're changing code and that brings risk. The single best way to prove that the changes you make when refactoring do what you intend. Only what you intend, and don't unwittingly mess everything else up is to have a set of automated unit tests you can run on your code before and after. So, using a test framework something like j unit for java, n unit for .Net, rspec for Ruby and so on.
+*** [[https://youtu.be/Fca-Ng0bzuk][Solving the N+1 Problem]] Paul M. Jones
+** [[https://github.com/jupeter/clean-code-php][Clean Code PHP]] Piotr Plenik
+** [[https://github.com/exakat/php-static-analysis-tools][List of Static Analysis Tools]] 
+** [[https://youtu.be/7LoShYRnljU][Extremely Defensive PHP Programming]] Marco Pivetta (Ocramius) 
+- poka yoka 
+- code is not reusable - do not trust the code.
+- abstractions are reusable - you trust interfaces, how the code should behave
+- ex. with req
 ** [[https://knpuniversity.com/screencast/phpunit][PHPUnit: Testing with a Bite]] 
 *** 3 Types of Tests
 1) Unit Test - Test one specific function on a class. Fake any needed database connecnions.
@@ -1215,100 +1246,11 @@ Too many tests = wasted time, add little value, slow you down
 1. Create the test
 2. Write just enough code for the test to pass
 3. Refactor your code 
-** [[https://www.lynda.com/Cucumber-tutorials/Behavior-Driven-Development/718635-2.html][Behavior-Driven Development]]
-*** The 5 Ws
-**** As (who, what or where)
-**** I (want)
-**** because (why)
-Example:
-Who - as a user of Acme.com
-What - I want to access content on my mobile phone
-Why - because I might not always have a computer available
-
-https://cucumber.io/training -> 3 youtube
-
-*** Throw Over the Wall
-**** Developers would coe and then throw it over the wall for someone else to test
-*** After BDD Transformation
-**** testing cycle went down
-**** defect count went down
-**** time to market went down
-**** team's confidence in code increased and anxiety decreased
-**** manual testing cost went down
-
-"The hardest part of building a software system is deciding precisely what to build." - Fred Brooks
-
-
-If you're having trouble, example mapping helps us keep these conversations short and on track by creating a visual representation of a user story to guide and document the discussion. The process of example mapping is fairly straightforward. Using a four-color pack of index cards, we build a visual representation of our user's story with each color providing a specific piece of information. We build this as we have our conversation to document what is discovered through the discussion about the user's story.
-
-We begin with a yellow card, which contains the name of our story itself and place this at the very top. Our blue cards represent specific rules that constrain the scope of our story. This is our acceptance criteria. With green cards, we provide concrete examples of the user's story in the context of a specific rule. So we place these under the relevant blue card. And finally, we have our red cards. These cards contain questions that cannot be immediately answered during the discussion, but are captured so that we can move on with the conversation.
-
-**** Acceptance criteria
-***** addresses what defines a working system
-***** written as pass/fail
-**** Scenario 
-***** defines the initial conditions for acceptance criteria
-***** states the trigger of scenario and expected outcome 
-
-*** Gherkin Syntax 
-**** Feature: feature story - name of the feature and possibly brief description
-***** Scenario: a user story - single concrete example of how a system should behave - each feature generally have 5-20 scenarios - Scenarios describe the behaviour of the system under specific initial conditions.
-***** Given: some set of initial conditions - describe the context or precondition for the scenario
-***** When: an event occurs - identifies an event or actor enacted by some actor on the system
-***** Then: an outcome is expected - provides the expected outcome to the scenario
-
-*** Example
-**** Feature : Customer pays with a credit card    
-***** As a sales associate 
-***** I should be able to process payments
-***** when given a credit card
-
-Now we're ready to translate our conversation into scenarios that describe the concrete behavior of the application. Ideally, this is done using declared dephrasing, meaning without referencing the particulars of a user interface or sequence of steps. Remember that Gherkin is a way to phrase our acceptance criteria as an executable scenario that describes the behavior of a system. So, our conversations would describe the behavior of the system under specific initial conditions.
-
-***** Scenario 1
-****** Total charge is over the $2 credit card minimum. 
-****** Given: Maria orders $3 of coffee from Li. 
-****** When: Maria pays with a credit card. 
-****** Then:  Lit should process the payment. 
-
-***** Scenario 2
-****** Total charge is under the $2 credit card minimum.
-****** Given: Maria orders $1 of coffee from Li.
-****** When: Maria pays with a credit card.
-****** Then: Li should not process the payment.
-*** Test Automation
-Allows for the execution of software tests that compare the expectations for software with the actual outcomes. Testing can be repetitive process and automation can be a boon to productivity.
-  
-*** Living Documentation
-Is a system for dynamically generating documentation that contains information which is up to date and accurate.
-Cucumber provides a system that dynamically generates documentation because of the manner that tests are written. Because Cucumber tests are written in a way that can be easily interpreted by non-technical stakeholders and, at the same time, be executed by a computer, your tests themselves become a living source of documentation that reflect the accuracy of your application. Cucumber was designed to enhance the practice of test-driven development. It provides a single source of truth for an application's lifecycle by merging test automation and test documentation.
-
-*** Further
-***** https://cucumber.io/school
-***** https://cucumber.io/training
-***** BDD in Action by John Ferguson Smart
-***** The Cucomber Book by Aslak Hellesoy...
-*** Notes
-**** BDD is a process, not a tool
-**** Specialized frameworks can assist in this process by providing a common language for acceptance criteria.
-
-To types of BDD:
-1. Story - is done with Behat & functional tests
-2. Spec  - is done with PHPSpec & Unit tests
-
-4 Steps to BDD
-1.Define Business Value of all big features
-2.Prioritize you features
-3.Break feature down into user stories
-4.Write the code for the feature
-
-https://github.com/Behatch/contexts
-   
 ** [[https://www.lynda.com/Selenium-tutorials/Test-Automation-Foundations/728391-2.html][Test Automation Foundations]] 
-Automated testing follows the same steps as manual testing, but it's much quicker. While there is an initial time investment to write the scripts, once the scripts are complete they can be run repeatedly without much additional cost.
-**** There will be maintenance that is required, but it saves time in the long run. This makes automation have a great return on investment. In addition, the exact same steps are executed every time, which reduces any possibility of human error. 
-**** Agile Testing Quadrants
-**** Test Pyramid
+- Automated testing follows the same steps as manual testing, but it's much quicker. While there is an initial time investment to write the scripts, once the scripts are complete they can be run repeatedly without much additional cost.
+- There will be maintenance that is required, but it saves time in the long run. This makes automation have a great return on investment. In addition, the exact same steps are executed every time, which reduces any possibility of human error. 
+- Agile Testing Quadrants
+- Test Pyramid
 ** [[https://youtu.be/bkjIEywt45Y][Clean Application Development]] Adam Culp
 bad code:
 - is easy
@@ -1338,46 +1280,15 @@ smells - are indications of problems in your code
 
 CodeSniffer
 ** https://cleancoders.com/videos
-** [[https://github.com/slk500/DesignPatternsPHP][Design Patterns PHP]]
 ** [[https://youtu.be/a-BOSpxYJ9M][Agile is Dead • Pragmatic Dave Thomas]] 
 1) agile is adjective not noun
 2) No Rules Are Universal. All Rules Need Context. All rules are contextual.
 3) Agile is not what you do. Agility is how you do it.
 4) If you about to jump put of airplane for the first time you don't care about the theory of aerodynamics you what to know what you pull and when
-** [[https://github.com/HugoMatilla/Refactoring-Summary][Summary of "Refactoring: Improving the Design of Existing Code" by Martin Fowler]]
-** [[https://vimeo.com/108441214][Greg Young - The art of destroying software]]  
-creating code
-refactoring code
-deleting code
-
-delete ability
-small programs
-unix philospohy
-rewrite ability
-alan kay object orientation
-diff great & sucky code is size of the program
-good code - small isolated programs that can be deleted on the fly
-** Java: Refactoring to Design Patterns By Andrejs Doronins
-** Java Refactoring: Best Practices By Andrejs Doronins
-- main programming activity
-  - reading
-  - writing
-  - changing
-- without refactoring
-  - productivity decreases
-    - duplicated code accumulates
-    - logic become more complex
-    - code is difficult to understand
-- reasons for technical debt
-  - not enough exp to code well
-  - lazy coding
-  - tight deadlines
-- boy scout rule : leave the (campground) code cleaner than you found it.
-- don't remove technical debt if:
-  - current code dosent work
-  - deadliness must be met
-  - it results in gold-plating
-** Java: Writing Readable and Maintainable Code
+** [[https://nomadphp.com/video/93/beautiful-models-in-php][Beautiful Models in PHP]]
+- model - method of representing data in a logical way
+  - sometimes  map directly to a database table - a lot of times they don't
+  - may not have databases at all
 ** Symfony
 *** https://github.com/ThomasBerends/symfony-certification-preparation-list
 *** [[https://symfonycasts.com/screencast/symfony4-upgrade][Upgrade to Symfony4 and Flex!]]
@@ -1387,9 +1298,14 @@ good code - small isolated programs that can be deleted on the fly
    2) "Symfony\Component\Security\Guard\AuthenticatorInterface::supports()"
    3) logout_on_user_change
    4) ...
+*** Symfony 5
+*** Form
+**** [[https://symfonycasts.com/screencast/symfonycon2018/symfony-forms-rich-domain-models][Using Symfony Forms with Rich Domain Models]]
+***** dto
+***** mapper
 ** DateTime
 - [[https://www.lynda.com/PHP-tutorials/PHP-Date-Time-Essential-Training/188214-2.html][PHP Date and Time Essential Training]]
-** Behat
+** BDD
 *** [[https://symfonycasts.com/screencast/behat][BDD, Behat, Mink and other Wonderful Things]]
 - Write the behavior for a feature first
 - Code until the behavioral tests pass
@@ -1403,35 +1319,123 @@ good code - small isolated programs that can be deleted on the fly
 4) Write the code for the feature
 *** [[https://kamilkokot.com/tame-behat-with-the-brand-new-symfony-extension/?fbclid=IwAR17apSVE_yYyXy7a0jxjokr70BcyZ7hbCujDenu6jKoxQcdQhY8zeW_aCo][Tame Behat with the Brand New Symfony Extension]]
 *** [[https://speakerdeck.com/doncallisto/behat-from-zero-to-hero-a-practical-guide-to-symfony-integration-and-usage?slide=118][Behat from zero to hero - A practical guide to symfony integration and usage]]
+*** [[https://www.lynda.com/Cucumber-tutorials/Behavior-Driven-Development/718635-2.html][Behavior-Driven Development]]
+**** The 5 Ws
+***** As (who, what or where)
+***** I (want)
+***** because (why)
+Example:
+Who - as a user of Acme.com
+What - I want to access content on my mobile phone
+Why - because I might not always have a computer available
+
+https://cucumber.io/training -> 3 youtube
+
+**** Throw Over the Wall
+***** Developers would coe and then throw it over the wall for someone else to test
+**** After BDD Transformation
+***** testing cycle went down
+***** defect count went down
+***** time to market went down
+***** team's confidence in code increased and anxiety decreased
+***** manual testing cost went down
+
+"The hardest part of building a software system is deciding precisely what to build." - Fred Brooks
+
+
+If you're having trouble, example mapping helps us keep these conversations short and on track by creating a visual representation of a user story to guide and document the discussion. The process of example mapping is fairly straightforward. Using a four-color pack of index cards, we build a visual representation of our user's story with each color providing a specific piece of information. We build this as we have our conversation to document what is discovered through the discussion about the user's story.
+
+We begin with a yellow card, which contains the name of our story itself and place this at the very top. Our blue cards represent specific rules that constrain the scope of our story. This is our acceptance criteria. With green cards, we provide concrete examples of the user's story in the context of a specific rule. So we place these under the relevant blue card. And finally, we have our red cards. These cards contain questions that cannot be immediately answered during the discussion, but are captured so that we can move on with the conversation.
+
+***** Acceptance criteria
+****** addresses what defines a working system
+****** written as pass/fail
+***** Scenario 
+****** defines the initial conditions for acceptance criteria
+****** states the trigger of scenario and expected outcome 
+
+**** Gherkin Syntax 
+***** Feature: feature story - name of the feature and possibly brief description
+****** Scenario: a user story - single concrete example of how a system should behave - each feature generally have 5-20 scenarios - Scenarios describe the behaviour of the system under specific initial conditions.
+****** Given: some set of initial conditions - describe the context or precondition for the scenario
+****** When: an event occurs - identifies an event or actor enacted by some actor on the system
+****** Then: an outcome is expected - provides the expected outcome to the scenario
+
+**** Example
+***** Feature : Customer pays with a credit card    
+****** As a sales associate 
+****** I should be able to process payments
+****** when given a credit card
+
+Now we're ready to translate our conversation into scenarios that describe the concrete behavior of the application. Ideally, this is done using declared dephrasing, meaning without referencing the particulars of a user interface or sequence of steps. Remember that Gherkin is a way to phrase our acceptance criteria as an executable scenario that describes the behavior of a system. So, our conversations would describe the behavior of the system under specific initial conditions.
+
+****** Scenario 1
+******* Total charge is over the $2 credit card minimum. 
+******* Given: Maria orders $3 of coffee from Li. 
+******* When: Maria pays with a credit card. 
+******* Then:  Lit should process the payment. 
+
+****** Scenario 2
+******* Total charge is under the $2 credit card minimum.
+******* Given: Maria orders $1 of coffee from Li.
+******* When: Maria pays with a credit card.
+******* Then: Li should not process the payment.
+**** Test Automation
+Allows for the execution of software tests that compare the expectations for software with the actual outcomes. Testing can be repetitive process and automation can be a boon to productivity.
+  
+**** Living Documentation
+Is a system for dynamically generating documentation that contains information which is up to date and accurate.
+Cucumber provides a system that dynamically generates documentation because of the manner that tests are written. Because Cucumber tests are written in a way that can be easily interpreted by non-technical stakeholders and, at the same time, be executed by a computer, your tests themselves become a living source of documentation that reflect the accuracy of your application. Cucumber was designed to enhance the practice of test-driven development. It provides a single source of truth for an application's lifecycle by merging test automation and test documentation.
+
+**** Further
+****** https://cucumber.io/school
+****** https://cucumber.io/training
+****** BDD in Action by John Ferguson Smart
+****** The Cucomber Book by Aslak Hellesoy...
+**** Notes
+***** BDD is a process, not a tool
+***** Specialized frameworks can assist in this process by providing a common language for acceptance criteria.
+
+To types of BDD:
+1. Story - is done with Behat & functional tests
+2. Spec  - is done with PHPSpec & Unit tests
+
+4 Steps to BDD
+1.Define Business Value of all big features
+2.Prioritize you features
+3.Break feature down into user stories
+4.Write the code for the feature
+
+https://github.com/Behatch/contexts
+   
 * Books
 ** Database
 *** Karwin, Bill SQL Antipatterns - Avoiding The Pitfalls of Database Programming 2010	
 *** Scott J Ambler and Pramod J. Sadalage Refactoring Databases - Evolutionary Database Design 2006
 refactoring	must read It's catalog of refactorings for database
 *** Joe Celko’s Trees and Hierarchies in SQL for Smarties
-** Andrew Hunt, David Thomas - The Pragmatic Programmer: From Journeyman to Master	
-overall	skip	1999	a lot of tips & tricks but too old
-** [[pdftools:/home/slk500/Dropbox/books/Refactoring/Antipatterns. Refactoring Software, Archtectures and Projects in Crisis(1998).pdf::1][Antipatterns. Refactoring Software, Archtectures and Projects in Crisis 1998]]
+*** SQL for Smarties: Advanced SQL Programming 2005
+** Refactoring
+*** Michael Feathers
+**** Working Effectively with Legacy Code; 2005
+ - To me, legacy code is simply code without tests. I’ve gotten some grief for this definition. What do tests have to do with whether code is bad? To me, the answer is straightforward, and it is a point that I elaborate throughout the book: 'Code without tests is bad code. It doesn’t matter how well written it is; it doesn’t matter how pretty or object-oriented or well-encapsulated it is. With tests, we can change the behavior of our code quickly and verifiably. Without them, we really don’t know if our code is getting better or worse.'
+
+ - being able to confidently make changes in any code base.
+
+ - Preserving existing behavior
+
+ - Changes in a system can be made in two primary ways. I like to call them Edit and Pray and Cover and Modify. Unfortunately, Edit and Pray is pretty much the industry standard. When you use Edit and Pray, you carefully plan the changes you are going to make, you make sure that you understand the code you are going to modify, and then you start to make the changes. When you’re done, you run the system to see if the change was enabled, and then you poke around further to make sure that you didn’t break anything. The poking around is essential. When you make your changes, you are hoping and praying that you’ll get them right, and you take extra time when you are done to make sure that you did.
+
+ - ...testing is a tough problem, and people are often seduced by the idea that they can test through a GUI or web interface without having to do anything special to their application. It can be done, but it is usually more work than anyone on a team is prepared to admit. In addition, a user interface often isn’t the best place to write tests. UIs are often volatile and too far from the functionality being tested. When UI-based tests fail, it can be hard to figure out why. Regardless, people  often spend considerable money trying to do all of their testing with those sorts of tools.
+   
+ - Pay now or pay more later
+
+**** LOOKING-FOR Brutal Refactoring: More Working Effectively with Legacy Code
+*** Refactoring in Large Software Projects 2006
+*** [[pdftools:/home/slk500/Dropbox/books/Refactoring/Antipatterns. Refactoring Software, Archtectures and Projects in Crisis(1998).pdf::1][Antipatterns. Refactoring Software, Archtectures and Projects in Crisis 1998]]
 William J. Brown, Raphael C. Malveau, Hays W. "Skip" McCormick, Thomas J. Mowbray
-** Refactoring in Large Software Projects 2006	
-** Phillip A. Laplante, Colin J. Neill	Antipatterns: Identification, Refactoring, and Management 2005	
-** Fifty Quick Ideas To Improve Your Tests tests			
-** Growing Object-Oriented Software, Guided by Tests				
-** Working Effectively with Unit Tests				
-** Scalable Internet Architectures 	
-** SQL for Smarties: Advanced SQL Programming	database 2005
-** Anthology  The Thoughtworks Anthology - Essays on Software Technology and Innovation 2008	
-** Anthology  The ThoughtWorks Anthology 2 - More Essays on Software Technology and Innovation 2012	
-** Beck, Kent	Extreme Programming Explained: Embrace Change	overall	can be read 1999	
-** Bernstein, David Scott Beyond Legacy Code 2015 Want to read
-** Bhargava, Aditya Grokking Algorithms: An illustrated guide for programmers and other curious people 
-must read 2017 Fully illustrated, friendly, easy to read guide, worth to read. When you will stumble upon a problem, you will know how to recognize it and chose the right Algorithm
-** [[pdftools:/home/slk500/Dropbox/books/Effective Java by Joshua Bloch (z-lib.org).pdf::1][Bloch, Joshua Effective Java 2018]]	
-** Buenosvinos, Carlos	Domain-Driven Design in PHP 2016	
-** LOOKING-FOR Bugayenko, Yegor	Elegant Objects	2016
-** Francesco Trucchia, Jacopo Romei	Pro PHP Refactoring 2010
-Old, without PHP 7 but still the best PHP book about refactoring. Great examples. Worth to have.
-** [[pdftools:/home/slk500/Dropbox/books/Refactoring/Refactoring for Software Design Smells - Managing Technical Debt (2015).pdf::1][Ganesh, Samarthyam Tushar, Sharma; Refactoring for Software Design Smells: Managing Technical Debt; 2015]]
+*** Phillip A. Laplante, Colin J. Neill Antipatterns: Identification, Refactoring, and Management 2005	
+*** [[pdftools:/home/slk500/Dropbox/books/Refactoring/Refactoring for Software Design Smells - Managing Technical Debt (2015).pdf::1][Ganesh, Samarthyam Tushar, Sharma; Refactoring for Software Design Smells: Managing Technical Debt; 2015]]
 Catalog of smells. Focus on smell point of view. Also they introduce smell classification scheme, naming scheme for design smells which helps to increase awerness of smells. So definetly must read. (Java)
 
 http://www.designsmells.com/
@@ -1455,10 +1459,10 @@ However, today, software engineers are expected to build really complex software
 
 In the midst of this struggle, it became clear to us that if we wanted to organize this collection so that we could share it in a beneficial manner with fellow architects, designers, and developers, our classification scheme should be linked to something fundamental, i.e., design principles.
 
-*** design smells?
+**** design smells?
 Design smells are certain structures in the design that indicate violation of fundamental design principles and negatively impact design quality.
 In other words, a design smell indicates a potential problem in the design structure. The medical domain provides a good analogy for our work on smells. The symptoms of a patient can be likened to a “smell,” and the underlying disease can be likened to the concrete “design problem.”
-*** technical debt
+**** technical debt
 Technical debt is the debt that accrues when you knowingly or unknowingly make wrong or non-optimal design decisions.  Technical debt is a metaphor coined by Ward Cunningham in a 1992 report [44]. Technical debt is analogous to financial debt. When a person takes a loan (or uses his credit card), he incurs debt. If he regularly pays the installments (or the credit card bill) then the created debt is repaid and does not create further problems.  However, if the person does not pay his installment (or bill), a penalty in the form of interest is applicable and it mounts every time he misses the payment. In case the person is not able to pay the installments (or bill) for a long time, the accrued interest can make the total debt so ominously large that the person may have to declare bankruptcy.
 
 •	Code debt: Static analysis tool violations and inconsistent coding style.
@@ -1471,53 +1475,53 @@ Jim Highsmith [45] describes how Cost of Change (CoC) varies wth technical debt.
 
 congitive load
 
-*** smells
+**** smells
 |                | structural | behavioral |
 |----------------+------------+------------|
 | architecture   |            |            |
 | design         | X          |            |
 | implementation |            |            |
-*** PHAME
+**** PHAME
 We treat the four major elements of Booch’s object model as “design principles” and refer to them collectively as PHAME (Principles of Hierarchy, Abstraction, Modularization, and Encapsulation).
-*** Booch’s fundamental design principles
-**** abstraction
+**** Booch’s fundamental design principles
+***** abstraction
 The principle of abstraction advocates the simplification of entities through reduction and generalization: reduction is by elimination of unnecessary details and generalization is by identification and specification of common and important characteristics.
 
-***** Missing Abstraction
+****** Missing Abstraction
 Clumps of data or encoded strings are used instead of creating a class or an interface
 
-****** Rationale
+******* Rationale
 - It can expose implementation details to different abstractions, violating the principle of encapsulation.
 - When data and associated behavior are spread across abstractions, it can lead to tight coupling between entities, resulting in brittle and non-reusable code. Hence, not creating necessary abstractions also violates the principle of modularization.
-****** Potential Causes
-******* Inadequate design analysis
+******* Potential Causes
+******** Inadequate design analysis
 When careful thought is not applied during design, it is easy to overlook creating abstractions and use primitive type values or strings to “get the work done.” In our experience, this often occurs when software is developed under tight deadlines or resource constraints.
-******* Lack of refactoring
+******** Lack of refactoring
 As requirements change, software evolves and entities that were earlier represented using strings or primitive types may need to be refactored into classes or interfaces.  When the existing clumps of data or encoded strings are retained as they are without refactoring them, it can lead to a Missing Abstraction smell.
-******* Misguided focus on minor performance gains 
+******** Misguided focus on minor performance gains 
 This smell often results when designers compromise design quality for minor performance gains. For instance, we have observed developers using arrays directly in the code instead of creating appropriate abstractions since they feel that indexing arrays is faster than accessing members in objects. In most contexts, the performance gains due to such “optimizations” are minimal, and do not justify the resultant trade-off in design quality.
 https://steemit.com/php/@crell/php-use-associative-arrays-basi
-****** Examples
-******* from, to
+******* Examples
+******** from, to
 data clumps always used together
-****** Refactor
+******* Refactor
 create abstraction(s) that can internally make use
 of primitive type values or strings.
-****** Alias
-******* Primitive Obsession
+******* Alias
+******** Primitive Obsession
 This smell occurs when [[*primitive elements - types][primitive types]] are used for encoding dates, currency, etc. instead of creating classes.
-******* Data clumps
+******** Data clumps
 This smell occurs when there are clumps of data items that occur together in lots of places instead of creating a class.
-***** Imperative Abstraction
+****** Imperative Abstraction
 This smell arises when an operation is turned into a class. This smell manifests as a class that has only one method defined within the class. At times, the class name itself may be identical to the one method defined within it. For instance, if you see class with name Read that contains only one method named read() with no data members, then the Read class has Imperative Abstraction smell. Often, it is also seen in the case of this smell that the data on which the method operates is located within a different class.  It should be noted that it is sometimes desirable to turn an operation into a class.
-****** Rationale
+******* Rationale
 Defining functions or procedures explicitly as classes (when the data is located somewhere else) is a glorified form of structured programing rather than object-oriented programming. One-operation classes cannot be representative of an “abstraction,” especially when the associated data is placed somewhere else. Clearly, this is a violation of the principle of abstraction. Since these classes are ‘doing’ things instead of ‘being’ things, this smell is named Imperative Abstraction.  If operations are turned into classes, the design will suffer from an explosion of one-method classes and increase the complexity of the design. Furthermore, many of these methods that act on the same data would be separated into different classes and thus reduce the cohesiveness of the design. For these reasons, this smell also violates the principles of encapsulation and modularization.
 The smell not only increases the number of classes (in this case there are at least four classes when ideally one could have been used), but also increases the complex- ity involved in development and maintenance because of the unnecessary separation of cohesive methods.
-****** Potential Causes
-******* procedural thinking
-****** Refactor
+******* Potential Causes
+******** procedural thinking
+******* Refactor
 To refactor the Imperative Abstraction design smell, you have to either find or create an appropriate abstraction to house the method existing within the Imperative Abstraction. You also have to encapsulate the data needed by the method within the same abstraction to improve cohesion and reduce coupling.
-****** Reification 
+******* Reification 
 is the promotion or elevation of something that is not an object into an object. When we reify behavior, it is possible to store it, pass it, or transform it. Reification improves flexibility of the system at the cost of introducing some complexity [52].  Many design patterns [54] employ reification. Examples:
 
 • State pattern: Encoding a state-machine.
@@ -1529,9 +1533,9 @@ is the promotion or elevation of something that is not an object into an object.
 In other words, when we consciously design in such a way to elevate non-objects to objects for better reusability, flexibility, and extensibility (i.e., for improving
 design quality), it is not a smell.
 
-****** Aliases
+******* Aliases
 “Operation class” ??? [51,52] — This smell occurs when an operation that should have been a method within a class has been turned into a class itself.
-***** Incomplete Abstraction
+****** Incomplete Abstraction
 An abstraction (entity or interface) does not support complementary or interrelated methods completely
 For example, if we need to be able to add or remove elements in a data
 structure, the type abstracting that data structure should support both add() and
@@ -1545,13 +1549,13 @@ remove() methods. Supporting only one of them makes the abstraction incomplete
 
 Sometimes, a designer may make a conscious design decision to not provide symmetric or matching methods. For example, in a read-only collection, only add() method may be provided without the corresponding remove() method. In such a case, the abstraction may appear incomplete, but is not a smell.
 
-****** Aliases
+******* Aliases
 This smell is also known in literature as:
   
 • “Class supports incomplete behavior” [18]—This smell occurs when the public interface of a class is incomplete and does not support all the behavior needed by objects of that class.
 
 • “Half-hearted operations” [63]—This smell occurs when interrelated methods provided in an incomplete or in an inconsistent way; this smell could lead to runtime problems.
-***** Multifaceted Abstraction
+****** Multifaceted Abstraction
 This smell arises when an abstraction has more than one responsibility assigned to it.
 
 In particular, the Single Responsibility Principle says that an abstraction should have a single well-defined responsibility and that responsibility should be entirely encapsulated
@@ -1561,18 +1565,18 @@ Since the abstraction has multiple “faces” or “responsibilities”, it is 
 
 Single “Responsibility” Principle) does not mean logical grouping of all functionality related to a concept. Rather “responsibility” refers to a concrete, specific, and precise responsibility that has one reason to change
 
-****** Potential Causes
-******* General-purpose abstractions
+******* Potential Causes
+******** General-purpose abstractions
 An abstraction with a generic name (Node , Component, Element, and Item ), it often becomes a “placeholder” for providing all the functionality related (but not necessarily belonging) to that abstraction. Hence, general purpose abstractions often exhibit this smell.
-******* Evolution without periodic refactoring
+******** Evolution without periodic refactoring
 When a class undergoes extensive changes over a long period of time without refac- toring, other responsibilities start getting introduced in these classes and design decay starts. In this way, negligence toward refactoring leads to the creation of monolithic blobs that exhibit multiple responsibilities.
-******* The burden of processes
+******** The burden of processes
 Sometimes the viscosity of the software and environment serves to discourage the adoption of good practices.
-******* Mixing up concerns
-****** Example
+******** Mixing up concerns
+******* Example
 Classes exhibiting Multifaceted Abstraction are usually large and complex.  For example, java.util.Calendar class (in JDK 7) spans 2825 lines of code and has 67 methods and 71 fields! However, large or complex implementation is not an essential characteristic of classes having Multifaceted Abstraction smell; see the discussion on Insufficient Modularization smell (Section 5.2).
 
-****** Aliases
+******* Aliases
 • “Divergent change” [7]—This smell occurs when a class is changed for different reasons.
 
 • “Conceptualization abuse” [30]—This smell occurs when two or more noncohesive concepts have been packed into a single class of the system.
@@ -1581,7 +1585,7 @@ Classes exhibiting Multifaceted Abstraction are usually large and complex.  For 
 	 
 • “Lack of cohesion” [59]—This smell occurs when there is a large type in a design with low cohesion, i.e., a “kitchen sink” type that represents many abstractions.
 
-***** Unnecessary Abstraction
+****** Unnecessary Abstraction
 An abstraction that is not needed
 
 ALIASES:
@@ -1591,8 +1595,7 @@ Small class - class has no (or too few) variables or no (or too few) methods in 
 Mini-class - a public, non-nested class defines less than three methods and less than three attributes (including constants) in it
 No responsibility - class has no responsibility associated with it
 Agent classes - class serve as an “agent” (i.e., they only pass messages from one class to another), indicating that the class may be unnecessary
-***** Unutilized Abstraction
-UNUTILIZED ABSTRACTION
+****** Unutilized Abstraction
 An abstraction is left unused (either not directly used or not
 reachable). This smell manifests in two forms:
 
@@ -1664,7 +1667,7 @@ This smell is also known in literature as:
 classes do similar things, but have different names.
 •	“Duplicate design artifacts” [74]—This smell occurs when equivalent design
 artifacts are replicated throughout the architecture.
-***** Duplicate Abstraction
+****** Duplicate Abstraction
 UNUTILIZED ABSTRACTION
 Two or more abstractions have identical names or identical implementation or both
 
@@ -1710,54 +1713,31 @@ This smell is also known in literature as:
 classes do similar things, but have different names.
 •	“Duplicate design artifacts” [74]—This smell occurs when equivalent design
 artifacts are replicated throughout the architecture.
-**** encapsulation
-**** modularization
-**** hierarchy
-** TODO Halladay, Steve Principle-Based Refactoring: Learning Software Design Principles by Applying Refactoring Rules 2012
-** Jones, Paul M. Modernizing Legacy Apps In PHP 2014	
-** Junade, Ali	Mastering PHP Design Patterns 2016 
-Little bit inmature, poorly written. Having a lot of tips and information about broad variaty of things which is a good place on website but not in the book. Code examples could be much better.
-** [[pdftools:/home/slk500/Dropbox/books/Refactoring/\[Joshua_Kerievsky\]_Refactoring_to_Patterns (2004).pdf::1][Kerievsky, Joshua; Refactoring to Patterns; 2004]]
-*** Primitive Obsession
-**** Replace Type Code with Class
+***** encapsulation
+***** modularization
+***** hierarchy
+*** [[pdftools:/home/slk500/Dropbox/books/Refactoring/\[Joshua_Kerievsky\]_Refactoring_to_Patterns (2004).pdf::1][Kerievsky, Joshua; Refactoring to Patterns; 2004]]
+**** Primitive Obsession
+***** Replace Type Code with Class
 if a primitive value controls logic in a class
-**** Replace State-Altering Conditionals with State
+***** Replace State-Altering Conditionals with State
 if an object's state transitions are controller by complex conditional logic 
-**** Replace Conditional Logic with Strategy 
+***** Replace Conditional Logic with Strategy 
 if complicated conditional logic controls which algorithm to run and that logic relies on primitive values
-** Rahman, Mizanur PHP 7 Data Structures and Algorithms 2017
-** Stephane Faroult, Pascal L'Hermite	Refactoring SQL Application 2008	
-** Tornhill, Adam Your Code as a Crime Scene - Use Forensic Techniques to Arrest Defects, Bottlenecks, and Bad Design in Your Programs 2015	
-** West, David Object Thinking  2004
-** Back-end Performance
-https://www.oreilly.com/library/view/back-end-performance/9781492069362/
-** TODO xUnit Test Patterns - Refactoring Test Code
-http://xunitpatterns.com/index.html
-** TODO Object Design Style Guide Matthias Noback
-** Build APIs You Won't Hate
-** McConnel, Steve "Code Complete 2"
-** Wake, William C.; Refactoring Workbook; 2003
-*** https://xp123.com/articles/refactoring-workbook/
-**** Taxonomy
-***** [[http://mikamantyla.eu/BadCodeSmellsTaxonomy.html][Mika Mäntylä]]
-***** [[http://www.industriallogic.com/wp-content/uploads/2005/09/smellstorefactorings.pdf][Joshua Kerievsky]]
-** Feathers, Michael; Working Effectively with Legacy Code; 2005
- - To me, legacy code is simply code without tests. I’ve gotten some grief for this definition. What do tests have to do with whether code is bad? To me, the answer is straightforward, and it is a point that I elaborate throughout the book: 'Code without tests is bad code. It doesn’t matter how well written it is; it doesn’t matter how pretty or object-oriented or well-encapsulated it is. With tests, we can change the behavior of our code quickly and verifiably. Without them, we really don’t know if our code is getting better or worse.'
+*** Fowler, Martin
+**** [[pdftools:/home/slk/Dropbox/books/Refactoring/Fowler, Martin -  Refactoring (2002).pdf::1][Refactoring: Improving the Design of Existing Code; 2000]]
+- Two of the leading proponents of refactoring are Ward Cunningham and Kent Beck.
+- Ralph Johnson leads a group at the University of Illinois at Urbana-Champaign that is notable for its practical contributions to object technology. Ralph has long been a champion of refactoring, and several of his students have worked on the topic. Bill Opdyke developed the first detailed written work on refactoring in his doctoral thesis. John Brant and Don Roberts have gone beyond writing words into writing a tool, the Refactoring Browser, for refactoring Smalltalk programs
+- There's nothing wrong with a quick and dirty simple program. But if this is a representative fragment of a more complex system, then I have some real problems with this program.
+p22
 
- - being able to confidently make changes in any code base.
 
- - Preserving existing behavior
 
- - Changes in a system can be made in two primary ways. I like to call them Edit and Pray and Cover and Modify. Unfortunately, Edit and Pray is pretty much the industry standard. When you use Edit and Pray, you carefully plan the changes you are going to make, you make sure that you understand the code you are going to modify, and then you start to make the changes. When you’re done, you run the system to see if the change was enabled, and then you poke around further to make sure that you didn’t break anything. The poking around is essential. When you make your changes, you are hoping and praying that you’ll get them right, and you take extra time when you are done to make sure that you did.
 
- - ...testing is a tough problem, and people are often seduced by the idea that they can test through a GUI or web interface without having to do anything special to their application. It can be done, but it is usually more work than anyone on a team is prepared to admit. In addition, a user interface often isn’t the best place to write tests. UIs are often volatile and too far from the functionality being tested. When UI-based tests fail, it can be hard to figure out why. Regardless, people  often spend considerable money trying to do all of their testing with those sorts of tools.
-   
- - Pay now or pay more later
 
-** Fowler, Martin
-*** Refactoring: improving the design of existing codel 2000
-*** Patterns of Enterprise Application Architecture 2012	
-*** Refactoring: Improving the Design of Existing Code; 2018
+[[https://github.com/HugoMatilla/Refactoring-Summary][Summary of "Refactoring: Improving the Design of Existing Code" by Martin Fowler]]
+**** Patterns of Enterprise Application Architecture; 2012	
+**** Refactoring: Improving the Design of Existing Code; 2018
 - With any introductory example, however, I run into a problem. If I pick a large program, describing it and how it is refactored is too complicated for a mortal reader to work through.(...) However, if I pick a program that is small enough to be comprehensible, refactoring does not look like it is worthwhile.
  
 - Thus, if I’m faced with modifying a program with hundreds of lines of code, I’d rather it be structured into a set of functions and other program elements that allow me to understand more easily what the program is doing. If the program lacks structure, it’s usually easier for me to add structure to the program first, and then make the change I need.
@@ -1782,6 +1762,43 @@ http://xunitpatterns.com/index.html
 - Branches. As I write this, a common approach in teams is for each team member to work on abranch of the code base using a version control system, and do considerable work onthat branch before integrating with a mainline (often called master or trunk) sharedacross the team. Often, this involves building a whole feature on a branch, notintegrating into the mainline until the feature is ready to be released into production.Fans of this approach claim that it keeps the mainline clear of any in­process code,provides a clear version history of feature additions, and allows features to be revertedeasily should they cause problems.There are downsides to feature branches like this. The longer I work on an isolatedbranch, the harder the job of integrating my work with mainline is going to be when I’mdone. Most people reduce this pain by frequently merging or re­basing from mainlineto my branch. But this doesn’t really solve the problem when several people areworking on individual feature branches. I distinguish between merging and integration.If I merge mainline into my code, this is a oneway movement—my branch changes butthe mainline doesn’t. I use “integrate” to mean a two­way process that pulls changesfrom mainline into my branch and then pushes the result back into mainline, changingboth. If Rachel is working on her branch I don’t see her changes until she integrateswith mainline; at that point, I have to merge her changes into my feature branch, whichmay mean considerable work. The hard part of this work is dealing with semanticchanges. Modern version control systems can do wonders with merging complexchanges to the program text, but they are blind to the semantics of the code. If I’vechanged the name of a function, my version control tool may easily integrate mychanges with Rachel’s. But if, in her branch, she added a call to a function that I’verenamed in mine, the code will fail.The problem of complicated merges gets exponentially worse as the length of featurebranches increases. Integrating branches that are four weeks old is more than twice ashard as those that are a couple of weeks old. Many people, therefore, argue for keepingfeature branches short—perhaps just a couple of days. Others, such as me, want themeven shorter than that. This is an approach called Continuous Integration (CI), alsoknown as Trunk­Based Development. With CI, each team member integrates withmainline at least once per day. This prevents any branches diverting too far from eachother and thus greatly reduces the complexity of merges. CI doesn’t come for free: Itmeans you use practices to ensure the mainline is healthy, learn to break large featuresinto smaller chunks, and use feature toggles (aka feature flags) to switch off any in­process features that can’t be broken down.Fans of CI like it partly because it reduces the complexity of merges, but the dominantreason to favor CI is that it’s far more compatible with refactoring. Refactorings ofteninvolve making lots of little changes all over the code base—which are particularlyprone to semantic merge conflicts (such as renaming a widely used function). Many ofus have seen feature­branching teams that find refactorings so exacerbate mergeproblems that they stop refactoring. CI and re­factoring work well together, which iswhy Kent Beck combined them in Extreme Programming.I’m not saying that you should never use feature branches. If they are sufficiently short,their problems are much reduced. (Indeed, users of CI usually also use branches, butintegrate them with mainline each day.) Feature branches may be the right techniquefor open source projects where you have infrequent commits from programmers whoyou don’t know well (and thus don’t trust). But in a full­time development team, thecost that feature branches impose on refactoring is excessive. Even if you don’t go to fullCI, I certainly urge you to integrate as frequently as possible. You should also considerthe objective evidence [Forsgren et al.] that teams that use CI are more effective insoftware delivery.
 
 131
+** Andrew Hunt, David Thomas - The Pragmatic Programmer: From Journeyman to Master	
+overall	skip	1999	a lot of tips & tricks but too old
+** Fifty Quick Ideas To Improve Your Tests tests			
+** Growing Object-Oriented Software, Guided by Tests				
+** Working Effectively with Unit Tests				
+** Scalable Internet Architectures 	
+** Anthology  The Thoughtworks Anthology - Essays on Software Technology and Innovation 2008	
+** Anthology  The ThoughtWorks Anthology 2 - More Essays on Software Technology and Innovation 2012	
+** Beck, Kent	Extreme Programming Explained: Embrace Change	overall	can be read 1999	
+** Bernstein, David Scott Beyond Legacy Code 2015 Want to read
+** Bhargava, Aditya Grokking Algorithms: An illustrated guide for programmers and other curious people 
+must read 2017 Fully illustrated, friendly, easy to read guide, worth to read. When you will stumble upon a problem, you will know how to recognize it and chose the right Algorithm
+** [[pdftools:/home/slk500/Dropbox/books/Effective Java by Joshua Bloch (z-lib.org).pdf::1][Bloch, Joshua Effective Java 2018]]	
+** Buenosvinos, Carlos	Domain-Driven Design in PHP 2016	
+** LOOKING-FOR Bugayenko, Yegor Elegant Objects 2016
+** Francesco Trucchia, Jacopo Romei	Pro PHP Refactoring 2010
+Old, without PHP 7 but still the best PHP book about refactoring. Great examples. Worth to have.
+** TODO Halladay, Steve Principle-Based Refactoring: Learning Software Design Principles by Applying Refactoring Rules 2012
+** Jones, Paul M. Modernizing Legacy Apps In PHP 2014	
+** Junade, Ali	Mastering PHP Design Patterns 2016 
+Little bit inmature, poorly written. Having a lot of tips and information about broad variaty of things which is a good place on website but not in the book. Code examples could be much better.
+** Rahman, Mizanur PHP 7 Data Structures and Algorithms 2017
+** Stephane Faroult, Pascal L'Hermite	Refactoring SQL Application 2008	
+** Tornhill, Adam Your Code as a Crime Scene - Use Forensic Techniques to Arrest Defects, Bottlenecks, and Bad Design in Your Programs 2015	
+** West, David Object Thinking  2004
+** Back-end Performance
+https://www.oreilly.com/library/view/back-end-performance/9781492069362/
+** TODO xUnit Test Patterns - Refactoring Test Code
+http://xunitpatterns.com/index.html
+** TODO Object Design Style Guide Matthias Noback
+** Build APIs You Won't Hate
+** McConnel, Steve "Code Complete 2"
+** Wake, William C.; Refactoring Workbook; 2003
+*** https://xp123.com/articles/refactoring-workbook/
+**** Taxonomy
+***** [[http://mikamantyla.eu/BadCodeSmellsTaxonomy.html][Mika Mäntylä]]
+***** [[http://www.industriallogic.com/wp-content/uploads/2005/09/smellstorefactorings.pdf][Joshua Kerievsky]]
 ** Martin, Robert C.;
 *** Clean Code: A Handbook of Agile Software Craftsmanship; 2009
 - There are two parts to learning craftsmanship: knowledge and work. You must gain the knowledge of principles, patterns, practices, and heuristics that a craftsman knows, and you must also grind that knowledge into your fingers, eyes, and gut by working hard and practicing.
@@ -1802,68 +1819,69 @@ else
 Pretty old. But written with precise language and with great examples                                                                                                                                        |
 ** TODO The Psychology of Computer Programming
 ** TODO Timeless Laws of Software Development
+** TODO Hacker's Delight
 * Smells
 ** Taxonomy
-*** Wake, William C.; Refactoring Workbook; 2003
-*** [[pdftools:../books/Refactoring/articles/subjective evaluation of software evolvability using.pdf::1]["Subjective Evaluation of Software Evolvability Using Code Smells: An Empirical Study" 2006]]
-Mäntylä, M. V. and Lassenius, C.
-http://mikamantyla.eu/BadCodeSmellsTaxonomy.html
+*** 2000 Fowler, Martin - Refactoring: improving the design of existing code
+*** 2003 Wake, William C. - Refactoring Workbook
+*** DONE [[pdftools:../books/Refactoring/articles/subjective evaluation of software evolvability using.pdf::1]["Subjective Evaluation of Software Evolvability Using Code Smells: An Empirical Study" 2006]]
+- *Szeroko rozumiany termin oznacza zdolność grupy organizmów tworzących linię ewolucyjną do efektywnej odpowiedzi adaptacyjnej w zmieniających się warunkach środowiska. [[https://pl.wikipedia.org/wiki/Ewoluowalno%C5%9B%C4%87][Ewoluowalność]]
+- In order to be able to improve software maintainability, its current state and possible improvement efforts must be made measurable. However, assessing maintainability is a difficult task. Widely studied object-oriented metrics (Briand et al., 1997, 1999; Chidamber and Kemerer, 1994; Harrison et al., 1998; Henderson-Sellers, 1996; Hitz and Montazeri, 1996; Lorenz and Kidd, 1994) offer a way to assess software maintainability. Although some studies report successes in measuring maintainability with metrics (Bansiya and David, 2002; Chidamber et al., 1998; Coleman et al., 1994; Li and Henry 1993; Subramanyam and Krishnan, 2003), there are people, especially in the agile community (Beck et al., 2001), who are critical to using metrics for maintainability assessment, since they feel that metrics fail to account for the breadth of issues that humans consider when evaluating code.
+- Yet, software quality, as quality in general, is largely dependent on one’s point of view (Garvin 1984; Kitchenham and Pfleeger, 1996). From a developer’s viewpoint the ease of modifying and further developing the software is clearly one of the most important quality dimensions. Traditionally one would call this viewpoint to quality software maintainability.
 - Cusumano and Selby (Cusumano and Selby, 1995) describe how Microsoft uses 20% of its development effort to re-develop the code base of its products. Cusumano and Yoffie (Cusumano and Yoffie, 1998) report how Netscape’s inability to refactor the code base hindered their software development, and how Microsoft’s redesign efforts in the Internet Explorer 3.0 project later paid off.
-- The agile community, which emphasizes individuals and interactions over tools and processes, has come up with a term called code smell (Fowler and Beck, 2000) to help software developers recognise problematic code. These code smells are general descriptions of bad code that are supposed to help software developers decide when the code needs refactoring. In most cases, the goal of code refactoring is to make the software easier to understand and/or extend. Fowler and Beck (Fowler and Beck, 2000) claim that exact criteria cannot be given to determine when a software needs refactoring. In their words, when it comes to making refactoring decisions: Bno set of metrics rivals informed human intuition.’’ This opinion is in conflict with the idea that the level of software maintainability can be determined with source code or design metrics. A counterexample to Fowler and Beck is provided by Grady (Grady, 1994), who reports that in some HP divisions there were tight threshold limits that a program was not allowed to exceed, e.g., a Fortran program’s cyclomatic complexity (McCabe, 1976) should not exceed 15.  This threshold was determined based on data from previous software projects.  Also, the idea of measuring software maintainability with metrics (Coleman et al., 1994, 1995) seems to be conflicting with the idea of assessing maintainability using vaguely defined qualitative criteria, such as the code smells of Fowler and Beck.
+- The agile community...has come up with a term called code smell (Fowler and Beck, 2000) to help software developers recognise problematic code. These code smells are general descriptions of bad code that are supposed to help software developers decide when the code needs refactoring. In most cases, the goal of code refactoring is to make the software easier to understand and/or extend. Fowler and Beck (Fowler and Beck, 2000) claim that exact criteria cannot be given to determine when a software needs refactoring. In their words, when it comes to making refactoring decisions: "no set of metrics rivals informed human intuition." This opinion is in conflict with the idea that the level of software maintainability can be determined with source code or design metrics. A counterexample to Fowler and Beck is provided by Grady (Grady, 1994), who reports that in some HP divisions there were tight threshold limits that a program was not allowed to exceed, e.g., a Fortran program’s cyclomatic complexity (McCabe, 1976) should not exceed 15.  This threshold was determined based on data from previous software projects.  Also, the idea of measuring software maintainability with metrics (Coleman et al., 1994, 1995) seems to be conflicting with the idea of assessing maintainability using vaguely defined qualitative criteria, such as the code smells of Fowler and Beck.
 - Traditionally, the term software maintainability has been used to represent this quality attribute, and IEEE (IEEE, 1990) has defined software maintainability as follows: the ease with which a software system or component can be modified to correct faults, improve performance or other attributes, or to adapt to a changed environment.
 - We think that the term software evolution better describes what happens after the initial software deployment/release...
-- Fowler and Beck (2000) propose a list of 22 bad code smells. Fowler and Beck introduce code smells as a more concrete indication of the need for refactoring than Bsome vague idea of programming aesthetics.’’ They also claim that no set of precise metrics can be given to identify the need for refactoring. Thus, the code smells can be seen as a compromise between precise source code metrics and totally unguided subjective evaluation. In their experience, Fowler and Beck say that when it comes to making refactoring decisions, no set of metrics rivals informed human intuition. The code smells have been developed based on Fowler’s and Beck’s industrial experience in several software projects that according to them varied from successful to nearly catastrophic. Some code smells represent two extremes of the same attribute. For example, the size of a class could be an attribute. Too much of it leads to a smell called 'Large Class’’ and too little to the 'Lazy Class’’ smell. The code smells are somewhat vaguely defined.
+- Fowler and Beck (2000) propose a list of 22 bad code smells. Fowler and Beck introduce code smells as a more concrete indication of the need for refactoring than "some vague idea of programming aesthetics." They also claim that no set of precise metrics can be given to identify the need for refactoring. Thus, the code smells can be seen as a compromise between precise source code metrics and totally unguided subjective evaluation. In their experience, Fowler and Beck say that when it comes to making refactoring decisions, no set of metrics rivals informed human intuition. The code smells have been developed based on Fowler’s and Beck’s industrial experience in several software projects that according to them varied from successful to nearly catastrophic. Some code smells represent two extremes of the same attribute. For example, the size of a class could be an attribute. Too much of it leads to a smell called 'Large Class’’ and too little to the 'Lazy Class’’ smell. The code smells are somewhat vaguely defined.
 - Structures similar to code smells are described by Brown et al. (1998), who discuss software anti-patterns. These anti-patterns describe code problems on class to architectural levels. Some of them are similar to code smells, e.g., God Class is equal to a Large Class smell and Lava Flow is a synonym for Dead Code. However, the scope of their work is quite wide as they also discuss problems in software processes, badly behaving developers, and many other areas.
-- The Air Force Operation Test and Evaluation Center (AFOTEC) pamphlet (AFOTEC, 1996) provides a rich set of instructions for evaluating software maintainability. 
-
-**** Taxonomy
+- The Air Force Operation Test and Evaluation Center (AFOTEC) pamphlet (AFOTEC, 1996) provides a rich set of instructions for evaluating software maintainability.
+- In this section we introduce the 23 code smells that we surveyed. Twenty-two of the code smells were introduced by Fowler and Beck (2000). Additionally, we included a code smell for dead code, i.e., code that is never executed, as we felt it was important but not included in the list by Fowler and Beck. In the rest of the paper we will use a bold font when referring to the smells, e.g., Dead Code. We chose four smells for automatic code analysis, namely Large Class, Long Method, Long Parameter List, and Duplicate Code. We selected these because we thought their operationalization would be quite straightforward, and because we had suitable tools to measure them.
+- One key assumption of code smells is that there are no exact conditions, which indicate when developers should improve the software design.
+**** [[http://mikamantyla.eu/BadCodeSmellsTaxonomy.html][A Taxonomy for "Bad Code Smells"]]
 ***** The Bloaters
--Long Method
--Large Class
--Primitive Obsession
--Long Parameter List
--DataClumps
+- Long Parameter List
+- Long Method
+- Large Class
+- Primitive Obsession
+- Data Clumps
 
 Bloater smells represents something that has grown so large that it cannot be effectively handled.
 It seems likely that these smells grow a little bit at a time. Hopefully nobody designs, e.g., Long Methods.
-Primitive Obsession is actually more of a symptom that causes bloats than a bloat itself. The same holds for Data Clumps. When a Primitive Obsession exists, there are no small classes for small entities (e.g. phone numbers). Thus, the functionality is added to some other class, which increases the class and method size in the software. With Data Clumps there exists a set of primitives that always appear together (e.g. 3 integers for RGB colors). Since these data items are not encapsulated in a class this increases the sizes of methods and classes. 
-
+Primitive Obsession is actually more of a symptom that causes bloats than a bloat itself. The same holds for Data Clumps. When a Primitive Obsession exists, there are no small classes for small entities (e.g. phone numbers). Thus, the functionality is added to some other class, which increases the class and method size in the software. With Data Clumps there exists a set of primitives that always appear together (e.g. 3 integers for RGB colors). Since these data items are not encapsulated in a class this increases the sizes of methods and classes.
 ***** The Object-Orientation Abusers
--Switch Statements
--Temporary Field
--Refused Bequest
--Alternative Classes with Different Interfaces
+- Switch Statements
+- Temporary Field
+- Refused Bequest
+- Alternative Classes with Different Interfaces
 
-The common denominator for the smells in the Object-Orientation Abuser category is that they represent cases where the solution does not fully exploit the possibilities of object-oriented design.
-For example, a Switch Statement might be considered acceptable or even good design in procedural programming, but is something that should be avoided in object-oriented programming. The situation where switch statements or type codes are needed should be handled by creating subclasses. Parallel Inheritance Hierarchies and Refused Bequest smells lack proper inheritance design, which is one of the key elements in object-oriented programming. The Alternative Classes with Different Interfaces smell lacks a common interface for closely related classes, so it can also be considered a certain type of inheritance misuse. The Temporary Field smell means a case in which a variable is in the class scope, when it should be in method scope. This violates the information hiding principle.
+When a solution does not fully exploit the possibilities of object-oriented design.
+For example, a Switch Statement might be considered acceptable or even good design in procedural programming, but is something that should be avoided in object-oriented programming. The situation where switch statements or type codes are needed should be handled by creating subclasses. Refused Bequest smells lack proper inheritance design, which is one of the key elements in object-oriented programming. The Alternative Classes with Different Interfaces smell lacks a common interface for closely related classes, so it can also be considered a certain type of inheritance misuse. The Temporary Field smell means a case in which a variable is in the class scope, when it should be in method scope. This violates the information hiding principle.
 
 ***** The Change Preventers
--Divergent Change
--Shotgun Surgery
--Parallel Inheritance Hierarchies
+- Divergent Change
+- Shotgun Surgery
+- Parallel Inheritance Hierarchies
 
-Change Preventers are smells is that hinder changing or further developing the software
-These smells violate the rule suggested by Fowler and Beck which says that classes and possible changes should have a one-to-one relationship. For example, changes to the database only affect one class, while changes to calculation formulas only affect the other class.
+Change Preventers are smells is that hinder changing or further developing the software. These smells violate the rule suggested by Fowler and Beck which says that classes and possible changes should have a one-to-one relationship. For example, changes to the database only affect one class, while changes to calculation formulas only affect the other class.
 
 The Divergent Change smell means that we have a single class that needs to be modified by many different types of changes. With the Shotgun Surgery smell the situation is the opposite, we need to modify many classes when making a single change to a system (change several classes when changing database from one vendor to another)
 
 Parallel Inheritance Hierarchies, which means a duplicated class hierarchy, was originally placed in OO-abusers. One could also place it inside of The Dispensables since there is redundant logic that should be replaced.
-
 ***** The Dispensables
--Lazy class
--Data class
--Duplicate Code
--Dead Code,
--Speculative Generality
+- Lazy class
+- Data class
+- Duplicate Code
+- Dead Code
+- Speculative Generality
 
-The common thing for the Dispensable smells is that they all represent something unnecessary that should be removed from the source code.
+...they all represent something unnecessary that should be removed from the source code.
 This group contains two types of smells (dispensable classes and dispensable code), but since they violate the same principle, we will look at them together. If a class is not doing enough it needs to be removed or its responsibility needs to be increased. This is the case with the Lazy class and the Data class smells. Code that is not used or is redundant needs to be removed. This is the case with Duplicate Code, Speculative Generality and Dead Code smells. 
 
 ***** The Couplers
--Feature Envy
--Inappropriate Intimacy
--Message Chains
--Middle Man
+- Feature Envy
+- Inappropriate Intimacy
+- Message Chains
+- Middle Man
 
 This group has four coupling-related smells.
 One design principle that has been around for decades is low coupling (Stevens et al. 1974) . This group has 3 smells that represent high coupling. Middle Man smell on the other hand represent a problem that might be created when trying to avoid high coupling with constant delegation. Middle Man is a class that is doing too much simple delegation instead of really contributing to the application.
@@ -1872,8 +1890,25 @@ The Feature Envy smell means a case where one method is too interested in other 
 
 Of course, I could make an argument that these smells should belong to the Object-Orientation abusers group, but since they all focus strictly on coupling, I think it makes the taxonomy more understandable if they are introduced in a group of their own.
 
-*** [[pdftools:/home/slk500/Dropbox/books/Refactoring/Refactoring for Software Design Smells - Managing Technical Debt (2015).pdf::1][Ganesh, Samarthyam Tushar, Sharma; Refactoring for Software Design Smells: Managing Technical Debt; 2015]]
-** Normal 
+***** The Others 
+- Comments and Incomplete
+- Library Class
+
+Other smells that were studied, but could not be included in any of the groups are Comments and Incomplete Library Class. The Comments smell indicates the misuse of comments, i.e., when a programmer uses comments to explain some piece of code instead of writing code that is simpler and more self-explaining. Incomplete Library Class means that the application is using a third party library code that is not completely adequate for the application. According to Fowler and Beck this smell can be removed, for example, by introducing a local extension.
+
+*** [[pdftools:/home/slk500/Dropbox/books/Refactoring/Refactoring for Software Design Smells - Managing Technical Debt (2015).pdf::1][2015 Ganesh, Samarthyam Tushar, Sharma; Refactoring for Software Design Smells: Managing Technical Debt]]
+** Notes 
+Automatic code analysis:
+Large Class
+Long Method
+Long Parameter List
+Duplicate Code
+
+| name        | object oriented | not object oriented | both |
+|-------------+-----------------+---------------------+------|
+| large class | X               |                     |      |
+|             |                 |                     |      |
+
 *** Alias Duplicates
 #+BEGIN_SRC php
 use App\Model\Category\Query as CategoryQuery;
@@ -1883,48 +1918,45 @@ use App\Contract\Query as
 - https://www.tomasvotruba.cz/blog/2019/05/02/alias-as-a-code-smell/
 *** Alternative Classes With Different Interfaces
 *** Comments
-    If you need a comment to explain what a block of code does, try Extract Function (106). If the method is already extracted but you still need a comment to explain what it does, use Change Function Declaration (124) to rename it. If you need to state some rules about the required state of the system, use Introduce Assertion (302).
+If you need a comment to explain what a block of code does, try Extract Function (106). If the method is already extracted but you still need a comment to explain what it does, use Change Function Declaration (124) to rename it. If you need to state some rules about the required state of the system, use Introduce Assertion (302).
 *** Data Class
 *** Data Clumps
-    Fix: Use Extract Class (182) on the fields to turn the clumps into an object.
-*** Divergent Change			
-    Within Classes
-*** Duplicated Code 	
-    Within Classes
-    Same code structure in more than one place
-    Don't Repeat Yourself (DRY)
+Fix: Use Extract Class (182) on the fields to turn the clumps into an object.
+*** Divergent Change
+Within Classes
+*** Duplicated Code 
+According to Fowler and Beck (2000), the Duplicate Code smell Bis number one in the stink parade.
+Same code structure in more than one place
+Don't Repeat Yourself (DRY)
 **** Same expression in different places 
-     The simplest duplicated code problem is when you have the same expression in two
-     methods of the same class. Then all you have to do is Extract Function and invoke the code from both places.
-     
-*** Feature Envy	
-    Between Classes	A method accesses the data of another object more than its own data
+The simplest duplicated code problem is when you have the same expression in two
+methods of the same class. Then all you have to do is Extract Function and invoke the code from both places.
+*** Feature EnvyBetween Classes
+A method accesses the data of another object more than its own data
 *** Global Data
-    "Global data is especially nasty when it’s mutable. Global data that you can guarantee
-    never changes after the program starts is relatively safe—if you have a language that can
-    enforce that guarantee."
-    Fix: Encapsulate Variable
+"Global data is especially nasty when it’s mutable. Global data that you can guarantee
+never changes after the program starts is relatively safe—if you have a language that can
+enforce that guarantee."
+Fix: Encapsulate Variable
 *** Insider Trading
-*** Large Class		
-    Within Classes	
-    A class contains too many fields, methods, lines of code.
-    Fix: Extract Class, Extract Superclass, Replace Type Code with Subclass
+*** Large Class 
+A class contains too many fields, methods, lines of code.
+Fix: Extract Class, Extract Superclass, Replace Type Code with Subclass
+Alias: Blob, Winnebago, and the God Class
 *** Lazy Element
-    It may be a function that’s named the same as its body code reads, or a class that is essentially one simple function.
-    Fix: Inline Function, Inline Class, Collapse Hierarchy
-*** Long Function	
-    Within Classes
-    Fix: Extract Function
-*** Long Parameter List			
-    Within Classes
-    Fix: Replace Parameter with Query, Preserve Whole Object, INtroduce PArameter Object, Remove Flag Argument, Combine Functions into Class
+It may be a function that’s named the same as its body code reads, or a class that is essentially one simple function.
+Fix: Inline Function, Inline Class, Collapse Hierarchy
+*** Long FunctionWithin Classes
+Fix: Extract Function
+*** Long Parameter List Within Classes
+Fix: Replace Parameter with Query, Preserve Whole Object, INtroduce PArameter Object, Remove Flag Argument, Combine Functions into Cl
 *** Loops
-    Fix: Replace Loop with Pipeline
+Fix: Replace Loop with Pipeline
 *** Message Chains
 You see message chains when a client asks one object for another object, which the client then asks for yet another object, which the client then asks for yet another another object, and so on.
 95 
 *** Middle Man
-    Fix: Remove Middle Man, Inline Function, Replace Superclass with Delegate, Replace Subclass with Delegate
+Fix: Remove Middle Man, Inline Function, Replace Superclass with Delegate, Replace Subclass with Delegate
 *** Mysterious Name
 Fix: Change Function Declaration, Rename Variable, Rename Field
 *** Primitive Obsession
@@ -1938,6 +1970,7 @@ Fix: Replace Primitive with Object
 *** Speculative Generality
 “Oh, I think we’ll need the ability to do this kind of thing someday”
 *** Temporary Field
+** https://github.com/testdouble/test-smells
 * Database
 ** config
 MySQL configuration file:
@@ -2588,134 +2621,24 @@ FROM    video_tag e
 WHERE   e.tag_slug_id = m.tag_slug_id
 )
 * Codebases
-| Name                              | Lines of Code | Description                                                                                   | Tutorials                       |
-|-----------------------------------+---------------+-----------------------------------------------------------------------------------------------+---------------------------------|
-| [[https://github.com/adamculp/refactoring101][Video Rental Shop]]                 |           132 | From Martin Fowler book "Refactoring: Improving the Design of Existing Code" converted to PHP | [[https://youtu.be/0DYIJdX6kB4][Refactoring 101]]                 |
-| [[https://github.com/jbrains/trivia/tree/master/php][Legacy Code Retreat - Trivia Game]] |           196 | Designed for [[https://legacycoderetreat.typepad.com/][Legacy Code Retreat]] events                                                       | [[https://code.tutsplus.com/series/refactoring-legacy-code--cms-633][Refactoring Legacy Code]]         |
-|                                   |               |                                                                                               | [[https://code.tutsplus.com/courses/techniques-for-refactoring-code][Techniques for Refactoring Code]] |
-|                                   |               |                                                                                               | [[http://blog.adrianbolboaca.ro/2014/04/legacy-coderetreat/#sessions][Legacy Coderetreat (Java)]]       |
-|                                   |               |                                                                                               | [[https://github.com/slk500/refactoring101][GitHub]]                          |
-|                                   |               |                                                                                               |                                 |
-
-** [[https://github.com/adamculp/refactoring101][Video Rental Shop]]
-   phploc
-Size
-  Lines of Code (LOC)                              132
-  Comment Lines of Code (CLOC)                      12 (9.09%)
-  Non-Comment Lines of Code (NCLOC)                120 (90.91%)
-  Logical Lines of Code (LLOC)                      48 (36.36%)
-    Classes                                         40 (83.33%)
-      Average Class Length                          13
-        Minimum Class Length                         6
-        Maximum Class Length                        24
-      Average Method Length                          2
-        Minimum Method Length                        1
-        Maximum Method Length                       19
-    Functions                                        0 (0.00%)
-      Average Function Length                        0
-    Not in classes or functions                      8 (16.67%)
-
-Structure
-  Namespaces                                         0
-  Interfaces                                         0
-  Traits                                             0
-  Classes                                            3
-    Abstract Classes                                 0 (0.00%)
-    Concrete Classes                                 3 (100.00%)
-  Methods                                           11
-    Scope
-      Non-Static Methods                            11 (100.00%)
-      Static Methods                                 0 (0.00%)
-    Visibility
-      Public Methods                                11 (100.00%)
-      Non-Public Methods                             0 (0.00%)
-  Functions                                          0
-    Named Functions                                  0 (0.00%)
-    Anonymous Functions                              0 (0.00%)
-  Constants                                          3
-    Global Constants                                 0 (0.00%)
-    Class Constants                                  3 (100.00%)
-
-Cyclomatic Complexity
-  Average Complexity per LLOC                     0.17
-  Average Complexity per Class                    3.67
-    Minimum Class Complexity                      1.00
-    Maximum Class Complexity                      9.00
-  Average Complexity per Method                   1.73
-    Minimum Method Complexity                     1.00
-    Maximum Method Complexity                     9.00
-
-Dependencies
-  Global Accesses                                    0
-    Global Constants                                 0 (0.00%)
-    Global Variables                                 0 (0.00%)
-    Super-Global Variables                           0 (0.00%)
-  Attribute Accesses                                15
-    Non-Static                                      15 (100.00%)
-    Static                                           0 (0.00%)
-  Method Calls                                      14
-    Non-Static                                      14 (100.00%)
-    Static                                           0 (0.00%)
-** [[https://github.com/jbrains/trivia/tree/master/php][Legacy Code Retreat - Trivia Game]]
-   phploc
-Size
-  Lines of Code (LOC)                              196
-  Comment Lines of Code (CLOC)                       0 (0.00%)
-  Non-Comment Lines of Code (NCLOC)                196 (100.00%)
-  Logical Lines of Code (LLOC)                      99 (50.51%)
-    Classes                                         88 (88.89%)
-      Average Class Length                          88
-        Minimum Class Length                        88
-        Maximum Class Length                        88
-      Average Method Length                          7
-        Minimum Method Length                        1
-        Maximum Method Length                       17
-    Functions                                        1 (1.01%)
-      Average Function Length                        1
-    Not in classes or functions                     10 (10.10%)
-
-Cyclomatic Complexity
-  Average Complexity per LLOC                     0.26
-  Average Complexity per Class                   25.00
-    Minimum Class Complexity                     25.00
-    Maximum Class Complexity                     25.00
-  Average Complexity per Method                   3.18
-    Minimum Method Complexity                     1.00
-    Maximum Method Complexity                    10.00
-
-Dependencies
-  Global Accesses                                    0
-    Global Constants                                 0 (0.00%)
-    Global Variables                                 0 (0.00%)
-    Super-Global Variables                           0 (0.00%)
-  Attribute Accesses                               115
-    Non-Static                                     115 (100.00%)
-    Static                                           0 (0.00%)
-  Method Calls                                      21
-    Non-Static                                      21 (100.00%)
-    Static                                           0 (0.00%)
-
-Structure
-  Namespaces                                         0
-  Interfaces                                         0
-  Traits                                             0
-  Classes                                            1
-    Abstract Classes                                 0 (0.00%)
-    Concrete Classes                                 1 (100.00%)
-  Methods                                           11
-    Scope
-      Non-Static Methods                            11 (100.00%)
-      Static Methods                                 0 (0.00%)
-    Visibility
-      Public Methods                                11 (100.00%)
-      Non-Public Methods                             0 (0.00%)
-  Functions                                          1
-    Named Functions                                  1 (100.00%)
-    Anonymous Functions                              0 (0.00%)
-  Constants                                          0
-    Global Constants                                 0 (0.00%)
-    Class Constants                                  0 (0.00%)
-** [[https://github.com/jbrains/trivia][Legacy Code Retreat - Trivia Game codebase]]
+| Name                              | LOC | Description                                      | Tutorials                                 |
+|-----------------------------------+-----+--------------------------------------------------+-------------------------------------------|
+| [[https://github.com/adamculp/refactoring101][Video Rental Shop]]                 | 132 | book "Refactoring" by Martin Fowler              | [[https://youtu.be/0DYIJdX6kB4][Refactoring 101]]                           |
+|-----------------------------------+-----+--------------------------------------------------+-------------------------------------------|
+| [[https://github.com/emilybache/Theatrical-Players-Refactoring-Kata][Theatrical Players]]                | 144 | book "Refactoring" by Martin Fowler, 2nd Edition |                                           |
+|-----------------------------------+-----+--------------------------------------------------+-------------------------------------------|
+| [[https://github.com/jbrains/trivia/tree/master/php][Legacy Code Retreat - Trivia Game]] | 196 | Designed for [[https://legacycoderetreat.typepad.com/][Legacy Code Retreat]] events          | [[https://code.tutsplus.com/series/refactoring-legacy-code--cms-633][Refactoring Legacy Code]]                   |
+|                                   |     |                                                  | [[https://code.tutsplus.com/courses/techniques-for-refactoring-code][Techniques for Refactoring Code]]           |
+|                                   |     |                                                  | [[http://blog.adrianbolboaca.ro/2014/04/legacy-coderetreat/#sessions][Legacy Coderetreat (Java)]]                 |
+|-----------------------------------+-----+--------------------------------------------------+-------------------------------------------|
+| [[https://github.com/emilybache/GildedRose-Refactoring-Kata/tree/master/php7][Gilded Rose]]                       |  84 |                                                  | [[https://www.youtube.com/watch?v=zyM2Ep28ED8&list=PLuvRKxeqrv4K-rn0zxHPNiXOWBkP9ZZIH][Advanced Testing & Refactoring Techniques]] |
+|-----------------------------------+-----+--------------------------------------------------+-------------------------------------------|
+| [[https://github.com/emilybache/Racing-Car-Katas/tree/master/php][Racing Car]]                        | 471 |                                                  |                                           |
+|-----------------------------------+-----+--------------------------------------------------+-------------------------------------------|
+| [[https://github.com/emilybache/Tennis-Refactoring-Kata/tree/master/php][Tennis]]                            | 443 |                                                  |                                           |
+|-----------------------------------+-----+--------------------------------------------------+-------------------------------------------|
+| [[Yatzy][Yatzy]]                             | 293 |                                                  |                                           |
+|-----------------------------------+-----+--------------------------------------------------+-------------------------------------------|
 * Definitions
 ** Anemic Domain Model
 - focus on data
@@ -2727,6 +2650,9 @@ Structure
     - prototyping
     - easy of use
     - easily generated 
+** Data Clump
+a set of primitives that always appear
+together (e.g., three integers for RGB colours)
 ** Rich Domain Model
 - combines data and logic 
 - valid by design
@@ -2739,9 +2665,9 @@ Structure
 ** Characterization Test
    Test that characterizes the actual behavior of a piece of code. It acts as a change detector, protecting legacy code from unintended changes.
 ** Polymorphism
-   describes a pattern in object oriented programming in which classes have different functionality while sharing a common interface.
+describes a pattern in object oriented programming in which classes have different functionality while sharing a common interface
 ** Parameter vs. Argument
-   A parameter is the variable which is part of the method’s signature (method declaration). An argument is an expression used when calling the method.
+A parameter is the variable which is part of the method’s signature (method declaration). An argument is an expression used when calling the method.
 
 Consider the following code:
 #+begin_src php
@@ -2811,8 +2737,12 @@ https://www.youtube.com/watch?time_continue=221&v=z3BDOoB8csA
 ** Service
    an object that dose work
 ** Technical Dept
-   is the debt that accumulate when you knowingly or unknowingly make
-   wrong or non-optimal design decisions.
+- Based on W.Cunningham's metaphor of complexity as debt:
+  - skipping design is like borrowing money
+  - refactoring is like repaying principal
+  - slower development due to complexity is like paying interest
+is the debt that accumulate when you knowingly or unknowingly make
+wrong or non-optimal design decisions.
 
  http://blog.insight.sensiolabs.com/2014/11/04/technical-debt-relevant-projects.html
 ** Dead Code
@@ -2856,6 +2786,8 @@ if ( !$var ) {
 
 #+RESULTS:
 : negation
+** Always leave things better than you found them
+boy scout rule : leave the (campground) code cleaner than you found it
 ** Avoid Else, Return Early (Guard Clause)
 Return as soon as you know your method cannot do any more meaningful work.
 #+BEGIN_SRC php
@@ -4106,30 +4038,31 @@ final class PositionDTO
 }
  #+END_SRC
 *** ADR
-  http://martinbean.co.uk/blog/2016/10/20/implementing-adr-in-laravel/
-
+**** http://martinbean.co.uk/blog/2016/10/20/implementing-adr-in-laravel/
+**** https://github.com/pmjones/adr
+**** [[https://youtu.be/rlrTyN0aqSk][The Template Is Not The View: A Brief Introduction to Action-Domain-Responder]]
+**** TODO https://youtu.be/y7c-XWLYMVA
 *** MVC
 **** Controllers
-***** are what the user interacts with
-***** they receive a request from the user, decide what to do, and send request back
-***** it's the only component that interacts with the models
+- are what the user interacts with
+- they receive a request from the user, decide what to do, and send request back
+- it's the only component that interacts with the models
 **** Models
-***** classes that are designed to work with information in your database
-***** are where an anpplication's data are stored
-***** responsible for storing and retrieving data
-***** know nothing about the user interface
+- classes that are designed to work with information in your database
+- are where an anpplication's data are stored
+- responsible for storing and retrieving data
+- know nothing about the user interface
 **** Views
-***** are what the user sees on the screen
-***** they present the data to the user
-***** kno nothing about the models
+- are what the user sees on the screen
+- they present the data to the user
+- kno nothing about the models
 **** Why use MVC?
-***** business logic separate from presentation: Separation Of Concerns
-***** developer specialisation
-****** designers can focus on the front end without worrying about the business logic
-****** developers of the models can focus on the business logic or back end without worrying about the look and feel
+- business logic separate from presentation: Separation Of Concerns
+- developer specialisation
+  - designers can focus on the front end without worrying about the business logic
+  - developers of the models can focus on the business logic or back end without worrying about the look and feel
 **** Front controller
-***** provide a central entry point for all request. All request are sent through one page 
-
+- provide a central entry point for all request. All request are sent through one page 
 **** Action suffix
 ***** _call is exectued for a non-existent or non-public method call
 ***** Stack
@@ -4156,6 +4089,29 @@ final class PositionDTO
 
 
    tutorial ended on 31 video
+**** tutorials
+***** [[https://nomadphp.com/video/240/mvc-it-s-all-a-lie][MVC: It's all a lie!]]
+****** controller problems
+- poor separation of concerns
+- does a lot of things
+- has a lot of dependencies
+- becomes really fat
+- and hard to maintain
+****** ADR
+******* action
+- a function or class implementing the Command pattern
+- collects data from request and passes it to Domain
+- invoke Domain and retains the result
+- invokes Responder with any data needed
+******* domain
+- en entry point into whatever does the domain work
+******* responder
+- deals with all output
+  - sets cookies
+  - sets headers
+  - applies compression
+  - chooses presentation format
+  - renders templates
 *** MVVM
     Magento was here.
 ** Antipatterns
@@ -4516,6 +4472,16 @@ private function getDebugQuery()
 #+END_SRC
 
 php -dxdebug.remote_enable=1 -dxdebug.remote_autostart=1 --stop-on-failure vendor/bin/phpunit --colors=always
+
+#+begin_src sh
+#!/bin/bash
+if [ $# -eq 0 ]; then
+    php -dxdebug.remote_enable=1 -dxdebug.remote_autostart=1 vendor/bin/phpunit --colors=always
+else
+    php -dxdebug.remote_enable=1 -dxdebug.remote_autostart=1 vendor/bin/phpunit --colors=always --filter=$1
+fi
+#+end_src
+
 *** install
 
 
@@ -4621,13 +4587,9 @@ https://github.com/rectorphp/rector
 - https://semver.org/
 
 php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
-php -r "if (hash_file('sha384', 'composer-setup.php') === 'c5b9b6d368201a9db6f74e2611495f369991b72d9c8cbd3ffbc63edff210eb73d46ffbfce88669ad33695ef77dc76976') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
 php composer-setup.php --install-dir=/usr/bin --filename=composer
-php -r "unlink('composer-setup.php');"
-
 composer global require [package_name]
-
-*** when compsoer update ?    
+*** when composer update ?    
 Projekt nie jest jeszcze na produkcji, ciągle w fazie development to można raz na jakiś czas odpalić composer update, czyli podnieść wszystkie paczki.
 ** Git
 - git reset HEAD~1 - move back to recent commit
@@ -4671,6 +4633,9 @@ low-level language elements
 *** Array
 **** Avoid complex arrays
 http://mamchenkov.net/wordpress/2018/11/27/avoid-complex-arrays-in-php/
+**** PHP's array_map including keys
+https://stackoverflow.com/questions/13036160/phps-array-map-including-keys
+it's to complicated solution, just use foreach
 **** [[https://stackoverflow.com/questions/10057671/how-does-php-foreach-actually-work][How does PHP 'foreach' actually work?]]
 **** [[https://szymonkrajewski.pl/why-you-should-use-array-functions-instead-of-basic-loops/#comment-365][Why you should use array functions instead of basic loops]]
 **** array is empty
@@ -4731,6 +4696,29 @@ return $a['optionNumber'] <=> $b['optionNumber'];
 array_multisort(array_map(function($element) {
 return $element['optionNumber'];
 }, $array), SORT_ASC, $array);
+**** if you are iterating an array to build another array from it, you should use map.
+Anti-pattern:
+const numbers = [1,2,3,4,5], doubled = [];
+
+numbers.forEach((n, i) => { doubled[i] = n * 2 });
+Proper use case of map:
+
+const numbers = [1,2,3,4,5];
+const doubled = numbers.map(n => n * 2);
+
+console.log(doubled);
+**** if you are trying to reduce the array to a value, for example, you want to sum an array of numbers, you should use the reduce method
+Anti-pattern:
+
+const numbers = [1,2,3,4,5];
+const sum = 0;
+numbers.forEach(num => { sum += num });
+Proper use of reduce:
+
+const numbers = [1,2,3,4,5];
+const sum = numbers.reduce((total, n) => total + n, 0);
+
+console.log(sum);
 *** String 
 **** empty
 https://thisinterestsme.com/whitespace-php-empty-function/
@@ -4886,18 +4874,43 @@ $comma_separated = implode(", ", $vars);
 #+end_src
 * Links
 ** [[https://www.tomasvotruba.cz/][Tomas Votruba]]
+** [[https://pragdave.me/][Dave Thomas]]
+- suggesting that as developers we need to spend more time just practicing: writing throwaway code just to get the experience of writing it.
+- There are no right or wrong answers in these kata: the benefit comes from the process, not from the result.
+** Carola Lilienthal
+** [[https://michaelfeathers.silvrback.com/][Michael Feathers]]
+** https://understandlegacycode.com/
+** [[https://www.legacycode.rocks/][legacy code rocks!]]
+*** Rewriting Code with Sabrina Leandro
+*** Code Katas with Emily Bache
+- https://github.com/emilybache/GildedRose-Refactoring-Kata
+- https://github.com/emilybache?tab=repositories
+*** Code Review with Pranay Suresh
+- legacy code - code after merge, because it's hard to change
+- PR Requestes
+  - a small as possible, as less files as posible  
+  - functional corectness
+  - don't break anything
+  - fits to codebase standards
+- errors - switch parameters, lose of precsion
+*** Working Effectively with Legacy Code with Michael Feathers
+- conway law
+- refactor and scrach just to understand
+- removing edges from the code
+- be very liberial of what you accept and conservative of what you produce- John  
+- inside junky - kind of like looking at lot of informations and start to understand how things tight together, and then get a flash inside
+*** Top Five Best Practices for Legacy Code with Leon Miller-Out 
+- the CEO of a web app development and maintenance firm Singlebrook,
+
 ** The Clean Code Blog by Robert C. Martin (Uncle Bob)
 *** [[https://blog.cleancoder.com/uncle-bob/2014/04/03/Code-Hoarders.html][Code Hoarders]]
 It’s also easy to believe that acquiring new stuff is more important than organizing old stuff. After all, organizing old stuff does not add value. It’s acquiring new stuff that counts. So if there’s any spare time, or spare effort, or spare energy, it should be directed towards acquiring new stuff. Organizing the old stuff is a waste.
-** https://dantleech.com/ Phpactor
-** [[https://24daysindecember.net/2018/12/15/php-and-the-secrets-of-emergent-architecture/][PHP and the secrets of emergent architecture]]
 * Topics
 ** Rewrite
 - [[https://www.joelonsoftware.com/2000/04/06/things-you-should-never-do-part-i/][Things You Should Never Do, Part I]]
 ** Crawler
 - [[https://vegibit.com/php-simple-html-dom-parser-vs-friendsofphp-goutte/][PHP Simple HTML DOM Parser vs FriendsOfPHP Goutte]]
 - [[http://www.michaelnielsen.org/ddi/how-to-crawl-a-quarter-billion-webpages-in-40-hours/][How to crawl a quarter billion webpages in 40 hours]]
-- 
 ** Namespace
 https://www.oligriffiths.com/2015/06/30/namespacing-in-PHP-and-how-we-broke-it/
 http://e-wojtowicz.pl/tag/spl_autoload_register/
@@ -4970,6 +4983,9 @@ https://www.rdegges.com/2018/please-stop-using-local-storage/
 ** Style
 - [[https://shkspr.mobi/blog/2014/11/why-i-vertically-align-my-code-and-you-should-too/][Why I vertically align my code (and you should too!)]]
 - [[https://www.huridocs.org/2016/07/file-naming-conventions-why-you-want-them-and-how-to-create-them/][file-naming-conventions-why-you-want-them-and-how-to-create-them]]
+- [[pdftools:/home/slk/Dropbox/books/style/An overview of standards and guidelines for visual display terminals.pdf::1][An overview of standards and guidelines for visual display terminals]]
+- https://booksc.xyz/s/aspects%20of%20visual%20display%20terminals
+- https://youtu.be/5qRFxMCEbLs
 ** Grep Test
 - http://jamie-wong.com/2013/07/12/grep-test/
   I’ll occasionally see code that attempts to use clever mechanisms to reduce code duplication or be terser by using metaprogramming or string concatenation or any number of other mechanisms to DRY up code.
@@ -4977,6 +4993,8 @@ https://www.rdegges.com/2018/please-stop-using-local-storage/
 - There is so much spaghetti I might as well open a restaurant!
 - I echo all of my code as a string in the command line and then use ">" to redirect it in to a new file. I don't have time to open an edit
 - We draw exceptional people from exception
+- Write once, debug everywhere
+- https://youtu.be/AbSehcT19u0
 ** Metrics
 *** Cyclomatic Complexity Number (CCN) 
 Counts the available decision paths in a source code to determine it's complexity.
@@ -5133,10 +5151,15 @@ https://stitcher.io/blog/php-preload-benchmarks
 *** Tools
 - https://github.com/krakjoe/nocheq - Sick of pesky type checking making your code too slow (and correct) ?
 * About
-  It's a simple site about refactoring in PHP.
+It's a simple site about refactoring in PHP. I'm some kind of inside junky. I like looking at lot of informations and start to understand how things are tight together. Love this pleasure rush moment of understanding - eureka!. 
   
-  You can contact me at slawomir.grochowski@gmail.com, https://twitter.com/s_grochowski, https://www.facebook.com/SlawomirGrochowski
-  You can support this site: send some BitCoins 1D8xeRkxssTTLESfGZtPVoqVJDq7MJSqNx , send/buy one of the books I would like to read or just say Hello!
+** You can contact me at 
+- slawomir.grochowski@gmail.com
+- https://twitter.com/s_grochowski
+- https://www.facebook.com/SlawomirGrochowski
+- https://www.linkedin.com/in/slawomirgrochowski/
+** Support
+You can support this site: send some BitCoins 1D8xeRkxssTTLESfGZtPVoqVJDq7MJSqNx , send/buy one of the books I would like to read or just say Hello!
 * Frontend                                                         :noexport:
 ** CSS
 https://purgecss.com/#table-of-contents
@@ -5234,3 +5257,22 @@ resolve(ProcessCardManagerRequestService::class)
 ->process(new GetPaymentStatusRequest($this->payment))
 );
 }
+* Journals                                                         :noexport:
+Empirical Software Engineering
+* Presentation                                                     :noexport:
+** Simple presentation for a complex people
+** [[https://youtu.be/6ayR9s5pudk][Life Without Objects - Osvaldas Grigas]]
+object - inheritance, namespace, data, state managment, polymorphic dispatch
+** What's that smell?
+*** DONE "Subjective Evaluation of Software Evolvability Using Code Smells: An Empirical Study" 2006
+*** IN-PROGRESS Fowler, Martin - Refactoring: improving the design of existing code
+*** Antipatterns. Refactoring Software, Archtectures and Projects in Crisis 1998
+** Notes
+*** refactoring
+Refactoring (noun): a change made to the internal structure of software to make it easier to understand and cheaper to modify without changing its observable behavior.
+
+Refactoring (verb): to restructure software by applying a series of refactorings without changing its observable behavior.
+*** legacy code
+- valueable code you afraid to change
+
+

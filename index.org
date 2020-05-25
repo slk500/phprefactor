@@ -1141,7 +1141,7 @@ echo "Price after discount: $totalDiscountPrice";
 * Tutorials
 ** Functional
 ** Rewrite
-*** TODO [[REWRITE! | David Heinemeier-Hansson, Basecamp | BoS USA 2015][REWRITE! | David Heinemeier-Hansson, Basecamp | BoS USA 2015]]
+*** TODO [[https://businessofsoftware.org/2015/10/david-heinemeier-hansson-rewrite-basecamp-business-of-software-conference-video-dhh-bos2015/][REWRITE! | David Heinemeier-Hansson, Basecamp | BoS USA 2015]]
 ** Refactoring
 *** [[https://refactoring.com/catalog/][Catalog of Refactorings]] Martin Fowler
 *** [[https://code.tutsplus.com/courses/detecting-code-smells][Detecting Code Smells]] Patkós Csaba
@@ -1970,7 +1970,7 @@ Fix: Replace Primitive with Object
 *** Speculative Generality
 “Oh, I think we’ll need the ability to do this kind of thing someday”
 *** Temporary Field
-** https://github.com/testdouble/test-smells
+** 
 * Database
 ** config
 MySQL configuration file:
@@ -2637,7 +2637,7 @@ WHERE   e.tag_slug_id = m.tag_slug_id
 |-----------------------------------+-----+--------------------------------------------------+-------------------------------------------|
 | [[https://github.com/emilybache/Tennis-Refactoring-Kata/tree/master/php][Tennis]]                            | 443 |                                                  |                                           |
 |-----------------------------------+-----+--------------------------------------------------+-------------------------------------------|
-| [[Yatzy][Yatzy]]                             | 293 |                                                  |                                           |
+| [[https://github.com/emilybache/Yatzy-Refactoring-Kata/tree/master/php][Yatzy]]                             | 293 |                                                  |                                           |
 |-----------------------------------+-----+--------------------------------------------------+-------------------------------------------|
 * Definitions
 ** Anemic Domain Model

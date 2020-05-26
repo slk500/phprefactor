@@ -1729,10 +1729,8 @@ if complicated conditional logic controls which algorithm to run and that logic 
 - Two of the leading proponents of refactoring are Ward Cunningham and Kent Beck.
 - Ralph Johnson leads a group at the University of Illinois at Urbana-Champaign that is notable for its practical contributions to object technology. Ralph has long been a champion of refactoring, and several of his students have worked on the topic. Bill Opdyke developed the first detailed written work on refactoring in his doctoral thesis. John Brant and Don Roberts have gone beyond writing words into writing a tool, the Refactoring Browser, for refactoring Smalltalk programs
 - There's nothing wrong with a quick and dirty simple program. But if this is a representative fragment of a more complex system, then I have some real problems with this program.
-p22
-
-
-
+- Any fool can write code that a computer can understand. Good programmers write code that humans can understand.
+- I like to get rid of temporary variables such as this as much as possible. Temps are often a problem in that they cause a lot of parameters to be passed around when they don't have to be. You can easily lose track of what they are there for. They are particularly insidious in long methods. Of course there is a performance price to pay; here the charge is now calculated twice. But it is easy to optimize that in the rental class, and you can optimize much more effectively when the code is properly factored.
 
 
 [[https://github.com/HugoMatilla/Refactoring-Summary][Summary of "Refactoring: Improving the Design of Existing Code" by Martin Fowler]]
@@ -1970,7 +1968,6 @@ Fix: Replace Primitive with Object
 *** Speculative Generality
 “Oh, I think we’ll need the ability to do this kind of thing someday”
 *** Temporary Field
-** 
 * Database
 ** config
 MySQL configuration file:
@@ -5264,8 +5261,9 @@ Empirical Software Engineering
 ** [[https://youtu.be/6ayR9s5pudk][Life Without Objects - Osvaldas Grigas]]
 object - inheritance, namespace, data, state managment, polymorphic dispatch
 ** What's that smell?
-*** DONE "Subjective Evaluation of Software Evolvability Using Code Smells: An Empirical Study" 2006
 *** IN-PROGRESS Fowler, Martin - Refactoring: improving the design of existing code
+
+*** DONE "Subjective Evaluation of Software Evolvability Using Code Smells: An Empirical Study" 2006
 *** Antipatterns. Refactoring Software, Archtectures and Projects in Crisis 1998
 ** Notes
 *** refactoring

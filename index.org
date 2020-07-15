@@ -1,8 +1,192 @@
 #+TODO: IN-PROGRESS READING TODO LOOKING-FOR READ DONE 
+#+OPTIONS: broken-links:auto
 #+SETUPFILE: export/setup/theme-darksun-local.setup
 #+Title: PHPRefactor
 
 * Refactorings
+- The examples are trying to be as much short & simple as they can.
+- In most cases, there are still problems with the code at the end, but fixing these problems requires other refactorings.
+- Don't take any of these examples as suggestions for how to design objects. These examples are there only to illustrate the refactorings, nothing more.
+- I use int to represent monetary values. I've done this only to make the examples simpler, as the representation is not important to the refactoring. In commercial software use the Quantity pattern.
+
+| fowler 2020      | fowler 2002    | aliases | inverse         | smells     |
+|------------------+----------------+---------+-----------------+------------|
+| extract function | extract method |         | inline function | code clump |
+|                  |                |         |                 |            |
+
+code clump - code fragment that can be grouped together  
+data clump -  
+function clump -  
+
+** Based On Fowler 2002
+*** Extract Function
+ #+BEGIN_SRC php
+public function printInvoice(Invoice $invoice): void
+{
+    echo 'Invoice';
+    echo '<br>';
+    echo $invoice->getNumber();
+   
+    echo 'phpRefactor: ';
+    echo '<br>';
+    echo $invoice->getDate();
+}
+ #+END_SRC
+**** Write a test that pass
+**** Refactor the code 
+       Turn the fragment into a method whose name explains the purpose of the method
+ #+BEGIN_SRC php
+public function printInvoice(Invoice $invoice): void
+{
+    printInvoiceHeader($invoice);
+    printInvoiceFooter($invoice);
+}
+
+function printInvoiceHeader(Invoice $invoice): void
+{
+    echo 'Invoice';
+    echo '<br>';
+    echo $invoice->getNumber();
+}
+
+function printInvoiceFooter(Invoice $invoice): void
+{
+    echo 'phpRefactor: ';
+    echo '<br>';
+    echo $invoice->getDate();
+}
+ #+END_SRC
+**** Run a test
+**** Notes
+ #+BEGIN_SRC php
+function printInvoice() {
+    $footer=function() {
+        echo "phpRefactor.com \n";
+        echo "2019";
+    };
+    
+    echo "Header \n";
+    $footer();
+}
+printInvoice();
+ #+END_SRC
+*** Inline Function
+    Alias: Inline Method
+    Smell: A function's body is just as clear as it's name
+ #+NAME: inline_function
+ #+BEGIN_SRC php
+class Circle
+{
+    public const RADIUS = 2;
+
+    public function getArea(): float
+    {
+        return $this->getValueOfPI() * self::RADIUS * self::RADIUS;
+    }
+
+    private function getValueOfPI(): float
+    {
+        return pi();
+    }
+}
+ #+END_SRC
+**** Write a test that pass
+  #+NAME: inline_function_test
+ #+BEGIN_SRC phpunit :noweb yes :noweb strip-export :exports both
+<<inline_function>>
+use PHPUnit\Framework\TestCase;
+
+class CircleTest extends TestCase
+{   
+    public function testGetArea()
+    {
+        $circle = new Circle();
+        $this->assertEquals( 12.566370614359172, $circle->getArea());
+    }
+}
+  #+END_SRC
+
+  #+RESULTS: inline_function_test
+  : PHPUnit 7.4.3 by Sebastian Bergmann and contributors.
+  : 
+  : .                                                                   1 / 1 (100%)
+  : 
+  : Time: 53 ms, Memory: 10.00MB
+  : 
+  : OK (1 test, 1 assertion)
+
+**** Refactor the code 
+     Put the method's body into the body of its callers and remove the method.
+ #+BEGIN_SRC php
+public function getArea(): float
+{
+    return pi() * $radius * $radius;
+}
+  #+END_SRC
+**** Pass a test
+*** Inline Variable
+    Smell: Variable name doesn't really communicate more than the expression itself or gets in the way of refactoring neighboring code.
+ #+BEGIN_SRC php
+$basePrice = $anOrder->basePrice;
+return ($basePrice > 1000);
+ #+END_SRC
+**** Refactor the code
+ #+BEGIN_SRC php
+return $anOrder->basePrice > 1000;
+ #+END_SRC
+ 140
+*** Replace Temp with Query
+ Smell: Using a temporary variable to hold the result of an expression.
+ Damage: Temporary variable increase the temptation to write longer methods. Temporaries aren’t necessarily bad, but sometimes they attract new code.
+ #+BEGIN_SRC php
+public function getTotalPrice(): int
+{
+    $basePrice = $this->quantity * $this->itemPrice;
+
+    if ($basePrice > self::DISCOUNT_POINT) {
+        return $basePrice * self::DISCOUNT;
+    }
+    return $basePrice;
+}
+ #+END_SRC
+**** Write a test that pass
+**** Refactor the code 
+     Extract the expression into a method. Replace all references to the temp with the expression. The new method can then be used in other methods.
+ #+BEGIN_SRC php
+public function getTotalPrice(): int
+{
+    if ($this->getBasePrice() > self::DISCOUNT_POINT) {
+        return $this->getBasePrice() * self::DISCOUNT;
+    }
+    return $this->getBasePrice();
+}
+
+public function getBasePrice(): int
+{
+    $this->quantity * $this->itemPrice;
+}
+ #+END_SRC
+**** Pass a test
+**** Info 
+     Now, but wait, you might say. Isn't this more inefficient? Because if we created the temp the old way, we'd only have to execute the expression once, but if we turn it into a method, we might be calling it many different times. And yes, you're absolutely right, but remember, the pure efficiency of the code is not our first goal in refactoring. Clarity is. The likelihood is that a typical expression you would deal with in this sort of refactoring is going to be so undemanding, it wouldn't be noticeable at all, even having to call it several more times. But if it is an intensive operation, an intensive expression, well you should really be working on that later, after you've refactored using profilers. And other tools to make sure you're not doing pointless, premature optimization. And the real benefit is that by creating this as its own method, we will also have use of it anywhere else in the class, which wasn't the case before. As the original temp was scoped to the original method. So, we won't be tempted to add more code to the original method just to have access to that temp.
+*** Extract Variable
+    Alias: Introduce Explaining Variable
+    Smell: Complicated expression
+ #+BEGIN_SRC php
+if(($stock->checkStatus($order->getItem) > $order->getQuantity()) 
+    && ($order->getTotal() > 99) 
+    && ($order->getCustomer()->getBillingAddress() === $order->getShippingAddress()));
+ #+END_SRC
+**** Write a test that pass
+**** Refactor the code
+     Put the result of the expression, or part of it in a temporary variable with a name that explains the purpose
+ #+BEGIN_SRC php
+$freeShipping = $order->getTotal() > 99;
+$stockAvailable = $stock->checkStatus($order->getItem) > $order->getQuantity();
+$addressMatches = $order->getCustomer()->getBillingAddress() === $order->getShippingAddress();
+if($stockAvailable && $freeShipping && $addressMatches);
+ #+END_SRC
+**** Pass a test
 ** Add Type-Hint
 *** If you CAN type-hint, then you MUST type-hint
 Smell: A method with no type defined parameters or return type declaration
@@ -277,83 +461,6 @@ final class Address
 }
 #+END_SRC
 *** Pass a test
-** Extract Function
-   Alias: Extract Method
-   Inverse of: Inline Function
-   Smell: Code fragment that can be grouped together
-#+BEGIN_SRC php
-public function printInvoice(Invoice $invoice): void
-{
-    echo 'Invoice';
-    echo '<br>';
-    echo $invoice->getNumber();
-   
-    echo 'phpRefactor: ';
-    echo '<br>';
-    echo $invoice->getDate();
-}
-#+END_SRC
-*** Write a test that pass
-*** Refactor the code 
-      Turn the fragment into a method whose name explains the purpose of the method
-#+BEGIN_SRC php
-public function printInvoice(Invoice $invoice): void
-{
-    printInvoiceHeader($invoice);
-    printInvoiceFooter($invoice);
-}
-
-function printInvoiceHeader(Invoice $invoice): void
-{
-    echo 'Invoice';
-    echo '<br>';
-    echo $invoice->getNumber();
-}
-
-function printInvoiceFooter(Invoice $invoice): void
-{
-    echo 'phpRefactor: ';
-    echo '<br>';
-    echo $invoice->getDate();
-}
-
-
-
-#+END_SRC
-*** Run a test
-*** Notes
-#+BEGIN_SRC php
-function printInvoice() {
-    $footer=function() {
-        echo "phpRefactor.com \n";
-        echo "2019";
-    };
-    
-    echo "Header \n";
-    $footer();
-}
-printInvoice();
-
-#+END_SRC
-
-** Extract Variable
-   Alias: Introduce Explaining Variable
-   Smell: Complicated expression
-#+BEGIN_SRC php
-if(($stock->checkStatus($order->getItem) > $order->getQuantity()) 
-    && ($order->getTotal() > 99) 
-    && ($order->getCustomer()->getBillingAddress() === $order->getShippingAddress()));
-#+END_SRC
-*** Write a test that pass
-*** Refactor the code
-    Put the result of the expression, or part of it in a temporary variable with a name that explains the purpose
-#+BEGIN_SRC php
-$freeShipping = $order->getTotal() > 99;
-$stockAvailable = $stock->checkStatus($order->getItem) > $order->getQuantity();
-$addressMatches = $order->getCustomer()->getBillingAddress() === $order->getShippingAddress();
-if($stockAvailable && $freeShipping && $addressMatches);
-#+END_SRC
-*** Pass a test
 ** Inline Class
    Smell: A class isn't doing very much
 #+BEGIN_SRC php
@@ -370,70 +477,6 @@ final class TelephoneNumber
     private $number;
 }
 #+END_SRC
-** DONE Inline Function
-   Smell: A function's body is just as clear as it's name
-#+NAME: inline_function
-#+BEGIN_SRC php
-class Circle
-{
-    public const RADIUS = 2;
-
-    public function getArea(): float
-    {
-        return $this->getValueOfPI() * self::RADIUS * self::RADIUS;
-    }
-
-    private function getValueOfPI(): float
-    {
-        return pi();
-    }
-}
-#+END_SRC
-*** Write a test that pass
- #+NAME: inline_function_test
-#+BEGIN_SRC phpunit :noweb yes :noweb strip-export :exports both
-<<inline_function>>
-use PHPUnit\Framework\TestCase;
-
-class CircleTest extends TestCase
-{   
-    public function testGetArea()
-    {
-        $circle = new Circle();
-        $this->assertEquals( 12.566370614359172, $circle->getArea());
-    }
-}
- #+END_SRC
-
- #+RESULTS: inline_function_test
- : PHPUnit 7.4.3 by Sebastian Bergmann and contributors.
- : 
- : .                                                                   1 / 1 (100%)
- : 
- : Time: 53 ms, Memory: 10.00MB
- : 
- : OK (1 test, 1 assertion)
-
-*** Refactor the code 
-    Put the method's body into the body of its callers and remove the method.
-#+BEGIN_SRC php
-public function getArea(): float
-{
-    return pi() * $radius * $radius;
-}
- #+END_SRC
-*** Pass a test
-** Inline Variable
-   Smell: Variable name doesn't really communicate more than the expression itself or gets in the way of refactoring neighboring code.
-#+BEGIN_SRC php
-let basePrice = anOrder.basePrice;
-return (basePrice > 1000);
-#+END_SRC
-*** Refactor the code
-#+BEGIN_SRC php
-return anOrder.basePrice > 1000;
-#+END_SRC
-140
 ** Introduce Parameter Object
 Smell: Long Parameter List and parameters that naturally go together
 #+BEGIN_SRC php
@@ -829,7 +872,7 @@ final class Item
 }
 #+END_SRC
 *** Pass a test
-** DONE Replace Magic Number With Symbolic Constant
+** Replace Magic Number With Symbolic Constant
    Smell: Number with a particular meaning
     #+NAME: replace_magic_number_with_symbolic_constant
      #+BEGIN_SRC php
@@ -939,40 +982,6 @@ final class EmailNotification
 }
 #+END_SRC
 *** Pass a test
-** Replace Temp with Query
-   Smell: Using a temporary variable to hold the result of an expression.
-   Damage: Temporary variable increase the temptation to write longer methods. Temporaries aren’t necessarily bad, but sometimes they attract new code.
-#+BEGIN_SRC php
-public function getTotalPrice(): int
-{
-    $basePrice = $this->quantity * $this->itemPrice;
-
-    if ($basePrice > self::DISCOUNT_POINT) {
-        return $basePrice * self::DISCOUNT;
-    }
-    return $basePrice;
-}
-#+END_SRC
-*** Write a test that pass
-*** Refactor the code 
-    Extract the expression into a method. Replace all references to the temp with the expression. The new method can then be used in other methods.
-#+BEGIN_SRC php
-public function getTotalPrice(): int
-{
-    if ($this->getBasePrice() > self::DISCOUNT_POINT) {
-        return $this->getBasePrice() * self::DISCOUNT;
-    }
-    return $this->getBasePrice();
-}
-
-public function getBasePrice(): int
-{
-    $this->quantity * $this->itemPrice;
-}
-#+END_SRC
-*** Pass a test
-*** Info 
-    Now, but wait, you might say. Isn't this more inefficient? Because if we created the temp the old way, we'd only have to execute the expression once, but if we turn it into a method, we might be calling it many different times. And yes, you're absolutely right, but remember, the pure efficiency of the code is not our first goal in refactoring. Clarity is. The likelihood is that a typical expression you would deal with in this sort of refactoring is going to be so undemanding, it wouldn't be noticeable at all, even having to call it several more times. But if it is an intensive operation, an intensive expression, well you should really be working on that later, after you've refactored using profilers. And other tools to make sure you're not doing pointless, premature optimization. And the real benefit is that by creating this as its own method, we will also have use of it anywhere else in the class, which wasn't the case before. As the original temp was scoped to the original method. So, we won't be tempted to add more code to the original method just to have access to that temp.
 ** Replacing Type Code with Subclasses
 Smell: Immutable type code affecting the class behavior.
 #+BEGIN_SRC php
@@ -1140,6 +1149,47 @@ echo "Price after discount: $totalDiscountPrice";
 *** Pass a test
 * Tutorials
 ** Functional
+**** [[https://youtu.be/MjpiHy_e8kQ][Marco Pivetta – From helpers to middleware]]
+**** https://gist.github.com/adaburrows/941874
+**** [[https://www.lynda.com/Python-tutorials/Functional-Programming-PHP/2823102-2.html][Functional Programming with PHP]] 
+***** avg of an array of numbers
+      | imperative - how to get result?                          | declarative - what is it?                                                |
+      |----------------------------------------------------------+--------------------------------------------------------------------------|
+      | - set x equal to zero                                    | x is the sum of all numbers in the array, divided bt the length of array |
+      | - add the first number in the array to x                 |                                                                          |
+      | - repeat step 2 for the rest of the numbers in the array |                                                                          |
+      | - divide x by the length of the array                    |                                                                          |
+***** core concepts
+****** immutability
+       state change - when program contains variables that are all constantly changing at different times, it can be very hard to know what state a program is in at any given point in time. 
+       FP. on the other hand starts off with immutable set of data as a single source of truth, and the uses functions to combine this data piece by piece and transform it into useful information. 
+****** separating functions and data
+****** first-class functions
+***** advanced functional concepts
+****** recursion
+****** partial application
+****** composition
+***** notes
+      #+begin_src php
+      $divide = function($x, $y) {
+      return $x / $y;
+      };
+
+      $second_arg_isnt_zero = function($func) {
+      return function(...$args) use ($func) {
+      if ($args[1] == 0) {
+      echo "Cannot divide by zero!\n";
+      return null;
+      }
+
+      return $func(...$args);
+      };
+      };
+
+      $divide_safe = $second_arg_isnt_zero($divide);
+
+      echo $divide_safe(10, 0) . "\n";
+      #+end_src>
 ** Rewrite
 *** TODO [[https://businessofsoftware.org/2015/10/david-heinemeier-hansson-rewrite-basecamp-business-of-software-conference-video-dhh-bos2015/][REWRITE! | David Heinemeier-Hansson, Basecamp | BoS USA 2015]]
 ** Refactoring
@@ -1409,15 +1459,14 @@ To types of BDD:
 https://github.com/Behatch/contexts
    
 * Books
-** Database
-*** Karwin, Bill SQL Antipatterns - Avoiding The Pitfalls of Database Programming 2010	
-*** Scott J Ambler and Pramod J. Sadalage Refactoring Databases - Evolutionary Database Design 2006
-refactoring	must read It's catalog of refactorings for database
-*** Joe Celko’s Trees and Hierarchies in SQL for Smarties
-*** SQL for Smarties: Advanced SQL Programming 2005
+** Functional
+**** [[pdf:/home/slk/Dropbox/books/PHP/functional/Pro Functional PHP Programming Application Development Strategies for Performance Optimization, Concurrency, Testability, and Code Brevity by Rob Aley.pdf::1][Pro Functional PHP Programming Application Development Strategies for Performance Optimization, Concurrency, Testability, and Code Brevity by Rob Aley]]
+**** [[pdf:/home/slk/Dropbox/books/PHP/functional/Functional programming with PHP by Simon Holywell.epub::1][Functional programming with PHP by Simon Holywell]]
+**** [[pdf:/home/slk/Dropbox/books/PHP/functional/Functional PHP by Crettenand, Gilles.epub::1][Functional PHP by Crettenand, Gilles]]
+**** [[https://leanpub.com/functional-php/read][Functional PHP The Art of Function Composition by Luis Atencio]]
 ** Refactoring
 *** Michael Feathers
-**** Working Effectively with Legacy Code; 2005
+**** [[pdf:/home/slk/Dropbox/books/Refactoring/Feathers, Michael - Working Effectively with Legacy Code (2005).pdf::1][Working Effectively with Legacy Code; 2005]]
  - To me, legacy code is simply code without tests. I’ve gotten some grief for this definition. What do tests have to do with whether code is bad? To me, the answer is straightforward, and it is a point that I elaborate throughout the book: 'Code without tests is bad code. It doesn’t matter how well written it is; it doesn’t matter how pretty or object-oriented or well-encapsulated it is. With tests, we can change the behavior of our code quickly and verifiably. Without them, we really don’t know if our code is getting better or worse.'
 
  - being able to confidently make changes in any code base.
@@ -1429,6 +1478,17 @@ refactoring	must read It's catalog of refactorings for database
  - ...testing is a tough problem, and people are often seduced by the idea that they can test through a GUI or web interface without having to do anything special to their application. It can be done, but it is usually more work than anyone on a team is prepared to admit. In addition, a user interface often isn’t the best place to write tests. UIs are often volatile and too far from the functionality being tested. When UI-based tests fail, it can be hard to figure out why. Regardless, people  often spend considerable money trying to do all of their testing with those sorts of tools.
    
  - Pay now or pay more later
+
+[copied from somesite]
+ Exploratory Refactoring: the recipe
+ When you feel stuck because you don't understand what the code is doing, here's what you can do:
+ Take a breath, there is a way out and you're about to find it
+ Reset your git status to start fresh (git reset --hard or git stash will do)
+ Set up a timer for 30 minutes
+ Refactor the code freely, don't worry if the code still compiles, just go ahead and change it
+ Throw away your changes when the timer rings!
+ Just do it: git reset --hard
+ Take a break, go drink some water and think about what you just learned
 
 **** LOOKING-FOR Brutal Refactoring: More Working Effectively with Legacy Code
 *** Refactoring in Large Software Projects 2006
@@ -1725,59 +1785,208 @@ if an object's state transitions are controller by complex conditional logic
 ***** Replace Conditional Logic with Strategy 
 if complicated conditional logic controls which algorithm to run and that logic relies on primitive values
 *** Fowler, Martin
-**** [[pdftools:/home/slk/Dropbox/books/Refactoring/Fowler, Martin -  Refactoring (2002).pdf::1][Refactoring: Improving the Design of Existing Code; 2000]]
+**** [[pdftools:/home/slk/Dropbox/books/Refactoring/Fowler, Martin -  Refactoring (2002).pdf::1][Refactoring: Improving the Design of Existing Code; 1999]]
 - Two of the leading proponents of refactoring are Ward Cunningham and Kent Beck.
 - Ralph Johnson leads a group at the University of Illinois at Urbana-Champaign that is notable for its practical contributions to object technology. Ralph has long been a champion of refactoring, and several of his students have worked on the topic. Bill Opdyke developed the first detailed written work on refactoring in his doctoral thesis. John Brant and Don Roberts have gone beyond writing words into writing a tool, the Refactoring Browser, for refactoring Smalltalk programs
 - There's nothing wrong with a quick and dirty simple program. But if this is a representative fragment of a more complex system, then I have some real problems with this program.
 - Any fool can write code that a computer can understand. Good programmers write code that humans can understand.
 - I like to get rid of temporary variables such as this as much as possible. Temps are often a problem in that they cause a lot of parameters to be passed around when they don't have to be. You can easily lose track of what they are there for. They are particularly insidious in long methods. Of course there is a performance price to pay; here the charge is now calculated twice. But it is easy to optimize that in the rental class, and you can optimize much more effectively when the code is properly factored.
-
-
-[[https://github.com/HugoMatilla/Refactoring-Summary][Summary of "Refactoring: Improving the Design of Existing Code" by Martin Fowler]]
-**** Patterns of Enterprise Application Architecture; 2012	
-**** Refactoring: Improving the Design of Existing Code; 2018
-- With any introductory example, however, I run into a problem. If I pick a large program, describing it and how it is refactored is too complicated for a mortal reader to work through.(...) However, if I pick a program that is small enough to be comprehensible, refactoring does not look like it is worthwhile.
- 
-- Thus, if I’m faced with modifying a program with hundreds of lines of code, I’d rather it be structured into a set of functions and other program elements that allow me to understand more easily what the program is doing. If the program lacks structure, it’s usually easier for me to add structure to the program first, and then make the change I need.
-
-- If the code works and doesn’t ever need to change, it’s perfectly fine to leave it alone. It would be nice to improve it, but unless someone needs to understand it, it isn’t causing any real harm. Yet as soon as someone does need to understand how that code works, and struggles to follow it, then you have to do something about it.
-
-- Refactoring changes the programs in small steps, so if you make a mistake, it is easy to find where the bug is.
-
-- Any fool can write code that a computer can understand. Good programmers write code that humans can understand.
-
-- The true test of good code is how easy it is to change it.
-
 - Refactoring (noun): a change made to the internal structure of software to make it easier to understand and cheaper to modify without changing its observable behavior.
-- Refactoring (verb): to restructure software by applying a series of refactorings without changing its observable behavior.
+- Refactor (verb): to restructure software by applying a series of refactorings without changing its observable behavior.
+- ...purpose of refactoring is to make the software easier to understand and modify
+- ...refactoring does not change the observable behavior of the software. The software still carries out the same function that it did before. Any user, whether an end user or another programmer, cannot tell that things have changed.
+- I use refactoring to help me understand unfamiliar code. When I look at unfamiliar code, I have to try to understand what it does. I look at a couple of lines and say to myself, oh yes, that's what this bit of code is doing. With refactoring I don't stop at the mental note. I actually change the code to better reflect my understanding, and then I test that understanding by rerunning the code to see if it still works.
+- Early on I do refactoring like this on little details. As the code gets clearer, I find I can see things about the design that I could not see before. Had I not changed the code, I probably never would have seen these things, because I'm just not clever enough to visualize all this in my head. Ralph Johnson describes these early refactorings as wiping the dirt off a window so you can see beyond. When I'm studying code I find refactoring leads me to higher levels of understanding that otherwise I would miss.
+- refactoring helps you find bugs
+  - ...claryfing the structure of the program
+- refactoring helps you program faster
+  - This sounds counterintuitive. When I talk about refactoring, people can easily see that it improves quality. Improving design, improving readability, reducing bugs, all these improve quality. But doesn't all this reduce the speed of development? I strongly believe that a good design is essential for rapid software development. Indeed, the whole point of having a good design is to allow rapid development. Without a good design, you can progress quickly for a while, but soon the poor design starts to slow you down. You spend time finding and fixing bugs instead of adding new function. Changes take longer as you try to understand the system and find the duplicate code. New features need more coding as you patchover a patch that patches a patch on the original code base. A good design is essential to maintaining speed in software development. Refactoring helps you develop software more rapidly, because it stops the design of the system from decaying. It can even improve a design.
+- When Should You Refactor
+  - In almost all cases, I'm opposed to setting aside time for refactoring. In my view refactoring is not an activity you set aside time to do. Refactoring is something you do all the time in little bursts. You don't decide to refactor, you refactor because you want to do something else, and refactoring helps you do that other thing.
+  - The Rule of Three 
+    - Here's a guideline Don Roberts gave me: The first time you do something, you just do it. The second time you do something similar, you wince at the duplication, but you do the duplicate thing anyway. The third time you do something similar, you refactor.
+    - Tip: Three strikes and you refactor.
+- Refactor When You Add Function
+  - first reason to refactor here is to help me understand some code I need to modify
+  - The other driver of refactoring here is a design that does not help me add a feature easily. I look at the design and say to myself, "If only I'd designed the code this way, adding this feature would be easy."
+- Refactor When You Need to Fix a Bug
+  - In fixing bugs much of the use of refactoring comes from making code more understandable. As I look at the code trying to understand it, I refactor to help improve my understanding. Often I find that this active process of working with the code helps in finding the bug. One way to look at it is that if you do get a bug report, it's a sign you need refactoring, because the code was not clear enough for you to see there was a bug.
+- Refactor As You Do a Code Review
+- I've found that refactoring helps me review someone else's code. Before I started using refactoring, I could read the code, understand some degree of it, and make suggestions. Now when I come up with ideas, I consider whether they can be easily implemented then and there with refactoring. If so, I refactor. When I do it a few times, I can see more clearly what the code looks like with the suggestions in place. I don't have to imagine what it would be like, I can see what it is like. As a result, I can come up with a second level of ideas that I would never have realized had I not refactored.
+- You just code the first approach that comes into your head, get it working, and then refactor it into shape.
+- The problem with building a flexible solution is that flexibility costs. Flexible solutions are more complex than simple ones. The resulting software is more difficult to maintain in general...
+***** Chapter 3. Bad Smells in Code
+- he [Kent Beck] had come up with the notion describing the "when" of refactoring in terms of smells.
+- One thing we won't try to do here is give you precise criteria for when a refactoring is overdue. In our experience no set of metrics rivals informed human intuition. What we will do is give you indications that there is trouble that can be solved by a refactoring. You will have to develop your own sense of how many instance variables are too many instance variables and how many lines of code in a method are too many lines.
+****** Duplicated Code 
+ - number one in the stink parade.
+ - same code structure in more than one place
+******* Same expression in methods of the same class 
+	Extract Function and invoke the code from both places.
+******* Same expression in two sibling subclasses 
+	You can eliminate this duplication by using Extract Method in both classes then Pull Up Field. If the code is similar but not the same, you need to use Extract Method to separate the similar bits from the different bits. You may then find you can use Form Template Method. If the methods do the same thing with a different algorithm, you can choose the clearer of the two algorithms and use Substitute Algorithm.
+******* Duplicated code in two unrelated classes
+	Consider using Extract Class in one class and then use the new component in the other. Another possibility is that the method really belongs only in one of the classes and should be invoked by the other class or that the method belongs in a third class that should be referred to by both of the original classes.
+****** Long Method
+       whenever we feel the need to comment something, we write a method instead.
+       
+       Ninety-nine percent of the time, all you have to do to shorten a method is Extract Method. Find parts of the method that seem to go nicely together and make a new method.
+       
+       If you have a method with lots of parameters and temporary variables, these elements get in the way of extracting methods. If you try to use Extract Method, you end up passing so many of the parameters and temporary variables as parameters to the extracted method that the result is scarcely more readable than the original. You can often use Replace Temp with Query to eliminate the temps. Long lists of parameters can be slimmed down with Introduce Parameter Object and Preserve Whole Object.
 
-- Refactoring is very similar to performance optimization, as both involve carrying out code manipulations that don’t change the overall functionality of the program. The difference is the purpose: Refactoring is always done to make the code “easier to understand and cheaper to modify.” This might speed things up or slow things down. With performance optimization, I only care about speeding up the program, and am prepared to end up with code that is harder to work with if I really need that improved performance.
+       If you've tried that, and you still have too many temps and parameters, it's time to get out the heavy artillery: Replace Method with Method Object.
 
-- Without refactoring, the internal design—the architecture—of software tends to decay.As people change code to achieve short­term goals, often without a full comprehensionof the architecture, the code loses its structure. It becomes harder for me to see thedesign by reading the code. Loss of the structure of code has a cumulative effect. Theharder it is to see the design in the code, the harder it is for me to preserve it, and themore rapidly it decays. Regular refactoring helps keep the code in shape.
+       Conditionals and loops also give signs for extractions. Use Decompose Conditional to deal with conditional expressions. With loops, extract the loop and the code within the loop into its own method.
+****** Large Class
+       When a class is trying to do too much, it often shows up as too many instance variables. When a class has too many instance variables, duplicated code cannot be far behind.
 
-- It reminds me of a statement Kent Beck often makes about himself: “I’m not a great programmer; I’m just a good programmer with great habits.” Refactoring helps me be much more effective at writing robust code. 
+       You can Extract Class to bundle a number of the variables. Choose variables to go together in the component that makes sense for each. For example, "depositAmount" and "depositCurrency"are likely to belong together in a component. More generally, common prefixes or suffixes for some subset of the variables in a class suggest the opportunity for a component. If the component makes sense as a subclass, you'll find Extract Subclass often is easier.
 
-- Branches. As I write this, a common approach in teams is for each team member to work on abranch of the code base using a version control system, and do considerable work onthat branch before integrating with a mainline (often called master or trunk) sharedacross the team. Often, this involves building a whole feature on a branch, notintegrating into the mainline until the feature is ready to be released into production.Fans of this approach claim that it keeps the mainline clear of any in­process code,provides a clear version history of feature additions, and allows features to be revertedeasily should they cause problems.There are downsides to feature branches like this. The longer I work on an isolatedbranch, the harder the job of integrating my work with mainline is going to be when I’mdone. Most people reduce this pain by frequently merging or re­basing from mainlineto my branch. But this doesn’t really solve the problem when several people areworking on individual feature branches. I distinguish between merging and integration.If I merge mainline into my code, this is a oneway movement—my branch changes butthe mainline doesn’t. I use “integrate” to mean a two­way process that pulls changesfrom mainline into my branch and then pushes the result back into mainline, changingboth. If Rachel is working on her branch I don’t see her changes until she integrateswith mainline; at that point, I have to merge her changes into my feature branch, whichmay mean considerable work. The hard part of this work is dealing with semanticchanges. Modern version control systems can do wonders with merging complexchanges to the program text, but they are blind to the semantics of the code. If I’vechanged the name of a function, my version control tool may easily integrate mychanges with Rachel’s. But if, in her branch, she added a call to a function that I’verenamed in mine, the code will fail.The problem of complicated merges gets exponentially worse as the length of featurebranches increases. Integrating branches that are four weeks old is more than twice ashard as those that are a couple of weeks old. Many people, therefore, argue for keepingfeature branches short—perhaps just a couple of days. Others, such as me, want themeven shorter than that. This is an approach called Continuous Integration (CI), alsoknown as Trunk­Based Development. With CI, each team member integrates withmainline at least once per day. This prevents any branches diverting too far from eachother and thus greatly reduces the complexity of merges. CI doesn’t come for free: Itmeans you use practices to ensure the mainline is healthy, learn to break large featuresinto smaller chunks, and use feature toggles (aka feature flags) to switch off any in­process features that can’t be broken down.Fans of CI like it partly because it reduces the complexity of merges, but the dominantreason to favor CI is that it’s far more compatible with refactoring. Refactorings ofteninvolve making lots of little changes all over the code base—which are particularlyprone to semantic merge conflicts (such as renaming a widely used function). Many ofus have seen feature­branching teams that find refactorings so exacerbate mergeproblems that they stop refactoring. CI and re­factoring work well together, which iswhy Kent Beck combined them in Extreme Programming.I’m not saying that you should never use feature branches. If they are sufficiently short,their problems are much reduced. (Indeed, users of CI usually also use branches, butintegrate them with mainline each day.) Feature branches may be the right techniquefor open source projects where you have infrequent commits from programmers whoyou don’t know well (and thus don’t trust). But in a full­time development team, thecost that feature branches impose on refactoring is excessive. Even if you don’t go to fullCI, I certainly urge you to integrate as frequently as possible. You should also considerthe objective evidence [Forsgren et al.] that teams that use CI are more effective insoftware delivery.
+       Sometimes a class does not use all of its instance variables all of the time. If so, you may be able to Extract Class or Extract Subclass many times.
+       
+       As with a class with too many instance variables, a class with too much code is prime breeding ground for duplicated code, chaos, and death. The simplest solution...is to eliminate redundancy in the class itself. If you have five hundred-line methods with lots of code in common, you may be able to turn them into five ten-line methods with another ten two-line methods extracted from the original. As with a class with a huge wad of variables, the usual solution for a class with too much code is either to Extract Class or Extract Subclass. A useful trick is to determine how clients use the class and to use Extract Interface
+****** Long Parameter List
+       Use Replace Parameter with Method when you can get the data in one parameter by making a request of an object you already know about. This object might be a field or it might be another parameter. Use Preserve Whole Object to take a bunch of data gleaned from an object and replace it with the object itself. If you have several data items with no logical object, use Introduce Parameter Object.
+       
+       There is one important exception to making these changes. This is when you explicitly do not want to create a dependency from the called object to the larger object. In those cases unpacking data and sending it along as parameters is reasonable, but pay attention to the pain involved. If the parameter list is too long or changes too often, you need to rethink your dependency structure.
+****** Divergent Change
+       Divergent change occurs when one class is commonly changed in different ways for different reasons. If you look at a class and say, "Well, I will have to change these three methods every time I get a new database; I have to change these four methods every time there is a new financial instrument," you likely have a situation in which two objects are better than one. That way each object is changed only as a result of one kind of change. Of course, you often discover this only after you've added a few databases or financial instruments. Any change to handle a variation should change a single class, and all the typing in the new class should express the variation. To clean this up you identify everything that changes for a particular cause and use Extract Class to put them all together.
+****** Shotgun Surgery
+       Shotgun surgery is similar to divergent change but is the opposite. You whiff this when every time you make a kind of change, you have to make a lot of little changes to a lot of different classes.  When the changes are all over the place, they are hard to find, and it's easy to miss an important change.  In this case you want to use Move Method and Move Field to put all the changes into a single class. If no current class looks like a good candidate, create one. Often you can use Inline Class to bring a whole bunch of behavior together. You get a small dose of divergent change, but you can easily deal with that.  Divergent change is one class that suffers many kinds of changes, and shotgun surgery is one change that alters many classes. Either way you want to arrange things so that, ideally, there is a one-to-one link between common changes and classes.
+****** Feature Envy
+       The whole point of objects is that they are a technique to package data with the processes used on that data.
+A classic smell is a method that seems more interested in a class other than the one it actually is in. The most common focus of the envy is the data...a method that invokes half-a-dozen getting methods on another object to calculate some value. Fortunately the cure is obvious, the method clearly wants to be elsewhere, so you use Move Method to get it there. Sometimes only part of the method suffers from envy; in that case use Extract Method on the jealous bit and Move Method...
 
-131
-** Andrew Hunt, David Thomas - The Pragmatic Programmer: From Journeyman to Master	
-overall	skip	1999	a lot of tips & tricks but too old
+       Of course not all cases are cut-and-dried. Often a method uses features of several classes, so which one should it live with? The heuristic we use is to determine which class has most of the data and put the method with that data. This step is often made easier if Extract Method is used to break the method into pieces that go into different places.  Of course there are several sophisticated patterns that break this rule. From the Gang of Four [Gang of Four] Strategy and Visitor immediately leap to mind. Kent Beck's Self Delegation [Beck] is another. You use these to combat the divergent change smell. The fundamental rule of thumb is to put things together that change together. Data and the behavior that references that data usually change together, but there are exceptions. When the exceptions occur, we move the behavior to keep changes in one place. Strategy and Visitor allow you to change behavior easily, because they isolate the small amount of behavior that needs to be overridden, at the cost of further indirection.
+****** Data Clumps
+       Data items tend to be like children; they enjoy hanging around in groups together. Often you'll see the same three or four data items together in lots of places: fields in a couple of classes, parameters in many method signatures. Bunches of data that hang around together really ought to be made into their own object. The first step is to look for where the clumps appear as fields.  Use Extract Class on the fields to turn the clumps into an object. Then turn your attention to method signatures using Introduce Parameter Object or Preserve Whole Object to slim them down. The immediate benefit is that you can shrink a lot of parameter lists and simplify method calling. Don't worry about data clumps that use only some of the fields of the new object.  As long as you are replacing two or more fields with the new object, you'll come out ahead.
+****** Primitive Obession
+       ...using Replace Data Value with Object on individual data values. If the data value is a type code, use Replace Type Code with Class if the value does not affect behavior. If you have conditionals that depend on the type code, use Replace Type Code with Subclasses or Replace Type Code with State/Strategy. If you have a group of fields that should go together, use Extract Class. If you see these primitives in parameter lists, try a civilizing dose of Introduce Parameter Object. If you find yourself picking apart an array, use Replace Array with Object.
+****** Switch Statements
+       One of the most obvious symptoms of object-oriented code is its comparative lack of switch (or case) statements. The problem with switch statements is essentially that of duplication. Often you find the same switch statement scattered about a program in different places. If you add a new clause to the switch, you have to find all these switch, statements and change them. The object- oriented notion of polymorphism gives you an elegant way to deal with this problem.  
+
+Most times you see a switch statement you should consider polymorphism. The issue is where the polymorphism should occur. Often the switch statement switches on a type code. You want the method or class that hosts the type code value. So use Extract Method to extract the switch statement and then Move Method to get it onto the class where the polymorphism is needed. At that point you have to decide whether to Replace Type Code with Subclasses or Replace Type Code with State/Strategy. When you have set up the inheritance structure, you can use Replace Conditional with Polymorphism.  
+
+If you only have a few cases that affect a single method, and you don't expect them to change, then polymorphism is overkill. In this case Replace Parameter with Explicit Methods is a good option. If one of your conditional cases is a null, try Introduce Null Object.
+****** Parallel Inheritance Hierarchies
+       Parallel inheritance hierarchies is really a special case of shotgun surgery. In this case, every time you make a subclass of one class, you also have to make a subclass of another. You can recognize this smell because the prefixes of the class names in one hierarchy are the same as the prefixes in another hierarchy.
+
+       The general strategy for eliminating the duplication is to make sure that instances of one hierarchy refer to instances of the other. If you use Move Method and Move Field, the hierarchy on the referring class disappears.
+****** Lazy Class
+       Each class you create costs money to maintain and understand. A class that isn't doing enough to pay for itself should be eliminated. Often this might be a class that used to pay its way but has been downsized with refactoring. Or it might be a class that was added because of changes that were planned but not made. Either way, you let the class die with dignity. If you have subclasses that aren't doing enough, try to use Collapse Hierarchy. Nearly useless components should be subjected to Inline Class.
+****** Speculative Generality
+       You get it when people say, "Oh, I think we need the ability to this kind of thing someday" and thus want all sorts of hooks and special cases to handle things that aren't required. The result often is harder to understand and maintain. If all this machinery were being used, it would be worth it. But if it isn't, it isn't. The machinery just gets in the way, so get rid of it.
+
+       If you have abstract classes that aren't doing much, use Collapse Hierarchy. Unnecessary delegation can be removed with Inline Class. Methods with unused parameters should be subject to Remove Parameter. Methods named with odd abstract names should be brought down to earth with Rename Method.
+
+       Speculative generality can be spotted when the only users of a method or class are test cases. If you find such a method or class, delete it and the test case that exercises it. If you have a method or class that is a helper for a test case that exercises legitimate functionality, you have to leave it in, of course.
+****** Temporary Field
+       Sometimes you see an object in which an instance variable is set only in certain circumstances.  Such code is difficult to understand, because you expect an object to need all of its variables.  Trying to understand why a variable is there when it doesn't seem to be used can drive you nuts.  
+       
+       Use Extract Class to create a home for the poor orphan variables. Put all the code that concerns the variables into the component. You may also be able to eliminate conditional code by using Introduce Null Object to create an alternative component for when the variables aren't valid.
+
+       A common case of temporary field occurs when a complicated algorithm needs several variables.  Because the implementer didn't want to pass around a huge parameter list (who does?), he put them in fields. But the fields are valid only during the algorithm; in other contexts they are just plain confusing. In this case you can use Extract Class with these variables and the methods that require them. The new object is a method object [Beck].
+****** Message Chains
+       You see message chains when a client asks one object for another object, which the client then asks for yet another object, which the client then asks for yet another another object, and so on.  You may see these as a long line of getThis methods, or as a sequence of temps. Navigating this way means the client is coupled to the structure of the navigation. Any change to the intermediate relationships causes the client to have to change.  
+       
+       The move to use here is Hide Delegate. You can do this at various points in the chain. In principle you can do this to every object in the chain, but doing this often turns every intermediate object into a middle man. Often a better alternative is to see what the resulting object is used for.  See whether you can use Extract Method to take a piece of the code that uses it and then Move Method to push it down the chain. If several clients of one of the objects in the chain want to navigate the rest of the way, add a method to do that.
+****** Middle Man
+       One of the prime features of objects is encapsulation—hiding internal details from the rest of the world. Encapsulation often comes with delegation. You ask a director whether she is free for a meeting; she delegates the message to her diary and gives you an answer. All well and good.  There is no need to know whether the director uses a diary, an electronic gizmo, or a secretary to keep track of her appointments.
+
+       However, this can go too far. You look at a class's interface and find half the methods are delegating to this other class. After a while it is time to use Remove Middle Man and talk to the object that really knows what's going on. If only a few methods aren't doing much, use Inline Method to inline them into the caller. If there is additional behavior, you can use Replace Delegation with Inheritance to turn the middle man into a subclass of the real object. That allows you to extend behavior without chasing all that delegation.
+****** Inappropriate Intimacy
+       Sometimes classes become far too intimate and spend too much time delving in each others'private parts. We may not be prudes when it comes to people, but we think our classes should follow strict, puritan rules.  
+
+       Overintimate classes need to be broken up as lovers were in ancient days. Use Move Method and Move Field to separate the pieces to reduce the intimacy. See whether you can arrange a Change Bidirectional Association to Unidirectional. If the classes do have common interests, use Extract Class to put the commonality in a safe place and make honest classes of them. Or use Hide Delegate to let another class act as go-between.
+       
+       Inheritance often can lead to overintimacy. Subclasses are always going to know more about their parents than their parents w
+****** Alternative Classes with Different Interfaces
+       Use Rename Method on any methods that do the same thing but have different signatures for what they do. Often this doesn't go far enough. In these cases the classes aren't yet doing enough. Keep using Move Method to move behavior to the classes until the protocols are the same. If you have to redundantly move code to accomplish this, you may be able to use Extract Superclass to atone.
+****** Incomplete Library Class
+       Reuse is often touted as the purpose of objects. We think reuse is overrated (we just use).  However, we can't deny that much of our programming skill is based on library classes so that nobody can tell whether we've forgotten our sort algorithms. 
+       
+       Builders of library classes are rarely omniscient. We don't blame them for that; after all, we can rarely figure out a design until we've mostly built it, so library builders have a really tough job. The trouble is that it is often bad form, and usually impossible, to modify a library class to do something you'd like it to do. This means that tried-and-true tactics such as Move Method lie useless.
+       
+       We have a couple of special-purpose tools for this job. If there are just a couple of methods that you wish the library class had, use Introduce Foreign Method. If there is a whole load of extra behavior, you need Introduce Local Extension.
+****** Data Class
+       These are classes that have fields, getting and setting methods for the fields, and nothing else.  Such classes are dumb data holders and are almost certainly being manipulated in far too much detail by other classes. In early stages these classes may have public fields. If so, you should immediately apply Encapsulate Field before anyone notices. If you have collection fields, check to see whether they are properly encapsulated and apply Encapsulate Collection if they aren't. Use Remove Setting Method on any field that should not be changed.  
+
+       Look for where these getting and setting methods are used by other classes. Try to use Move Method to move behavior into the data class. If you can't move a whole method, use Extract Method to create a method that can be moved. After a while you can start using Hide Method on the getters and setters. 
+       
+       Data classes are like children. They are okay as a starting point, but to participate as a grownup object, they need to take some responsibility.
+****** Refused Bequest
+       Subclasses get to inherit the methods and data of their parents. But what if they don't want or need what they are given? They are given all these great gifts and pick just a few to play with.
+       
+       The traditional story is that this means the hierarchy is wrong. You need to create a new sibling class and use Push Down Method and Push Down Field to push all the unused methods to the sibling. That way the parent holds only what is common. Often you'll hear advice that all superclasses should be abstract.  
+
+       You'll guess from our snide use of traditional that we aren't going to advise this, at least not all the time. We do subclassing to reuse a bit of behavior all the time, and we find it a perfectly good way of doing business. There is a smell, we can't deny it, but usually it isn't a strong smell. So we say that if the refused bequest is causing confusion and problems, follow the traditional advice.  However, don't feel you have to do it all the time. Nine times out of ten this smell is too faint to be worth cleaning.  
+
+       The smell of refused bequest is much stronger if the subclass is reusing behavior but does not want to support the interface of the superclass. We don't mind refusing implementations, but refusing interface gets us on our high horses. In this case, however, don't fiddle with t
+****** Comments
+       If you need a comment to explain what a block of code does, try Extract Method. If the method is already extracted but you still need a comment to explain what it does, use Rename Method.  If you need to state some rules about the required state of the system, use Introduce Assertion.
+
+       Tip: When you feel the need to write a comment, first try to refactor the code so that any comment becomes superfluous.
+
+       A good time to use a comment is when you don't know what to do. In addition to describing what is going on, comments can indicate areas in which you aren't sure. A comment is a good place to say why you did something. This kind of information helps future modifiers, especially forgetful ones
+***** Chapter 4. Building Tests
+- the essential precondition is having solid tests.
+- I'm a pretty lazy person and am prepared to work quite hard in order to avoid work.
+- In fact, one of the most useful times to write tests is before you start programming. When you need to add a feature, begin by writing the test. This isn't as backward as it sounds. By writing the test you are asking yourself what needs to be done to add the function. Writing the test also concentrates on the interface rather than the implementation (always a good thing). It also means you have a clear point at which you are done coding—when the test works.
+- Now we should continue adding more tests. The style I follow is to look at all the things the class should do and test each one of them for any conditions that might cause the class to fail. This is not the same as "test every public method," which some programmers advocate. Testing should be risk driven; remember, you are trying to find bugs now or in the future. So I don't test accessors that just read and write a field. Because they are so simple, I'm not likely to find a bug there.This is important because trying to write too many tests usually leads to not writing enough. I've often read books on testing, and my reaction has been to shy away from the mountain of stuff I have to do to test. This is counterproductive, because it makes you think that to test you have to do a lot of work. You get many benefits from testing even if you do only a little testing. The key is to test the areas that you are most worried about going wrong. That way you get the most benefit for your testing effort.
+***** Chapter 5. Toward a Catalog of Refactorings
+- The examples are of the laughably simple textbook kind. My aim with the example is to help explain the basic refactoring with minimal distractions, so I hope you'll forgive the simplicity. (They are certainly not examples of good business object design.) I'm sure you'll be able to apply them to your rather more complex situations. Some very simple refactorings don't have examples because I didn't think an example would add much.
+- In particular, remember that the examples are included only to illustrate the one refactoring under discussion. In most cases, there are still problems with the code at the end, but fixing these problems requires other refactorings. In a few cases in which refactorings often go together, I carry examples from one refactoring to another. In most cases I leave the code as it is after the single refactoring. I do this to make each refactoring self-contained, because the primary role of the catalog is as a reference.
+- Don't take any of these examples as suggestions for how to design employee or order objects. These examples are there only to illustrate the refactorings, nothing more. 
+***** Chapter 6. Composing Methods
+- The key is the semantic distance between the method name and the method body.
+  
+**** [[pdf:/home/slk/Dropbox/books/Refactoring/Folwer, Martin - Refactoring (2020).pdf::1][Refactoring: Improving the Design of Existing Code; 2020]]
+ - With any introductory example, however, I run into a problem. If I pick a large program, describing it and how it is refactored is too complicated for a mortal reader to work through.(...) However, if I pick a program that is small enough to be comprehensible, refactoring does not look like it is worthwhile.
+ 
+ - Thus, if I’m faced with modifying a program with hundreds of lines of code, I’d rather it be structured into a set of functions and other program elements that allow me to understand more easily what the program is doing. If the program lacks structure, it’s usually easier for me to add structure to the program first, and then make the change I need.
+
+ - If the code works and doesn’t ever need to change, it’s perfectly fine to leave it alone. It would be nice to improve it, but unless someone needs to understand it, it isn’t causing any real harm. Yet as soon as someone does need to understand how that code works, and struggles to follow it, then you have to do something about it.
+
+ - Refactoring changes the programs in small steps, so if you make a mistake, it is easy to find where the bug is.
+
+ - Any fool can write code that a computer can understand. Good programmers write code that humans can understand.
+
+ - The true test of good code is how easy it is to change it.
+
+ - Refactoring (noun): a change made to the internal structure of software to make it easier to understand and cheaper to modify without changing its observable behavior.
+ - Refactoring (verb): to restructure software by applying a series of refactorings without changing its observable behavior.
+
+ - Refactoring is very similar to performance optimization, as both involve carrying out code manipulations that don’t change the overall functionality of the program. The difference is the purpose: Refactoring is always done to make the code “easier to understand and cheaper to modify.” This might speed things up or slow things down. With performance optimization, I only care about speeding up the program, and am prepared to end up with code that is harder to work with if I really need that improved performance.
+
+ - Without refactoring, the internal design—the architecture—of software tends to decay.As people change code to achieve short­term goals, often without a full comprehensionof the architecture, the code loses its structure. It becomes harder for me to see thedesign by reading the code. Loss of the structure of code has a cumulative effect. Theharder it is to see the design in the code, the harder it is for me to preserve it, and themore rapidly it decays. Regular refactoring helps keep the code in shape.
+
+ - It reminds me of a statement Kent Beck often makes about himself: “I’m not a great programmer; I’m just a good programmer with great habits.” Refactoring helps me be much more effective at writing robust code. 
+
+ - Branches. As I write this, a common approach in teams is for each team member to work on abranch of the code base using a version control system, and do considerable work onthat branch before integrating with a mainline (often called master or trunk) sharedacross the team. Often, this involves building a whole feature on a branch, notintegrating into the mainline until the feature is ready to be released into production.Fans of this approach claim that it keeps the mainline clear of any in­process code,provides a clear version history of feature additions, and allows features to be revertedeasily should they cause problems.There are downsides to feature branches like this. The longer I work on an isolatedbranch, the harder the job of integrating my work with mainline is going to be when I’mdone. Most people reduce this pain by frequently merging or re­basing from mainlineto my branch. But this doesn’t really solve the problem when several people areworking on individual feature branches. I distinguish between merging and integration.If I merge mainline into my code, this is a oneway movement—my branch changes butthe mainline doesn’t. I use “integrate” to mean a two­way process that pulls changesfrom mainline into my branch and then pushes the result back into mainline, changingboth. If Rachel is working on her branch I don’t see her changes until she integrateswith mainline; at that point, I have to merge her changes into my feature branch, whichmay mean considerable work. The hard part of this work is dealing with semanticchanges. Modern version control systems can do wonders with merging complexchanges to the program text, but they are blind to the semantics of the code. If I’vechanged the name of a function, my version control tool may easily integrate mychanges with Rachel’s. But if, in her branch, she added a call to a function that I’verenamed in mine, the code will fail.The problem of complicated merges gets exponentially worse as the length of featurebranches increases. Integrating branches that are four weeks old is more than twice ashard as those that are a couple of weeks old. Many people, therefore, argue for keepingfeature branches short—perhaps just a couple of days. Others, such as me, want themeven shorter than that. This is an approach called Continuous Integration (CI), alsoknown as Trunk­Based Development. With CI, each team member integrates withmainline at least once per day. This prevents any branches diverting too far from eachother and thus greatly reduces the complexity of merges. CI doesn’t come for free: Itmeans you use practices to ensure the mainline is healthy, learn to break large featuresinto smaller chunks, and use feature toggles (aka feature flags) to switch off any in­process features that can’t be broken down.Fans of CI like it partly because it reduces the complexity of merges, but the dominantreason to favor CI is that it’s far more compatible with refactoring. Refactorings ofteninvolve making lots of little changes all over the code base—which are particularlyprone to semantic merge conflicts (such as renaming a widely used function). Many ofus have seen feature­branching teams that find refactorings so exacerbate mergeproblems that they stop refactoring. CI and re­factoring work well together, which iswhy Kent Beck combined them in Extreme Programming.I’m not saying that you should never use feature branches. If they are sufficiently short,their problems are much reduced. (Indeed, users of CI usually also use branches, butintegrate them with mainline each day.) Feature branches may be the right techniquefor open source projects where you have infrequent commits from programmers whoyou don’t know well (and thus don’t trust). But in a full­time development team, thecost that feature branches impose on refactoring is excessive. Even if you don’t go to fullCI, I certainly urge you to integrate as frequently as possible. You should also considerthe objective evidence [Forsgren et al.] that teams that use CI are more effective insoftware deliver
+**** [[https://github.com/HugoMatilla/Refactoring-Summary][Summary of "Refactoring: Improving the Design of Existing Code" by Martin Fowler]]
+**** Patterns of Enterprise Application Architecture; 2012	
+*** Francesco Trucchia, Jacopo Romei Pro PHP Refactoring 2010
+    Old, without PHP 7 but still the best PHP book about refactoring. Great examples. Worth to have.
+** Database
+*** Karwin, Bill SQL Antipatterns - Avoiding The Pitfalls of Database Programming 2010	
+*** Scott J Ambler and Pramod J. Sadalage Refactoring Databases - Evolutionary Database Design 2006
+refactoring	must read It's catalog of refactorings for database
+*** Joe Celko’s Trees and Hierarchies in SQL for Smarties
+*** SQL for Smarties: Advanced SQL Programming 2005
+** Andrew Hunt, David Thomas - The Pragmatic Programmer: From Journeyman to Master 1999	
+   overall skip a lot of tips & tricks but too old
 ** Fifty Quick Ideas To Improve Your Tests tests			
 ** Growing Object-Oriented Software, Guided by Tests				
 ** Working Effectively with Unit Tests				
 ** Scalable Internet Architectures 	
-** Anthology  The Thoughtworks Anthology - Essays on Software Technology and Innovation 2008	
+** Anthology  The Thoughtworks Anthology - Essays on Software Technology and Innovation 2008
 ** Anthology  The ThoughtWorks Anthology 2 - More Essays on Software Technology and Innovation 2012	
-** Beck, Kent	Extreme Programming Explained: Embrace Change	overall	can be read 1999	
-** Bernstein, David Scott Beyond Legacy Code 2015 Want to read
+** Beck, Kent Extreme Programming Explained: Embrace Change 1999	
+   overall can be read
 ** Bhargava, Aditya Grokking Algorithms: An illustrated guide for programmers and other curious people 
 must read 2017 Fully illustrated, friendly, easy to read guide, worth to read. When you will stumble upon a problem, you will know how to recognize it and chose the right Algorithm
 ** [[pdftools:/home/slk500/Dropbox/books/Effective Java by Joshua Bloch (z-lib.org).pdf::1][Bloch, Joshua Effective Java 2018]]	
 ** Buenosvinos, Carlos	Domain-Driven Design in PHP 2016	
-** LOOKING-FOR Bugayenko, Yegor Elegant Objects 2016
-** Francesco Trucchia, Jacopo Romei	Pro PHP Refactoring 2010
-Old, without PHP 7 but still the best PHP book about refactoring. Great examples. Worth to have.
-** TODO Halladay, Steve Principle-Based Refactoring: Learning Software Design Principles by Applying Refactoring Rules 2012
 ** Jones, Paul M. Modernizing Legacy Apps In PHP 2014	
 ** Junade, Ali	Mastering PHP Design Patterns 2016 
 Little bit inmature, poorly written. Having a lot of tips and information about broad variaty of things which is a good place on website but not in the book. Code examples could be much better.
@@ -1787,9 +1996,6 @@ Little bit inmature, poorly written. Having a lot of tips and information about 
 ** West, David Object Thinking  2004
 ** Back-end Performance
 https://www.oreilly.com/library/view/back-end-performance/9781492069362/
-** TODO xUnit Test Patterns - Refactoring Test Code
-http://xunitpatterns.com/index.html
-** TODO Object Design Style Guide Matthias Noback
 ** Build APIs You Won't Hate
 ** McConnel, Steve "Code Complete 2"
 ** Wake, William C.; Refactoring Workbook; 2003
@@ -1797,8 +2003,8 @@ http://xunitpatterns.com/index.html
 **** Taxonomy
 ***** [[http://mikamantyla.eu/BadCodeSmellsTaxonomy.html][Mika Mäntylä]]
 ***** [[http://www.industriallogic.com/wp-content/uploads/2005/09/smellstorefactorings.pdf][Joshua Kerievsky]]
-** Martin, Robert C.;
-*** Clean Code: A Handbook of Agile Software Craftsmanship; 2009
+** Martin, Robert C.
+*** [[pdf:/home/slk/Dropbox/books/Refactoring/Martin, Robert C. - Clean Code: A Handbook of Agile Software Craftsmanship (2009).pdf::1][Clean Code: A Handbook of Agile Software Craftsmanship; 2009]]
 - There are two parts to learning craftsmanship: knowledge and work. You must gain the knowledge of principles, patterns, practices, and heuristics that a craftsman knows, and you must also grind that knowledge into your fingers, eyes, and gut by working hard and practicing.
 - Do not refer to a grouping of accounts as an accountList unless it’s actually a List. The word list means something specific to programmers. If the container holding the accounts is not actually a List, it may lead to false conclusions (even if the container is a List, it’s probably better not to encode the container type into the name). So accountGroup or bunchOfAccounts or just plain accounts would be better.
 - A truly awful example of disinformative names would be the use of lower-case L or uppercase O as variable names, especially in combination. The problem, of course, is that they look almost entirely like the constants one and zero, respectively.
@@ -1814,11 +2020,182 @@ else
 ** Design It!: From Programmer to Software Architect (The Pragmatic Programmers) 1st Edition by Michael Keelin
 ** Mastering the SPL Library
 ** Zandstra, Matt "PHP Objects, Patterns, and Practice" 2008
-Pretty old. But written with precise language and with great examples                                                                                                                                        |
+   Pretty old. But written with precise language and with great examples                                                                                                                                        |
+** TODO Halladay, Steve Principle-Based Refactoring: Learning Software Design Principles by Applying Refactoring Rules 2012
+** TODO Object Design Style Guide Matthias Noback
+** TODO xUnit Test Patterns - Refactoring Test Code
+http://xunitpatterns.com/index.html
 ** TODO The Psychology of Computer Programming
 ** TODO Timeless Laws of Software Development
 ** TODO Hacker's Delight
+** LOOKING-FOR Bernstein, David Scott Beyond Legacy Code 2015
+** LOOKING-FOR Bugayenko, Yegor Elegant Objects 2016
+** LOOKING-FOR Cusumano MA, Selby RW (1995) Microsoft secrets. Free Press, USA
+   describe how Microsoft uses 20% of its development effort to re-develop the code base of its products
+** LOOKING-FOR Cusumano MA, Yoffie DB (1998) Design strategy. In: Competing on internet time. Free Press, New York, USA, pp 180–198
+   report how Netscape’s inability to refactor the code base hindered their software development, and how Microsoft’s redesign efforts in the Internet Explorer 3.0 project later paid off.
+** LOOKING-FOR https://www.sandimetz.com/99bottles
 * Smells
+** Based On Fowler
+*** Duplicated Code
+    same code structure in more than one place
+**** in methods of the same class 
+     Extract Function and invoke the code from both places.
+**** in two sibling subclasses 
+     You can eliminate this duplication by using Extract Method in both classes then Pull Up Field. If the code is similar but not the same, you need to use Extract Method to separate the similar bits from the different bits. You may then find you can use Form Template Method. If the methods do the same thing with a different algorithm, you can choose the clearer of the two algorithms and use Substitute Algorithm.
+**** in two unrelated classes
+     Consider using Extract Class in one class and then use the new component in the other. Another possibility is that the method really belongs only in one of the classes and should be invoked by the other class or that the method belongs in a third class that should be referred to by both of the original classes.
+*** Long Function
+       Find parts of the method that seem to go nicely together and Extract Method.
+       
+       If you have a method with lots of parameters and temporary variables, these elements get in the way of extracting methods. If you try to use Extract Method, you end up passing so many of the parameters and temporary variables as parameters to the extracted method that the result is scarcely more readable than the original. You can often use Replace Temp with Query to eliminate the temps. Long lists of parameters can be slimmed down with Introduce Parameter Object and Preserve Whole Object.
+
+       If you've tried that, and you still have too many temps and parameters, it's time to get out the heavy artillery: Replace Method with Method Object.
+
+       Conditionals and loops also give signs for extractions. Use Decompose Conditional to deal with conditional expressions. With loops, extract the loop and the code within the loop into its own method.
+
+Alias: Long Method
+
+*** Large Class
+    When a class is trying to do too much, it often shows up as too many instance variables.
+
+    You can Extract Class to bundle a number of the variables. Choose variables to go together in the component that makes sense for each. For example, "depositAmount" and "depositCurrency"are likely to belong together in a component. More generally, common prefixes or suffixes for some subset of the variables in a class suggest the opportunity for a component. If the component makes sense as a subclass, you'll find Extract Subclass often is easier.
+
+    Sometimes a class does not use all of its instance variables all of the time. If so, you may be able to Extract Class or Extract Subclass many times.
+       
+    As with a class with too many instance variables, a class with too much code is prime breeding ground for duplicated code, chaos, and death. The simplest solution...is to eliminate redundancy in the class itself. If you have five hundred-line methods with lots of code in common, you may be able to turn them into five ten-line methods with another ten two-line methods extracted from the original. As with a class with a huge wad of variables, the usual solution for a class with too much code is either to Extract Class or Extract Subclass. A useful trick is to determine how clients use the class and to use Extract Interface
+*** Long Parameter List
+**** one of the parameter is switch parameter
+     fix: Use Replace Parameter with Method
+**** more than one value from an object are passing as parameters
+     fix: Preserve Whole Object
+**** parameters that naturally go together
+     fix: Introduce Parameter Object
+**** exceptions
+     when you explicitly do not want to create a dependency from the called object to the larger object. In those cases unpacking data and sending it along as parameters is reasonable, but pay attention to the pain involved. If the parameter list is too long or changes too often, you need to rethink your dependency structure.
+**** others fixes
+     Replace Parameter with Query, Remove Flag Argument, Combine Functions into Class
+*** Divergent Change
+    Divergent change occurs when one class is commonly changed in different ways for different reasons. If you look at a class and say, "Well, I will have to change these three methods every time I get a new database; I have to change these four methods every time there is a new financial instrument," you likely have a situation in which two objects are better than one. That way each object is changed only as a result of one kind of change. Of course, you often discover this only after you've added a few databases or financial instruments. Any change to handle a variation should change a single class, and all the typing in the new class should express the variation. To clean this up you identify everything that changes for a particular cause and use Extract Class to put them all together.
+*** Shotgun Surgery
+     Opposite of Divergent Change. You whiff this when every time you make a kind of change, you have to make a lot of little changes to a lot of different classes.  When the changes are all over the place, they are hard to find, and it's easy to miss an important change. In this case you want to use Move Method and Move Field to put all the changes into a single class. If no current class looks like a good candidate, create one. Often you can use Inline Class to bring a whole bunch of behavior together. You get a small dose of divergent change, but you can easily deal with that.  Divergent change is one class that suffers many kinds of changes, and shotgun surgery is one change that alters many classes. Either way you want to arrange things so that, ideally, there is a one-to-one link between common changes and classes.
+*** Feature Envy
+**** a method accesses the data of another object more than its own data
+     fix: Move Method
+**** a part of method accesses the data of another object more than its own data
+     fix: Extract Method, Move Method
+**** exceptions
+     Strategy, Visitor, Self Delegation. You use these to combat the divergent change smell. The fundamental rule of thumb is to put things together that change together. Data and the behavior that references that data usually change together, but there are exceptions. When the exceptions occur, we move the behavior to keep changes in one place. Strategy and Visitor allow you to change behavior easily, because they isolate the small amount of behavior that needs to be overridden, at the cost of further indirection.
+*** Data Clumps
+       data items together in lots of places: fields in a couple of classes, parameters in many method signatures.
+Use Extract Class on the fields to turn the clumps into an object. Then turn your attention to method signatures using Introduce Parameter Object or Preserve Whole Object to slim them down. The immediate benefit is that you can shrink a lot of parameter lists and simplify method calling. Don't worry about data clumps that use only some of the fields of the new object.  As long as you are replacing two or more fields with the new object, you'll come out ahead.
+*** Primitive Obession
+     [[Primitive types]] are generic, classes are more specific  
+    fix: Replace Primitive with Object
+**** links
+***** [[pdftools:/home/slk500/Dropbox/books/Refactoring/\[Joshua_Kerievsky\]_Refactoring_to_Patterns (2004).pdf::84][Kerievsky - Refactoring To Patterns]]
+**** individual data values 
+     fix: Replace Data Value with Object
+**** if data value is a type code  
+     fix: Replace Type Code with Class if the value does not affect behavior. 
+***** If you have conditionals that depend on the type code, 
+     fix: Replace Type Code with Subclasses or Replace Type Code with State/Strategy.
+**** group of fields that should go together 
+     fix: Extract Class
+**** primitives in parameter lists 
+     fix: Introduce Parameter Object
+**** array	
+     fix: Replace Array with Object.
+*** Switch Statements (deprecated)
+    One of the most obvious symptoms of object-oriented code is its comparative lack of switch (or case) statements. The problem with switch statements is essentially that of duplication. Often you find the same switch statement scattered about a program in different places. If you add a new clause to the switch, you have to find all these switch, statements and change them. The object-oriented notion of polymorphism gives you an elegant way to deal with this problem.  
+
+    Most times you see a switch statement you should consider polymorphism. The issue is where the polymorphism should occur. Often the switch statement switches on a type code. You want the method or class that hosts the type code value. So use Extract Method to extract the switch statement and then Move Method to get it onto the class where the polymorphism is needed. At that point you have to decide whether to Replace Type Code with Subclasses or Replace Type Code with State/Strategy. When you have set up the inheritance structure, you can use Replace Conditional with Polymorphism.  
+
+    If you only have a few cases that affect a single method, and you don't expect them to change, then polymorphism is overkill. In this case Replace Parameter with Explicit Methods is a good option. If one of your conditional cases is a null, try Introduce Null Object.
+*** Parallel Inheritance Hierarchies
+    Parallel inheritance hierarchies is really a special case of shotgun surgery. In this case, every time you make a subclass of one class, you also have to make a subclass of another. You can recognize this smell because the prefixes of the class names in one hierarchy are the same as the prefixes in another hierarchy.
+
+    The general strategy for eliminating the duplication is to make sure that instances of one hierarchy refer to instances of the other. If you use Move Method and Move Field, the hierarchy on the referring class disappears.
+*** Lazy Class
+    Each class you create costs money to maintain and understand. A class that isn't doing enough to pay for itself should be eliminated. Often this might be a class that used to pay its way but has been downsized with refactoring. Or it might be a class that was added because of changes that were planned but not made. Either way, you let the class die with dignity. If you have subclasses that aren't doing enough, try to use Collapse Hierarchy. Nearly useless components should be subjected to Inline Class.
+*** Speculative Generality
+    You get it when people say, "Oh, I think we need the ability to this kind of thing someday" and thus want all sorts of hooks and special cases to handle things that aren't required. The result often is harder to understand and maintain. If all this machinery were being used, it would be worth it. But if it isn't, it isn't. The machinery just gets in the way, so get rid of it.
+
+    If you have abstract classes that aren't doing much, use Collapse Hierarchy. Unnecessary delegation can be removed with Inline Class. Methods with unused parameters should be subject to Remove Parameter. Methods named with odd abstract names should be brought down to earth with Rename Method.
+
+    Speculative generality can be spotted when the only users of a method or class are test cases. If you find such a method or class, delete it and the test case that exercises it. If you have a method or class that is a helper for a test case that exercises legitimate functionality, you have to leave it in, of course.
+*** Temporary Field
+    Sometimes you see an object in which an instance variable is set only in certain circumstances.  Such code is difficult to understand, because you expect an object to need all of its variables.  Trying to understand why a variable is there when it doesn't seem to be used can drive you nuts.  
+       
+    Use Extract Class to create a home for the poor orphan variables. Put all the code that concerns the variables into the component. You may also be able to eliminate conditional code by using Introduce Null Object to create an alternative component for when the variables aren't valid.
+
+    A common case of temporary field occurs when a complicated algorithm needs several variables.  Because the implementer didn't want to pass around a huge parameter list (who does?), he put them in fields. But the fields are valid only during the algorithm; in other contexts they are just plain confusing. In this case you can use Extract Class with these variables and the methods that require them. The new object is a method object [Beck].
+*** Message Chains
+    a client asks one object for another object, which the client then asks for yet another object, which the client then asks for yet another another object, and so on.  You may see these as a long line of getThis methods, or as a sequence of temps. Navigating this way means the client is coupled to the structure of the navigation. Any change to the intermediate relationships causes the client to have to change.  
+       
+    The move to use here is Hide Delegate. You can do this at various points in the chain. In principle you can do this to every object in the chain, but doing this often turns every intermediate object into a middle man. Often a better alternative is to see what the resulting object is used for.  See whether you can use Extract Method to take a piece of the code that uses it and then Move Method to push it down the chain. If several clients of one of the objects in the chain want to navigate the rest of the way, add a method to do that.
+*** Middle Man
+    One of the prime features of objects is encapsulation—hiding internal details from the rest of the world. Encapsulation often comes with delegation. You ask a director whether she is free for a meeting; she delegates the message to her diary and gives you an answer. All well and good.  There is no need to know whether the director uses a diary, an electronic gizmo, or a secretary to keep track of her appointments.
+
+    However, this can go too far. You look at a class's interface and find half the methods are delegating to this other class. After a while it is time to use Remove Middle Man and talk to the object that really knows what's going on. If only a few methods aren't doing much, use Inline Method to inline them into the caller. If there is additional behavior, you can use Replace Delegation with Inheritance to turn the middle man into a subclass of the real object. That allows you to extend behavior without chasing all that delegation.
+*** Inappropriate Intimacy
+    Sometimes classes become far too intimate and spend too much time delving in each others'private parts.
+
+    Overintimate classes need to be broken up as lovers were in ancient days. Use Move Method and Move Field to separate the pieces to reduce the intimacy. See whether you can arrange a Change Bidirectional Association to Unidirectional. If the classes do have common interests, use Extract Class to put the commonality in a safe place and make honest classes of them. Or use Hide Delegate to let another class act as go-between.
+       
+    Inheritance often can lead to overintimacy. Subclasses are always going to know more about their parents than their parents would like them to know. If it's time to leave home, apply Replace Delegation with Inheritance.
+
+*** Alternative Classes with Different Interfaces
+    Use Rename Method on any methods that do the same thing but have different signatures for what they do. Often this doesn't go far enough. In these cases the classes aren't yet doing enough. Keep using Move Method to move behavior to the classes until the protocols are the same. If you have to redundantly move code to accomplish this, you may be able to use Extract Superclass to atone.
+*** Incomplete Library Class
+    If there are just a couple of methods that you wish the library class had, use Introduce Foreign Method. 
+    If there is a whole load of extra behavior, you need Introduce Local Extension.
+*** Data Class (depracted)
+    These are classes that have fields, getting and setting methods for the fields, and nothing else.  Such classes are dumb data holders and are almost certainly being manipulated in far too much detail by other classes. In early stages these classes may have public fields. If so, you should immediately apply Encapsulate Field before anyone notices. If you have collection fields, check to see whether they are properly encapsulated and apply Encapsulate Collection if they aren't. Use Remove Setting Method on any field that should not be changed.  
+
+    Look for where these getting and setting methods are used by other classes. Try to use Move Method to move behavior into the data class. If you can't move a whole method, use Extract Method to create a method that can be moved. After a while you can start using Hide Method on the getters and setters. 
+       
+    Data classes are like children. They are okay as a starting point, but to participate as a grownup object, they need to take some responsibility.
+*** Refused Bequest
+    Subclasses get to inherit the methods and data of their parents. But what if they don't want or need what they are given? They are given all these great gifts and pick just a few to play with.
+       
+    The traditional story is that this means the hierarchy is wrong. You need to create a new sibling class and use Push Down Method and Push Down Field to push all the unused methods to the sibling. That way the parent holds only what is common. Often you'll hear advice that all superclasses should be abstract.  
+
+    You'll guess from our snide use of traditional that we aren't going to advise this, at least not all the time. We do subclassing to reuse a bit of behavior all the time, and we find it a perfectly good way of doing business. There is a smell, we can't deny it, but usually it isn't a strong smell. So we say that if the refused bequest is causing confusion and problems, follow the traditional advice.  However, don't feel you have to do it all the time. Nine times out of ten this smell is too faint to be worth cleaning.  
+
+    The smell of refused bequest is much stronger if the subclass is reusing behavior but does not want to support the interface of the superclass. We don't mind refusing implementations, but refusing interface gets us on our high horses. In this case, however, don't fiddle with t
+*** Comments
+**** if you need a comment to explain what a block of code does 
+     Extract Method
+**** if the method is already extracted but you still need a comment to explain what it does  
+     Rename Method
+**** if you need to state some rules about the required state of the system
+     Introduce Assertion.
+**** exception
+     A good time to use a comment is when you don't know what to do. In addition to describing what is going on, comments can indicate areas in which you aren't sure. A comment is a good place to say why you did something. This kind of information helps future modifiers, especially forgetful ones
+** Others
+*** Duplicated Class Short Name 
+#+BEGIN_SRC php
+use App\Model\Category\Query;
+use App\Model\Product\Contract\Query;
+use App\Contract\Query;
+#+END_SRC
+- https://www.tomasvotruba.cz/blog/2019/05/02/alias-as-a-code-smell/
+*** Global Data
+"Global data is especially nasty when it’s mutable. Global data that you can guarantee
+never changes after the program starts is relatively safe—if you have a language that can
+enforce that guarantee."
+Fix: Encapsulate Variable
+*** Insider Trading
+*** Lazy Element
+It may be a function that’s named the same as its body code reads, or a class that is essentially one simple function.
+Fix: Inline Function, Inline Class, Collapse Hierarchy
+*** Loops
+Fix: Replace Loop with Pipeline
+*** Mysterious Name
+Fix: Change Function Declaration, Rename Variable, Rename Field
+*** Refused Bequest
+*** Repeated Switches
 ** Taxonomy
 *** 2000 Fowler, Martin - Refactoring: improving the design of existing code
 *** 2003 Wake, William C. - Refactoring Workbook
@@ -1826,8 +2203,9 @@ Pretty old. But written with precise language and with great examples           
 - *Szeroko rozumiany termin oznacza zdolność grupy organizmów tworzących linię ewolucyjną do efektywnej odpowiedzi adaptacyjnej w zmieniających się warunkach środowiska. [[https://pl.wikipedia.org/wiki/Ewoluowalno%C5%9B%C4%87][Ewoluowalność]]
 - In order to be able to improve software maintainability, its current state and possible improvement efforts must be made measurable. However, assessing maintainability is a difficult task. Widely studied object-oriented metrics (Briand et al., 1997, 1999; Chidamber and Kemerer, 1994; Harrison et al., 1998; Henderson-Sellers, 1996; Hitz and Montazeri, 1996; Lorenz and Kidd, 1994) offer a way to assess software maintainability. Although some studies report successes in measuring maintainability with metrics (Bansiya and David, 2002; Chidamber et al., 1998; Coleman et al., 1994; Li and Henry 1993; Subramanyam and Krishnan, 2003), there are people, especially in the agile community (Beck et al., 2001), who are critical to using metrics for maintainability assessment, since they feel that metrics fail to account for the breadth of issues that humans consider when evaluating code.
 - Yet, software quality, as quality in general, is largely dependent on one’s point of view (Garvin 1984; Kitchenham and Pfleeger, 1996). From a developer’s viewpoint the ease of modifying and further developing the software is clearly one of the most important quality dimensions. Traditionally one would call this viewpoint to quality software maintainability.
-- Cusumano and Selby (Cusumano and Selby, 1995) describe how Microsoft uses 20% of its development effort to re-develop the code base of its products. Cusumano and Yoffie (Cusumano and Yoffie, 1998) report how Netscape’s inability to refactor the code base hindered their software development, and how Microsoft’s redesign efforts in the Internet Explorer 3.0 project later paid off.
-- The agile community...has come up with a term called code smell (Fowler and Beck, 2000) to help software developers recognise problematic code. These code smells are general descriptions of bad code that are supposed to help software developers decide when the code needs refactoring. In most cases, the goal of code refactoring is to make the software easier to understand and/or extend. Fowler and Beck (Fowler and Beck, 2000) claim that exact criteria cannot be given to determine when a software needs refactoring. In their words, when it comes to making refactoring decisions: "no set of metrics rivals informed human intuition." This opinion is in conflict with the idea that the level of software maintainability can be determined with source code or design metrics. A counterexample to Fowler and Beck is provided by Grady (Grady, 1994), who reports that in some HP divisions there were tight threshold limits that a program was not allowed to exceed, e.g., a Fortran program’s cyclomatic complexity (McCabe, 1976) should not exceed 15.  This threshold was determined based on data from previous software projects.  Also, the idea of measuring software maintainability with metrics (Coleman et al., 1994, 1995) seems to be conflicting with the idea of assessing maintainability using vaguely defined qualitative criteria, such as the code smells of Fowler and Beck.
+- Cusumano and Selby (Cusumano MA, Selby RW (1995) Microsoft secrets. Free Press, USA) describe how Microsoft uses 20% of its development effort to re-develop the code base of its products. Cusumano and Yoffie (Cusumano MA, Yoffie DB (1998) Design strategy. In: Competing on internet time. Free Press, New
+York, USA, pp 180–198) report how Netscape’s inability to refactor the code base hindered their software development, and how Microsoft’s redesign efforts in the Internet Explorer 3.0 project later paid off.
+- The agile community...has come up with a term called code smell (Fowler and Beck, 2000) to help software developers recognise problematic code. These code smells are general descriptions of bad code that are supposed to help software developers decide when the code needs refactoring. In most cases, the goal of code refactoring is to make the software easier to understand and/or extend. Fowler and Beck (Fowler and Beck, 2000) claim that exact criteria cannot be given to determine when a software needs refactoring. In their words, when it comes to making refactoring decisions: "no set of metrics rivals informed human intuition." This opinion is in conflict with the idea that the level of software maintainability can be determined with source code or design metrics. A counterexample to Fowler and Beck is provided by Grady (Grady, 1994), who reports that in some HP divisions there were tight threshold limits that a program was not allowed to exceed, e.g., a Fortran program’s cyclomatic complexity (McCabe, 1976) should not exceed 15. This threshold was determined based on data from previous software projects.  Also, the idea of measuring software maintainability with metrics (Coleman et al., 1994, 1995) seems to be conflicting with the idea of assessing maintainability using vaguely defined qualitative criteria, such as the code smells of Fowler and Beck.
 - Traditionally, the term software maintainability has been used to represent this quality attribute, and IEEE (IEEE, 1990) has defined software maintainability as follows: the ease with which a software system or component can be modified to correct faults, improve performance or other attributes, or to adapt to a changed environment.
 - We think that the term software evolution better describes what happens after the initial software deployment/release...
 - Fowler and Beck (2000) propose a list of 22 bad code smells. Fowler and Beck introduce code smells as a more concrete indication of the need for refactoring than "some vague idea of programming aesthetics." They also claim that no set of precise metrics can be given to identify the need for refactoring. Thus, the code smells can be seen as a compromise between precise source code metrics and totally unguided subjective evaluation. In their experience, Fowler and Beck say that when it comes to making refactoring decisions, no set of metrics rivals informed human intuition. The code smells have been developed based on Fowler’s and Beck’s industrial experience in several software projects that according to them varied from successful to nearly catastrophic. Some code smells represent two extremes of the same attribute. For example, the size of a class could be an attribute. Too much of it leads to a smell called 'Large Class’’ and too little to the 'Lazy Class’’ smell. The code smells are somewhat vaguely defined.
@@ -1907,716 +2285,13 @@ Duplicate Code
 | large class | X               |                     |      |
 |             |                 |                     |      |
 
-*** Alias Duplicates
-#+BEGIN_SRC php
-use App\Model\Category\Query as CategoryQuery;
-use App\Model\Product\Contract\Query as ProductQueryInterface;
-use App\Contract\Query as
-#+END_SRC
-- https://www.tomasvotruba.cz/blog/2019/05/02/alias-as-a-code-smell/
-*** Alternative Classes With Different Interfaces
-*** Comments
-If you need a comment to explain what a block of code does, try Extract Function (106). If the method is already extracted but you still need a comment to explain what it does, use Change Function Declaration (124) to rename it. If you need to state some rules about the required state of the system, use Introduce Assertion (302).
-*** Data Class
-*** Data Clumps
-Fix: Use Extract Class (182) on the fields to turn the clumps into an object.
-*** Divergent Change
-Within Classes
-*** Duplicated Code 
-According to Fowler and Beck (2000), the Duplicate Code smell Bis number one in the stink parade.
-Same code structure in more than one place
-Don't Repeat Yourself (DRY)
-**** Same expression in different places 
-The simplest duplicated code problem is when you have the same expression in two
-methods of the same class. Then all you have to do is Extract Function and invoke the code from both places.
-*** Feature EnvyBetween Classes
-A method accesses the data of another object more than its own data
-*** Global Data
-"Global data is especially nasty when it’s mutable. Global data that you can guarantee
-never changes after the program starts is relatively safe—if you have a language that can
-enforce that guarantee."
-Fix: Encapsulate Variable
-*** Insider Trading
-*** Large Class 
-A class contains too many fields, methods, lines of code.
-Fix: Extract Class, Extract Superclass, Replace Type Code with Subclass
-Alias: Blob, Winnebago, and the God Class
-*** Lazy Element
-It may be a function that’s named the same as its body code reads, or a class that is essentially one simple function.
-Fix: Inline Function, Inline Class, Collapse Hierarchy
-*** Long FunctionWithin Classes
-Fix: Extract Function
-*** Long Parameter List Within Classes
-Fix: Replace Parameter with Query, Preserve Whole Object, INtroduce PArameter Object, Remove Flag Argument, Combine Functions into Cl
-*** Loops
-Fix: Replace Loop with Pipeline
-*** Message Chains
-You see message chains when a client asks one object for another object, which the client then asks for yet another object, which the client then asks for yet another another object, and so on.
-95 
-*** Middle Man
-Fix: Remove Middle Man, Inline Function, Replace Superclass with Delegate, Replace Subclass with Delegate
-*** Mysterious Name
-Fix: Change Function Declaration, Rename Variable, Rename Field
-*** Primitive Obsession
-[[*primitive elements - types][Primitive types]] are generic, classes are more specific  
-Fix: Replace Primitive with Object
-**** links
-***** [[pdftools:/home/slk500/Dropbox/books/Refactoring/\[Joshua_Kerievsky\]_Refactoring_to_Patterns (2004).pdf::84][Kerievsky - Refactoring To Patterns]]
-*** Refused Bequest
-*** Repeated Switches
-*** Shotgun Surgery
-*** Speculative Generality
-“Oh, I think we’ll need the ability to do this kind of thing someday”
-*** Temporary Field
-* Database
-** config
-MySQL configuration file:
-mysql --help | grep "Default options" -A 1
-https://www.digitalocean.com/community/tutorials/how-to-allow-remote-access-to-mysql
+*** Duplicated Code
+    Don't Repeat Yourself (DRY)
+*** Large Class
+    A class contains too many fields, methods, lines of code.
+    Fix: Extract Class, Extract Superclass, Replace Type Code with Subclass
+    Alias: God Class, Blob, Winnebago 
 
-*** this works
-Log in to the MySQL on the remote database server and create a user which is allowed to access database server remotely from 203.0.113.2:
-
-mysql> CREATE USER 'root'@'203.0.113.2' IDENTIFIED BY 'root_password';
-mysql> GRANT ALL PRIVILEGES ON *.* TO 'root'@'203.0.113.2' WITH GRANT OPTION;
-mysql> FLUSH PRIVILEGES;
-
-Or database user which can access the server from any host:
-
-mysql> CREATE USER 'root'@'%' IDENTIFIED BY 'root_password';
-mysql> GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' WITH GRANT OPTION;
-mysql> FLUSH PRIVILEGES;
-** commmands
-SELECT @@sql_mode 
-** Stuctures
-*** Hierarchical database model
-The hierarchical database model mandates that each child record has only one parent, whereas each parent record can have one or more child records.
-**** Adjacency List Model
-**** Nested set model
-- The model doesn't allow for multiple parent categories. For example, an 'Oak' could be a child of 'Tree-Type', but also 'Wood-Type'. An additional tagging or taxonomy has to be established to accommodate this, again leading to a design more complex than a straightforward fixed model. [SQL Antipatterns. p. 328.]
-** Refactorings
-*** Add CRUD Methods 
-    Introduce stored procedures (methods) to implement the creation,
-    retrieval, update, and deletion (CRUD) of the data representing a business entity.
-*** Add Foreign Key Constraint
-    Add a foreign key constraint to an existing table to enforce
-    a relationship to another table.
-*** Add Lookup Table
-    Create a lookup table for an existing column.
-*** Add Mirror Table
-    Create a mirror table, an exact duplicate of an existing table in one
-    database, in another database.
-*** Add Parameter
-    Existing method needs information that was not passed in before.
-*** Add Read Method 
-    Introduce a methodin this case, a stored procedureto implement the
-    retrieval of the data representing zero or more business entities from the database.
-*** Add Trigger For Calculated Column 
-    Introduce a new trigger to update the value
-    contained in a calculated column.
-*** Apply Standard Codes 
-    Apply a standard set of code values to a single column to ensure
-    that it conforms to the values of similar columns stored elsewhere in the database.
-*** Apply Standard Type
-    Ensure that the data type of a column is consistent with the data
-    type of other similar columns within the database.
-*** Consolidate Conditional Expression 
-    Combine sequence of conditional tests into a
-    single conditional expression and extract it.
-*** Consolidate Key Strategy 
-    Choose a single key strategy for an entity and apply it
-    consistently throughout your database.
-*** Decompose Conditional
-    Extract methods from the condition.
-*** Drop Column 
-    Remove a column from an existing table.
-*** Drop Column Constraint 
-    Remove a column constraint from an existing table.
-*** Drop Default Value 
-    Remove the default value that is provided by a database from an
-    existing table column.
-*** Drop Foreign Key Constraint 
-    Remove a foreign key constraint from an existing table so
-    that a relationship to another table is no longer enforced by the database.
-*** Drop Non-Nullable 
-    Change an existing non-nullable column so that it accepts null
-    values.
-*** Drop Table 
-    Remove an existing table from the database.
-*** Drop View 
-    Remove an existing view.
-*** Encapsulate Table With View 
-    Wrap access to an existing table with a view.
-*** Extract Method 
-    Turn the code fragment into a method whose name explains the
-    purpose of the method.Insert Data (page 296): Insert data into an existing table.
-*** Introduce Calculated Column 
-    Introduce a new column based on calculations involving
-    data in one or more tables.
-*** Introduce Calculation Method
-    Introduce a new method, typically a stored function,
-    which implements a calculation that uses data stored within the database.
-*** Introduce Cascading Delete
-    Ensure that the database automatically deletes the
-    appropriate "child records" when a "parent record" is deleted.
-*** Introduce Column Constraint
-    Introduce a column constraint in an existing table.
-*** Introduce Common Format
-    Apply a consistent format to all the data values in an
-    existing table column.
-*** Introduce Default Value 
-    Let the database provide a default value for an existing table
-    column.
-*** Introduce Hard Delete 
-    Remove an existing column which indicates that a row has been
-    deleted and instead actually delete the row.
-*** Introduce Index 
-    Introduce a new index of either unique or non-unique type.
-*** Introduce New Column 
-    Introduce a new column in an existing table.
-*** Introduce New Table 
-Introduce a new table in an existing database.
-*** Introduce Read-Only Table 
-    Create a read-only data store based on existing tables in
-    the database.
-*** DONE Introduce Soft Delete 
-Introduce a flag to an existing table which indicates that a row has been deleted instead of actually deleting the row.
-**** Motivation 
-preserve all application data, typically for historical means.
-**** Tradeoffs 
-***** more data - table have to store valid rows and those mark as deleted 
-***** performance - more data means reduction in query performace - the additional work of distinguishing between deleted and nondeleted rows
-***** code complexity 
-****** mostly in every query we would have to remember add 'where isDeleted = false'
-****** you may have associations going from Table A to Table B and when you soft delete something from Table A, you need to ensure that independent queries on Table B take care of that fact. 
-***** break immutability
-ORM - objects are not deleted they are being mutated - you are modyfing data not deleting
-***** break data integrity
-- like a half of data in database is valid other half is invalid
-- can happen - foreign key from valid to invalid data
-**** How
-***** Introduce New Column
-****** isDeleted 
-******* bool not null false 
-******* date/timestamp null
-***** Update 
-****** application 
-****** database trigger - it is simple and it avoids the risk that the applications will not update the column properly      
-**** Opposite
-Introduce Hard Delete
-*** Introduce Surrogate Key 
-Replace an existing natural key with a surrogate key.
-*** Introduce Trigger For History 
-Introduce a new trigger to capture data changes for historical purposes.
-**** Motivation
-delegate the tracking of data changes to the database itself
-*** Introduce Variable 
-    Put the result of the expression, or parts of the expression, in a
-    temporary variable with a name that explains the purpose.
-*** Introduce View 
-    Create a view based on existing tables in the database.
-**** Motivation
-***** Summarize data for reporting. Many reports require summary data, which can be generated via the view definition.
-***** Replace redundant reads. Several external programs, or stored procedures for that matter, often implement the same retrieval query. These queries can be replaced by a common readonly table or view.
-***** Data security. A view can be used to provide end users with read access to data but not update privileges.
-***** Encapsulate access to a table. Some organizations choose to encapsulate access to tables by defining updateable views that external programs access instead of the source tables. This enables the organization to easily perform database refactorings such as Rename Column (page 109) or Rename Table (page 113) without impacting the external applications, because views add an encapsulation layer between your tables and your application.
-***** Reduce SQL duplication. When you have complex SQL queries in an application, it is common to discover that parts of the SQL are duplicated in many places. When this is the case, you should introduce views to extract out the duplicate SQL, as shown in the example section.
-
-**** Tradeoffs
-***** poor performance of the joins
-***** increases the coupling with database schemas
-
-*** Make Column Non-Nullable 
-    Change an existing column so that it does not accept any
-    null values.
-*** Merge Columns 
-    Merge two or more columns within a single table.
-*** Merge Tables
-    Merge two or more tables into a single table.
-*** Migrate Method From Database
-    Rehost an existing database method (a stored
-    procedure, stored function, or trigger) in the application(s) which currently invoke it.
-*** Migrate Method To Database 
-    Rehost existing application logic in the database.
-*** Move Column 
-    Migrate a table column, with all of its data, to another existing table.
-*** Move Data 
-    Move the data contained within a table, either all or a subset of its columns,
-    to another existing table.
-*** Parameterize Method 
-    Create one method that uses a parameter for the different
-    values.
-*** Remove Control Flag 
-    Use return or break instead of a variable acting as a control flag.
-*** Remove Middle Man 
-    Get the caller to call the method directly.
-*** Remove Parameter 
-    Remove a parameter no longer used by the method body.
-*** Rename Column
-    Rename an existing table column with a name that explains its purpose.
-*** Rename Method
-    Rename an existing method with a name that explains its purpose.
-*** Rename Table
-    Rename an existing table with a name that explains its purpose.
-*** Rename View
-    Rename an existing view with a name that explains its purpose.
-*** Reorder Parameters 
-    Change the order of the parameters of a method.
-*** Replace Column 
-    Replace an existing non-key column with a new one.
-*** Replace LOB With Table 
-    Replace a large object (LOB) column that contains structured data with a new table or in the same table.
-*** Replace Literal With Table Lookup 
-    Replace code constants with values from database tables.
-*** Replace Method(s) With View 
-    Create a view based on one or more existing database
-    methods (stored procedures, stored functions, or triggers) within the database.
-*** Replace Nested Conditional With Guard Clauses 
-    Remove nested if conditions with a series of separate IF statements.
-*** Replace One-To-Many With Associative Table 
-    Replace a one-to-many association between two tables with an associative table.
-*** Replace Parameter With Explicit Methods 
-    Create a separate method for each value of the parameter.
-*** Replace Surrogate Key With Natural Key 
-    Replace a surrogate key with an existing natural key.
-*** Replace Type Code With Property Flags 
-    Replace a code column with individual property flags, usually implemented as Boolean columns, within the same table column.
-*** Replace View With Method(s) 
-    Replace an existing view with one or more existing
-    methods (stored procedures, stored functions, or triggers) within the database.
-*** Split Column 
-    Split a column into one or more columns within a single table.
-*** Split Table 
-    Vertically split (e.g., by columns) an existing table into one or more tables.
-*** Split Temporary Variable 
-    Make a separate temporary variable for each assignment.
-*** Substitute Algorithm 
-    Replace the body of the method with the new algorithm.
-*** Update Data 
-    Update data within an existing table.
-*** Use Official Data Source 
-    Use the official data source for a given entity, instead of the
-    current one you are using.
-** NoSQL
-*** [[https://app.pluralsight.com/courses/cc31161d-22da-4590-b95d-83bb67545fef/table-of-contents][Understanding NoSQL]]
-**** don't offer ACID
-**** eventual consistency
-similar to DNS propagation
-**** indexing
-are indexed by key, some allow so-called "secondary" indexes
-**** MapReduce
-** MySQL vs. PostgreSQL
-
-|---------------------------------------+----------------------------------------------|
-| MySQL                                 | PostgreSQL                                   |
-|---------------------------------------+----------------------------------------------|
-| relational database management system | object-relational database management system |
-|---------------------------------------+----------------------------------------------|
-|                                       |                                              |
-
-
-similar to a relational database, but with an object-oriented database model: objects, classes and inheritance are directly supported in database schemas and in the query language. In addition, just as with pure relational systems, it supports extension of the data model with custom data types and methods. 
-
-The characteristic properties of ORDBMS are 1) complex data, 2) type inheritance, and 3) object behavior. Complex data creation in most SQL ORDBMSs is based on preliminary schema definition via the user-defined type (UDT). Hierarchy within structured complex data offers an additional property, type inheritance. That is, a structured type can have subtypes that reuse all of its attributes and contain additional attributes specific to the subtype. Another advantage, the object behavior, is related with access to the program objects
-** Dictionary
-massive hardware injection
-** ACID
-*** Atomicity
-Transactions are often composed of multiple statements. Atomicity guarantees that each transaction is treated as a single "unit", which either succeeds completely, or fails completely: if any of the statements constituting a transaction fails to complete, the entire transaction fails and the database is left unchanged. An atomic system must guarantee atomicity in each and every situation, including power failures, errors and crashes.
-
-*** Consistency
-Consistency ensures that a transaction can only bring the database from one valid state to another, maintaining database invariants: any data written to the database must be valid according to all defined rules, including constraints, cascades, triggers, and any combination thereof. This prevents database corruption by an illegal transaction, but does not guarantee that a transaction is correct. Referential integrity guarantees the primary key - foreign key relationship.
-
-*** Isolation
-Transactions are often executed concurrently (e.g., multiple transactions reading and writing to a table at the same time). Isolation ensures that concurrent execution of transactions leaves the database in the same state that would have been obtained if the transactions were executed sequentially. Isolation is the main goal of concurrency control; depending on the method used, the effects of an incomplete transaction might not even be visible to other transactions.
-Durability
-
-*** Durability  
-guarantees that once a transaction has been committed, it will remain committed even in the case of a system failure (e.g., power outage or crash). This usually means that completed transactions (or their effects) are recorded in non-volatile memory.
-** Links
-- https://use-the-index-luke.com/
-- https://www.alexkras.com/my-sql-pretty-print-in-command-line/
-- [[https://www.percona.com/blog/2018/07/12/why-mysql-stored-procedures-functions-triggers-bad-performance/][Why MySQL Stored Procedures, Functions and Triggers Are Bad For Performance]]
-- https://opensource.com/article/17/5/speed-your-mysql-queries-300-times 
-- [[https://codeshack.io/super-fast-php-mysql-database-class/][Super-fast PHP MySQL Database Class]]
-- [[https://phpdelusions.net/mysqli/mysqli_connect][How to connect properly using mysqli]]
-** actions
-*** Add Auto-Increment ID to existing table?
-ALTER TABLE `table` ADD COLUMN `id` INT AUTO_INCREMENT UNIQUE FIRST;
-*** How to change collation of a column?
-ALTER TABLE <table_name> MODIFY <column_name> VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-*** views 
- select y.table_schema,
-	y.table_name,
-	y.view_len,
-	y.referenced_views
-                                                           views,
-	cast((y.view_len - y.wo_from) / 4 - 1 as unsigned) subqueries,
-	cast((y.view_len - y.wo_union) / 5 as unsigned)
-                                                           unions,
-	cast((y.view_len - y.wo_distinct) / 8 as unsigned) distincts,
-	cast((y.view_len - y.wo_group) / 5 as unsigned)
-                                                           groups
- from (select x.table_schema,
-              x.table_name,
-              x.view_len,
-              cast(x.referenced_views as unsigned) referenced_views,
-              length(replace(upper(x.view_definition), 'FROM', '')) wo_from,
-              length(replace(upper(x.view_definition), 'UNION', '')) wo_union,
-              length(replace(upper(x.view_definition), 'DISTINCT', '')) wo_distinct,
-              length(replace(upper(x.view_definition), 'GROUP', '')) wo_group
-       from (select v1.table_schema,
-                    v1.table_name,
-                    v1.view_definition,
-                    length(v1.view_definition) view_len,
-                    sum(case
-                          when v2.table_name is not null
-                                  then (length(v1.view_definition)
-                                          - length(replace(v1.view_definition,
-                                                           v2.table_name, '')))
-                                         /length(v2.table_name)
-                          else 0
-                            end) referenced_views
-             from information_schema.views v1
-                    left outer join information_schema.views v2
-                      on v1.table_schema = v2.table_schema
-             where v1.table_name <> v2.table_name
-             group by v1.table_schema,
-                      v1.table_name,
-                      v1.view_definition) x
-       group by x.table_schema,
-		x.table_name) y
- order by 1, 2;
-*** copy
- If you want to copy the table structure including its keys, then you should use:
-
-#+BEGIN_SRC sql
- CREATE TABLE `new_table_name` LIKE `old_table_name`;
- #+END_SRC
-
- #+BEGIN_SRC sql
- CREATE TABLE `new_table_name` SELECT * FROM `old_table_name`;
- #+END_SRC
-
- #+BEGIN_SRC sql
- (select * from A) except (select * from B) union (select * from B) except select * from A)
- #+END_SRC
-
-*** dump
- mysqldump -R --triggers -u root -p culture > file.sql
-*** indexes 
- select t.table_name,
-	t.table_rows,
-	count(distinct s.index_name) indexes,
-	case
-          when min(s.unicity) is null then 'N'
-          when min(s.unicity) = 0 then 'Y'
-          else 'N'
-            end unique_index,
-	sum(case s.columns
-              when 1 then 1
-              else 0
-		end) single_column,
-	sum(case
-              when s.columns is null then 0
-              when s.columns = 1 then 0
-              else 1
-		end) multi_column
- from information_schema.tables t
-	left outer join (select table_schema,
-				table_name,
-				index_name,
-				max(seq_in_index) columns,
-				min(non_unique) unicity
-                         from information_schema.statistics
-                         where table_schema = schema( )
-                         group by table_schema,
-                                  table_name,
-                                  index_name) s
-          on s.table_schema = t.table_schema
-               and s.table_name = t.table_name
- where t.table_schema = schema( )
- group by t.table_name,
-          t.table_rows
- order by 3, 1;
- massive hardware injection
-
- --log-slow-queries
- --log-queries-not-using-indexes
-*** add foreign key
-ALTER TABLE tag
-ADD FOREIGN KEY (parent_slug_id) REFERENCES tag(tag_slug_id);
-** ORM
-[[https://odetocode.com/blogs/scott/archive/2010/06/13/repositories-and-the-save-method.aspx][Repositories and the Save Method]]
-Online Transaction Processing (OLTP)
-ast prototaping
-*** Doctrine 
-**** first last name search
-#+BEGIN_SRC php
-$qb->where($qb->expr()->andX(
-    $qb->expr()->orX(
-        $qb->expr()->like(
-            $qb->expr()->concat('employee_alias.firstName', $qb->expr()->concat($qb->expr()->literal(' '), 'employee_alias.lastName')),
-            $qb->expr()->literal($phrase.'%')
-        ),
-        $qb->expr()->like(
-            $qb->expr()->concat('employee_alias.lastName', $qb->expr()->concat($qb->expr()->literal(' '), 'employee_alias.firstName')),
-            $qb->expr()->literal($phrase.'%')
-        )
-    ))
-);
-#+END_SRC
-**** rawSQL from query builder
-#+BEGIN_SRC php
-$sql = $query->getSQL();
-
-$parameters = [];
-foreach ($query->getParameters() as $parameter) {
-    $parameters[] = $parameter->getValue();
-}
-
-$result = $connection->executeQuery($sql, $parameters)
-                     ->fetchAll();
-#+END_SRC
-**** mariaDb error
-https://marenkay.com/2018/06/12/symfony-doctrine-mariadb/
-**** all tables names
-$entities = array();
-$em = $this->getDoctrine()->getManager();
-$meta = $em->getMetadataFactory()->getAllMetadata();
-foreach ($meta as $m) {
-$entities[] = $m->getName();
-//or getTableName()
-}
-
-$em = $this->getDoctrine()->getManager();
-$entity_fields_name = $em->getClassMetadata($selectedEntity)->getFieldNames();
-*** Benchmark
-[[https://github.com/adrianmiu/forked-php-orm-benchmark][php-orm-benchmark]]
-
-| Library                 | Insert | findPk | complex | hydrate | with | memory usage | time |
-|-------------------------+--------+--------+---------+---------+------+--------------+------|
-| PDO                     |     22 |      3 |       8 |      52 |  136 | 1,674,776    | 0.23 |
-| AtlasOrm                |    240 |     39 |     267 |     202 |  176 | 12,160,896   | 0.98 |
-| CycleOrm                |    410 |    177 |     347 |     387 |  839 | 14,245,168   | 2.23 |
-| PHPixie                 |    598 |     74 |     342 |     185 |  256 | 7,906,272    | 1.47 |
-| DoctrineM               |    189 |     37 |     303 |     315 |  267 | 18,874,368   | 1.22 |
-| DoctrineMWithCache      |    201 |     37 |     260 |     259 |  226 | 18,874,368   | 1.09 |
-| DoctrineMArrayHydrate   |    197 |     42 |     250 |     117 |  130 | 16,777,216   | 0.84 |
-| DoctrineMScalarHydrate  |    194 |     37 |     241 |     107 |  112 | 16,777,216   | 0.79 |
-| DoctrineMWithoutProxies |    206 |     39 |     302 |     152 |  336 | 18,874,368   | 1.14 |
-| Eloquent                |    528 |     60 |     279 |     220 |  356 | 12,582,912   | 1.48 |
-| EloquentWithoutEvent    |    507 |     80 |     320 |     152 |  311 | 12,582,912   | 1.40 |
-
-*** Notes
-One of the criticisms of more raw SQL methods is that you end up with all these VOs (value objects) or DTOs (data transfer objects) that are used by simply one query. This is touted as an advantage of ORMs because you get rid of that.
-
-Thing is those problems don't go away with ORMs, they simply move up to the presentation layer. Instead of creating VOs/DTOs for queries, you create custom presentation objects, typically one for every view. How is this better? IMHO it isn't.
-** Mysqli
-https://stackoverflow.com/questions/2552545/mysqli-prepared-statements-error-reporting
-** SLOW QUERY LOG
-- open my.cnf
-  slow_query_log = ON
-  long_query = 2
-  slow_query_log_file=/path/to/file
-- queries taking 2s or longer will be logged
-- open the log file and analyze the queries
-
-
-https://www.red-gate.com/simple-talk/sql/t-sql-programming/database-refactoring/
-
-
-
-TIPS
-Avoid functions on an indexed columns
-SELECT id, title FRMO PICTURE
-WHERE YEAR(create_date) >= 2001
-The index won't be used here
-
-LIMIT
-
-BETWEEN
-AND picture.id BETWEEN 26 AND 50;
-Only makes sense if that column is indexed
-
-IN
-AND picture.id IN (10,15,16)
-
-Archive Tables?
-Split Databases and tables
-
-Remove unused index
-
-B-Tree Index
-- each leaf node contains a link to the next node for the fast range traversals
-- values are stored in order
-- each leaf page is at the same distance from root level
-- InnoDB
-
-- storage engine traverses from root node to leaf node with the help of pointers
-- increase performance of following query patterns:
-  - full value (e.g: Pluralsight, Pinal Dave)
-  - leftmost value or column prefix (e.g: Plural from Pluralsight, Pinal from Pinal Dave)
-  - range of value (e.g 1 to 99, AAron to Fritz, Aaron to Kei%)
-- helps ORDER BY clause to increase the performance
-
-  Clustered Index
-  + rows with adjacent key values are stored close to each other
-  + related data is stored close to each other leading less disk I/O while retrieving sequential or range data
-  + faster data access as data and index are stored together at leaf node
-
-  - data insertion speed is dependent on the order of the Primary Key
-  - updating the clustered index column is expensive as data is moved based on its size to different on location
-    Secondary Index
-** int vs varchar id
-https://stackoverflow.com/questions/332300/is-there-a-real-performance-difference-between-int-and-varchar-primary-keys
-** Information Schema
-select t.table_name, count(*)
-from information_schema.columns c
-join information_schema.tables t on t.table_name = c.table_name
-where t.Table_type = 'BASE TABLE'
-group by t.TABLE_NAME
-
-select t.table_name
-from information_schema.tables t
-where t.Table_type = 'BASE TABLE'
-group by t.TABLE_NAME
-** Count 
-select lecture_id, count(*) as Count
-from customer_service_contract_to_lecture
-group by lecture_id
-having count(*) > 1
-
---log-slow-queries
---log-queries-not-using-indexes
-** Benchmark
-*** Percona Monitor
-https://medium.com/@prasadjay/percona-monitoring-and-management-b10b6d84f89a
-
-yum install pmm-client
-on error - https://jira.percona.com/browse/PMM-627 yum install initscripts 
-
-pmm.cnf 
-[mysqld]
-innodb_monitor_enable=all
-performance_schema=ON
-
-https://www.linuxjournal.com/content/if-software-funded-public-source-its-code-should-be-open-source
-
-conventions - are things that aren't forced software we using but user expect them
-** testing 
-*** compare output of 2 queries
-
-If you want to copy the table structure including its keys, then you should use:
-
-#+BEGIN_SRC sql
-CREATE TABLE `new_table_name` LIKE `old_table_name`;
-
---view 
-CREATE TABLE query_invoice_first_positions_golden_master AS (
-SELECT *
-FROM query_invoice_first_positions
-) 
-#+END_SRC
-
-#+BEGIN_SRC sql
-CREATE TABLE `new_table_name` SELECT * FROM `old_table_name`;
-#+END_SRC
-
-#+BEGIN_SRC sql
---mardiadb 10.3
-(select * from A) except (select * from B) union (select * from B) except select * from A)
-#+END_SRC
-
-#+BEGIN_SRC sql
---mardiadb 10.3
-select invoice_id, name
-from(
-select qi.invoice_id, qi.name
-from query_invoice_first_positions qi
-union all
-select gold.invoice_id, gold.name
-from query_invoice_first_positions_golden_master gold
-) t
-group by invoice_id, name
-having count(*) = 1
-order by invoice_id
-#+END_SRC
-
-not case sensitive!
-** cardinality
-select t.table_name,
-t.table_rows,
-s.index_name,
-s.column_name,
-s.cardinality
-from information_schema.tables t
-left outer join information_schema.statistics s
-on s.table_schema = t.table_schema
-and s.table_name = t.table_name
-where t.table_schema = schema( )
-order by t.table_name,
-s.index_name,
-s.seq_in_index;
-** SQL_FOUND_ROWS
-http://developers-club.com/posts/81034/
-** Collation key length
-https://stackoverflow.com/questions/1814532/1071-specified-key-was-too-long-max-key-length-is-767-bytes
-#+BEGIN_SRC sql
-ALTER TABLE subscribe_user_tag ADD UNIQUE `key_user_id_tag_slug_id` (user_id, tag_slug_id);
-
-SELECT * FROM INFORMATION_SCHEMA.SCHEMATA;
-
-SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME LIKE '%subscribe%'
-
-ALTER TABLE subscribe_user_tag MODIFY COLUMN tag_slug_id varchar(255) COLLATE latin1_general_ci
-#+END_SRC
-** Not Empty
-https://stackoverflow.com/questions/24424363/mysql-column-constraint-as-not-empty-required
-** import/export
-*** import
-mysql -u slk -p culture < 28-12-2019_tag_tree_path.sql
-*** export
-mysqldump -R --triggers -u root -p culture > file.sql
-** notes
-ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'root';
-
-SHOW GLOBAL VARIABLES
-
-SHOW GLOBAL STATUS
-
-optimizer_max_permutations w Oraclu -> co sie dzieje kiedy idzie zapytanie -> wpierw optimizer probuje znalezc optimal
-innodb_buffer_pool_size    134217728 -> 400M
-join_buffer_size    262144 -> 1M
-query_cache_type    OFF -> 1
-query_cache_size    1048576 -> 50M
-query_cache_limit    1048576 -> 4M
-
-MariaDB [(none)]> set global innodb_buffer_pool_size = 419430400;
-
-MariaDB [(none)]> SET GLOBAL query_cache_size = 1000000;
-
-MariaDB [(none)]> SET GLOBAL query_cache_limit = (select 4*1024*1024);
-
-MariaDB [(none)]> SET GLOBAL join_buffer_size = (select 4*1024*1024);
-
-CREATE DATABASE testdb;
-CREATE USER 'testuser'@'localhost' IDENTIFIED BY 'password';
-GRANT ALL PRIVILEGES ON testdb.* TO testuser@localhost;
-FLUSH PRIVILEGES;
-quit
-
-mysql> source path/to/file.sql;
-** Query
-*** NOT IN
-SELECT  *
-FROM    tag m
-WHERE   NOT EXISTS
-(
-SELECT  1
-FROM    video_tag e
-WHERE   e.tag_slug_id = m.tag_slug_id
-)
 * Codebases
 | Name                              | LOC | Description                                      | Tutorials                                 |
 |-----------------------------------+-----+--------------------------------------------------+-------------------------------------------|
@@ -2647,9 +2322,6 @@ WHERE   e.tag_slug_id = m.tag_slug_id
     - prototyping
     - easy of use
     - easily generated 
-** Data Clump
-a set of primitives that always appear
-together (e.g., three integers for RGB colours)
 ** Rich Domain Model
 - combines data and logic 
 - valid by design
@@ -2659,6 +2331,9 @@ together (e.g., three integers for RGB colours)
     - clean code 
     - testability
     - truly OOP
+** Data Clump
+   a set of primitives that always appear
+together (e.g., three integers for RGB colours)
 ** Characterization Test
    Test that characterizes the actual behavior of a piece of code. It acts as a change detector, protecting legacy code from unintended changes.
 ** Polymorphism
@@ -2771,6 +2446,12 @@ netstat -a -p --unix
 
 ** [[https://en.wikipedia.org/wiki/Bus_factor][Bus Factor]]
 * Practices
+  are a set of informal rules that the software development community employ to help improve the quality of software.
+** Refactoring
+*** The Rule of Three
+The first time you do something, you just do it. The second time you do something similar, you wince at the duplication, but you do the duplicate thing anyway. The third time you do something similar, you refactor.  
+Tip: Three strikes and you refactor.
+[M.Fowler, "Refactoring..."]
 ** Always Use 'declare(stric_types=1)'
 #+BEGIN_SRC php
 declare(stric_types=1);
@@ -2835,6 +2516,8 @@ if (count == 0){
 ...
 }
 #+END_SRC
+** Avoid Temporary Variables
+Temporary variable increase the temptation to write longer methods. Temporaries aren’t necessarily bad, but sometimes they attract new code.
 ** Don't Use 'clone'
 *** https://dcsg.me/articles/dont-clone-your-php-objects-deepcopy-them/
 *** TODO show example with Doctrine
@@ -2918,8 +2601,8 @@ Functions should have a small number of arguments. No argument is best, followed
 http://williamdurand.fr/2013/06/03/object-calisthenics/#9-no-getterssettersproperties
 ** Make Class Constants & Variables Always Private
 ** Make Classes Always Final
-   Force to use composition over inheritance principle
-   Further Reading: https://ocramius.github.io/blog/when-to-declare-classes-final https://matthiasnoback.nl/2018/09/final-classes-by-default-why/
+Force to use composition over inheritance principle
+Further Reading: https://ocramius.github.io/blog/when-to-declare-classes-final https://matthiasnoback.nl/2018/09/final-classes-by-default-why/
 ** Sprout Class
 ** Sprout Method
    When adding new functionality, write the code in a new method with TDD and then call this method from the old code. So even if you can’t test the code where your method is being called, at least the new code has tests.
@@ -3079,8 +2762,10 @@ The members data and errors MUST NOT coexist in the same document.
 - https://www.reddit.com/r/PHP/comments/40u74q/how_to_write_a_sdk_for_our_rest_api_best_practices/
 - [[https://seegatesite.com/php-json-web-token-tutorial-for-beginners/][PHP JSON Web Token Tutorial For Beginners]]
 * Patterns
-  - Patterns are formalized best practices.
-  - is a named description of a problem and solution that can be applied to new contexts
+  - formalized best practices
+  - named description of a problem and solution that can be applied to new contexts
+  - an idea that has been useful in one practical context
+  and will probably be useful in others
 ** Software design patterns
 *** Creational
     Creation of objects themselves - separate the construction of a complex object from its representation
@@ -3848,13 +3533,15 @@ GOF
 ***** Query Builder
 
 **** Null Object
-      Designed to act as a default value of an object
+     Designed to act as a default value of an object
 **** Template method:
      Describes the program skeleton of a program
 **** State
 https://stitcher.io/blog/laravel-beyond-crud-05-states
 *** Concurrency
-
+*** ???
+**** quantity pattern http://www.dsc.ufcg.edu.br/~jacques/cursos/map/recursos/fowler-ap/Analysis%20Pattern%20Quantity.htm
+**** [[https://dev.to/asarnaout/the-anti-corruption-layer-pattern-pcd][The Anti-Corruption Layer Pattern]]
 ** Architectural patterns
    This is not strictly a design pattern (but the Gang of Four didn't cover Architectural patterns
 in their book); but it is incredibly relevant for PHP developers due to the web-oriented
@@ -4109,6 +3796,9 @@ final class PositionDTO
   - applies compression
   - chooses presentation format
   - renders templates
+**** problems
+     - fat controller and fat model
+
 *** MVVM
     Magento was here.
 ** Antipatterns
@@ -4577,6 +4267,10 @@ sudo mv phploc.phar /usr/local/bin/phploc
 https://github.com/rectorphp/rector
 *** [[https://github.com/nunomaduro/phpinsights][phpinsights]]
 *** [[https://github.com/mamuz/PhpDependencyAnalysis][PhpDependencyAnalysis]]
+*** Psalm
+- immutable 
+*** https://github.com/smontanari/code-forensics
+
 ** Composer
 - https://getcomposer.org/doc/articles/autoloader-optimization.md
 - http://mouf-php.com/optimizing-composer-autoloader-performance
@@ -4600,20 +4294,22 @@ Projekt nie jest jeszcze na produkcji, ciągle w fazie development to można raz
 sudo lsof -i -P -n | grep LISTEN
 sudo lsof -i:22 ## see a specific port such as 22 ##
 ** PHPStorm
-https://plugins.jetbrains.com/plugin/2162-string-manipulation
+   https://plugins.jetbrains.com/plugin/2162-string-manipulation
 * Notepad
 1) Accurate predictions are an oxymoron in the real world. You can't predict accurately for things that aren't certain, and in almost all cases, developers won't know the systems they are dealing with fully enough. Moreover, they don't know their own personal efficiency from day to day; it just can't be foreseen accurately.
-2) A good property of software is the ability to change 
-3) Anyone can take a chance at improving code, but refactoring brings a discipline of safely making changes (with tests) and leveraging the knowledge accumulated by the software development community (through refactorings).
-4) After all, like beauty, complexity is in the eye of the beholder. 
-5) Using new programming languages will bring you new insights and ideas to already known languages. You get a better understanding.
-6) It's not about clever, crAFTY, PREETY CODE. iT'S ABOUT FAST AND EFFECTIVE COMMUNICATION. It's about communication beetween people.
-7) Any time someone sees some code that isn't as clear as  it should be, they should take the opportunity to fix it right there and then — or at least within a few minutes. This opportunistic refactoring is referred to by Uncle Bob as following the boy-scout rule — always leave the code behind in a better state than you found it.
-8) software bugs are domiated by state
-9) where software complexity comes from?
-10) HN is fast because it is feature-barren.
-11) The advantages of less lines of code are evident: a smaller program contains less bugs, is easier to reason about, and – because of its simplicity – is more robust.
-12) Extracting statistical information from hundreds of processes without adversely affecting their performance is not a simple task.
+2) Rules are for the guidance of the wise and the obedience of fools.
+3) A good property of software is the ability to change 
+4) Anyone can take a chance at improving code, but refactoring brings a discipline of safely making changes (with tests) and leveraging the knowledge accumulated by the software development community (through refactorings).
+5) After all, like beauty, complexity is in the eye of the beholder. 
+6) Using new programming languages will bring you new insights and ideas to already known languages. You get a better understanding.
+7) It's not about clever, crAFTY, PREETY CODE. iT'S ABOUT FAST AND EFFECTIVE COMMUNICATION. It's about communication beetween people.
+8) Any time someone sees some code that isn't as clear as  it should be, they should take the opportunity to fix it right there and then — or at least within a few minutes. This opportunistic refactoring is referred to by Uncle Bob as following the boy-scout rule — always leave the code behind in a better state than you found it.
+9) software bugs are domiated by state
+10) where software complexity comes from?
+11) HN is fast because it is feature-barren.
+12) The advantages of less lines of code are evident: a smaller program contains less bugs, is easier to reason about, and – because of its simplicity – is more robust.
+13) Extracting statistical information from hundreds of processes without adversely affecting their performance is not a simple task.
+14) Quality is many small things done right
 * PHP
 ** language
 *** primitive elements - types
@@ -4902,6 +4598,9 @@ $comma_separated = implode(", ", $vars);
 ** The Clean Code Blog by Robert C. Martin (Uncle Bob)
 *** [[https://blog.cleancoder.com/uncle-bob/2014/04/03/Code-Hoarders.html][Code Hoarders]]
 It’s also easy to believe that acquiring new stuff is more important than organizing old stuff. After all, organizing old stuff does not add value. It’s acquiring new stuff that counts. So if there’s any spare time, or spare effort, or spare energy, it should be directed towards acquiring new stuff. Organizing the old stuff is a waste.
+** https://freek.dev/1371-refactoring-to-actions
+** [[https://medium.com/s/story/imaginary-problems-d4f2921bd1b8][Imaginary Problems Are the Root of Bad Software]]
+
 * Topics
 ** Rewrite
 - [[https://www.joelonsoftware.com/2000/04/06/things-you-should-never-do-part-i/][Things You Should Never Do, Part I]]
@@ -4991,7 +4690,8 @@ https://www.rdegges.com/2018/please-stop-using-local-storage/
 - I echo all of my code as a string in the command line and then use ">" to redirect it in to a new file. I don't have time to open an edit
 - We draw exceptional people from exception
 - Write once, debug everywhere
-- https://youtu.be/AbSehcT19u0
+- [[https://youtu.be/AbSehcT19u0][Hal fixing a light bulb (from Malcolm in the Middle S03E06 - Health Scare]]
+- https://github.com/EnterpriseQualityCoding/FizzBuzzEnterpriseEdition
 ** Metrics
 *** Cyclomatic Complexity Number (CCN) 
 Counts the available decision paths in a source code to determine it's complexity.
@@ -5255,22 +4955,211 @@ resolve(ProcessCardManagerRequestService::class)
 );
 }
 * Journals                                                         :noexport:
-Empirical Software Engineering
+  Empirical Software Engineering
+* Recrut                                                           :noexport:
+** array_map
+   #+begin_src php
+$letters = ['a','b','c','d','e' ];
+$numbers = [1,2,3,4,5];
+
+// ['a1','b2','c3','d4','e5']
+
+$pairs = array_map(
+fn($letters, $number) => "$letter$number",
+$letters,
+$numbers
+);
+
+print_r($pairs);
+
+   #+end_src
+
+   #+RESULTS:
+   : Array
+   : (
+   :     [0] => 1
+   :     [1] => 2
+   :     [2] => 3
+   :     [3] => 4
+   :     [4] => 5
+   : )
+** employees salary
+#+begin_src php
+$employees = [
+    [
+        'name' => 'John',
+        'age' => 43,
+        'salary' => 90000,
+        'job_title' => 'developer',
+    ], [
+        'name' => 'Hannah',
+        'age' => 32,
+        'salary' => 110000,
+        'job_title' => 'developer',  
+    ], [
+        'name' => 'Ralph',
+        'age' => 22,
+        'salary' => 35000,
+        'job_title' => 'construction worker',
+    ], [
+        'name' => 'Rachel',
+        'age' => 29,
+        'salary' => 55000,
+        'job_title' => 'digital marketing specialist',
+    ]
+];
+
+$developers = array_filter($employees, fn($x) => $x['job_title'] == 'developer');
+$developer_salaries = array_map(fn($x) => $x['salary'], $developers);
+$total_developer_salaries = array_reduce(
+    $developer_salaries,
+    fn($carry, $item) => $carry + $item,
+);
+$average_developer_salary = $total_developer_salaries / count($developer_salaries);
+
+$non_developers = array_filter($employees, fn($x) => $x['job_title'] != 'developer');
+$non_developer_salaries = array_map(fn($x) => $x['salary'], $non_developers);
+$total_non_developer_salaries = array_reduce(
+    $non_developer_salaries,
+    fn($carry, $item) => $carry + $item,
+);
+$average_non_developer_salary = $total_non_developer_salaries / count($non_developer_salaries);
+
+echo "The average developer salary is $average_developer_salary\n";
+echo "The average non-developer salary is $average_non_developer_salary\n";
+#+end_src
+** unpack array
+   #+begin_src php
+$input = [
+    0 => ['a' => ['id' => 1]],
+    1 => ['b' => ['id' => 2]]
+];
+
+$expected = [
+    'a' => ['id' => 1],
+    'b' => ['id' => 2]
+];
+
+foreach ($input as $key => $value) {
+    $output = array_merge($output, $value);
+}
+
+$result = array_merge(...$input);
+
+   #+end_src
+
 * Presentation                                                     :noexport:
 ** Simple presentation for a complex people
-** [[https://youtu.be/6ayR9s5pudk][Life Without Objects - Osvaldas Grigas]]
-object - inheritance, namespace, data, state managment, polymorphic dispatch
+** [[https://youtu.be/6ayR9s5pudk][Life Without Objects]]
+   - object
+    - inheritance  
+    - namespace 
+    - data
+    - functions
+    - abstract - behaviour (modify data with functions)
+    - state managment 
+    - polymorphic dispatch
+
+*** [[https://youtu.be/US8QG9I1XW0][Functional architecture - The pits of success - Mark Seemann]]
+    OOP - entities, value objects, services
+    functional - data, functions
+*** Other
+   The whole point of objects is that they are a technique to package data with the processes used on that data.[Fowler]
 ** What's that smell?
+*** software quality 
+    refers to two related but distinct notions
+**** functional quality 
+     - how well it complies with or conforms to a given design, based on functional requirements or specifications
+     - how it compares to competitors in the marketplace as a product
+**** structural quality 
+***** maintainability
+      - from a developer’s viewpoint the ease of modifying and further developing the software is clearly one of the most important quality dimensions - maintainability.
+      - what is ? - modularity, understandability, changeability, testability, reusability, and transferability
+      - how to achieve ? - compliance with Programming Practices
+	- code compliance with Programming Practices - 'good code, clean code'
+	- code noncompliant with Programming Practices - 'bad code, dirty code'
+	  - how that code looks like? how to recognise? 
+	    - 'bad smell' - indicators of violation Programming Practices - help software developers recognise problematic code
+	      - how to fix this?
+		- refactoring
+      Refactoring (noun): a change made to the internal structure of software to make it easier to understand and cheaper to modify without changing its observable behavior.
+
+      Refactoring (verb): to restructure software by applying a series of refactorings without changing its observable behavior.
+
+
+
+  - the goal of code refactoring is to make the software easier to understand and/or extent
+*** 'bad code' - indicators - smells
+    vague, ulotne, wyczucia, przeczucia dotyczące tego jak powinnien wyglądać dobry kod, subiektywne w dodatku zależne od stanu oceniającego, - jego doświadczenia, zmęczenia itp.
+
+- is a hint that something might be wrong, not a certainty 
+
+"Rules are for the guidance of the wise and the obedience of fools."
+
+*** make it official
+    Fowler, Martin - Refactoring: improving the design of existing code (2002)
+
+- gather 22
+** Progress
 *** IN-PROGRESS Fowler, Martin - Refactoring: improving the design of existing code
-
+end 97
+*** TODO Working Effectively with Legacy Code; 2005
 *** DONE "Subjective Evaluation of Software Evolvability Using Code Smells: An Empirical Study" 2006
-*** Antipatterns. Refactoring Software, Archtectures and Projects in Crisis 1998
+*** TODO Antipatterns. Refactoring Software, Archtectures and Projects in Crisis 1998
 ** Notes
-*** refactoring
-Refactoring (noun): a change made to the internal structure of software to make it easier to understand and cheaper to modify without changing its observable behavior.
-
-Refactoring (verb): to restructure software by applying a series of refactorings without changing its observable behavior.
 *** legacy code
 - valueable code you afraid to change
+** Used
+   https://wiki.c2.com/?CodeSmell
+* Case?                                                            :noexport:
+  #+begin_src php
+final class VideoTagNormalizer
+{
+    //todo to complex -> make it simple
+    public function normalize(array $array): array
+    {
+        $previous_tag_slug_id = '';
+        $lastKey = null;
+        $result = [];
 
+        /**
+         ,* @var $video_tag VideoTagRaw
+         ,*/
+        foreach ($array as $video_tag) {
 
+            if($previous_tag_slug_id === $video_tag->tag_slug_id){
+
+                $result[$lastKey]['video_tags_time'][]=[
+                    'video_tag_time_id' => $video_tag->video_tag_time_id,
+                    'start' => $video_tag->start,
+                    'stop' => $video_tag->stop
+                ];
+
+                $previous_tag_slug_id = $video_tag->tag_slug_id;
+            } else {
+                $video_tag_normalize = [
+                    'video_tag_id' => $video_tag->video_tag_id,
+                    'video_youtube_id' => $video_tag->video_youtube_id,
+                    'tag_name' => $video_tag->tag_name,
+                    'tag_slug_id' => $video_tag->tag_slug_id,
+                    'is_complete' => $video_tag->is_complete,
+                    'video_tags_time' => []
+                ];
+
+                if($video_tag->video_tag_time_id) {
+                    $video_tag_normalize['video_tags_time'][] = [
+                        'video_tag_time_id' => $video_tag->video_tag_time_id,
+                        'start' => $video_tag->start,
+                        'stop' => $video_tag->stop
+                    ];
+                }
+
+                $previous_tag_slug_id = $video_tag->tag_slug_id;
+                $result [] = $video_tag_normalize;
+            }
+            $lastKey = array_key_last($result);
+        }
+        return array_values($result); //have to do this -> angular will throw error otherwise
+    }
+}
+  #+end_src

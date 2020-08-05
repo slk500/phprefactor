@@ -2,7 +2,6 @@
 #+OPTIONS: broken-links:auto
 #+SETUPFILE: export/setup/theme-darksun-local.setup
 #+Title: PHPRefactor
-https://stackoverflow.com/questions/24171078/composer-psr-how-to-autoload-functions
 
 * Refactorings
 - The examples are trying to be as much short & simple as they can.

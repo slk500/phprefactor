@@ -2,21 +2,22 @@
 #+OPTIONS: broken-links:auto
 #+SETUPFILE: export/setup/theme-darksun-local.setup
 #+Title: PHPRefactor
+https://stackoverflow.com/questions/24171078/composer-psr-how-to-autoload-functions
 
 * Refactorings
 - The examples are trying to be as much short & simple as they can.
 - In most cases, there are still problems with the code at the end, but fixing these problems requires other refactorings.
 - Don't take any of these examples as suggestions for how to design objects. These examples are there only to illustrate the refactorings, nothing more.
 - I use int to represent monetary values. I've done this only to make the examples simpler, as the representation is not important to the refactoring. In commercial software use the Quantity pattern.
+** scratch                                                         :noexport:
+ | fowler 2020      | fowler 2002    | aliases | inverse         | smells     |
+ |------------------+----------------+---------+-----------------+------------|
+ | extract function | extract method |         | inline function | code clump |
+ |                  |                |         |                 |            |
 
-| fowler 2020      | fowler 2002    | aliases | inverse         | smells     |
-|------------------+----------------+---------+-----------------+------------|
-| extract function | extract method |         | inline function | code clump |
-|                  |                |         |                 |            |
-
-code clump - code fragment that can be grouped together  
-data clump -  
-function clump -  
+ code clump - code fragment that can be grouped together  
+ data clump -  
+ function clump -  
 
 ** Based On Fowler 2002
 *** Extract Function
@@ -1148,6 +1149,10 @@ echo "Price after discount: $totalDiscountPrice";
 #+END_SRC
 *** Pass a test
 * Tutorials
+** Anti OOP
+*** [[https://youtu.be/o9pEzgHorH0][Stop Writing Classes]]
+ - namespaces are for preventing name collisions, not for creating taxonomies
+*** [[https://mnavarro.dev/posts/namespaced-taxonomy-sindrome/][NAMESPACED TAXONOMY SINDROME]]
 ** Functional
 **** [[https://youtu.be/MjpiHy_e8kQ][Marco Pivetta – From helpers to middleware]]
 **** https://gist.github.com/adaburrows/941874
@@ -3656,6 +3661,8 @@ $user->load(1);
 
                 
 pros: you don’t have to specify the properties of the object and how they relate to the database. The model is able to determine the properties automatically by looking at the schema of the database.
+*** Repository
+    https://mnavarro.dev/posts/repository-pattern-done-right/
 *** Data Transfer Object DTO
 "a class with public variables and no functions" clean code p. 100. 
 But in PHP we still can't declare type of variable, just type-hint parameters of methods. Like setters, so we can do it indirectly. Another great benefit it the standard rule is to not have public properties so we can stay consisten with this one. But more of great adventage of if we can make our DTO object immutable. So create only getters, without setters. Add all in constructor.
@@ -3991,14 +3998,16 @@ My hesitation over doing this is that I think it introduces a higher degree of c
 - https://designpatternsphp.readthedocs.io/en/latest/
 - [[https://blog.pragmaticengineer.com/software-architecture-is-overrated/][Software Architecture is Overrated, Clear and Simple Design is Underrated]]
 - http://www.wmrichards.com/
-** Is it a pattern?
-*** Cache
-https://coderwall.com/p/ry1y0a/improve-doctrine-performance-up-to-100-on-your-symfony2-project
+** To add
+*** Cache https://coderwall.com/p/ry1y0a/improve-doctrine-performance-up-to-100-on-your-symfony2-project
+*** ParamConverter
+    Value Resolver
+    Route Model Binding
 ** Enum
-https://stitcher.io/blog/php-enums
-composer require myclabs/php-enum
+   https://stitcher.io/blog/php-enums
+   composer require myclabs/php-enum
 ** Errors
-[[https://kevinsmith.io/a-better-way-to-handle-validation-errors][A Better Way to Handle Validation Errors]]
+   [[https://kevinsmith.io/a-better-way-to-handle-validation-errors][A Better Way to Handle Validation Errors]]
 * Tests
 ** Fixtures
 1) http://blog.codeleak.pl/2014/06/test-data-builders-and-object-mother.html
@@ -4848,7 +4857,7 @@ https://stitcher.io/blog/php-preload-benchmarks
 *** Tools
 - https://github.com/krakjoe/nocheq - Sick of pesky type checking making your code too slow (and correct) ?
 * About
-It's a simple site about refactoring in PHP. I'm some kind of inside junky. I like looking at lot of informations and start to understand how things are tight together. Love this pleasure rush moment of understanding - eureka!. 
+  It's a simple site about refactoring in PHP. I'm some kind of inside junky. I like looking at lot of informations and start to understand how things are tight together. Love this pleasure rush moment of understanding. Then I like to make things simplier.
   
 ** You can contact me at 
 - slawomir.grochowski@gmail.com

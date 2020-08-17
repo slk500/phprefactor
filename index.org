@@ -3,7 +3,7 @@
 #+SETUPFILE: export/setup/theme-darksun-local.setup
 #+Title: PHPRefactor
 
-* ON
+* ON                                                               :noexport:
   https://medium.com/@assertchris/function-composition-c8094ae9be63 - partial application
 * Refactorings
 - The examples are trying to be as much short & simple as they can.
@@ -5196,7 +5196,7 @@ final class VideoTagNormalizer
     }
 }
   #+end_src
-* Pytanie Rekrut
+* Pytanie Rekrut                                                   :noexport:
 ** innodb myisam
    blokowania całej tabeli myisam
    blokowanie wierszy

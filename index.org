@@ -3,6 +3,8 @@
 #+SETUPFILE: export/setup/theme-darksun-local.setup
 #+Title: PHPRefactor
 
+* ON
+  https://medium.com/@assertchris/function-composition-c8094ae9be63 - partial application
 * Refactorings
 - The examples are trying to be as much short & simple as they can.
 - In most cases, there are still problems with the code at the end, but fixing these problems requires other refactorings.
@@ -2648,6 +2650,8 @@ Based on an  [[http://www.cs.kent.edu/~jmaletic/papers/ICPC2010-CamelCaseUnderSc
 [[http://ieeexplore.ieee.org/xpl/articleDetails.jsp?tp=&arnumber=5521745][eye tracking study on camelCase and snake_case]]
 https://stitcher.io/blog/have-you-thought-about-casing
 http://www.cs.loyola.edu/~binkley/papers/icpc09-clouds.pdf?fbclid=IwAR2lZJWpYcV-TK2HNpy-JmB3A9g0nSeCeSaDr2ZVh30hSlS41n5O48YoiWc
+**** Tests
+     There is a fundamental difference between the two environments: in src methods name are composed solely of a verb and a noun because a method shall have a single responsability and a simple way of acting; in tests for most of the edge cases we wrote entire phrases explaining what the test code can't explain well or quickly.
 ** instanceof
 #+begin_src php
 class MyClass
@@ -3851,12 +3855,12 @@ final class PositionDTO
  }
 
  So here are the reasons why this should be avoided:
- They are inherently tightly coupled meaning they are difficult to test, for example
+ - They are inherently tightly coupled meaning they are difficult to test, for example
  using unit tests. They even maintain their state throughout the life cycle of the
  application.
- They violate the Single Responsibility Principle by controlling their own creation
+ - They violate the Single Responsibility Principle by controlling their own creation
  and life cycle.
- Fundamentally, it results in you hiding the dependencies of your application in a
+ - Fundamentally, it results in you hiding the dependencies of your application in a
  global instance. You can no longer effectively follow your dependencies around
  your code as you can't follow where they are injected as function arguments.
  They make it ineffective to find the dependency chain should you need to
@@ -4555,6 +4559,24 @@ usort($inventory, function ($item1, $item2) {
     return $item2['price'] <=> $item1['price'];
 });
 #+END_SRC
+**** array_map including keys
+     #+begin_src php
+$states = array('az' => 'Arizona', 'al' => 'Alabama');
+
+array_map(function ($short, $long) {
+    return array(
+        'short' => $short,
+        'long'  => $long
+    );
+}, array_keys($states), $states);
+
+// produces:
+array(
+    array('short' => 'az', 'long' => 'Arizona'), 
+    array('short' => 'al', 'long' => 'Alabama')
+)
+
+     #+end_src
 ** Quirks
 *** More parameter than expected: no error in PHP?
 https://bugs.php.net/bug.php?id=13892&fbclid=IwAR0r2lrYMJ5cuE9o9sygoCORtmQ9R-dca76OfmRoadijMjqHoVzMpQXHl9c
@@ -4567,7 +4589,7 @@ var_dump(0.1 + 0.2 - 0.3);
 : Standard input code:2:
 : double(5.5511151231258E-17)
 ** Config
-php -i | grep "Loaded Configuration File"
+   php -i | grep "Loaded Configuration File"
 ** Problems
 *** PHP Add comma to every item but last one
 #+begin_src php
@@ -4655,7 +4677,7 @@ So I would go with word prototyping. Doctrine it's kind the same. It's great for
 http://nikic.github.io/2014/02/18/Fast-request-routing-using-regular-expressions.html
 *** How to Pass an Array as URL Parameter in PHP?
 ** Security
-*** Cross-Site Request Forgery CSRF  
+*** Cross-Site Request Forgery CSRF
 also known as XSRF, Sea Surf or Session Riding
 is an attack that forces an end user to execute unwanted actions on a web application in which they're currently autheniticated.
 **** GET
@@ -4679,7 +4701,7 @@ POST http://bank.com/transer.do HTTP/1.1
 </body>
 #+END_SRC
 *** Cross-Site Scripting (XSS)
-XSS enables attackers to inject client-side scripts into web pages viewed by other users.
+    XSS enables attackers to inject client-side scripts into web pages viewed by other users.
 *** Links
 https://arstechnica.com/information-technology/2015/08/cracking-all-hacked-ashley-madison-passwords-could-take-a-lifetime/
 
@@ -4824,7 +4846,6 @@ $pdo = new PDO('mysql:host=host;dbname=dbname', 'user, 'pass');
 #+RESULTS:
 
 **** Database connect, query, and fetch (PDO)
-
 **** Table
 5 runs of 10 users for 60 sec, avg
 |                           | relative | req/s |
@@ -5057,6 +5078,10 @@ $result = array_merge(...$input);
    #+end_src
 
 * Presentation                                                     :noexport:
+** CultureVein - change to functions
+   - zmiena nazwy funkcji która jest wywoływana z obiektu jest bardziej podatna na błędy niż samej funkcji
+   - przerzucenie funkcji do innego pliku nie ważę się absolutnie z żadną zmianą dla systemu, w przeciwieństwie do tworzenia taxonomi - gdzie isteniej duża podatność na błędy. To gdzie dana funkcja znajduję się w systemie jest tylko dla człowieka w której warstwie, componecie ona się znajduję a nie dla systemu gdzie ma ją znaleźć
+   - 
 ** Simple presentation for a complex people
 ** [[https://youtu.be/6ayR9s5pudk][Life Without Objects]]
    - object
@@ -5171,3 +5196,12 @@ final class VideoTagNormalizer
     }
 }
   #+end_src
+* Pytanie Rekrut
+** innodb myisam
+   blokowania całej tabeli myisam
+   blokowanie wierszy
+** struktura danych
+   tree - jaki sposób wypełnienia,  
+   cqrs - co to jest -
+   jakie są struktury danych, 
+   Maciej Kabala

@@ -1346,6 +1346,7 @@ CodeSniffer
   - sometimes  map directly to a database table - a lot of times they don't
   - may not have databases at all
 ** Symfony
+*** https://codereviewvideos.com/
 *** https://github.com/ThomasBerends/symfony-certification-preparation-list
 *** [[https://symfonycasts.com/screencast/symfony4-upgrade][Upgrade to Symfony4 and Flex!]]
 1) Upgrade to Symfony 3.4
@@ -1463,13 +1464,16 @@ To types of BDD:
 4.Write the code for the feature
 
 https://github.com/Behatch/contexts
-   
+** Rabbit
+*** [[https://symfonycasts.com/screencast/messenger/message-class#play][Messenger! Queue work for Later]]
+    
 * Books
 ** Functional
-**** [[pdf:/home/slk/Dropbox/books/PHP/functional/Pro Functional PHP Programming Application Development Strategies for Performance Optimization, Concurrency, Testability, and Code Brevity by Rob Aley.pdf::1][Pro Functional PHP Programming Application Development Strategies for Performance Optimization, Concurrency, Testability, and Code Brevity by Rob Aley]]
-**** [[pdf:/home/slk/Dropbox/books/PHP/functional/Functional programming with PHP by Simon Holywell.epub::1][Functional programming with PHP by Simon Holywell]]
-**** [[pdf:/home/slk/Dropbox/books/PHP/functional/Functional PHP by Crettenand, Gilles.epub::1][Functional PHP by Crettenand, Gilles]]
-**** [[https://leanpub.com/functional-php/read][Functional PHP The Art of Function Composition by Luis Atencio]]
+*** LOOKING-FOR Thinking Functionally in PHP Larry Garfield
+*** [[pdf:/home/slk/Dropbox/books/PHP/functional/Pro Functional PHP Programming Application Development Strategies for Performance Optimization, Concurrency, Testability, and Code Brevity by Rob Aley.pdf::1][Pro Functional PHP Programming Application Development Strategies for Performance Optimization, Concurrency, Testability, and Code Brevity by Rob Aley]]
+*** [[pdf:/home/slk/Dropbox/books/PHP/functional/Functional programming with PHP by Simon Holywell.epub::1][Functional programming with PHP by Simon Holywell]]
+*** [[pdf:/home/slk/Dropbox/books/PHP/functional/Functional PHP by Crettenand, Gilles.epub::1][Functional PHP by Crettenand, Gilles]]
+*** [[https://leanpub.com/functional-php/read][Functional PHP The Art of Function Composition by Luis Atencio]]
 ** Refactoring
 *** Michael Feathers
 **** [[pdf:/home/slk/Dropbox/books/Refactoring/Feathers, Michael - Working Effectively with Legacy Code (2005).pdf::1][Working Effectively with Legacy Code; 2005]]
@@ -1495,6 +1499,9 @@ https://github.com/Behatch/contexts
  Throw away your changes when the timer rings!
  Just do it: git reset --hard
  Take a break, go drink some water and think about what you just learned
+
+git clean -f -d
+
 
 **** LOOKING-FOR Brutal Refactoring: More Working Effectively with Legacy Code
 *** Refactoring in Large Software Projects 2006
@@ -2096,7 +2103,7 @@ Alias: Long Method
        data items together in lots of places: fields in a couple of classes, parameters in many method signatures.
 Use Extract Class on the fields to turn the clumps into an object. Then turn your attention to method signatures using Introduce Parameter Object or Preserve Whole Object to slim them down. The immediate benefit is that you can shrink a lot of parameter lists and simplify method calling. Don't worry about data clumps that use only some of the fields of the new object.  As long as you are replacing two or more fields with the new object, you'll come out ahead.
 *** Primitive Obession
-     [[Primitive types]] are generic, classes are more specific  
+    [[Primitive types]] are generic, classes are more specific  
     fix: Replace Primitive with Object
 **** links
 ***** [[pdftools:/home/slk500/Dropbox/books/Refactoring/\[Joshua_Kerievsky\]_Refactoring_to_Patterns (2004).pdf::84][Kerievsky - Refactoring To Patterns]]
@@ -2345,7 +2352,7 @@ together (e.g., three integers for RGB colours)
 ** Polymorphism
 describes a pattern in object oriented programming in which classes have different functionality while sharing a common interface
 ** Parameter vs. Argument
-A parameter is the variable which is part of the method’s signature (method declaration). An argument is an expression used when calling the method.
+A parameter is the variable which is part of the function’s signature (function declaration). An argument is an expression used when calling the method.
 
 Consider the following code:
 #+begin_src php
@@ -2451,6 +2458,14 @@ https://github.com/SolidWorx/Burial
 netstat -a -p --unix
 
 ** [[https://en.wikipedia.org/wiki/Bus_factor][Bus Factor]]
+** query parameters
+   are a defined set of parameters attached to the end of a url. They are extensions of the URL that are used to help define specific content or actions based on the data being passed. To append query params to the end of a URL, a ‘?’ Is added followed immediately by a query parameter.
+
+   To add multiple parameters, an ‘&’ is added in between each. These can be created by any variation of object types or lengths such as String, Arrays and Numbers. The following is an example:
+
+   http://example.com/path?name=Branch&products=[Journeys,Email,Universal%20Ads]
+** query string 
+   part after '?'
 * Practices
   are a set of informal rules that the software development community employ to help improve the quality of software.
 ** Refactoring
@@ -2603,8 +2618,10 @@ Refactoring: Replace Magic Number with Symbolic Constant
 ** Eliminate or Reduce Number of Parameters
 Functions should have a small number of arguments. No argument is best, followed by one, two, and three. More than three is very questionable and should be avoided with prejudice.
 ** Eliminate or Reduce Number of Setters
-   Further Reading: https://beberlei.de/2012/08/22/building_an_object_model__no_setters_allowed.html 
-http://williamdurand.fr/2013/06/03/object-calisthenics/#9-no-getterssettersproperties
+   - https://beberlei.de/2012/08/22/building_an_object_model__no_setters_allowed.html
+   - http://williamdurand.fr/2013/06/03/object-calisthenics/#9-no-getterssettersproperties
+   - https://stackoverflow.com/questions/565095/are-getters-and-setters-poor-design-contradictory-advice-seen
+
 ** Make Class Constants & Variables Always Private
 ** Make Classes Always Final
 Force to use composition over inheritance principle
@@ -2698,7 +2715,7 @@ Each unit should only talk to its friends; don't talk to strangers.
 • The Model: Captures and centralizes all the domain model behaviour. This layer manages all the data, logic and business rules independently of the data representation. It can be said that the Model layer is the heart and soul of every MVC application. • The Controller: Orchestrates interactions between the other layers. Triggers actions on the model in order to update its state and refreshes the representations associated to the model. Additionally, the Controller can also send messages to the View layer in order to change the specific Model representation. • The View: A layer whose main purpose is to expose the differing representations of the Model layer and to give a way to trigger changes on the Model’s state.
 *** Api
 **** Tools
-[[https://github.com/Crell/ApiProblem][APIProblem]]
+     [[https://github.com/Crell/ApiProblem][APIProblem]]
 https://medium.com/@ideneal/symfony-4-a-good-way-to-deal-with-exceptions-for-rest-api-afd8b615c923
 **** under_score vs camelCase vs kebab
 - https://github.com/json-api/json-api/issues/1255
@@ -2706,18 +2723,18 @@ https://medium.com/@ideneal/symfony-4-a-good-way-to-deal-with-exceptions-for-res
 **** Info
 Pluralization of resource names in REST URIs is the widely adopted standard followed by the overwhelming majority of public and private APIs.
 
-| method | endpoint       | controller | info                                                              |
-|--------+----------------+------------+-------------------------------------------------------------------|
-| GET    | /resources     | list       | returns a list of resource items                                  |
-| POST   | /resources     |            | creates one or many resource items                                |
-| PUT    | /resources     |            | updates one or many resource items                                |
-| PATCH  | /resources     |            | partially updates one or many resource items                      |
-| DELETE | /resources     |            | deletes all resource items And for single resource items:         |
-| GET    | /resources/:id | show       | returns a specific resource item based on :id parameter           |
-| POST   | /resources/:id | create     | creates one resource item with specified id (requires validation) |
-| PUT    | /resources/:id |            | updates a specific resource item                                  |
-| PATCH  | /resources/:id | update     | partially updates a specific resource item                        |
-| DELETE | /resources/:id | delete     | deletes a specific resource item                                  |
+| method | endpoint       | controller | return code | return data? | info                                                              |
+|--------+----------------+------------+-------------+--------------+-------------------------------------------------------------------|
+| GET    | /resources     | list       |         200 |              | returns a list of resource items                                  |
+| POST   | /resources     |            |         201 |              | creates one or many resource items                                |
+| PUT    | /resources     |            |             |              | updates one or many resource items                                |
+| PATCH  | /resources     |            |             |              | partially updates one or many resource items                      |
+| DELETE | /resources     |            |         204 |              | deletes all resource items And for single resource items:         |
+| GET    | /resources/:id | show       |         200 |              | returns a specific resource item based on :id parameter           |
+| POST   | /resources/:id | create     |             |              | creates one resource item with specified id (requires validation) |
+| PUT    | /resources/:id |            |             |              | updates a specific resource item                                  |
+| PATCH  | /resources/:id | update     |             |              | partially updates a specific resource item                        |
+| DELETE | /resources/:id | delete     |             |              | deletes a specific resource item                                  |
 
 
 ***** [[https://tools.ietf.org/id/draft-ietf-httpbis-semantics-01.txt][HTTP Semantics]]
@@ -3758,6 +3775,7 @@ final class PositionDTO
 **** Front controller
 - provide a central entry point for all request. All request are sent through one page 
 **** Action suffix
+     https://symfony.com/doc/4.0/best_practices/controllers.html#controller-action-naming
 ***** _call is exectued for a non-existent or non-public method call
 ***** Stack
       No it wasn't just a naming convention. It was used to execute some code before or after every controller 'action' method. Like checking is user has logged in. 
@@ -4022,6 +4040,9 @@ My hesitation over doing this is that I think it introduces a higher degree of c
 - [[http://martinsson-johan.blogspot.ro/2014/01/golden-master-and-legacy-few-insights.html][Golden Master and legacy - a few insights]]
 - [[https://logansbailey.com/ramsey-uuid-and-unit-tests][Ramsey UUID and Unit Tests]]
 ** TDD
+   1) Unit Test - Test one specific function on a class. Fake any needed database connecnions.
+   2) Integration Test - Just like unit test, except it use the real database connection.
+   3) Functional Test - Write a test to programmatically command a browser 
 
 | Tests             | Focus on            | Require                    | Speed     | Complexity | Setup Needed |
 |-------------------+---------------------+----------------------------+-----------+------------+--------------|
@@ -4134,8 +4155,7 @@ Isoloate One Method
 
 Pinpointing the problem
 
-** naming
-https://www.petrikainulainen.net/programming/testing/writing-clean-tests-naming-matters/
+** namingreducehttps://www.petrikainulainen.net/programming/testing/writing-clean-tests-naming-matters/
 https://docs.microsoft.com/en-us/dotnet/core/testing/unit-testing-best-practices
 ** anitpatterns
 http://blog.codepipes.com/testing/software-testing-antipatterns.html
@@ -4182,9 +4202,22 @@ fi
 #+end_src
 
 *** install
+    php -i |grep 
 
+    xdebug.remote_autostart => On
+    xdebug.remote_enable => On
 
+php --ini
 
+xdebug.ini
+
+xdebug.remote_autostart=1
+xdebug.default_enable=1
+xdebug.remote_port=9001
+xdebug.remote_host=127.0.0.1
+xdebug.remote_connect_back=1
+xdebug.remote_enable=1
+xdebug.idekey=PHPSTORM
 
 *** naming 
 https://dzone.com/articles/7-popular-unit-test-naming
@@ -4307,6 +4340,210 @@ sudo lsof -i -P -n | grep LISTEN
 sudo lsof -i:22 ## see a specific port such as 22 ##
 ** PHPStorm
    https://plugins.jetbrains.com/plugin/2162-string-manipulation
+   https://stackoverflow.com/questions/40891356/phpstorm-symfony-error-log-red-color-in-terminal-ubuntu
+* Database
+** Refactorings
+*** Add CRUD Methods 
+    Introduce stored procedures (methods) to implement the creation,
+    retrieval, update, and deletion (CRUD) of the data representing a business entity.
+*** Add Foreign Key Constraint
+    Add a foreign key constraint to an existing table to enforce
+    a relationship to another table.
+*** Add Lookup Table
+    Create a lookup table for an existing column.
+*** Add Mirror Table
+    Create a mirror table, an exact duplicate of an existing table in one
+    database, in another database.
+*** Add Parameter
+    Existing method needs information that was not passed in before.
+*** Add Read Method 
+    Introduce a methodin this case, a stored procedureto implement the
+    retrieval of the data representing zero or more business entities from the database.
+*** Add Trigger For Calculated Column 
+    Introduce a new trigger to update the value
+    contained in a calculated column.
+*** Apply Standard Codes 
+    Apply a standard set of code values to a single column to ensure
+    that it conforms to the values of similar columns stored elsewhere in the database.
+*** Apply Standard Type
+    Ensure that the data type of a column is consistent with the data
+    type of other similar columns within the database.
+*** Consolidate Conditional Expression 
+    Combine sequence of conditional tests into a
+    single conditional expression and extract it.
+*** Consolidate Key Strategy 
+    Choose a single key strategy for an entity and apply it
+    consistently throughout your database.
+*** Decompose Conditional
+    Extract methods from the condition.
+*** Drop Column 
+    Remove a column from an existing table.
+*** Drop Column Constraint 
+    Remove a column constraint from an existing table.
+*** Drop Default Value 
+    Remove the default value that is provided by a database from an
+    existing table column.
+*** Drop Foreign Key Constraint 
+    Remove a foreign key constraint from an existing table so
+    that a relationship to another table is no longer enforced by the database.
+*** Drop Non-Nullable 
+    Change an existing non-nullable column so that it accepts null
+    values.
+*** Drop Table 
+    Remove an existing table from the database.
+*** Drop View 
+    Remove an existing view.
+*** Encapsulate Table With View 
+    Wrap access to an existing table with a view.
+*** Extract Method 
+    Turn the code fragment into a method whose name explains the
+    purpose of the method.Insert Data (page 296): Insert data into an existing table.
+*** Introduce Calculated Column 
+    Introduce a new column based on calculations involving
+    data in one or more tables.
+*** Introduce Calculation Method
+    Introduce a new method, typically a stored function,
+    which implements a calculation that uses data stored within the database.
+*** Introduce Cascading Delete
+    Ensure that the database automatically deletes the
+    appropriate "child records" when a "parent record" is deleted.
+*** Introduce Column Constraint
+    Introduce a column constraint in an existing table.
+*** Introduce Common Format
+    Apply a consistent format to all the data values in an
+    existing table column.
+*** Introduce Default Value 
+    Let the database provide a default value for an existing table
+    column.
+*** Introduce Hard Delete 
+    Remove an existing column which indicates that a row has been
+    deleted and instead actually delete the row.
+*** Introduce Index 
+    Introduce a new index of either unique or non-unique type.
+*** Introduce New Column 
+    Introduce a new column in an existing table.
+*** Introduce New Table 
+    Introduce a new table in an existing database.
+*** Introduce Read-Only Table 
+    Create a read-only data store based on existing tables in
+    the database.
+*** Introduce Soft Delete 
+    Introduce a flag to an existing table which indicates that a row
+    has been deleted instead of actually deleting the row.
+**** Motivation 
+     preserve all application data, typically for historical means.
+**** Tradeoffs 
+***** more data - table have to store valid rows and those mark as deleted 
+***** performace - more data means reduction in query performace - the additional work of distinguishing between deleted and nondeleted rows
+***** code complexity 
+****** mostly in every query we would have to remember add 'where isDeleted = false'
+****** You may have associations going from Table A to Table B and when you soft delete something from Table A, you need to ensure that independent queries on Table B take care of that fact. 
+**** How
+***** Introduce New Column
+****** isDeleted 
+******* bool not null false 
+******* date/timestamp null
+***** Update 
+****** application 
+****** database trigger - it is simple and it avoids the risk that the applications will not update the column properly      
+**** Opposite
+     Introduce Hard Delete
+*** Introduce Surrogate Key 
+    Replace an existing natural key with a surrogate key.
+*** Introduce Trigger For History 
+    Introduce a new trigger to capture data changes for historical purposes.
+**** Motivation
+     delegate the tracking of data changes to the database itself
+   
+*** Introduce Variable 
+    Put the result of the expression, or parts of the expression, in a
+    temporary variable with a name that explains the purpose.
+*** Introduce View 
+    Create a view based on existing tables in the database.
+**** Motivation
+***** Summarize data for reporting. Many reports require summary data, which can be generated via the view definition.
+***** Replace redundant reads. Several external programs, or stored procedures for that matter, often implement the same retrieval query. These queries can be replaced by a common readonly table or view.
+***** Data security. A view can be used to provide end users with read access to data but not update privileges.
+***** Encapsulate access to a table. Some organizations choose to encapsulate access to tables by defining updateable views that external programs access instead of the source tables. This enables the organization to easily perform database refactorings such as Rename Column (page 109) or Rename Table (page 113) without impacting the external applications, because views add an encapsulation layer between your tables and your application.
+***** Reduce SQL duplication. When you have complex SQL queries in an application, it is common to discover that parts of the SQL are duplicated in many places. When this is the case, you should introduce views to extract out the duplicate SQL, as shown in the example section.
+
+**** Tradeoffs
+***** poor performance of the joins
+***** increases the coupling with database schemas
+
+*** Make Column Non-Nullable 
+    Change an existing column so that it does not accept any
+    null values.
+*** Merge Columns 
+    Merge two or more columns within a single table.
+*** Merge Tables
+    Merge two or more tables into a single table.
+*** Migrate Method From Database
+    Rehost an existing database method (a stored
+    procedure, stored function, or trigger) in the application(s) which currently invoke it.
+*** Migrate Method To Database 
+    Rehost existing application logic in the database.
+*** Move Column 
+    Migrate a table column, with all of its data, to another existing table.
+*** Move Data 
+    Move the data contained within a table, either all or a subset of its columns,
+    to another existing table.
+*** Parameterize Method 
+    Create one method that uses a parameter for the different
+    values.
+*** Remove Control Flag 
+    Use return or break instead of a variable acting as a control flag.
+*** Remove Middle Man 
+    Get the caller to call the method directly.
+*** Remove Parameter 
+    Remove a parameter no longer used by the method body.
+*** Rename Column
+    Rename an existing table column with a name that explains its purpose.
+*** Rename Method
+    Rename an existing method with a name that explains its purpose.
+*** Rename Table
+    Rename an existing table with a name that explains its purpose.
+*** Rename View
+    Rename an existing view with a name that explains its purpose.
+*** Reorder Parameters 
+    Change the order of the parameters of a method.
+*** Replace Column 
+    Replace an existing non-key column with a new one.
+*** Replace LOB With Table 
+    Replace a large object (LOB) column that contains structured data with a new table or in the same table.
+*** Replace Literal With Table Lookup 
+    Replace code constants with values from database tables.
+*** Replace Method(s) With View 
+    Create a view based on one or more existing database
+    methods (stored procedures, stored functions, or triggers) within the database.
+*** Replace Nested Conditional With Guard Clauses 
+    Remove nested if conditions with a series of separate IF statements.
+*** Replace One-To-Many With Associative Table 
+    Replace a one-to-many association between two tables with an associative table.
+*** Replace Parameter With Explicit Methods 
+    Create a separate method for each value of the parameter.
+*** Replace Surrogate Key With Natural Key 
+    Replace a surrogate key with an existing natural key.
+*** Replace Type Code With Property Flags 
+    Replace a code column with individual property flags, usually implemented as Boolean columns, within the same table column.
+*** Replace View With Method(s) 
+    Replace an existing view with one or more existing
+    methods (stored procedures, stored functions, or triggers) within the database.
+*** Split Column 
+    Split a column into one or more columns within a single table.
+*** Split Table 
+    Vertically split (e.g., by columns) an existing table into one or more tables.
+*** Split Temporary Variable 
+    Make a separate temporary variable for each assignment.
+*** Substitute Algorithm 
+    Replace the body of the method with the new algorithm.
+*** Update Data 
+    Update data within an existing table.
+*** Use Official Data Source 
+    Use the official data source for a given entity, instead of the
+    current one you are using.
+** Links
+   - https://use-the-index-luke.com/
 * Notepad
 1) Accurate predictions are an oxymoron in the real world. You can't predict accurately for things that aren't certain, and in almost all cases, developers won't know the systems they are dealing with fully enough. Moreover, they don't know their own personal efficiency from day to day; it just can't be foreseen accurately.
 2) Rules are for the guidance of the wise and the obedience of fools.
@@ -4580,7 +4817,7 @@ array(
 ** Quirks
 *** More parameter than expected: no error in PHP?
 https://bugs.php.net/bug.php?id=13892&fbclid=IwAR0r2lrYMJ5cuE9o9sygoCORtmQ9R-dca76OfmRoadijMjqHoVzMpQXHl9c
-*** Adding float numbers
+*** Addeing float numbers
 #+BEGIN_SRC php
 var_dump(0.1 + 0.2 - 0.3);
 #+END_SRC
@@ -4588,6 +4825,17 @@ var_dump(0.1 + 0.2 - 0.3);
 #+RESULTS:
 : Standard input code:2:
 : double(5.5511151231258E-17)
+*** cast empty array to null
+    https://www.php.net/manual/en/types.comparisons.php?fbclid=IwAR0eLMLkxKrSlG3GAyRfVtCtzJ5KnfygkAo-Sxxf52gNk_xFARBIssaOJ8s
+    #+begin_src php
+$result = [];
+if (null != $result) {
+    echo 'hello word';
+}
+    #+end_src
+
+    #+RESULTS:
+
 ** Config
    php -i | grep "Loaded Configuration File"
 ** Problems
@@ -4632,6 +4880,8 @@ It’s also easy to believe that acquiring new stuff is more important than orga
 ** [[https://medium.com/s/story/imaginary-problems-d4f2921bd1b8][Imaginary Problems Are the Root of Bad Software]]
 
 * Topics
+** Documents
+   https://github.com/joelparkerhenderson/architecture_decision_record
 ** Rewrite
 - [[https://www.joelonsoftware.com/2000/04/06/things-you-should-never-do-part-i/][Things You Should Never Do, Part I]]
 ** Crawler
@@ -5081,7 +5331,6 @@ $result = array_merge(...$input);
 ** CultureVein - change to functions
    - zmiena nazwy funkcji która jest wywoływana z obiektu jest bardziej podatna na błędy niż samej funkcji
    - przerzucenie funkcji do innego pliku nie ważę się absolutnie z żadną zmianą dla systemu, w przeciwieństwie do tworzenia taxonomi - gdzie isteniej duża podatność na błędy. To gdzie dana funkcja znajduję się w systemie jest tylko dla człowieka w której warstwie, componecie ona się znajduję a nie dla systemu gdzie ma ją znaleźć
-   - 
 ** Simple presentation for a complex people
 ** [[https://youtu.be/6ayR9s5pudk][Life Without Objects]]
    - object

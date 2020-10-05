@@ -1,0 +1,6 @@
+[[pdf:../books/Applying Uml And Patterns An Introduction To Ob.pdf::1][sdfsdf]]
+
+
+[[pdf:/home/slk/Dropbox/books/Sanglard, Fabien - Game Engine Black Book Wolfenstein.pdf::1][not reltive]]
+
+

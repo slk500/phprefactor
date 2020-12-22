@@ -3,8 +3,6 @@
 #+SETUPFILE: export/setup/theme-darksun-local.setup
 #+Title: PHPRefactor
 
-* ON                                                               :noexport:
-  https://medium.com/@assertchris/function-composition-c8094ae9be63 - partial application
 * Refactorings
 - The examples are trying to be as much short & simple as they can.
 - In most cases, there are still problems with the code at the end, but fixing these problems requires other refactorings.
@@ -1154,6 +1152,7 @@ echo "Price after discount: $totalDiscountPrice";
 *** [[https://youtu.be/o9pEzgHorH0][Stop Writing Classes]]
  - namespaces are for preventing name collisions, not for creating taxonomies
 *** [[https://mnavarro.dev/posts/namespaced-taxonomy-sindrome/][NAMESPACED TAXONOMY SINDROME]]
+*** [[https://medium.com/better-programming/object-oriented-programming-the-trillion-dollar-disaster-92a4b666c7c7][Object-Oriented Programming — The Trillion Dollar Disaster]]
 ** Functional
 **** [[https://youtu.be/MjpiHy_e8kQ][Marco Pivetta – From helpers to middleware]]
 **** https://gist.github.com/adaburrows/941874
@@ -1174,6 +1173,7 @@ echo "Price after discount: $totalDiscountPrice";
 ***** advanced functional concepts
 ****** recursion
 ****** partial application
+       https://medium.com/@assertchris/function-composition-c8094ae9be63
 ****** composition
 ***** notes
       #+begin_src php
@@ -1249,6 +1249,25 @@ echo "Price after discount: $totalDiscountPrice";
 - there is no such a thing like best practise there is alwayas a practice in a context  
 *** [[https://youtu.be/UrkrhYfOhfk][Mob Programming and Legacy Code" by Woody Zuill (@WoodyZuill)]]
 *** [[https://youtu.be/icDjN3yv4C4]["Improving Legacy" by Carola Lilienthal (@Cairolali)]]
+*** Altkom
+**** Wyzwania z "legacy" na praktycznych przykładach.
+     Paweł Szustkowicz 
+     Krzysztof Skowerski
+     https://altkomsoftware.pl/webinar-systemy-legacy/
+**** Jak obniżyć koszty rozwoju oprogramowania przez inteligentne zarządzanie długiem technologicznym?
+     Sławomir Pawlak, Robert Kusmierek
+     Prawa Lehmana 
+     law of continouse change, law of increasing complexity
+     Polecają Tornhila
+     hotspot - złożony i poddany częstym modyfikacją, na poziomie pliku, czy całego systemu.
+     temporal coupling -
+     koszty koordynacji - modyfikacja jednego komponentu przez kilka osób
+     mapa wiedzy o systemie
+**** narzędzia 
+     CodeScene - oni korzystają
+*** The Legacy of SoCraTes
+**** "Refactoring Large Objects with the Strangler Fig Pattern" by Adrianna Chang (@adriannakchang)
+     
 ** Delete
 *** [[https://vimeo.com/108441214][Greg Young - The art of destroying software]] 
 creating code
@@ -1271,7 +1290,7 @@ good code - small isolated programs that can be deleted on the fly
 ** Patterns
 *** [[https://industriallogic.com/xp/refactoring/catalog.html][Catalog of Refactoring to Patterns]] Joshua Kerievsky
 *** [[https://www.pluralsight.com/courses/encapsulation-solid][Encapsulation and SOLID]] Mark Seemann
-*** [[https://github.com/slk500/DesignPatternsPHP][Design Patterns PHP]]
+*** [[https://github.com/slk/DesignPatternsPHP][Design Patterns PHP]]
 ** Database
 *** [[https://youtu.be/WW2qPKukoZY][Doctrine Best Practices]] Marco Pivetta (Ocramius)
 - entities mostly represent your domain
@@ -1466,7 +1485,7 @@ To types of BDD:
 https://github.com/Behatch/contexts
 ** Rabbit
 *** [[https://symfonycasts.com/screencast/messenger/message-class#play][Messenger! Queue work for Later]]
-    
+    end 12
 * Books
 ** Functional
 *** LOOKING-FOR Thinking Functionally in PHP Larry Garfield
@@ -1475,6 +1494,7 @@ https://github.com/Behatch/contexts
 *** [[pdf:/home/slk/Dropbox/books/PHP/functional/Functional PHP by Crettenand, Gilles.epub::1][Functional PHP by Crettenand, Gilles]]
 *** [[https://leanpub.com/functional-php/read][Functional PHP The Art of Function Composition by Luis Atencio]]
 ** Refactoring
+*** LOOKING-FOR The Legacy Code Programmer's Toolbox
 *** Michael Feathers
 **** [[pdf:/home/slk/Dropbox/books/Refactoring/Feathers, Michael - Working Effectively with Legacy Code (2005).pdf::1][Working Effectively with Legacy Code; 2005]]
  - To me, legacy code is simply code without tests. I’ve gotten some grief for this definition. What do tests have to do with whether code is bad? To me, the answer is straightforward, and it is a point that I elaborate throughout the book: 'Code without tests is bad code. It doesn’t matter how well written it is; it doesn’t matter how pretty or object-oriented or well-encapsulated it is. With tests, we can change the behavior of our code quickly and verifiably. Without them, we really don’t know if our code is getting better or worse.'
@@ -1505,10 +1525,10 @@ git clean -f -d
 
 **** LOOKING-FOR Brutal Refactoring: More Working Effectively with Legacy Code
 *** Refactoring in Large Software Projects 2006
-*** [[pdftools:/home/slk500/Dropbox/books/Refactoring/Antipatterns. Refactoring Software, Archtectures and Projects in Crisis(1998).pdf::1][Antipatterns. Refactoring Software, Archtectures and Projects in Crisis 1998]]
+*** [[pdf:/home/slk/Dropbox/books/Refactoring/Antipatterns. Refactoring Software, Archtectures and Projects in Crisis(1998).pdf::1][Antipatterns. Refactoring Software, Archtectures and Projects in Crisis 1998]]
 William J. Brown, Raphael C. Malveau, Hays W. "Skip" McCormick, Thomas J. Mowbray
 *** Phillip A. Laplante, Colin J. Neill Antipatterns: Identification, Refactoring, and Management 2005	
-*** [[pdftools:/home/slk500/Dropbox/books/Refactoring/Refactoring for Software Design Smells - Managing Technical Debt (2015).pdf::1][Ganesh, Samarthyam Tushar, Sharma; Refactoring for Software Design Smells: Managing Technical Debt; 2015]]
+*** [[pdf:/home/slk/Dropbox/books/Refactoring/Refactoring for Software Design Smells - Managing Technical Debt (2015).pdf::1][Ganesh, Samarthyam Tushar, Sharma; Refactoring for Software Design Smells: Managing Technical Debt; 2015]]
 Catalog of smells. Focus on smell point of view. Also they introduce smell classification scheme, naming scheme for design smells which helps to increase awerness of smells. So definetly must read. (Java)
 
 http://www.designsmells.com/
@@ -1555,7 +1575,7 @@ congitive load
 | design         | X          |            |
 | implementation |            |            |
 **** PHAME
-We treat the four major elements of Booch’s object model as “design principles” and refer to them collectively as PHAME (Principles of Hierarchy, Abstraction, Modularization, and Encapsulation).
+     We treat the four major elements of Booch’s object model as “design principles” and refer to them collectively as PHAME (Principles of Hierarchy, Abstraction, Modularization, and Encapsulation).
 **** Booch’s fundamental design principles
 ***** abstraction
 The principle of abstraction advocates the simplification of entities through reduction and generalization: reduction is by elimination of unnecessary details and generalization is by identification and specification of common and important characteristics.
@@ -1789,7 +1809,7 @@ artifacts are replicated throughout the architecture.
 ***** encapsulation
 ***** modularization
 ***** hierarchy
-*** [[pdftools:/home/slk500/Dropbox/books/Refactoring/\[Joshua_Kerievsky\]_Refactoring_to_Patterns (2004).pdf::1][Kerievsky, Joshua; Refactoring to Patterns; 2004]]
+*** [[pdf:/home/slk/Dropbox/books/Refactoring/\[Joshua_Kerievsky\]_Refactoring_to_Patterns (2004).pdf::1][Kerievsky, Joshua; Refactoring to Patterns; 2004]]
 **** Primitive Obsession
 ***** Replace Type Code with Class
 if a primitive value controls logic in a class
@@ -1798,7 +1818,7 @@ if an object's state transitions are controller by complex conditional logic
 ***** Replace Conditional Logic with Strategy 
 if complicated conditional logic controls which algorithm to run and that logic relies on primitive values
 *** Fowler, Martin
-**** [[pdftools:/home/slk/Dropbox/books/Refactoring/Fowler, Martin -  Refactoring (2002).pdf::1][Refactoring: Improving the Design of Existing Code; 1999]]
+**** [[pdf:/home/slk/Dropbox/books/Refactoring/Fowler, Martin -  Refactoring (2002).pdf::1][Refactoring: Improving the Design of Existing Code; 1999]]
 - Two of the leading proponents of refactoring are Ward Cunningham and Kent Beck.
 - Ralph Johnson leads a group at the University of Illinois at Urbana-Champaign that is notable for its practical contributions to object technology. Ralph has long been a champion of refactoring, and several of his students have worked on the topic. Bill Opdyke developed the first detailed written work on refactoring in his doctoral thesis. John Brant and Don Roberts have gone beyond writing words into writing a tool, the Refactoring Browser, for refactoring Smalltalk programs
 - There's nothing wrong with a quick and dirty simple program. But if this is a representative fragment of a more complex system, then I have some real problems with this program.
@@ -1998,7 +2018,7 @@ refactoring	must read It's catalog of refactorings for database
    overall can be read
 ** Bhargava, Aditya Grokking Algorithms: An illustrated guide for programmers and other curious people 
 must read 2017 Fully illustrated, friendly, easy to read guide, worth to read. When you will stumble upon a problem, you will know how to recognize it and chose the right Algorithm
-** [[pdftools:/home/slk500/Dropbox/books/Effective Java by Joshua Bloch (z-lib.org).pdf::1][Bloch, Joshua Effective Java 2018]]	
+** [[pdf:/home/slk/Dropbox/books/Effective Java by Joshua Bloch (z-lib.org).pdf::1][Bloch, Joshua Effective Java 2018]]	
 ** Buenosvinos, Carlos	Domain-Driven Design in PHP 2016	
 ** Jones, Paul M. Modernizing Legacy Apps In PHP 2014	
 ** Junade, Ali	Mastering PHP Design Patterns 2016 
@@ -2106,7 +2126,7 @@ Use Extract Class on the fields to turn the clumps into an object. Then turn you
     [[Primitive types]] are generic, classes are more specific  
     fix: Replace Primitive with Object
 **** links
-***** [[pdftools:/home/slk500/Dropbox/books/Refactoring/\[Joshua_Kerievsky\]_Refactoring_to_Patterns (2004).pdf::84][Kerievsky - Refactoring To Patterns]]
+***** [[pdf:/home/slk/Dropbox/books/Refactoring/\[Joshua_Kerievsky\]_Refactoring_to_Patterns (2004).pdf::84][Kerievsky - Refactoring To Patterns]]
 **** individual data values 
      fix: Replace Data Value with Object
 **** if data value is a type code  
@@ -2212,7 +2232,7 @@ Fix: Change Function Declaration, Rename Variable, Rename Field
 ** Taxonomy
 *** 2000 Fowler, Martin - Refactoring: improving the design of existing code
 *** 2003 Wake, William C. - Refactoring Workbook
-*** DONE [[pdftools:../books/Refactoring/articles/subjective evaluation of software evolvability using.pdf::1]["Subjective Evaluation of Software Evolvability Using Code Smells: An Empirical Study" 2006]]
+*** DONE [[pdf:../books/Refactoring/articles/subjective evaluation of software evolvability using.pdf::1]["Subjective Evaluation of Software Evolvability Using Code Smells: An Empirical Study" 2006]]
 - *Szeroko rozumiany termin oznacza zdolność grupy organizmów tworzących linię ewolucyjną do efektywnej odpowiedzi adaptacyjnej w zmieniających się warunkach środowiska. [[https://pl.wikipedia.org/wiki/Ewoluowalno%C5%9B%C4%87][Ewoluowalność]]
 - In order to be able to improve software maintainability, its current state and possible improvement efforts must be made measurable. However, assessing maintainability is a difficult task. Widely studied object-oriented metrics (Briand et al., 1997, 1999; Chidamber and Kemerer, 1994; Harrison et al., 1998; Henderson-Sellers, 1996; Hitz and Montazeri, 1996; Lorenz and Kidd, 1994) offer a way to assess software maintainability. Although some studies report successes in measuring maintainability with metrics (Bansiya and David, 2002; Chidamber et al., 1998; Coleman et al., 1994; Li and Henry 1993; Subramanyam and Krishnan, 2003), there are people, especially in the agile community (Beck et al., 2001), who are critical to using metrics for maintainability assessment, since they feel that metrics fail to account for the breadth of issues that humans consider when evaluating code.
 - Yet, software quality, as quality in general, is largely dependent on one’s point of view (Garvin 1984; Kitchenham and Pfleeger, 1996). From a developer’s viewpoint the ease of modifying and further developing the software is clearly one of the most important quality dimensions. Traditionally one would call this viewpoint to quality software maintainability.
@@ -2285,7 +2305,7 @@ Of course, I could make an argument that these smells should belong to the Objec
 
 Other smells that were studied, but could not be included in any of the groups are Comments and Incomplete Library Class. The Comments smell indicates the misuse of comments, i.e., when a programmer uses comments to explain some piece of code instead of writing code that is simpler and more self-explaining. Incomplete Library Class means that the application is using a third party library code that is not completely adequate for the application. According to Fowler and Beck this smell can be removed, for example, by introducing a local extension.
 
-*** [[pdftools:/home/slk500/Dropbox/books/Refactoring/Refactoring for Software Design Smells - Managing Technical Debt (2015).pdf::1][2015 Ganesh, Samarthyam Tushar, Sharma; Refactoring for Software Design Smells: Managing Technical Debt]]
+*** [[pdf:/home/slk/Dropbox/books/Refactoring/Refactoring for Software Design Smells - Managing Technical Debt (2015).pdf::1][2015 Ganesh, Samarthyam Tushar, Sharma; Refactoring for Software Design Smells: Managing Technical Debt]]
 ** Notes 
 Automatic code analysis:
 Large Class
@@ -2324,6 +2344,7 @@ Duplicate Code
 |-----------------------------------+-----+--------------------------------------------------+-------------------------------------------|
 | [[https://github.com/emilybache/Yatzy-Refactoring-Kata/tree/master/php][Yatzy]]                             | 293 |                                                  |                                           |
 |-----------------------------------+-----+--------------------------------------------------+-------------------------------------------|
+|                                   |     |                                                  |                                           |
 * Definitions
 ** Anemic Domain Model
 - focus on data
@@ -4290,6 +4311,11 @@ albo wszystko ->all()
 $request->request->get('name');
 **** Config
 - [[https://www.andrew-kirkpatrick.com/2014/08/example-use-symfony-config-component-standalone/][EXAMPLE OF HOW TO USE SYMFONY CONFIG COMPONENT STANDALONE]]
+**** Routes
+***** count
+      php bin/console debug:route -e prod |wc -l
+      $this->get('router')->getRouteCollection()->count()
+
 *** CodeIgniter
 *** Laravel
 **** tests
@@ -4335,6 +4361,9 @@ Projekt nie jest jeszcze na produkcji, ciągle w fazie development to można raz
 {{ role.name }}
 {% if not loop.last %},{% endif %}
 {% endfor %}
+** Bootstrap
+*** input file style
+    https://codepen.io/Sebus059/pen/MwMQbP
 ** Linux
 sudo lsof -i -P -n | grep LISTEN
 sudo lsof -i:22 ## see a specific port such as 22 ##
@@ -4542,8 +4571,10 @@ sudo lsof -i:22 ## see a specific port such as 22 ##
 *** Use Official Data Source 
     Use the official data source for a given entity, instead of the
     current one you are using.
-** Links
+** links
    - https://use-the-index-luke.com/
+   - https://blog.hagander.net/fdws-curl-and-limit-247/?fbclid=IwAR02s50ntGH6bJ6FflsUdKx6Opwiwt34mY-bCXLmxTAwrvLclLTuNS64nAU
+   - [[http://nk.gl/slow_queries/analyze][Analyze Your Slow Query Log]]
 * Notepad
 1) Accurate predictions are an oxymoron in the real world. You can't predict accurately for things that aren't certain, and in almost all cases, developers won't know the systems they are dealing with fully enough. Moreover, they don't know their own personal efficiency from day to day; it just can't be foreseen accurately.
 2) Rules are for the guidance of the wise and the obedience of fools.
@@ -4844,6 +4875,7 @@ if (null != $result) {
 $comma_separated = implode(", ", $vars);
 #+end_src
 * Links
+** [[https://codescene.com/blog/][Adam Tornhill]]
 ** [[https://www.tomasvotruba.cz/][Tomas Votruba]]
 ** [[https://pragdave.me/][Dave Thomas]]
 - suggesting that as developers we need to spend more time just practicing: writing throwaway code just to get the experience of writing it.
@@ -4872,7 +4904,6 @@ $comma_separated = implode(", ", $vars);
 - inside junky - kind of like looking at lot of informations and start to understand how things tight together, and then get a flash inside
 *** Top Five Best Practices for Legacy Code with Leon Miller-Out 
 - the CEO of a web app development and maintenance firm Singlebrook,
-
 ** The Clean Code Blog by Robert C. Martin (Uncle Bob)
 *** [[https://blog.cleancoder.com/uncle-bob/2014/04/03/Code-Hoarders.html][Code Hoarders]]
 It’s also easy to believe that acquiring new stuff is more important than organizing old stuff. After all, organizing old stuff does not add value. It’s acquiring new stuff that counts. So if there’s any spare time, or spare effort, or spare energy, it should be directed towards acquiring new stuff. Organizing the old stuff is a waste.
@@ -4882,6 +4913,9 @@ It’s also easy to believe that acquiring new stuff is more important than orga
 * Topics
 ** Documents
    https://github.com/joelparkerhenderson/architecture_decision_record
+** Doctrine
+   https://pschwisow.wordpress.com/2015/10/08/doctrine-migrations/
+   https://tomasvotruba.com/blog/2020/03/23/doctrine-entity-typed-properties-with-php74/
 ** Rewrite
 - [[https://www.joelonsoftware.com/2000/04/06/things-you-should-never-do-part-i/][Things You Should Never Do, Part I]]
 ** Crawler
@@ -4959,7 +4993,7 @@ https://www.rdegges.com/2018/please-stop-using-local-storage/
 ** Style
 - [[https://shkspr.mobi/blog/2014/11/why-i-vertically-align-my-code-and-you-should-too/][Why I vertically align my code (and you should too!)]]
 - [[https://www.huridocs.org/2016/07/file-naming-conventions-why-you-want-them-and-how-to-create-them/][file-naming-conventions-why-you-want-them-and-how-to-create-them]]
-- [[pdftools:/home/slk/Dropbox/books/style/An overview of standards and guidelines for visual display terminals.pdf::1][An overview of standards and guidelines for visual display terminals]]
+- [[pdf:/home/slk/Dropbox/books/style/An overview of standards and guidelines for visual display terminals.pdf::1][An overview of standards and guidelines for visual display terminals]]
 - https://booksc.xyz/s/aspects%20of%20visual%20display%20terminals
 - https://youtu.be/5qRFxMCEbLs
 ** Grep Test
@@ -5126,6 +5160,8 @@ http://cc.davelozinski.com/sql/fastest-way-to-insert-new-records-where-one-doesn
 https://stitcher.io/blog/php-preload-benchmarks
 *** Tools
 - https://github.com/krakjoe/nocheq - Sick of pesky type checking making your code too slow (and correct) ?
+** find vs get 
+   https://tuhrig.de/find-vs-get/
 * About
   It's a simple site about refactoring in PHP. I'm some kind of inside junky. I like looking at lot of informations and start to understand how things are tight together. Love this pleasure rush moment of understanding. Then I like to make things simplier.
   
@@ -5136,321 +5172,11 @@ https://stitcher.io/blog/php-preload-benchmarks
 - https://www.linkedin.com/in/slawomirgrochowski/
 ** Support
 You can support this site: send some BitCoins 1D8xeRkxssTTLESfGZtPVoqVJDq7MJSqNx , send/buy one of the books I would like to read or just say Hello!
-* Frontend                                                         :noexport:
-** CSS
-https://purgecss.com/#table-of-contents
-** JS
-*** react
-**** file download
-axios({
-url: 'http://localhost:5000/static/example.pdf',
-method: 'GET',
-responseType: 'blob', // important
-}).then((response) => {
-const url = window.URL.createObjectURL(new Blob([response.data]));
-const link = document.createElement('a');
-link.href = url;
-link.setAttribute('download', 'file.pdf');
-document.body.appendChild(link);
-link.click();
-});
-** Interface and User Experience
-*** [[https://en.wikipedia.org/wiki/Post/Redirect/Get][Redirect after a POST]] if that POST was successful, to prevent a refresh from submitting again.
-* Trash                                                            :noexport:
-** order
-#+begin_src php
-public function __construct()
-{
-    $this->setTo(Input::get('args.to')); //order is important! first setTo then setFrom
-    $this->setFrom(Input::get('args.from'));
-}
 
-protected function setTo(?string $to)
-{
-    $this->to = $to ? Carbon::createFromTimeString($to)->endOfDay() : (new Carbon())->endOfDay();
-}
-
-protected function setFrom(?string $from)
-{
-    $carbonFrom = $from ? Carbon::createFromTimeString($from) : $this->to->copy()->subYear();
-
-    if ($carbonFrom->gt($this->to)) {
-        abort(422, trans('error.to-must-be-greater-than-from'));
-    }
-
-    $this->from = $carbonFrom->endOfDay();
-}
-#+end_src
-** cognitive dissonance
-#+begin_src php
-final class NextDateTimeGreaterThanPreviousValidator
-{
-    /**
-     ,* @param Collection|Carbon[] $dates
-     ,*/
-    public function validate(Collection $dates): bool
-    {
-        return $dates->every(function(Carbon $date, $key) use ($dates) {
-            $nextDate = $dates->get($key + 1);
-
-            if(!$nextDate) {
-                return true;
-            }
-
-            return $date->lessThan($nextDate);
-        });
-    }
-}
-#+end_src
-Dziękuje każdemu za cenne wskazówki i uwagi, każdy po troszę ma rację. Myślę, że nie ma tutaj wzorowego rozwiązania. Mnie osobiście raził pewien 'dysonanspoznawczy' że klasa nazywa się 'NextDateTimeGreaterThanPreviousValidator' natomiast na return jest sprawdzane czy 'poprzednia data jest mniejsza od następnej' spójnie z nazwą byłoby sprawdzić czy 'nastęþna data jest większa od poprzedniej'. Chociaż po sugestiach innych, ta moja uwaga wydaje się błahostką.  
-#+begin_src php
-final class NextDateTimeGreaterThanPreviousDateTimeValidator
-{
-    /**
-     ,* @param Collection|Carbon[] $dates
-     ,*/
-    public function validate(Collection $dates): bool
-    {
-        return $dates->every(function(Carbon $previousDateTime, int $key) use ($dates) {
-            $nextDateTime = $dates->get($key + 1);
-
-            if(!$nextDateTime) {
-                return true;
-            }
-
-            return $nextDateTime->greaterThan($previousDateTime);
-        });
-    }
-}
-#+end_sr
-** refactor
-$cmResponse = $this->getStatus();
-
-private function getStatus(): PaymentResponse
-{
-return resolve(PaymentCardManagerResponseProcessor::class)->process(
-resolve(ProcessCardManagerRequestService::class)
-->process(new GetPaymentStatusRequest($this->payment))
-);
-}
-* Journals                                                         :noexport:
-  Empirical Software Engineering
-* Recrut                                                           :noexport:
-** array_map
-   #+begin_src php
-$letters = ['a','b','c','d','e' ];
-$numbers = [1,2,3,4,5];
-
-// ['a1','b2','c3','d4','e5']
-
-$pairs = array_map(
-fn($letters, $number) => "$letter$number",
-$letters,
-$numbers
-);
-
-print_r($pairs);
-
-   #+end_src
-
-   #+RESULTS:
-   : Array
-   : (
-   :     [0] => 1
-   :     [1] => 2
-   :     [2] => 3
-   :     [3] => 4
-   :     [4] => 5
-   : )
-** employees salary
-#+begin_src php
-$employees = [
-    [
-        'name' => 'John',
-        'age' => 43,
-        'salary' => 90000,
-        'job_title' => 'developer',
-    ], [
-        'name' => 'Hannah',
-        'age' => 32,
-        'salary' => 110000,
-        'job_title' => 'developer',  
-    ], [
-        'name' => 'Ralph',
-        'age' => 22,
-        'salary' => 35000,
-        'job_title' => 'construction worker',
-    ], [
-        'name' => 'Rachel',
-        'age' => 29,
-        'salary' => 55000,
-        'job_title' => 'digital marketing specialist',
-    ]
-];
-
-$developers = array_filter($employees, fn($x) => $x['job_title'] == 'developer');
-$developer_salaries = array_map(fn($x) => $x['salary'], $developers);
-$total_developer_salaries = array_reduce(
-    $developer_salaries,
-    fn($carry, $item) => $carry + $item,
-);
-$average_developer_salary = $total_developer_salaries / count($developer_salaries);
-
-$non_developers = array_filter($employees, fn($x) => $x['job_title'] != 'developer');
-$non_developer_salaries = array_map(fn($x) => $x['salary'], $non_developers);
-$total_non_developer_salaries = array_reduce(
-    $non_developer_salaries,
-    fn($carry, $item) => $carry + $item,
-);
-$average_non_developer_salary = $total_non_developer_salaries / count($non_developer_salaries);
-
-echo "The average developer salary is $average_developer_salary\n";
-echo "The average non-developer salary is $average_non_developer_salary\n";
-#+end_src
-** unpack array
-   #+begin_src php
-$input = [
-    0 => ['a' => ['id' => 1]],
-    1 => ['b' => ['id' => 2]]
-];
-
-$expected = [
-    'a' => ['id' => 1],
-    'b' => ['id' => 2]
-];
-
-foreach ($input as $key => $value) {
-    $output = array_merge($output, $value);
-}
-
-$result = array_merge(...$input);
-
-   #+end_src
-
-* Presentation                                                     :noexport:
-** CultureVein - change to functions
-   - zmiena nazwy funkcji która jest wywoływana z obiektu jest bardziej podatna na błędy niż samej funkcji
-   - przerzucenie funkcji do innego pliku nie ważę się absolutnie z żadną zmianą dla systemu, w przeciwieństwie do tworzenia taxonomi - gdzie isteniej duża podatność na błędy. To gdzie dana funkcja znajduję się w systemie jest tylko dla człowieka w której warstwie, componecie ona się znajduję a nie dla systemu gdzie ma ją znaleźć
-** Simple presentation for a complex people
-** [[https://youtu.be/6ayR9s5pudk][Life Without Objects]]
-   - object
-    - inheritance  
-    - namespace 
-    - data
-    - functions
-    - abstract - behaviour (modify data with functions)
-    - state managment 
-    - polymorphic dispatch
-
-*** [[https://youtu.be/US8QG9I1XW0][Functional architecture - The pits of success - Mark Seemann]]
-    OOP - entities, value objects, services
-    functional - data, functions
-*** Other
-   The whole point of objects is that they are a technique to package data with the processes used on that data.[Fowler]
-** What's that smell?
-*** software quality 
-    refers to two related but distinct notions
-**** functional quality 
-     - how well it complies with or conforms to a given design, based on functional requirements or specifications
-     - how it compares to competitors in the marketplace as a product
-**** structural quality 
-***** maintainability
-      - from a developer’s viewpoint the ease of modifying and further developing the software is clearly one of the most important quality dimensions - maintainability.
-      - what is ? - modularity, understandability, changeability, testability, reusability, and transferability
-      - how to achieve ? - compliance with Programming Practices
-	- code compliance with Programming Practices - 'good code, clean code'
-	- code noncompliant with Programming Practices - 'bad code, dirty code'
-	  - how that code looks like? how to recognise? 
-	    - 'bad smell' - indicators of violation Programming Practices - help software developers recognise problematic code
-	      - how to fix this?
-		- refactoring
-      Refactoring (noun): a change made to the internal structure of software to make it easier to understand and cheaper to modify without changing its observable behavior.
-
-      Refactoring (verb): to restructure software by applying a series of refactorings without changing its observable behavior.
-
-
-
-  - the goal of code refactoring is to make the software easier to understand and/or extent
-*** 'bad code' - indicators - smells
-    vague, ulotne, wyczucia, przeczucia dotyczące tego jak powinnien wyglądać dobry kod, subiektywne w dodatku zależne od stanu oceniającego, - jego doświadczenia, zmęczenia itp.
-
-- is a hint that something might be wrong, not a certainty 
-
-"Rules are for the guidance of the wise and the obedience of fools."
-
-*** make it official
-    Fowler, Martin - Refactoring: improving the design of existing code (2002)
-
-- gather 22
-** Progress
-*** IN-PROGRESS Fowler, Martin - Refactoring: improving the design of existing code
-end 97
-*** TODO Working Effectively with Legacy Code; 2005
-*** DONE "Subjective Evaluation of Software Evolvability Using Code Smells: An Empirical Study" 2006
-*** TODO Antipatterns. Refactoring Software, Archtectures and Projects in Crisis 1998
-** Notes
-*** legacy code
-- valueable code you afraid to change
-** Used
-   https://wiki.c2.com/?CodeSmell
-* Case?                                                            :noexport:
-  #+begin_src php
-final class VideoTagNormalizer
-{
-    //todo to complex -> make it simple
-    public function normalize(array $array): array
-    {
-        $previous_tag_slug_id = '';
-        $lastKey = null;
-        $result = [];
-
-        /**
-         ,* @var $video_tag VideoTagRaw
-         ,*/
-        foreach ($array as $video_tag) {
-
-            if($previous_tag_slug_id === $video_tag->tag_slug_id){
-
-                $result[$lastKey]['video_tags_time'][]=[
-                    'video_tag_time_id' => $video_tag->video_tag_time_id,
-                    'start' => $video_tag->start,
-                    'stop' => $video_tag->stop
-                ];
-
-                $previous_tag_slug_id = $video_tag->tag_slug_id;
-            } else {
-                $video_tag_normalize = [
-                    'video_tag_id' => $video_tag->video_tag_id,
-                    'video_youtube_id' => $video_tag->video_youtube_id,
-                    'tag_name' => $video_tag->tag_name,
-                    'tag_slug_id' => $video_tag->tag_slug_id,
-                    'is_complete' => $video_tag->is_complete,
-                    'video_tags_time' => []
-                ];
-
-                if($video_tag->video_tag_time_id) {
-                    $video_tag_normalize['video_tags_time'][] = [
-                        'video_tag_time_id' => $video_tag->video_tag_time_id,
-                        'start' => $video_tag->start,
-                        'stop' => $video_tag->stop
-                    ];
-                }
-
-                $previous_tag_slug_id = $video_tag->tag_slug_id;
-                $result [] = $video_tag_normalize;
-            }
-            $lastKey = array_key_last($result);
-        }
-        return array_values($result); //have to do this -> angular will throw error otherwise
-    }
-}
-  #+end_src
-* Pytanie Rekrut                                                   :noexport:
-** innodb myisam
-   blokowania całej tabeli myisam
-   blokowanie wierszy
-** struktura danych
-   tree - jaki sposób wypełnienia,  
-   cqrs - co to jest -
-   jakie są struktury danych, 
-   Maciej Kabala
+Bardzo fajna i rzeczowa prezentacja, nie sądziłem, że ludzie Polsce tak jak ja interesuję się legacy code & refactoring. 
+Ostatnio stosuję koncepcję Tombstone (https://youtu.be/29UXzfQWOhQ), która pozwala zbierać na produkcji statystyki dotyczące którę części kodu są rzadko albo wcale nie używane przez użytkowników. Co pozwala raz na jakiś czas odmieścić aplikację z kodu. Czy też stosujecie te koncepcję?
+* Bin                                                              :noexport:
+** use in constructors or setters?
+   Symfony Controllers - autowire dependencies -
+   1. wszystkie zależności są wstrzykiwane do konstruktora klasy
+   2. zależności są wstrzykiwane do każdej z metod która ich wymaga 

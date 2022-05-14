@@ -1,0 +1,10 @@
+Programowanie to próba stworzenie pewnego modelu. Model ten jest w ciągłym ruchu, ciągle się zmienia i rozrasta.
+Aby go cały czas rozumieć musismy korzystać z dwóch podstawowych czynności rozumowania: analizy i syntezy.
+Analiza – ogół  czynności  dokonywania  rozkładu całości na poszczególne elementy składowe.
+Synteza – ogół czynności dokonywania scalania poszczególnych elementów w całość.
+
+Tworzymy prosty program. Hello World!
+#+begin_src php
+echo 'Hello World!';
+#+end_src>
+

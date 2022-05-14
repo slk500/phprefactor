@@ -1,0 +1,11 @@
+#+INCLUDE: "../org-templates/level-0.org"
+#+TITLE: links
+
+* newstletters / websites
+  - [[https://arlobelshee.com/][arlobelshee.com]]
+* podcasts
+  - [[https://www.legacycode.rocks/][legacy code rocks!]]
+  - [[https://maintainable.fm/][maintainable.fm]]
+* conferences
+  - [[https://www.youtube.com/channel/UC0M37QolwmwobAY4Bt8Tszg][The Legacy of SoCraTes]]
+  - [[https://mendercon.com/][mendercon.com]]

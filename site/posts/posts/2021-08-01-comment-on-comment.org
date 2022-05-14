@@ -1,0 +1,48 @@
+#+INCLUDE: "../../org-templates/level-1.org"
+#+TITLE: comment on comment  
+
+* comment on comment
+W środowisku wszechobecnie panuję pogląd iż komentowanie, dodawania komentarzy do kodu to zło.
+Całkowicie się z tym zgadzam ale tylko podczas tworzenia, pisania nowego kodu. Komentarze objaśniace pisany właśnie kod to to pierwoszorzędny <code smell>.
+Ale w całej tej dyskusji nikt nie wspomina o kodzie już zostanym, legacy code. Czyli coś co znakomita większość z nas spędza większość czasu. Tutaj sądzę, że komentarze, mają zastosowanie i są potrzebne 
+
+Ogólnie z kodowaniem jest też trochę jak z czytaniem książki, niektórzy po niej piszą zakreślają. Itp.
+Chodzi przede wszystkim o komunikację, kod jest komunikacją tak samo jak komentarz.
+Zależnie od zespołu w którym pracujemy.
+Może zdradząc pewnę kierunki w którym chcemy iść reszcię zespołu, albo też powoli oswajać ich z zamiarami. Jeśli klepna nam kometnarz mówiąc, że dany element jest do wyjebki to już jesteśmy bliżej celu akceptacji tej decyzji.
+
+Myślę, że komentowanie kodu należy ująć w dwóch obszarach, podczas wytwarzania całkowicie nowego kodu oraz podczas pracy nad kodem zastałym.
+Ponieważ w środowisku panuję powszechna opinią, że 'code is the comment' - i tutaj się zgadzam, że podczas pisania nowego kodu dodawanie komentarz świadczy, że sam kod jest poprostu niezrozumiały i musimy go dodatkowo objaśniać komentarzami.
+Natomiast kiedy pracuję z kodem zastałym, kodem który nie jest dla nas wystarczający zrozumiały, legacy code to komentarz są jak najbardziej pożytecznym i słszcznym tworem.
+Dodatkowo kolejnym czynnikiem jest to czy pracujemy sami czy z kimś i w jak dużym zespole. To również będzie wpływało na zasadność użycia komentarzy.
+Myślę, że to podobne podejście jak do pisanie swoich własnych komentarzy czytając książke, niektórzy z wielkiem namaszczeniem podchodzą do książki i nie chcą jej brudzić komentarzami, bazgrać, myślę, że podobne podejście jest podczas pisania kodu.
+https://stackoverflow.blog/2021/07/05/best-practices-for-writing-code-comments/?utm_source=pocket_mylist
+
+Przedewszystkim kiedy pracujemy nad danym obszarem np. ficzer dodanie nowego uzytkownika, chodzimy po całej części systemu kiedy zauważymy coś co należało by poprawić pytanie czy teraz w tym czasie na tym branchu zmieniamy coś co raz że wykracza poza obszar dodawanaj funkcjonalności dwa dotyczy innego obszary np. faktur.
+Myslę, że w tym przypadku warto dodać komentarz todo.
+Oczywiście wszystko zależy od zespołu. Im projekt i zespół jest większy tym bardziej nasze commity muszą być małe i dotyczyć jak najmniejszego zakresu zmian. 
+
+
+
+1. to show future indtent
+#+begin_src php
+//nie wiem czy to jest używane? wyszukiwanie jest przecież do DataTable, dodać tombstone na controller
+//jest używane przy zapisie do sesji partner id - należy to usunąć a parametr podawać przez query string
+FindPartnerForm.initFindPartnerForm();
+FindPartnerForm.addPartnerFoundListener(function() {
+table.ajax.reload(null, false);
+});
+
+
+
+//todo remove - use Repository
+/**
+'* @param int $id ID operatora Benefitu
+'* @return OperatorBS
+  */
+  public function getOperatorWithUserData($id)
+  {
+  return $this->em->getRepository('AppBundle:OperatorBS')->find($id);
+  }
+
+#+end_src>

@@ -1,0 +1,2 @@
+1. updateQuality - że niby tylko jedną wartość zmienia a zmienia dwie.
+2. 

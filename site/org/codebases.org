@@ -1,0 +1,26 @@
+#+INCLUDE: "../org-templates/level-0.org"
+#+TITLE: codebases
+
+
+| video       | source code                       | description                                 | loc |
+|-------------+-----------------------------------+---------------------------------------------+-----|
+|             | [[https://github.com/christianhujer/expensereport/tree/trunk/expensereport-php][Expense Report]]                    |                                             |  42 |
+|-------------+-----------------------------------+---------------------------------------------+-----|
+| [[https://github.com/emilybache/GildedRose-Refactoring-Kata/tree/main/php][Gilded Rose]] | [[https://github.com/slk500/gilded-rose][Gilded Rose]]                       |                                             |  84 |
+|             |                                   |                                             |     |
+|             |                                   |                                             |     |
+|-------------+-----------------------------------+---------------------------------------------+-----|
+|             | [[https://github.com/adamculp/refactoring101][Video Rental Shop]]                 | book "Refactoring" by M.Fowler              | 132 |
+|-------------+-----------------------------------+---------------------------------------------+-----|
+|             | [[https://github.com/emilybache/Theatrical-Players-Refactoring-Kata][Theatrical Players]]                | book "Refactoring" by M.Fowler, 2nd Edition | 144 |
+|-------------+-----------------------------------+---------------------------------------------+-----|
+|             | [[https://github.com/jbrains/trivia/tree/master/php][Legacy Code Retreat - Trivia Game]] | designed for [[https://legacycoderetreat.typepad.com/][Legacy Code Retreat]] events     | 196 |
+|             |                                   |                                             |     |
+|             |                                   |                                             |     |
+|-------------+-----------------------------------+---------------------------------------------+-----|
+|             | [[https://github.com/emilybache/Yatzy-Refactoring-Kata/tree/master/php][Yatzy]]                             |                                             | 293 |
+|-------------+-----------------------------------+---------------------------------------------+-----|
+|             | [[https://github.com/emilybache/Racing-Car-Katas/tree/master/php][Racing Car]]                        |                                             | 471 |
+|-------------+-----------------------------------+---------------------------------------------+-----|
+|             | [[https://github.com/emilybache/Tennis-Refactoring-Kata/tree/master/php][Tennis]]                            |                                             | 443 |
+|-------------+-----------------------------------+---------------------------------------------+-----|

@@ -1,0 +1,7 @@
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="../css/navbar.css" />
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="../css/darktheme.css" />
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="../css/style.css" />
+#+HTML_HEAD: <style type="text/css"> <!--/*--><![CDATA[/*><!--*/ .title { display: none; } /*]]>*/--> </style>
+#+OPTIONS: toc:nil num:nil html-style:nil html-scripts:nil html-preamble:nil html-postamble:nil
+#+OPTIONS: ^:nil
+#+INCLUDE: "../navbar/level-1.html" export html

@@ -1,0 +1,5 @@
+#+INCLUDE: "../org-templates/level-0.org"
+#+TITLE: contact
+
+- slawomir.grochowski@gmail.com
+- [[https://twitter.com/s_grochowski][twitter.com/s_grochowski]]

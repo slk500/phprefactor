@@ -37,6 +37,8 @@ https://www.oreilly.com/live-events/technical-debt-first-steps/0636920058624/063
   Jakie są implikację jeśli to prawda?
   1. Dodajemy tylko te funkcjonalności które są używane przez użytkowników - jaki procent? i w jakim czasie ? np. 5% w przeciągu 1 roku.
 * todo
+  Code That Fits in Your Head: Heuristics for Software Engineering
+  Prefactoring Ken Pugh
   One unbounded ocean of consciousness: Simple answers to the big questions in life
   https://tyrrrz.me/blog/unit-testing-is-overrated
   [[https://www.youtube.com/watch?v=vK1DazRK_a0][Solving Problems the Clojure Way - Rafal Dittwald]]
@@ -57,6 +59,620 @@ https://www.oreilly.com/live-events/technical-debt-first-steps/0636920058624/063
   - https://blog.testdouble.com/talks/2016-09-16-surgical-refactors-with-suture/
   - [[https://blog.prototypr.io/the-teapot-model-how-to-explain-a-fuzzy-design-process-to-anxious-clients-4a2e8487bc87][The teapot model: how to explain a fuzzy design process to anxious clients.]]
   - The Programmer's Brain What every programmer needs to know about cognition
+* books
+  Learn Good Business Writing and Communication (Collection)
+  Making Work Visible
+  Brief: Make a Bigger Impact by Saying Less
+  Crucial Accountability: Tools for Resolving Violated Expectations, Broken Commitments, and Bad Behavior, Second Edition, 2nd Edition
+  Fundamentals of Software Architecture
+  Managing Technical Debt: Reducing Friction in Software Development
+  Documenting Software Architectures: Views and Beyond
+  Evaluating Software Architectures: Methods and Case Studies
+** code review
+*** Implementing Effective Code Reviews: How to Build and Maintain Clean Code
+** TODO [[https://bookauthority.org/books/best-refactoring-books?t=ncizgy&s=author&book=0128013974][48 Best Refactoring Books of All Time]]
+** complexity
+*** "A philosophy of software design" by John K Ousterhout
+*** Deming's The New Economics, and Out of the Crisis
+*** Reinertsen's Principles of Product Development Flow
+*** Ward's Lean Product and Process Development
+*** Software Fundamentals: Collected Papers By Book by Daniel M. 
+** DONE Kill It with Fire - Manage Aging Computer Systems (and Future Proof Modern Ones) by Marianne Bellotti
+** [[https://livebook.manning.com/book/the-programmers-brain][The Programmer's Brain]]
+   - lack of knowledge
+   - lack of information
+   - lack of processing power in brain
+     It’s too hard to hold all the intermediate values of the variables and the corresponding actions in your mind at the same time.
+   - A lack of knowledge means that not enough relevant facts are present in your long-term memory, the place where all your memories are permanently stored. A lack of information, on the other hand, presents a challenge for your short-term memory. Information that you are gathering has to be stored in short-term memory temporarily, but if you have to search in a lot of different places you might forget the some of the things you already read. Finally, when you must process a lot of information that takes a toll on the working memory, which is where your thinking happens.
+   - You are mentally trying to execute the code, to understand what is happening. That process is called tracing—the mental compiling and executing of code. The part of the brain used to do tracing and other cognitively complex tasks is called the working memory. You can compare it to the processor of a computer, which performs calculations.
+** functional
+*** Grokking Simplicity: Taming complex software with functional thinking    
+*** LOOKING-FOR Thinking Functionally in PHP Larry Garfield
+*** [[pdf:/home/slk/Dropbox/books/PHP/functional/Pro Functional PHP Programming Application Development Strategies for Performance Optimization, Concurrency, Testability, and Code Brevity by Rob Aley.pdf::1][Pro Functional PHP Programming Application Development Strategies for Performance Optimization, Concurrency, Testability, and Code Brevity by Rob Aley]]
+*** [[pdf:/home/slk/Dropbox/books/PHP/functional/Functional programming with PHP by Simon Holywell.epub::1][Functional programming with PHP by Simon Holywell]]
+*** [[pdf:/home/slk/Dropbox/books/PHP/functional/Functional PHP by Crettenand, Gilles.epub::1][Functional PHP by Crettenand, Gilles]]
+*** [[https://leanpub.com/functional-php/read][Functional PHP The Art of Function Composition by Luis Atencio]]
+** refactoring
+*** Fowler, Martin
+**** [[pdf:/home/slk/Dropbox/books/Refactoring/Fowler, Martin -  Refactoring (2002).pdf::1][Refactoring: Improving the Design of Existing Code; 1999]]
+- Two of the leading proponents of refactoring are Ward Cunningham and Kent Beck.
+- Ralph Johnson leads a group at the University of Illinois at Urbana-Champaign that is notable for its practical contributions to object technology. Ralph has long been a champion of refactoring, and several of his students have worked on the topic. Bill Opdyke developed the first detailed written work on refactoring in his doctoral thesis. John Brant and Don Roberts have gone beyond writing words into writing a tool, the Refactoring Browser, for refactoring Smalltalk programs
+- There's nothing wrong with a quick and dirty simple program. But if this is a representative fragment of a more complex system, then I have some real problems with this program.
+- Any fool can write code that a computer can understand. Good programmers write code that humans can understand.
+- I like to get rid of temporary variables such as this as much as possible. Temps are often a problem in that they cause a lot of parameters to be passed around when they don't have to be. You can easily lose track of what they are there for. They are particularly insidious in long methods. Of course there is a performance price to pay; here the charge is now calculated twice. But it is easy to optimize that in the rental class, and you can optimize much more effectively when the code is properly factored.
+- Refactoring (noun): a change made to the internal structure of software to make it easier to understand and cheaper to modify without changing its observable behavior.
+- Refactor (verb): to restructure software by applying a series of refactorings without changing its observable behavior.
+- ...purpose of refactoring is to make the software easier to understand and modify
+- ...refactoring does not change the observable behavior of the software. The software still carries out the same function that it did before. Any user, whether an end user or another programmer, cannot tell that things have changed.
+- I use refactoring to help me understand unfamiliar code. When I look at unfamiliar code, I have to try to understand what it does. I look at a couple of lines and say to myself, oh yes, that's what this bit of code is doing. With refactoring I don't stop at the mental note. I actually change the code to better reflect my understanding, and then I test that understanding by rerunning the code to see if it still works.
+- Early on I do refactoring like this on little details. As the code gets clearer, I find I can see things about the design that I could not see before. Had I not changed the code, I probably never would have seen these things, because I'm just not clever enough to visualize all this in my head. Ralph Johnson describes these early refactorings as wiping the dirt off a window so you can see beyond. When I'm studying code I find refactoring leads me to higher levels of understanding that otherwise I would miss.
+- refactoring helps you find bugs
+  - ...claryfing the structure of the program
+- refactoring helps you program faster
+  - This sounds counterintuitive. When I talk about refactoring, people can easily see that it improves quality. Improving design, improving readability, reducing bugs, all these improve quality. But doesn't all this reduce the speed of development? I strongly believe that a good design is essential for rapid software development. Indeed, the whole point of having a good design is to allow rapid development. Without a good design, you can progress quickly for a while, but soon the poor design starts to slow you down. You spend time finding and fixing bugs instead of adding new function. Changes take longer as you try to understand the system and find the duplicate code. New features need more coding as you patchover a patch that patches a patch on the original code base. A good design is essential to maintaining speed in software development. Refactoring helps you develop software more rapidly, because it stops the design of the system from decaying. It can even improve a design.
+- When Should You Refactor
+  - In almost all cases, I'm opposed to setting aside time for refactoring. In my view refactoring is not an activity you set aside time to do. Refactoring is something you do all the time in little bursts. You don't decide to refactor, you refactor because you want to do something else, and refactoring helps you do that other thing.
+  - The Rule of Three 
+    - Here's a guideline Don Roberts gave me: The first time you do something, you just do it. The second time you do something similar, you wince at the duplication, but you do the duplicate thing anyway. The third time you do something similar, you refactor.
+    - Tip: Three strikes and you refactor.
+- Refactor When You Add Function
+  - first reason to refactor here is to help me understand some code I need to modify
+  - The other driver of refactoring here is a design that does not help me add a feature easily. I look at the design and say to myself, "If only I'd designed the code this way, adding this feature would be easy."
+- Refactor When You Need to Fix a Bug
+  - In fixing bugs much of the use of refactoring comes from making code more understandable. As I look at the code trying to understand it, I refactor to help improve my understanding. Often I find that this active process of working with the code helps in finding the bug. One way to look at it is that if you do get a bug report, it's a sign you need refactoring, because the code was not clear enough for you to see there was a bug.
+- Refactor As You Do a Code Review
+- I've found that refactoring helps me review someone else's code. Before I started using refactoring, I could read the code, understand some degree of it, and make suggestions. Now when I come up with ideas, I consider whether they can be easily implemented then and there with refactoring. If so, I refactor. When I do it a few times, I can see more clearly what the code looks like with the suggestions in place. I don't have to imagine what it would be like, I can see what it is like. As a result, I can come up with a second level of ideas that I would never have realized had I not refactored.
+- You just code the first approach that comes into your head, get it working, and then refactor it into shape.
+- The problem with building a flexible solution is that flexibility costs. Flexible solutions are more complex than simple ones. The resulting software is more difficult to maintain in general...
+***** Chapter 3. Bad Smells in Code
+- he [Kent Beck] had come up with the notion describing the "when" of refactoring in terms of smells.
+- One thing we won't try to do here is give you precise criteria for when a refactoring is overdue. In our experience no set of metrics rivals informed human intuition. What we will do is give you indications that there is trouble that can be solved by a refactoring. You will have to develop your own sense of how many instance variables are too many instance variables and how many lines of code in a method are too many lines.
+****** Duplicated Code 
+ - number one in the stink parade.
+ - same code structure in more than one place
+******* Same expression in methods of the same class 
+	Extract Function and invoke the code from both places.
+******* Same expression in two sibling subclasses 
+	You can eliminate this duplication by using Extract Method in both classes then Pull Up Field. If the code is similar but not the same, you need to use Extract Method to separate the similar bits from the different bits. You may then find you can use Form Template Method. If the methods do the same thing with a different algorithm, you can choose the clearer of the two algorithms and use Substitute Algorithm.
+******* Duplicated code in two unrelated classes
+	Consider using Extract Class in one class and then use the new component in the other. Another possibility is that the method really belongs only in one of the classes and should be invoked by the other class or that the method belongs in a third class that should be referred to by both of the original classes.
+****** Long Method
+       whenever we feel the need to comment something, we write a method instead.
+       
+       Ninety-nine percent of the time, all you have to do to shorten a method is Extract Method. Find parts of the method that seem to go nicely together and make a new method.
+       
+       If you have a method with lots of parameters and temporary variables, these elements get in the way of extracting methods. If you try to use Extract Method, you end up passing so many of the parameters and temporary variables as parameters to the extracted method that the result is scarcely more readable than the original. You can often use Replace Temp with Query to eliminate the temps. Long lists of parameters can be slimmed down with Introduce Parameter Object and Preserve Whole Object.
+
+       If you've tried that, and you still have too many temps and parameters, it's time to get out the heavy artillery: Replace Method with Method Object.
+
+       Conditionals and loops also give signs for extractions. Use Decompose Conditional to deal with conditional expressions. With loops, extract the loop and the code within the loop into its own method.
+****** Large Class
+       When a class is trying to do too much, it often shows up as too many instance variables. When a class has too many instance variables, duplicated code cannot be far behind.
+
+       You can Extract Class to bundle a number of the variables. Choose variables to go together in the component that makes sense for each. For example, "depositAmount" and "depositCurrency"are likely to belong together in a component. More generally, common prefixes or suffixes for some subset of the variables in a class suggest the opportunity for a component. If the component makes sense as a subclass, you'll find Extract Subclass often is easier.
+
+       Sometimes a class does not use all of its instance variables all of the time. If so, you may be able to Extract Class or Extract Subclass many times.
+       
+       As with a class with too many instance variables, a class with too much code is prime breeding ground for duplicated code, chaos, and death. The simplest solution...is to eliminate redundancy in the class itself. If you have five hundred-line methods with lots of code in common, you may be able to turn them into five ten-line methods with another ten two-line methods extracted from the original. As with a class with a huge wad of variables, the usual solution for a class with too much code is either to Extract Class or Extract Subclass. A useful trick is to determine how clients use the class and to use Extract Interface
+****** Long Parameter List
+       Use Replace Parameter with Method when you can get the data in one parameter by making a request of an object you already know about. This object might be a field or it might be another parameter. Use Preserve Whole Object to take a bunch of data gleaned from an object and replace it with the object itself. If you have several data items with no logical object, use Introduce Parameter Object.
+       
+       There is one important exception to making these changes. This is when you explicitly do not want to create a dependency from the called object to the larger object. In those cases unpacking data and sending it along as parameters is reasonable, but pay attention to the pain involved. If the parameter list is too long or changes too often, you need to rethink your dependency structure.
+****** Divergent Change
+       Divergent change occurs when one class is commonly changed in different ways for different reasons. If you look at a class and say, "Well, I will have to change these three methods every time I get a new database; I have to change these four methods every time there is a new financial instrument," you likely have a situation in which two objects are better than one. That way each object is changed only as a result of one kind of change. Of course, you often discover this only after you've added a few databases or financial instruments. Any change to handle a variation should change a single class, and all the typing in the new class should express the variation. To clean this up you identify everything that changes for a particular cause and use Extract Class to put them all together.
+****** Shotgun Surgery
+       Shotgun surgery is similar to divergent change but is the opposite. You whiff this when every time you make a kind of change, you have to make a lot of little changes to a lot of different classes.  When the changes are all over the place, they are hard to find, and it's easy to miss an important change.  In this case you want to use Move Method and Move Field to put all the changes into a single class. If no current class looks like a good candidate, create one. Often you can use Inline Class to bring a whole bunch of behavior together. You get a small dose of divergent change, but you can easily deal with that.  Divergent change is one class that suffers many kinds of changes, and shotgun surgery is one change that alters many classes. Either way you want to arrange things so that, ideally, there is a one-to-one link between common changes and classes.
+****** Feature Envy
+       The whole point of objects is that they are a technique to package data with the processes used on that data.
+A classic smell is a method that seems more interested in a class other than the one it actually is in. The most common focus of the envy is the data...a method that invokes half-a-dozen getting methods on another object to calculate some value. Fortunately the cure is obvious, the method clearly wants to be elsewhere, so you use Move Method to get it there. Sometimes only part of the method suffers from envy; in that case use Extract Method on the jealous bit and Move Method...
+
+       Of course not all cases are cut-and-dried. Often a method uses features of several classes, so which one should it live with? The heuristic we use is to determine which class has most of the data and put the method with that data. This step is often made easier if Extract Method is used to break the method into pieces that go into different places.  Of course there are several sophisticated patterns that break this rule. From the Gang of Four [Gang of Four] Strategy and Visitor immediately leap to mind. Kent Beck's Self Delegation [Beck] is another. You use these to combat the divergent change smell. The fundamental rule of thumb is to put things together that change together. Data and the behavior that references that data usually change together, but there are exceptions. When the exceptions occur, we move the behavior to keep changes in one place. Strategy and Visitor allow you to change behavior easily, because they isolate the small amount of behavior that needs to be overridden, at the cost of further indirection.
+****** Data Clumps
+       Data items tend to be like children; they enjoy hanging around in groups together. Often you'll see the same three or four data items together in lots of places: fields in a couple of classes, parameters in many method signatures. Bunches of data that hang around together really ought to be made into their own object. The first step is to look for where the clumps appear as fields.  Use Extract Class on the fields to turn the clumps into an object. Then turn your attention to method signatures using Introduce Parameter Object or Preserve Whole Object to slim them down. The immediate benefit is that you can shrink a lot of parameter lists and simplify method calling. Don't worry about data clumps that use only some of the fields of the new object.  As long as you are replacing two or more fields with the new object, you'll come out ahead.
+****** Primitive Obession
+       ...using Replace Data Value with Object on individual data values. If the data value is a type code, use Replace Type Code with Class if the value does not affect behavior. If you have conditionals that depend on the type code, use Replace Type Code with Subclasses or Replace Type Code with State/Strategy. If you have a group of fields that should go together, use Extract Class. If you see these primitives in parameter lists, try a civilizing dose of Introduce Parameter Object. If you find yourself picking apart an array, use Replace Array with Object.
+****** Switch Statements
+       One of the most obvious symptoms of object-oriented code is its comparative lack of switch (or case) statements. The problem with switch statements is essentially that of duplication. Often you find the same switch statement scattered about a program in different places. If you add a new clause to the switch, you have to find all these switch, statements and change them. The object- oriented notion of polymorphism gives you an elegant way to deal with this problem.  
+
+Most times you see a switch statement you should consider polymorphism. The issue is where the polymorphism should occur. Often the switch statement switches on a type code. You want the method or class that hosts the type code value. So use Extract Method to extract the switch statement and then Move Method to get it onto the class where the polymorphism is needed. At that point you have to decide whether to Replace Type Code with Subclasses or Replace Type Code with State/Strategy. When you have set up the inheritance structure, you can use Replace Conditional with Polymorphism.  
+
+If you only have a few cases that affect a single method, and you don't expect them to change, then polymorphism is overkill. In this case Replace Parameter with Explicit Methods is a good option. If one of your conditional cases is a null, try Introduce Null Object.
+****** Parallel Inheritance Hierarchies
+       Parallel inheritance hierarchies is really a special case of shotgun surgery. In this case, every time you make a subclass of one class, you also have to make a subclass of another. You can recognize this smell because the prefixes of the class names in one hierarchy are the same as the prefixes in another hierarchy.
+
+       The general strategy for eliminating the duplication is to make sure that instances of one hierarchy refer to instances of the other. If you use Move Method and Move Field, the hierarchy on the referring class disappears.
+****** Lazy Class
+       Each class you create costs money to maintain and understand. A class that isn't doing enough to pay for itself should be eliminated. Often this might be a class that used to pay its way but has been downsized with refactoring. Or it might be a class that was added because of changes that were planned but not made. Either way, you let the class die with dignity. If you have subclasses that aren't doing enough, try to use Collapse Hierarchy. Nearly useless components should be subjected to Inline Class.
+****** Speculative Generality
+       You get it when people say, "Oh, I think we need the ability to this kind of thing someday" and thus want all sorts of hooks and special cases to handle things that aren't required. The result often is harder to understand and maintain. If all this machinery were being used, it would be worth it. But if it isn't, it isn't. The machinery just gets in the way, so get rid of it.
+
+       If you have abstract classes that aren't doing much, use Collapse Hierarchy. Unnecessary delegation can be removed with Inline Class. Methods with unused parameters should be subject to Remove Parameter. Methods named with odd abstract names should be brought down to earth with Rename Method.
+
+       Speculative generality can be spotted when the only users of a method or class are test cases. If you find such a method or class, delete it and the test case that exercises it. If you have a method or class that is a helper for a test case that exercises legitimate functionality, you have to leave it in, of course.
+****** Temporary Field
+       Sometimes you see an object in which an instance variable is set only in certain circumstances.  Such code is difficult to understand, because you expect an object to need all of its variables.  Trying to understand why a variable is there when it doesn't seem to be used can drive you nuts.  
+       
+       Use Extract Class to create a home for the poor orphan variables. Put all the code that concerns the variables into the component. You may also be able to eliminate conditional code by using Introduce Null Object to create an alternative component for when the variables aren't valid.
+
+       A common case of temporary field occurs when a complicated algorithm needs several variables.  Because the implementer didn't want to pass around a huge parameter list (who does?), he put them in fields. But the fields are valid only during the algorithm; in other contexts they are just plain confusing. In this case you can use Extract Class with these variables and the methods that require them. The new object is a method object [Beck].
+****** Message Chains
+       You see message chains when a client asks one object for another object, which the client then asks for yet another object, which the client then asks for yet another another object, and so on.  You may see these as a long line of getThis methods, or as a sequence of temps. Navigating this way means the client is coupled to the structure of the navigation. Any change to the intermediate relationships causes the client to have to change.  
+       
+       The move to use here is Hide Delegate. You can do this at various points in the chain. In principle you can do this to every object in the chain, but doing this often turns every intermediate object into a middle man. Often a better alternative is to see what the resulting object is used for.  See whether you can use Extract Method to take a piece of the code that uses it and then Move Method to push it down the chain. If several clients of one of the objects in the chain want to navigate the rest of the way, add a method to do that.
+****** Middle Man
+       One of the prime features of objects is encapsulation—hiding internal details from the rest of the world. Encapsulation often comes with delegation. You ask a director whether she is free for a meeting; she delegates the message to her diary and gives you an answer. All well and good.  There is no need to know whether the director uses a diary, an electronic gizmo, or a secretary to keep track of her appointments.
+
+       However, this can go too far. You look at a class's interface and find half the methods are delegating to this other class. After a while it is time to use Remove Middle Man and talk to the object that really knows what's going on. If only a few methods aren't doing much, use Inline Method to inline them into the caller. If there is additional behavior, you can use Replace Delegation with Inheritance to turn the middle man into a subclass of the real object. That allows you to extend behavior without chasing all that delegation.
+****** Inappropriate Intimacy
+       Sometimes classes become far too intimate and spend too much time delving in each others'private parts. We may not be prudes when it comes to people, but we think our classes should follow strict, puritan rules.  
+
+       Overintimate classes need to be broken up as lovers were in ancient days. Use Move Method and Move Field to separate the pieces to reduce the intimacy. See whether you can arrange a Change Bidirectional Association to Unidirectional. If the classes do have common interests, use Extract Class to put the commonality in a safe place and make honest classes of them. Or use Hide Delegate to let another class act as go-between.
+       
+       Inheritance often can lead to overintimacy. Subclasses are always going to know more about their parents than their parents w
+****** Alternative Classes with Different Interfaces
+       Use Rename Method on any methods that do the same thing but have different signatures for what they do. Often this doesn't go far enough. In these cases the classes aren't yet doing enough. Keep using Move Method to move behavior to the classes until the protocols are the same. If you have to redundantly move code to accomplish this, you may be able to use Extract Superclass to atone.
+****** Incomplete Library Class
+       Reuse is often touted as the purpose of objects. We think reuse is overrated (we just use).  However, we can't deny that much of our programming skill is based on library classes so that nobody can tell whether we've forgotten our sort algorithms. 
+       
+       Builders of library classes are rarely omniscient. We don't blame them for that; after all, we can rarely figure out a design until we've mostly built it, so library builders have a really tough job. The trouble is that it is often bad form, and usually impossible, to modify a library class to do something you'd like it to do. This means that tried-and-true tactics such as Move Method lie useless.
+       
+       We have a couple of special-purpose tools for this job. If there are just a couple of methods that you wish the library class had, use Introduce Foreign Method. If there is a whole load of extra behavior, you need Introduce Local Extension.
+****** Data Class
+       These are classes that have fields, getting and setting methods for the fields, and nothing else.  Such classes are dumb data holders and are almost certainly being manipulated in far too much detail by other classes. In early stages these classes may have public fields. If so, you should immediately apply Encapsulate Field before anyone notices. If you have collection fields, check to see whether they are properly encapsulated and apply Encapsulate Collection if they aren't. Use Remove Setting Method on any field that should not be changed.  
+
+       Look for where these getting and setting methods are used by other classes. Try to use Move Method to move behavior into the data class. If you can't move a whole method, use Extract Method to create a method that can be moved. After a while you can start using Hide Method on the getters and setters. 
+       
+       Data classes are like children. They are okay as a starting point, but to participate as a grownup object, they need to take some responsibility.
+****** Refused Bequest
+       Subclasses get to inherit the methods and data of their parents. But what if they don't want or need what they are given? They are given all these great gifts and pick just a few to play with.
+       
+       The traditional story is that this means the hierarchy is wrong. You need to create a new sibling class and use Push Down Method and Push Down Field to push all the unused methods to the sibling. That way the parent holds only what is common. Often you'll hear advice that all superclasses should be abstract.  
+
+       You'll guess from our snide use of traditional that we aren't going to advise this, at least not all the time. We do subclassing to reuse a bit of behavior all the time, and we find it a perfectly good way of doing business. There is a smell, we can't deny it, but usually it isn't a strong smell. So we say that if the refused bequest is causing confusion and problems, follow the traditional advice.  However, don't feel you have to do it all the time. Nine times out of ten this smell is too faint to be worth cleaning.  
+
+       The smell of refused bequest is much stronger if the subclass is reusing behavior but does not want to support the interface of the superclass. We don't mind refusing implementations, but refusing interface gets us on our high horses. In this case, however, don't fiddle with t
+****** Comments
+       If you need a comment to explain what a block of code does, try Extract Method. If the method is already extracted but you still need a comment to explain what it does, use Rename Method.  If you need to state some rules about the required state of the system, use Introduce Assertion.
+
+       Tip: When you feel the need to write a comment, first try to refactor the code so that any comment becomes superfluous.
+
+       A good time to use a comment is when you don't know what to do. In addition to describing what is going on, comments can indicate areas in which you aren't sure. A comment is a good place to say why you did something. This kind of information helps future modifiers, especially forgetful ones
+***** Chapter 4. Building Tests
+- the essential precondition is having solid tests.
+- I'm a pretty lazy person and am prepared to work quite hard in order to avoid work.
+- In fact, one of the most useful times to write tests is before you start programming. When you need to add a feature, begin by writing the test. This isn't as backward as it sounds. By writing the test you are asking yourself what needs to be done to add the function. Writing the test also concentrates on the interface rather than the implementation (always a good thing). It also means you have a clear point at which you are done coding—when the test works.
+- Now we should continue adding more tests. The style I follow is to look at all the things the class should do and test each one of them for any conditions that might cause the class to fail. This is not the same as "test every public method," which some programmers advocate. Testing should be risk driven; remember, you are trying to find bugs now or in the future. So I don't test accessors that just read and write a field. Because they are so simple, I'm not likely to find a bug there.This is important because trying to write too many tests usually leads to not writing enough. I've often read books on testing, and my reaction has been to shy away from the mountain of stuff I have to do to test. This is counterproductive, because it makes you think that to test you have to do a lot of work. You get many benefits from testing even if you do only a little testing. The key is to test the areas that you are most worried about going wrong. That way you get the most benefit for your testing effort.
+***** Chapter 5. Toward a Catalog of Refactorings
+- The examples are of the laughably simple textbook kind. My aim with the example is to help explain the basic refactoring with minimal distractions, so I hope you'll forgive the simplicity. (They are certainly not examples of good business object design.) I'm sure you'll be able to apply them to your rather more complex situations. Some very simple refactorings don't have examples because I didn't think an example would add much.
+- In particular, remember that the examples are included only to illustrate the one refactoring under discussion. In most cases, there are still problems with the code at the end, but fixing these problems requires other refactorings. In a few cases in which refactorings often go together, I carry examples from one refactoring to another. In most cases I leave the code as it is after the single refactoring. I do this to make each refactoring self-contained, because the primary role of the catalog is as a reference.
+- Don't take any of these examples as suggestions for how to design employee or order objects. These examples are there only to illustrate the refactorings, nothing more. 
+***** Chapter 6. Composing Methods
+- The key is the semantic distance between the method name and the method body.
+  
+**** [[pdf:/home/slk/Dropbox/books/Refactoring/Folwer, Martin - Refactoring (2020).pdf::1][Refactoring: Improving the Design of Existing Code; 2020]]
+ - With any introductory example, however, I run into a problem. If I pick a large program, describing it and how it is refactored is too complicated for a mortal reader to work through.(...) However, if I pick a program that is small enough to be comprehensible, refactoring does not look like it is worthwhile.
+ 
+ - Thus, if I’m faced with modifying a program with hundreds of lines of code, I’d rather it be structured into a set of functions and other program elements that allow me to understand more easily what the program is doing. If the program lacks structure, it’s usually easier for me to add structure to the program first, and then make the change I need.
+
+ - If the code works and doesn’t ever need to change, it’s perfectly fine to leave it alone. It would be nice to improve it, but unless someone needs to understand it, it isn’t causing any real harm. Yet as soon as someone does need to understand how that code works, and struggles to follow it, then you have to do something about it.
+
+ - Refactoring changes the programs in small steps, so if you make a mistake, it is easy to find where the bug is.
+ - Any fool can write code that a computer can understand. Good programmers write code that humans can understand.
+ - The true test of good code is how easy it is to change it.
+ - Refactoring (noun): a change made to the internal structure of software to make it easier to understand and cheaper to modify without changing its observable behavior.
+ - Refactoring (verb): to restructure software by applying a series of refactorings without changing its observable behavior.
+ - Refactoring is very similar to performance optimization, as both involve carrying out code manipulations that don’t change the overall functionality of the program. The difference is the purpose: Refactoring is always done to make the code “easier to understand and cheaper to modify.” This might speed things up or slow things down. With performance optimization, I only care about speeding up the program, and am prepared to end up with code that is harder to work with if I really need that improved performance.
+
+ - Without refactoring, the internal design—the architecture—of software tends to decay.As people change code to achieve short­term goals, often without a full comprehensionof the architecture, the code loses its structure. It becomes harder for me to see thedesign by reading the code. Loss of the structure of code has a cumulative effect. Theharder it is to see the design in the code, the harder it is for me to preserve it, and themore rapidly it decays. Regular refactoring helps keep the code in shape.
+
+ - It reminds me of a statement Kent Beck often makes about himself: “I’m not a great programmer; I’m just a good programmer with great habits.” Refactoring helps me be much more effective at writing robust code. 
+
+ - Branches. As I write this, a common approach in teams is for each team member to work on abranch of the code base using a version control system, and do considerable work onthat branch before integrating with a mainline (often called master or trunk) sharedacross the team. Often, this involves building a whole feature on a branch, notintegrating into the mainline until the feature is ready to be released into production.Fans of this approach claim that it keeps the mainline clear of any in­process code,provides a clear version history of feature additions, and allows features to be revertedeasily should they cause problems.There are downsides to feature branches like this. The longer I work on an isolatedbranch, the harder the job of integrating my work with mainline is going to be when I’mdone. Most people reduce this pain by frequently merging or re­basing from mainlineto my branch. But this doesn’t really solve the problem when several people areworking on individual feature branches. I distinguish between merging and integration.If I merge mainline into my code, this is a oneway movement—my branch changes butthe mainline doesn’t. I use “integrate” to mean a two­way process that pulls changesfrom mainline into my branch and then pushes the result back into mainline, changingboth. If Rachel is working on her branch I don’t see her changes until she integrateswith mainline; at that point, I have to merge her changes into my feature branch, whichmay mean considerable work. The hard part of this work is dealing with semanticchanges. Modern version control systems can do wonders with merging complexchanges to the program text, but they are blind to the semantics of the code. If I’vechanged the name of a function, my version control tool may easily integrate mychanges with Rachel’s. But if, in her branch, she added a call to a function that I’verenamed in mine, the code will fail.The problem of complicated merges gets exponentially worse as the length of featurebranches increases. Integrating branches that are four weeks old is more than twice ashard as those that are a couple of weeks old. Many people, therefore, argue for keepingfeature branches short—perhaps just a couple of days. Others, such as me, want themeven shorter than that. This is an approach called Continuous Integration (CI), alsoknown as Trunk­Based Development. With CI, each team member integrates withmainline at least once per day. This prevents any branches diverting too far from eachother and thus greatly reduces the complexity of merges. CI doesn’t come for free: Itmeans you use practices to ensure the mainline is healthy, learn to break large featuresinto smaller chunks, and use feature toggles (aka feature flags) to switch off any in­process features that can’t be broken down.Fans of CI like it partly because it reduces the complexity of merges, but the dominantreason to favor CI is that it’s far more compatible with refactoring. Refactorings ofteninvolve making lots of little changes all over the code base—which are particularlyprone to semantic merge conflicts (such as renaming a widely used function). Many ofus have seen feature­branching teams that find refactorings so exacerbate mergeproblems that they stop refactoring. CI and re­factoring work well together, which iswhy Kent Beck combined them in Extreme Programming.I’m not saying that you should never use feature branches. If they are sufficiently short,their problems are much reduced. (Indeed, users of CI usually also use branches, butintegrate them with mainline each day.) Feature branches may be the right techniquefor open source projects where you have infrequent commits from programmers whoyou don’t know well (and thus don’t trust). But in a full­time development team, thecost that feature branches impose on refactoring is excessive. Even if you don’t go to fullCI, I certainly urge you to integrate as frequently as possible. You should also considerthe objective evidence [Forsgren et al.] that teams that use CI are more effective insoftware deliver
+**** [[https://github.com/HugoMatilla/Refactoring-Summary][Summary of "Refactoring: Improving the Design of Existing Code" by Martin Fowler]]
+**** Patterns of Enterprise Application Architecture; 2012	
+*** Michael Feathers
+**** [[pdf:/home/slk/Dropbox/books/Refactoring/Feathers, Michael - Working Effectively with Legacy Code (2005).pdf::1][Working Effectively with Legacy Code; 2005]]
+ - To me, legacy code is simply code without tests. I’ve gotten some grief for this definition. What do tests have to do with whether code is bad? To me, the answer is straightforward, and it is a point that I elaborate throughout the book: 'Code without tests is bad code. It doesn’t matter how well written it is; it doesn’t matter how pretty or object-oriented or well-encapsulated it is. With tests, we can change the behavior of our code quickly and verifiably. Without them, we really don’t know if our code is getting better or worse.'
+
+ - being able to confidently make changes in any code base.
+
+ - Preserving existing behavior
+
+ - Changes in a system can be made in two primary ways. I like to call them Edit and Pray and Cover and Modify. Unfortunately, Edit and Pray is pretty much the industry standard. When you use Edit and Pray, you carefully plan the changes you are going to make, you make sure that you understand the code you are going to modify, and then you start to make the changes. When you’re done, you run the system to see if the change was enabled, and then you poke around further to make sure that you didn’t break anything. The poking around is essential. When you make your changes, you are hoping and praying that you’ll get them right, and you take extra time when you are done to make sure that you did.
+
+ - ...testing is a tough problem, and people are often seduced by the idea that they can test through a GUI or web interface without having to do anything special to their application. It can be done, but it is usually more work than anyone on a team is prepared to admit. In addition, a user interface often isn’t the best place to write tests. UIs are often volatile and too far from the functionality being tested. When UI-based tests fail, it can be hard to figure out why. Regardless, people  often spend considerable money trying to do all of their testing with those sorts of tools.
+   
+ - Pay now or pay more later
+
+[copied from somesite]
+ Exploratory Refactoring: the recipe
+ When you feel stuck because you don't understand what the code is doing, here's what you can do:
+ Take a breath, there is a way out and you're about to find it
+ Reset your git status to start fresh (git reset --hard or git stash will do)
+ Set up a timer for 30 minutes
+ Refactor the code freely, don't worry if the code still compiles, just go ahead and change it
+ Throw away your changes when the timer rings!
+ Just do it: git reset --hard
+ Take a break, go drink some water and think about what you just learned
+
+git clean -f -d
+**** LOOKING-FOR Brutal Refactoring: More Working Effectively with Legacy Code
+*** [[pdf:/home/slk/Dropbox/books/Refactoring/\[Joshua_Kerievsky\]_Refactoring_to_Patterns (2004).pdf::1][Kerievsky, Joshua; Refactoring to Patterns; 2004]]
+**** Primitive Obsession
+***** Replace Type Code with Class
+      if a primitive value controls logic in a class
+***** Replace State-Altering Conditionals with State
+      if an object's state transitions are controller by complex conditional logic 
+***** Replace Conditional Logic with Strategy 
+      if complicated conditional logic controls which algorithm to run and that logic relies on primitive values
+*** LOOKING-FOR The Legacy Code Programmer's Toolbox
+*** TODO Five Lines of Code Christian Clausen
+*** Refactoring in Large Software Projects 2006
+*** [[pdf:/home/slk/Dropbox/books/Refactoring/Antipatterns. Refactoring Software, Archtectures and Projects in Crisis(1998).pdf::1][Antipatterns. Refactoring Software, Archtectures and Projects in Crisis 1998]]
+    William J. Brown, Raphael C. Malveau, Hays W. "Skip" McCormick, Thomas J. Mowbray
+*** Phillip A. Laplante, Colin J. Neill Antipatterns: Identification, Refactoring, and Management 2005	
+*** [[pdf:/home/slk/Dropbox/books/Refactoring/Refactoring for Software Design Smells - Managing Technical Debt (2015).pdf::1][Ganesh, Samarthyam Tushar, Sharma; Refactoring for Software Design Smells: Managing Technical Debt; 2015]]
+Catalog of smells. Focus on smell point of view. Also they introduce smell classification scheme, naming scheme for design smells which helps to increase awerness of smells. So definetly must read. (Java)
+
+bk. Unbuilding Cities: Obduracy in Urban Sociotechnical Change  2008
+
+[[http://scg.unibe.ch/download/oorp/OORP.pdf][Object-Oriented Reengineering Patterns]]
+
+[[https://en.wikipedia.org/wiki/Lehman%2527s_laws_of_software_evolution][https://en.wikipedia.org/wiki/Lehman%27s_laws_of_software_evolution]]
+
+As a program is evolved its complexity increases unless work is done to maintain or reduce it.
+Lehman’s law of Increasing Complexity [1]
+
+Borrowing a phrase from the health care domain “a good doctor is one who knows the medicines but a great doctor is one who knows the disease”
+
+[[https://en.wikipedia.org/wiki/Grady_Booch#cite_note-16][Grady Booch]]
+
+We believe that the impact of a smell can only be judged based on the design context in which it occurs.
+
+However, today, software engineers are expected to build really complex software within a short time frame in an environment where requirements are continuously changing. Needless to say, it is a huge challenge to maintain the quality of the design and overall software in such a context.
+
+In the midst of this struggle, it became clear to us that if we wanted to organize this collection so that we could share it in a beneficial manner with fellow architects, designers, and developers, our classification scheme should be linked to something fundamental, i.e., design principles.
+
+**** design smells?
+     Design smells are certain structures in the design that indicate violation of fundamental design principles and negatively impact design quality.
+In other words, a design smell indicates a potential problem in the design structure. The medical domain provides a good analogy for our work on smells. The symptoms of a patient can be likened to a “smell,” and the underlying disease can be likened to the concrete “design problem.”
+**** technical debt
+Technical debt is the debt that accrues when you knowingly or unknowingly make wrong or non-optimal design decisions.  Technical debt is a metaphor coined by Ward Cunningham in a 1992 report [44]. Technical debt is analogous to financial debt. When a person takes a loan (or uses his credit card), he incurs debt. If he regularly pays the installments (or the credit card bill) then the created debt is repaid and does not create further problems.  However, if the person does not pay his installment (or bill), a penalty in the form of interest is applicable and it mounts every time he misses the payment. In case the person is not able to pay the installments (or bill) for a long time, the accrued interest can make the total debt so ominously large that the person may have to declare bankruptcy.
+
+•	Code debt: Static analysis tool violations and inconsistent coding style.
+•	Design debt: Design smells and violations of design rules.
+•	Test debt: Lack of tests, inadequate test coverage, and improper test design.
+•	Documentation debt: No documentation for important concerns, poor docu-
+mentation, and outdated documentation.
+
+Jim Highsmith [45] describes how Cost of Change (CoC) varies wth technical debt.
+
+congitive load
+
+**** smells
+|                | structural | behavioral |
+|----------------+------------+------------|
+| architecture   |            |            |
+| design         | X          |            |
+| implementation |            |            |
+**** PHAME
+     We treat the four major elements of Booch’s object model as “design principles” and refer to them collectively as PHAME (Principles of Hierarchy, Abstraction, Modularization, and Encapsulation).
+**** Booch’s fundamental design principles HAME
+***** hierarchy
+***** abstraction
+The principle of abstraction advocates the simplification of entities through reduction and generalization: reduction is by elimination of unnecessary details and generalization is by identification and specification of common and important characteristics.
+
+****** Missing Abstraction
+Clumps of data or encoded strings are used instead of creating a class or an interface
+
+******* Rationale
+- It can expose implementation details to different abstractions, violating the principle of encapsulation.
+- When data and associated behavior are spread across abstractions, it can lead to tight coupling between entities, resulting in brittle and non-reusable code. Hence, not creating necessary abstractions also violates the principle of modularization.
+******* Potential Causes
+******** Inadequate design analysis
+When careful thought is not applied during design, it is easy to overlook creating abstractions and use primitive type values or strings to “get the work done.” In our experience, this often occurs when software is developed under tight deadlines or resource constraints.
+******** Lack of refactoring
+As requirements change, software evolves and entities that were earlier represented using strings or primitive types may need to be refactored into classes or interfaces.  When the existing clumps of data or encoded strings are retained as they are without refactoring them, it can lead to a Missing Abstraction smell.
+******** Misguided focus on minor performance gains 
+This smell often results when designers compromise design quality for minor performance gains. For instance, we have observed developers using arrays directly in the code instead of creating appropriate abstractions since they feel that indexing arrays is faster than accessing members in objects. In most contexts, the performance gains due to such “optimizations” are minimal, and do not justify the resultant trade-off in design quality.
+https://steemit.com/php/@crell/php-use-associative-arrays-basi
+******* Examples
+******** from, to
+data clumps always used together
+******* Refactor
+create abstraction(s) that can internally make use
+of primitive type values or strings.
+******* Alias
+******** Primitive Obsession
+This smell occurs when [[*primitive elements - types][primitive types]] are used for encoding dates, currency, etc. instead of creating classes.
+******** Data clumps
+This smell occurs when there are clumps of data items that occur together in lots of places instead of creating a class.
+****** Imperative Abstraction
+This smell arises when an operation is turned into a class. This smell manifests as a class that has only one method defined within the class. At times, the class name itself may be identical to the one method defined within it. For instance, if you see class with name Read that contains only one method named read() with no data members, then the Read class has Imperative Abstraction smell. Often, it is also seen in the case of this smell that the data on which the method operates is located within a different class.  It should be noted that it is sometimes desirable to turn an operation into a class.
+******* Rationale
+Defining functions or procedures explicitly as classes (when the data is located somewhere else) is a glorified form of structured programing rather than object-oriented programming. One-operation classes cannot be representative of an “abstraction,” especially when the associated data is placed somewhere else. Clearly, this is a violation of the principle of abstraction. Since these classes are ‘doing’ things instead of ‘being’ things, this smell is named Imperative Abstraction.  If operations are turned into classes, the design will suffer from an explosion of one-method classes and increase the complexity of the design. Furthermore, many of these methods that act on the same data would be separated into different classes and thus reduce the cohesiveness of the design. For these reasons, this smell also violates the principles of encapsulation and modularization.
+The smell not only increases the number of classes (in this case there are at least four classes when ideally one could have been used), but also increases the complex- ity involved in development and maintenance because of the unnecessary separation of cohesive methods.
+******* Potential Causes
+******** procedural thinking
+******* Refactor
+To refactor the Imperative Abstraction design smell, you have to either find or create an appropriate abstraction to house the method existing within the Imperative Abstraction. You also have to encapsulate the data needed by the method within the same abstraction to improve cohesion and reduce coupling.
+******* Reification 
+is the promotion or elevation of something that is not an object into an object. When we reify behavior, it is possible to store it, pass it, or transform it. Reification improves flexibility of the system at the cost of introducing some complexity [52].  Many design patterns [54] employ reification. Examples:
+
+• State pattern: Encoding a state-machine.
+
+• Command pattern: Encoding requests as command objects. A permitted exception for this smell is when a Command pattern has been used to objectify method requests.
+
+• Strategy pattern: Parameterizing a procedure in terms of an operation it uses.
+
+In other words, when we consciously design in such a way to elevate non-objects to objects for better reusability, flexibility, and extensibility (i.e., for improving
+design quality), it is not a smell.
+
+******* Aliases
+“Operation class” ??? [51,52] — This smell occurs when an operation that should have been a method within a class has been turned into a class itself.
+****** Incomplete Abstraction
+An abstraction (entity or interface) does not support complementary or interrelated methods completely
+For example, if we need to be able to add or remove elements in a data
+structure, the type abstracting that data structure should support both add() and
+remove() methods. Supporting only one of them makes the abstraction incomplete
+
+| Min/max        | Open/close  | Create/destroy | Get/set   |
+| Read/write     | Print/scan  | First/last     | Begin/end |
+| Start/stop     | Lock/unlock | Show/hide      | Up/down   |
+| First/last     | Push/pull   |                |           |
+| Enable/disable | Left/right  | On/off         |           |
+
+Sometimes, a designer may make a conscious design decision to not provide symmetric or matching methods. For example, in a read-only collection, only add() method may be provided without the corresponding remove() method. In such a case, the abstraction may appear incomplete, but is not a smell.
+
+******* Aliases
+This smell is also known in literature as:
+  
+• “Class supports incomplete behavior” [18]—This smell occurs when the public interface of a class is incomplete and does not support all the behavior needed by objects of that class.
+
+• “Half-hearted operations” [63]—This smell occurs when interrelated methods provided in an incomplete or in an inconsistent way; this smell could lead to runtime problems.
+****** Multifaceted Abstraction
+This smell arises when an abstraction has more than one responsibility assigned to it.
+
+In particular, the Single Responsibility Principle says that an abstraction should have a single well-defined responsibility and that responsibility should be entirely encapsulated
+within that abstraction. 
+
+Since the abstraction has multiple “faces” or “responsibilities”, it is named Multifaceted Abstraction.
+
+Single “Responsibility” Principle does not mean logical grouping of all functionality related to a concept. Rather “responsibility” refers to a concrete, specific, and precise responsibility that has one reason to change
+
+******* Potential Causes
+******** General-purpose abstractions
+An abstraction with a generic name (Node , Component, Element, and Item ), it often becomes a “placeholder” for providing all the functionality related (but not necessarily belonging) to that abstraction. Hence, general purpose abstractions often exhibit this smell.
+******** Evolution without periodic refactoring
+When a class undergoes extensive changes over a long period of time without refac- toring, other responsibilities start getting introduced in these classes and design decay starts. In this way, negligence toward refactoring leads to the creation of monolithic blobs that exhibit multiple responsibilities.
+******** The burden of processes
+Sometimes the viscosity of the software and environment serves to discourage the adoption of good practices.
+******** Mixing up concerns
+******* Example
+Classes exhibiting Multifaceted Abstraction are usually large and complex.  For example, java.util.Calendar class (in JDK 7) spans 2825 lines of code and has 67 methods and 71 fields! However, large or complex implementation is not an essential characteristic of classes having Multifaceted Abstraction smell; see the discussion on Insufficient Modularization smell (Section 5.2).
+
+******* Aliases
+• “Divergent change” [7]—This smell occurs when a class is changed for different reasons.
+
+• “Conceptualization abuse” [30]—This smell occurs when two or more noncohesive concepts have been packed into a single class of the system.
+	 
+• “Large class” [7,24,57,58]—This smell occurs when a class has “too many” responsibilities.
+	 
+• “Lack of cohesion” [59]—This smell occurs when there is a large type in a design with low cohesion, i.e., a “kitchen sink” type that represents many abstractions.
+
+****** Unnecessary Abstraction
+An abstraction that is not needed
+
+ALIASES:
+Irrelevant class - class does not have any meaningful behavior in the design
+Lazy class / Freeloader — class does “too little”
+Small class - class has no (or too few) variables or no (or too few) methods in it
+Mini-class - a public, non-nested class defines less than three methods and less than three attributes (including constants) in it
+No responsibility - class has no responsibility associated with it
+Agent classes - class serve as an “agent” (i.e., they only pass messages from one class to another), indicating that the class may be unnecessary
+****** Unutilized Abstraction
+An abstraction is left unused (either not directly used or not
+reachable). This smell manifests in two forms:
+
+• Unreferenced abstractions—Concrete classes that are not being used by anyone
+• Orphan abstractions—Stand-alone interfaces/abstract classes that do not have
+any derived abstractions
+
+
+This smell violates the principle YAGNI (You
+Aren’t Gonna Need It), which recommends not adding functionality until deemed
+necessary [53]
+
+When an abstraction is left unused
+in design, it does not serve a meaningful purpose in design, and hence violates the
+principle of abstraction.
+
+POTENTIAL CAUSES:
+Leftover garbage during maintenance or refactoring.
+Speculative generality - abstractions are introduced speculating that they may be required sometime in future.
+
+
+REFACTORING:
+remove the Unutilized Abstraction from the design.
+
+IMPACT:
+pollutes the design space and increases cognitive load. This impacts understandability.
+UNUTILIZED ABSTRACTION
+Two or more abstractions have identical names or identical implementation or both
+
+
+POTENTIAL CAUSES:
+
+Copy-paste programming
+The “get-the-work-done” mindset of a programmer leads him to copy and paste code
+instead of applying proper abstraction.
+Ad hoc maintenance
+When the software undergoes haphazard fixes or enhancements over many years, it
+leaves “crufts”6 with lots of redundant code in it.
+Lack of communication
+Often, in industrial software, code duplication occurs because different people work
+on the same code at different times in the life cycle of the software. They are not
+aware of existing classes or methods and end up re-inventing the wheel.
+
+REFACTORING:
+For identical name form, the suggested refactoring is to rename one of the abstrac-
+tions to a unique name.
+In the case of the identical implementation form of Duplicate Abstraction, if the
+implementations are exactly the same, one of the implementations can be removed.
+If the implementations are slightly different, then the common implementation in
+the duplicate abstractions can be factored out into a common class.
+
+
+IMPACT:
+it affects understandability of the design. Developers of client code will be confused and unclear about the choice
+of the abstraction that should be used by their code.
+
+identical implementation (i.e., they have duplicate code), it becomes difficult to maintain them.
+In summary, this smell indicates a violation of the DRY (Don’t Repeat Yourself)
+principle.
+If the DRY principle is not fol-
+lowed, a modification of an element within the system requires modifications to other
+logically unrelated elements making maintainability a nightmare. Since there is dupli-
+cation among abstractions in the design, this smell is named Duplicate Abstraction.
+
+3.7.6 ALIASES
+This smell is also known in literature as:
+
+•	“Alternative classes with different interfaces” [7]—This smell occurs when
+classes do similar things, but have different names.
+•	“Duplicate design artifacts” [74]—This smell occurs when equivalent design
+artifacts are replicated throughout the architecture.
+****** Duplicate Abstraction
+UNUTILIZED ABSTRACTION
+Two or more abstractions have identical names or identical implementation or both
+
+
+POTENTIAL CAUSES:
+
+Copy-paste programming
+The “get-the-work-done” mindset of a programmer leads him to copy and paste code
+instead of applying proper abstraction.
+Ad hoc maintenance
+When the software undergoes haphazard fixes or enhancements over many years, it
+leaves “crufts”6 with lots of redundant code in it.
+Lack of communication
+Often, in industrial software, code duplication occurs because different people work
+on the same code at different times in the life cycle of the software. They are not
+aware of existing classes or methods and end up re-inventing the wheel.
+
+REFACTORING:
+For identical name form, the suggested refactoring is to rename one of the abstrac-
+tions to a unique name.
+In the case of the identical implementation form of Duplicate Abstraction, if the
+implementations are exactly the same, one of the implementations can be removed.
+If the implementations are slightly different, then the common implementation in
+the duplicate abstractions can be factored out into a common class.
+
+
+IMPACT:
+it affects understandability of the design. Developers of client code will be confused and unclear about the choice
+of the abstraction that should be used by their code.
+
+identical implementation (i.e., they have duplicate code), it becomes difficult to maintain them.
+In summary, this smell indicates a violation of the DRY (Don’t Repeat Yourself)
+principle.
+If the DRY principle is not fol-
+lowed, a modification of an element within the system requires modifications to other
+logically unrelated elements making maintainability a nightmare. Since there is dupli-
+cation among abstractions in the design, this smell is named Duplicate Abstraction.
+
+3.7.6 ALIASES
+This smell is also known in literature as:
+
+•	“Alternative classes with different interfaces” [7]—This smell occurs when
+classes do similar things, but have different names.
+•	“Duplicate design artifacts” [74]—This smell occurs when equivalent design
+artifacts are replicated throughout the architecture.
+***** modularization
+***** encapsulation
+*** Francesco Trucchia, Jacopo Romei Pro PHP Refactoring 2010
+    Old, without PHP 7 but still the best PHP book about refactoring. Great examples. Worth to have.
+** documentations
+*** READING Living Documentation: Continuous Knowledge Sharing by Design 1st Edition by Cyrille Martraire
+    https://github.com/tedneward/ArchKatas
+    Specifying the Type of a Change type must be one of the following:
+    • feat: A new feature
+    • fix: A bug fix
+    • docs: Documentation-only changes
+    • style: Changes that do not affect the meaning of the code, such as changes to whitespace, formatting, missing semicolons, and so on
+    • refactor: A code change that neither fixes a bug nor adds a feature
+    • perf: A code change that improves performance
+    • test: Changes that add missing tests
+    • chore: Changes to the build process or auxiliary tools and libraries, such as documentation generation
+** database
+*** Karwin, Bill SQL Antipatterns - Avoiding The Pitfalls of Database Programming 2010	
+*** SQL for Smarties: Advanced SQL Programming 2005
+*** Joe Celko’s Trees and Hierarchies in SQL for Smarties
+*** Scott J Ambler and Pramod J. Sadalage Refactoring Databases - Evolutionary Database Design 2006
+    refactoring	must read It's catalog of refactorings for database
+*** Stephane Faroult, Pascal L'Hermite	Refactoring SQL Application 2008	
+** Andrew Hunt, David Thomas - The Pragmatic Programmer: From Journeyman to Master 1999	
+   overall skip a lot of tips & tricks but too old
+** Fifty Quick Ideas To Improve Your Tests tests			
+** Growing Object-Oriented Software, Guided by Tests				
+** Working Effectively with Unit Tests				
+** Scalable Internet Architectures 	
+** Anthology  The Thoughtworks Anthology - Essays on Software Technology and Innovation 2008
+** Anthology  The ThoughtWorks Anthology 2 - More Essays on Software Technology and Innovation 2012	
+** Beck, Kent Extreme Programming Explained: Embrace Change 1999	
+   overall can be read
+** Bhargava, Aditya Grokking Algorithms: An illustrated guide for programmers and other curious people 
+   must read 2017 Fully illustrated, friendly, easy to read guide, worth to read. When you will stumble upon a problem, you will know how to recognize it and chose the right Algorithm
+** [[pdf:/home/slk/Dropbox/books/Effective Java by Joshua Bloch (z-lib.org).pdf::1][Bloch, Joshua Effective Java 2018]]	
+** Buenosvinos, Carlos	Domain-Driven Design in PHP 2016	
+** Jones, Paul M. Modernizing Legacy Apps In PHP 2014	
+** Junade, Ali	Mastering PHP Design Patterns 2016 
+   Little bit inmature, poorly written. Having a lot of tips and information about broad variaty of things which is a good place on website but not in the book. Code examples could be much better.
+** Rahman, Mizanur PHP 7 Data Structures and Algorithms 2017
+** Tornhill, Adam Your Code as a Crime Scene - Use Forensic Techniques to Arrest Defects, Bottlenecks, and Bad Design in Your Programs 2015	
+** West, David Object Thinking  2004
+** Back-end Performance
+   https://www.oreilly.com/library/view/back-end-performance/9781492069362/
+** Build APIs You Won't Hate
+** McConnel, Steve "Code Complete 2"
+** Wake, William C.; Refactoring Workbook; 2003
+*** https://xp123.com/articles/refactoring-workbook/
+**** Taxonomy
+***** [[http://mikamantyla.eu/BadCodeSmellsTaxonomy.html][Mika Mäntylä]]
+***** [[http://www.industriallogic.com/wp-content/uploads/2005/09/smellstorefactorings.pdf][Joshua Kerievsky]]
+** Martin, Robert C.
+*** [[pdf:/home/slk/Dropbox/books/Refactoring/Martin, Robert C. - Clean Code: A Handbook of Agile Software Craftsmanship (2009).pdf::1][Clean Code: A Handbook of Agile Software Craftsmanship; 2009]]
+- There are two parts to learning craftsmanship: knowledge and work. You must gain the knowledge of principles, patterns, practices, and heuristics that a craftsman knows, and you must also grind that knowledge into your fingers, eyes, and gut by working hard and practicing.
+- Do not refer to a grouping of accounts as an accountList unless it’s actually a List. The word list means something specific to programmers. If the container holding the accounts is not actually a List, it may lead to false conclusions (even if the container is a List, it’s probably better not to encode the container type into the name). So accountGroup or bunchOfAccounts or just plain accounts would be better.
+- A truly awful example of disinformative names would be the use of lower-case L or uppercase O as variable names, especially in combination. The problem, of course, is that they look almost entirely like the constants one and zero, respectively.
+- Certainly a loop counter may be named i or j or k (though never l!) if its scope is very small and no other names can conflict with it. This is because those single-letter names for loop counters are traditional.
+#+BEGIN_SRC php
+int a = 1;
+if ( O == 1 )
+    a = O1;
+else
+    l = 01;
+#+END_SRC
+*** Agile Software Development: Principles, Patterns, and Practices; 2002
+** Design It!: From Programmer to Software Architect (The Pragmatic Programmers) 1st Edition by Michael Keelin
+** Mastering the SPL Library
+** Zandstra, Matt "PHP Objects, Patterns, and Practice" 2008
+   Pretty old. But written with precise language and with great examples                                                                                                                                        |
+** TODO Halladay, Steve Principle-Based Refactoring: Learning Software Design Principles by Applying Refactoring Rules 2012
+** TODO Matthias Noback
+*** TODO Object Design Style Guide
+** TODO xUnit Test Patterns - Refactoring Test Code
+   http://xunitpatterns.com/index.html
+** TODO The Psychology of Computer Programming
+** TODO Timeless Laws of Software Development
+** TODO Hacker's Delight
+** LOOKING-FOR Bernstein, David Scott Beyond Legacy Code 2015
+** LOOKING-FOR Bugayenko, Yegor Elegant Objects 2016
+** LOOKING-FOR Cusumano MA, Selby RW (1995) Microsoft secrets. Free Press, USA
+   describe how Microsoft uses 20% of its development effort to re-develop the code base of its products
+** LOOKING-FOR Cusumano MA, Yoffie DB (1998) Design strategy. In: Competing on internet time. Free Press, New York, USA, pp 180–198
+   report how Netscape’s inability to refactor the code base hindered their software development, and how Microsoft’s redesign efforts in the Internet Explorer 3.0 project later paid off.
+** LOOKING-FOR https://www.sandimetz.com/99bottle
 * article - switch parameter, switch property
 ** switch parameter
    A function runs different code depending on the value of parameter.
@@ -1376,6 +1992,7 @@ echo "Price after discount: $totalDiscountPrice";
 *** Pass a test
 * podcasts
 ** [[https://www.legacycode.rocks/][legacy code rocks!]]
+*** [[https://www.legacycode.rocks/podcast-1/episode/25606691/code-testing-with-melanie-frank][5/16/2022 Code Testing With Melanie Frank]]
 *** [[https://www.legacycode.rocks/podcast-1/episode/1e1dd699/checks-and-balances-in-coding-with-samuel-taggart][5/2/2022 Checks and Balances in Coding with Samuel Taggart]]
 **** Zettelkasten Method at https://zenkit.com/en/blog/a-beginners-guide-to-the-zettelkasten-method/
 *** [[https://www.legacycode.rocks/podcast-1/episode/55cb355e/code-thesaurus-with-sarah-withee][4/18/2022 Code Thesaurus with Sarah Withee]]
@@ -1465,6 +2082,8 @@ echo "Price after discount: $totalDiscountPrice";
 *** [[https://ericnormand.me/issues/465][465: Abstraction is the essence of programming]]
     - The answer is abstraction. Abstraction is a mapping from a concrete domain to an abstract domain. We map the days of the week (concrete domain) to the integers 1-7 (abstract domain). Then we can write useful operations on them because computers handle integers easily. After performing operations on them, we can map them back to the days of the week. We have created a model of the "days of the week" domain.
 ** the legacy of socrates
+*** 6th <2021-06-17 Tue>
+**** [[https://youtu.be/8COwvND6wTI]["Empathy Is a Technical Skill" by Andrea Goulet]]
 *** 4th edition (2020-12-03)
 **** [[https://youtu.be/9YxQzjtPdtw]["Master Legacy Code Incrementally" by Arlo Belshee (@arlobelshee)]]
      - depend on proofable refactorings
@@ -1922,613 +2541,6 @@ https://github.com/Behatch/contexts
 ** Rabbit
 *** [[https://symfonycasts.com/screencast/messenger/message-class#play][Messenger! Queue work for Later]]
     end 12
-* books
-  Managing Technical Debt: Reducing Friction in Software Development
-  Documenting Software Architectures: Views and Beyond
-  Evaluating Software Architectures: Methods and Case Studies
-** TODO [[https://bookauthority.org/books/best-refactoring-books?t=ncizgy&s=author&book=0128013974][48 Best Refactoring Books of All Time]]
-** complexity
-*** "A philosophy of software design" by John K Ousterhout
-*** Deming's The New Economics, and Out of the Crisis
-*** Reinertsen's Principles of Product Development Flow
-*** Ward's Lean Product and Process Development
-*** Software Fundamentals: Collected Papers By Book by Daniel M. 
-** DONE Kill It with Fire - Manage Aging Computer Systems (and Future Proof Modern Ones) by Marianne Bellotti
-** [[https://livebook.manning.com/book/the-programmers-brain][The Programmer's Brain]]
-   - lack of knowledge
-   - lack of information
-   - lack of processing power in brain
-     It’s too hard to hold all the intermediate values of the variables and the corresponding actions in your mind at the same time.
-   - A lack of knowledge means that not enough relevant facts are present in your long-term memory, the place where all your memories are permanently stored. A lack of information, on the other hand, presents a challenge for your short-term memory. Information that you are gathering has to be stored in short-term memory temporarily, but if you have to search in a lot of different places you might forget the some of the things you already read. Finally, when you must process a lot of information that takes a toll on the working memory, which is where your thinking happens.
-   - You are mentally trying to execute the code, to understand what is happening. That process is called tracing—the mental compiling and executing of code. The part of the brain used to do tracing and other cognitively complex tasks is called the working memory. You can compare it to the processor of a computer, which performs calculations.
-** functional
-*** Grokking Simplicity: Taming complex software with functional thinking    
-*** LOOKING-FOR Thinking Functionally in PHP Larry Garfield
-*** [[pdf:/home/slk/Dropbox/books/PHP/functional/Pro Functional PHP Programming Application Development Strategies for Performance Optimization, Concurrency, Testability, and Code Brevity by Rob Aley.pdf::1][Pro Functional PHP Programming Application Development Strategies for Performance Optimization, Concurrency, Testability, and Code Brevity by Rob Aley]]
-*** [[pdf:/home/slk/Dropbox/books/PHP/functional/Functional programming with PHP by Simon Holywell.epub::1][Functional programming with PHP by Simon Holywell]]
-*** [[pdf:/home/slk/Dropbox/books/PHP/functional/Functional PHP by Crettenand, Gilles.epub::1][Functional PHP by Crettenand, Gilles]]
-*** [[https://leanpub.com/functional-php/read][Functional PHP The Art of Function Composition by Luis Atencio]]
-** refactoring
-*** Fowler, Martin
-**** [[pdf:/home/slk/Dropbox/books/Refactoring/Fowler, Martin -  Refactoring (2002).pdf::1][Refactoring: Improving the Design of Existing Code; 1999]]
-- Two of the leading proponents of refactoring are Ward Cunningham and Kent Beck.
-- Ralph Johnson leads a group at the University of Illinois at Urbana-Champaign that is notable for its practical contributions to object technology. Ralph has long been a champion of refactoring, and several of his students have worked on the topic. Bill Opdyke developed the first detailed written work on refactoring in his doctoral thesis. John Brant and Don Roberts have gone beyond writing words into writing a tool, the Refactoring Browser, for refactoring Smalltalk programs
-- There's nothing wrong with a quick and dirty simple program. But if this is a representative fragment of a more complex system, then I have some real problems with this program.
-- Any fool can write code that a computer can understand. Good programmers write code that humans can understand.
-- I like to get rid of temporary variables such as this as much as possible. Temps are often a problem in that they cause a lot of parameters to be passed around when they don't have to be. You can easily lose track of what they are there for. They are particularly insidious in long methods. Of course there is a performance price to pay; here the charge is now calculated twice. But it is easy to optimize that in the rental class, and you can optimize much more effectively when the code is properly factored.
-- Refactoring (noun): a change made to the internal structure of software to make it easier to understand and cheaper to modify without changing its observable behavior.
-- Refactor (verb): to restructure software by applying a series of refactorings without changing its observable behavior.
-- ...purpose of refactoring is to make the software easier to understand and modify
-- ...refactoring does not change the observable behavior of the software. The software still carries out the same function that it did before. Any user, whether an end user or another programmer, cannot tell that things have changed.
-- I use refactoring to help me understand unfamiliar code. When I look at unfamiliar code, I have to try to understand what it does. I look at a couple of lines and say to myself, oh yes, that's what this bit of code is doing. With refactoring I don't stop at the mental note. I actually change the code to better reflect my understanding, and then I test that understanding by rerunning the code to see if it still works.
-- Early on I do refactoring like this on little details. As the code gets clearer, I find I can see things about the design that I could not see before. Had I not changed the code, I probably never would have seen these things, because I'm just not clever enough to visualize all this in my head. Ralph Johnson describes these early refactorings as wiping the dirt off a window so you can see beyond. When I'm studying code I find refactoring leads me to higher levels of understanding that otherwise I would miss.
-- refactoring helps you find bugs
-  - ...claryfing the structure of the program
-- refactoring helps you program faster
-  - This sounds counterintuitive. When I talk about refactoring, people can easily see that it improves quality. Improving design, improving readability, reducing bugs, all these improve quality. But doesn't all this reduce the speed of development? I strongly believe that a good design is essential for rapid software development. Indeed, the whole point of having a good design is to allow rapid development. Without a good design, you can progress quickly for a while, but soon the poor design starts to slow you down. You spend time finding and fixing bugs instead of adding new function. Changes take longer as you try to understand the system and find the duplicate code. New features need more coding as you patchover a patch that patches a patch on the original code base. A good design is essential to maintaining speed in software development. Refactoring helps you develop software more rapidly, because it stops the design of the system from decaying. It can even improve a design.
-- When Should You Refactor
-  - In almost all cases, I'm opposed to setting aside time for refactoring. In my view refactoring is not an activity you set aside time to do. Refactoring is something you do all the time in little bursts. You don't decide to refactor, you refactor because you want to do something else, and refactoring helps you do that other thing.
-  - The Rule of Three 
-    - Here's a guideline Don Roberts gave me: The first time you do something, you just do it. The second time you do something similar, you wince at the duplication, but you do the duplicate thing anyway. The third time you do something similar, you refactor.
-    - Tip: Three strikes and you refactor.
-- Refactor When You Add Function
-  - first reason to refactor here is to help me understand some code I need to modify
-  - The other driver of refactoring here is a design that does not help me add a feature easily. I look at the design and say to myself, "If only I'd designed the code this way, adding this feature would be easy."
-- Refactor When You Need to Fix a Bug
-  - In fixing bugs much of the use of refactoring comes from making code more understandable. As I look at the code trying to understand it, I refactor to help improve my understanding. Often I find that this active process of working with the code helps in finding the bug. One way to look at it is that if you do get a bug report, it's a sign you need refactoring, because the code was not clear enough for you to see there was a bug.
-- Refactor As You Do a Code Review
-- I've found that refactoring helps me review someone else's code. Before I started using refactoring, I could read the code, understand some degree of it, and make suggestions. Now when I come up with ideas, I consider whether they can be easily implemented then and there with refactoring. If so, I refactor. When I do it a few times, I can see more clearly what the code looks like with the suggestions in place. I don't have to imagine what it would be like, I can see what it is like. As a result, I can come up with a second level of ideas that I would never have realized had I not refactored.
-- You just code the first approach that comes into your head, get it working, and then refactor it into shape.
-- The problem with building a flexible solution is that flexibility costs. Flexible solutions are more complex than simple ones. The resulting software is more difficult to maintain in general...
-***** Chapter 3. Bad Smells in Code
-- he [Kent Beck] had come up with the notion describing the "when" of refactoring in terms of smells.
-- One thing we won't try to do here is give you precise criteria for when a refactoring is overdue. In our experience no set of metrics rivals informed human intuition. What we will do is give you indications that there is trouble that can be solved by a refactoring. You will have to develop your own sense of how many instance variables are too many instance variables and how many lines of code in a method are too many lines.
-****** Duplicated Code 
- - number one in the stink parade.
- - same code structure in more than one place
-******* Same expression in methods of the same class 
-	Extract Function and invoke the code from both places.
-******* Same expression in two sibling subclasses 
-	You can eliminate this duplication by using Extract Method in both classes then Pull Up Field. If the code is similar but not the same, you need to use Extract Method to separate the similar bits from the different bits. You may then find you can use Form Template Method. If the methods do the same thing with a different algorithm, you can choose the clearer of the two algorithms and use Substitute Algorithm.
-******* Duplicated code in two unrelated classes
-	Consider using Extract Class in one class and then use the new component in the other. Another possibility is that the method really belongs only in one of the classes and should be invoked by the other class or that the method belongs in a third class that should be referred to by both of the original classes.
-****** Long Method
-       whenever we feel the need to comment something, we write a method instead.
-       
-       Ninety-nine percent of the time, all you have to do to shorten a method is Extract Method. Find parts of the method that seem to go nicely together and make a new method.
-       
-       If you have a method with lots of parameters and temporary variables, these elements get in the way of extracting methods. If you try to use Extract Method, you end up passing so many of the parameters and temporary variables as parameters to the extracted method that the result is scarcely more readable than the original. You can often use Replace Temp with Query to eliminate the temps. Long lists of parameters can be slimmed down with Introduce Parameter Object and Preserve Whole Object.
-
-       If you've tried that, and you still have too many temps and parameters, it's time to get out the heavy artillery: Replace Method with Method Object.
-
-       Conditionals and loops also give signs for extractions. Use Decompose Conditional to deal with conditional expressions. With loops, extract the loop and the code within the loop into its own method.
-****** Large Class
-       When a class is trying to do too much, it often shows up as too many instance variables. When a class has too many instance variables, duplicated code cannot be far behind.
-
-       You can Extract Class to bundle a number of the variables. Choose variables to go together in the component that makes sense for each. For example, "depositAmount" and "depositCurrency"are likely to belong together in a component. More generally, common prefixes or suffixes for some subset of the variables in a class suggest the opportunity for a component. If the component makes sense as a subclass, you'll find Extract Subclass often is easier.
-
-       Sometimes a class does not use all of its instance variables all of the time. If so, you may be able to Extract Class or Extract Subclass many times.
-       
-       As with a class with too many instance variables, a class with too much code is prime breeding ground for duplicated code, chaos, and death. The simplest solution...is to eliminate redundancy in the class itself. If you have five hundred-line methods with lots of code in common, you may be able to turn them into five ten-line methods with another ten two-line methods extracted from the original. As with a class with a huge wad of variables, the usual solution for a class with too much code is either to Extract Class or Extract Subclass. A useful trick is to determine how clients use the class and to use Extract Interface
-****** Long Parameter List
-       Use Replace Parameter with Method when you can get the data in one parameter by making a request of an object you already know about. This object might be a field or it might be another parameter. Use Preserve Whole Object to take a bunch of data gleaned from an object and replace it with the object itself. If you have several data items with no logical object, use Introduce Parameter Object.
-       
-       There is one important exception to making these changes. This is when you explicitly do not want to create a dependency from the called object to the larger object. In those cases unpacking data and sending it along as parameters is reasonable, but pay attention to the pain involved. If the parameter list is too long or changes too often, you need to rethink your dependency structure.
-****** Divergent Change
-       Divergent change occurs when one class is commonly changed in different ways for different reasons. If you look at a class and say, "Well, I will have to change these three methods every time I get a new database; I have to change these four methods every time there is a new financial instrument," you likely have a situation in which two objects are better than one. That way each object is changed only as a result of one kind of change. Of course, you often discover this only after you've added a few databases or financial instruments. Any change to handle a variation should change a single class, and all the typing in the new class should express the variation. To clean this up you identify everything that changes for a particular cause and use Extract Class to put them all together.
-****** Shotgun Surgery
-       Shotgun surgery is similar to divergent change but is the opposite. You whiff this when every time you make a kind of change, you have to make a lot of little changes to a lot of different classes.  When the changes are all over the place, they are hard to find, and it's easy to miss an important change.  In this case you want to use Move Method and Move Field to put all the changes into a single class. If no current class looks like a good candidate, create one. Often you can use Inline Class to bring a whole bunch of behavior together. You get a small dose of divergent change, but you can easily deal with that.  Divergent change is one class that suffers many kinds of changes, and shotgun surgery is one change that alters many classes. Either way you want to arrange things so that, ideally, there is a one-to-one link between common changes and classes.
-****** Feature Envy
-       The whole point of objects is that they are a technique to package data with the processes used on that data.
-A classic smell is a method that seems more interested in a class other than the one it actually is in. The most common focus of the envy is the data...a method that invokes half-a-dozen getting methods on another object to calculate some value. Fortunately the cure is obvious, the method clearly wants to be elsewhere, so you use Move Method to get it there. Sometimes only part of the method suffers from envy; in that case use Extract Method on the jealous bit and Move Method...
-
-       Of course not all cases are cut-and-dried. Often a method uses features of several classes, so which one should it live with? The heuristic we use is to determine which class has most of the data and put the method with that data. This step is often made easier if Extract Method is used to break the method into pieces that go into different places.  Of course there are several sophisticated patterns that break this rule. From the Gang of Four [Gang of Four] Strategy and Visitor immediately leap to mind. Kent Beck's Self Delegation [Beck] is another. You use these to combat the divergent change smell. The fundamental rule of thumb is to put things together that change together. Data and the behavior that references that data usually change together, but there are exceptions. When the exceptions occur, we move the behavior to keep changes in one place. Strategy and Visitor allow you to change behavior easily, because they isolate the small amount of behavior that needs to be overridden, at the cost of further indirection.
-****** Data Clumps
-       Data items tend to be like children; they enjoy hanging around in groups together. Often you'll see the same three or four data items together in lots of places: fields in a couple of classes, parameters in many method signatures. Bunches of data that hang around together really ought to be made into their own object. The first step is to look for where the clumps appear as fields.  Use Extract Class on the fields to turn the clumps into an object. Then turn your attention to method signatures using Introduce Parameter Object or Preserve Whole Object to slim them down. The immediate benefit is that you can shrink a lot of parameter lists and simplify method calling. Don't worry about data clumps that use only some of the fields of the new object.  As long as you are replacing two or more fields with the new object, you'll come out ahead.
-****** Primitive Obession
-       ...using Replace Data Value with Object on individual data values. If the data value is a type code, use Replace Type Code with Class if the value does not affect behavior. If you have conditionals that depend on the type code, use Replace Type Code with Subclasses or Replace Type Code with State/Strategy. If you have a group of fields that should go together, use Extract Class. If you see these primitives in parameter lists, try a civilizing dose of Introduce Parameter Object. If you find yourself picking apart an array, use Replace Array with Object.
-****** Switch Statements
-       One of the most obvious symptoms of object-oriented code is its comparative lack of switch (or case) statements. The problem with switch statements is essentially that of duplication. Often you find the same switch statement scattered about a program in different places. If you add a new clause to the switch, you have to find all these switch, statements and change them. The object- oriented notion of polymorphism gives you an elegant way to deal with this problem.  
-
-Most times you see a switch statement you should consider polymorphism. The issue is where the polymorphism should occur. Often the switch statement switches on a type code. You want the method or class that hosts the type code value. So use Extract Method to extract the switch statement and then Move Method to get it onto the class where the polymorphism is needed. At that point you have to decide whether to Replace Type Code with Subclasses or Replace Type Code with State/Strategy. When you have set up the inheritance structure, you can use Replace Conditional with Polymorphism.  
-
-If you only have a few cases that affect a single method, and you don't expect them to change, then polymorphism is overkill. In this case Replace Parameter with Explicit Methods is a good option. If one of your conditional cases is a null, try Introduce Null Object.
-****** Parallel Inheritance Hierarchies
-       Parallel inheritance hierarchies is really a special case of shotgun surgery. In this case, every time you make a subclass of one class, you also have to make a subclass of another. You can recognize this smell because the prefixes of the class names in one hierarchy are the same as the prefixes in another hierarchy.
-
-       The general strategy for eliminating the duplication is to make sure that instances of one hierarchy refer to instances of the other. If you use Move Method and Move Field, the hierarchy on the referring class disappears.
-****** Lazy Class
-       Each class you create costs money to maintain and understand. A class that isn't doing enough to pay for itself should be eliminated. Often this might be a class that used to pay its way but has been downsized with refactoring. Or it might be a class that was added because of changes that were planned but not made. Either way, you let the class die with dignity. If you have subclasses that aren't doing enough, try to use Collapse Hierarchy. Nearly useless components should be subjected to Inline Class.
-****** Speculative Generality
-       You get it when people say, "Oh, I think we need the ability to this kind of thing someday" and thus want all sorts of hooks and special cases to handle things that aren't required. The result often is harder to understand and maintain. If all this machinery were being used, it would be worth it. But if it isn't, it isn't. The machinery just gets in the way, so get rid of it.
-
-       If you have abstract classes that aren't doing much, use Collapse Hierarchy. Unnecessary delegation can be removed with Inline Class. Methods with unused parameters should be subject to Remove Parameter. Methods named with odd abstract names should be brought down to earth with Rename Method.
-
-       Speculative generality can be spotted when the only users of a method or class are test cases. If you find such a method or class, delete it and the test case that exercises it. If you have a method or class that is a helper for a test case that exercises legitimate functionality, you have to leave it in, of course.
-****** Temporary Field
-       Sometimes you see an object in which an instance variable is set only in certain circumstances.  Such code is difficult to understand, because you expect an object to need all of its variables.  Trying to understand why a variable is there when it doesn't seem to be used can drive you nuts.  
-       
-       Use Extract Class to create a home for the poor orphan variables. Put all the code that concerns the variables into the component. You may also be able to eliminate conditional code by using Introduce Null Object to create an alternative component for when the variables aren't valid.
-
-       A common case of temporary field occurs when a complicated algorithm needs several variables.  Because the implementer didn't want to pass around a huge parameter list (who does?), he put them in fields. But the fields are valid only during the algorithm; in other contexts they are just plain confusing. In this case you can use Extract Class with these variables and the methods that require them. The new object is a method object [Beck].
-****** Message Chains
-       You see message chains when a client asks one object for another object, which the client then asks for yet another object, which the client then asks for yet another another object, and so on.  You may see these as a long line of getThis methods, or as a sequence of temps. Navigating this way means the client is coupled to the structure of the navigation. Any change to the intermediate relationships causes the client to have to change.  
-       
-       The move to use here is Hide Delegate. You can do this at various points in the chain. In principle you can do this to every object in the chain, but doing this often turns every intermediate object into a middle man. Often a better alternative is to see what the resulting object is used for.  See whether you can use Extract Method to take a piece of the code that uses it and then Move Method to push it down the chain. If several clients of one of the objects in the chain want to navigate the rest of the way, add a method to do that.
-****** Middle Man
-       One of the prime features of objects is encapsulation—hiding internal details from the rest of the world. Encapsulation often comes with delegation. You ask a director whether she is free for a meeting; she delegates the message to her diary and gives you an answer. All well and good.  There is no need to know whether the director uses a diary, an electronic gizmo, or a secretary to keep track of her appointments.
-
-       However, this can go too far. You look at a class's interface and find half the methods are delegating to this other class. After a while it is time to use Remove Middle Man and talk to the object that really knows what's going on. If only a few methods aren't doing much, use Inline Method to inline them into the caller. If there is additional behavior, you can use Replace Delegation with Inheritance to turn the middle man into a subclass of the real object. That allows you to extend behavior without chasing all that delegation.
-****** Inappropriate Intimacy
-       Sometimes classes become far too intimate and spend too much time delving in each others'private parts. We may not be prudes when it comes to people, but we think our classes should follow strict, puritan rules.  
-
-       Overintimate classes need to be broken up as lovers were in ancient days. Use Move Method and Move Field to separate the pieces to reduce the intimacy. See whether you can arrange a Change Bidirectional Association to Unidirectional. If the classes do have common interests, use Extract Class to put the commonality in a safe place and make honest classes of them. Or use Hide Delegate to let another class act as go-between.
-       
-       Inheritance often can lead to overintimacy. Subclasses are always going to know more about their parents than their parents w
-****** Alternative Classes with Different Interfaces
-       Use Rename Method on any methods that do the same thing but have different signatures for what they do. Often this doesn't go far enough. In these cases the classes aren't yet doing enough. Keep using Move Method to move behavior to the classes until the protocols are the same. If you have to redundantly move code to accomplish this, you may be able to use Extract Superclass to atone.
-****** Incomplete Library Class
-       Reuse is often touted as the purpose of objects. We think reuse is overrated (we just use).  However, we can't deny that much of our programming skill is based on library classes so that nobody can tell whether we've forgotten our sort algorithms. 
-       
-       Builders of library classes are rarely omniscient. We don't blame them for that; after all, we can rarely figure out a design until we've mostly built it, so library builders have a really tough job. The trouble is that it is often bad form, and usually impossible, to modify a library class to do something you'd like it to do. This means that tried-and-true tactics such as Move Method lie useless.
-       
-       We have a couple of special-purpose tools for this job. If there are just a couple of methods that you wish the library class had, use Introduce Foreign Method. If there is a whole load of extra behavior, you need Introduce Local Extension.
-****** Data Class
-       These are classes that have fields, getting and setting methods for the fields, and nothing else.  Such classes are dumb data holders and are almost certainly being manipulated in far too much detail by other classes. In early stages these classes may have public fields. If so, you should immediately apply Encapsulate Field before anyone notices. If you have collection fields, check to see whether they are properly encapsulated and apply Encapsulate Collection if they aren't. Use Remove Setting Method on any field that should not be changed.  
-
-       Look for where these getting and setting methods are used by other classes. Try to use Move Method to move behavior into the data class. If you can't move a whole method, use Extract Method to create a method that can be moved. After a while you can start using Hide Method on the getters and setters. 
-       
-       Data classes are like children. They are okay as a starting point, but to participate as a grownup object, they need to take some responsibility.
-****** Refused Bequest
-       Subclasses get to inherit the methods and data of their parents. But what if they don't want or need what they are given? They are given all these great gifts and pick just a few to play with.
-       
-       The traditional story is that this means the hierarchy is wrong. You need to create a new sibling class and use Push Down Method and Push Down Field to push all the unused methods to the sibling. That way the parent holds only what is common. Often you'll hear advice that all superclasses should be abstract.  
-
-       You'll guess from our snide use of traditional that we aren't going to advise this, at least not all the time. We do subclassing to reuse a bit of behavior all the time, and we find it a perfectly good way of doing business. There is a smell, we can't deny it, but usually it isn't a strong smell. So we say that if the refused bequest is causing confusion and problems, follow the traditional advice.  However, don't feel you have to do it all the time. Nine times out of ten this smell is too faint to be worth cleaning.  
-
-       The smell of refused bequest is much stronger if the subclass is reusing behavior but does not want to support the interface of the superclass. We don't mind refusing implementations, but refusing interface gets us on our high horses. In this case, however, don't fiddle with t
-****** Comments
-       If you need a comment to explain what a block of code does, try Extract Method. If the method is already extracted but you still need a comment to explain what it does, use Rename Method.  If you need to state some rules about the required state of the system, use Introduce Assertion.
-
-       Tip: When you feel the need to write a comment, first try to refactor the code so that any comment becomes superfluous.
-
-       A good time to use a comment is when you don't know what to do. In addition to describing what is going on, comments can indicate areas in which you aren't sure. A comment is a good place to say why you did something. This kind of information helps future modifiers, especially forgetful ones
-***** Chapter 4. Building Tests
-- the essential precondition is having solid tests.
-- I'm a pretty lazy person and am prepared to work quite hard in order to avoid work.
-- In fact, one of the most useful times to write tests is before you start programming. When you need to add a feature, begin by writing the test. This isn't as backward as it sounds. By writing the test you are asking yourself what needs to be done to add the function. Writing the test also concentrates on the interface rather than the implementation (always a good thing). It also means you have a clear point at which you are done coding—when the test works.
-- Now we should continue adding more tests. The style I follow is to look at all the things the class should do and test each one of them for any conditions that might cause the class to fail. This is not the same as "test every public method," which some programmers advocate. Testing should be risk driven; remember, you are trying to find bugs now or in the future. So I don't test accessors that just read and write a field. Because they are so simple, I'm not likely to find a bug there.This is important because trying to write too many tests usually leads to not writing enough. I've often read books on testing, and my reaction has been to shy away from the mountain of stuff I have to do to test. This is counterproductive, because it makes you think that to test you have to do a lot of work. You get many benefits from testing even if you do only a little testing. The key is to test the areas that you are most worried about going wrong. That way you get the most benefit for your testing effort.
-***** Chapter 5. Toward a Catalog of Refactorings
-- The examples are of the laughably simple textbook kind. My aim with the example is to help explain the basic refactoring with minimal distractions, so I hope you'll forgive the simplicity. (They are certainly not examples of good business object design.) I'm sure you'll be able to apply them to your rather more complex situations. Some very simple refactorings don't have examples because I didn't think an example would add much.
-- In particular, remember that the examples are included only to illustrate the one refactoring under discussion. In most cases, there are still problems with the code at the end, but fixing these problems requires other refactorings. In a few cases in which refactorings often go together, I carry examples from one refactoring to another. In most cases I leave the code as it is after the single refactoring. I do this to make each refactoring self-contained, because the primary role of the catalog is as a reference.
-- Don't take any of these examples as suggestions for how to design employee or order objects. These examples are there only to illustrate the refactorings, nothing more. 
-***** Chapter 6. Composing Methods
-- The key is the semantic distance between the method name and the method body.
-  
-**** [[pdf:/home/slk/Dropbox/books/Refactoring/Folwer, Martin - Refactoring (2020).pdf::1][Refactoring: Improving the Design of Existing Code; 2020]]
- - With any introductory example, however, I run into a problem. If I pick a large program, describing it and how it is refactored is too complicated for a mortal reader to work through.(...) However, if I pick a program that is small enough to be comprehensible, refactoring does not look like it is worthwhile.
- 
- - Thus, if I’m faced with modifying a program with hundreds of lines of code, I’d rather it be structured into a set of functions and other program elements that allow me to understand more easily what the program is doing. If the program lacks structure, it’s usually easier for me to add structure to the program first, and then make the change I need.
-
- - If the code works and doesn’t ever need to change, it’s perfectly fine to leave it alone. It would be nice to improve it, but unless someone needs to understand it, it isn’t causing any real harm. Yet as soon as someone does need to understand how that code works, and struggles to follow it, then you have to do something about it.
-
- - Refactoring changes the programs in small steps, so if you make a mistake, it is easy to find where the bug is.
- - Any fool can write code that a computer can understand. Good programmers write code that humans can understand.
- - The true test of good code is how easy it is to change it.
- - Refactoring (noun): a change made to the internal structure of software to make it easier to understand and cheaper to modify without changing its observable behavior.
- - Refactoring (verb): to restructure software by applying a series of refactorings without changing its observable behavior.
- - Refactoring is very similar to performance optimization, as both involve carrying out code manipulations that don’t change the overall functionality of the program. The difference is the purpose: Refactoring is always done to make the code “easier to understand and cheaper to modify.” This might speed things up or slow things down. With performance optimization, I only care about speeding up the program, and am prepared to end up with code that is harder to work with if I really need that improved performance.
-
- - Without refactoring, the internal design—the architecture—of software tends to decay.As people change code to achieve short­term goals, often without a full comprehensionof the architecture, the code loses its structure. It becomes harder for me to see thedesign by reading the code. Loss of the structure of code has a cumulative effect. Theharder it is to see the design in the code, the harder it is for me to preserve it, and themore rapidly it decays. Regular refactoring helps keep the code in shape.
-
- - It reminds me of a statement Kent Beck often makes about himself: “I’m not a great programmer; I’m just a good programmer with great habits.” Refactoring helps me be much more effective at writing robust code. 
-
- - Branches. As I write this, a common approach in teams is for each team member to work on abranch of the code base using a version control system, and do considerable work onthat branch before integrating with a mainline (often called master or trunk) sharedacross the team. Often, this involves building a whole feature on a branch, notintegrating into the mainline until the feature is ready to be released into production.Fans of this approach claim that it keeps the mainline clear of any in­process code,provides a clear version history of feature additions, and allows features to be revertedeasily should they cause problems.There are downsides to feature branches like this. The longer I work on an isolatedbranch, the harder the job of integrating my work with mainline is going to be when I’mdone. Most people reduce this pain by frequently merging or re­basing from mainlineto my branch. But this doesn’t really solve the problem when several people areworking on individual feature branches. I distinguish between merging and integration.If I merge mainline into my code, this is a oneway movement—my branch changes butthe mainline doesn’t. I use “integrate” to mean a two­way process that pulls changesfrom mainline into my branch and then pushes the result back into mainline, changingboth. If Rachel is working on her branch I don’t see her changes until she integrateswith mainline; at that point, I have to merge her changes into my feature branch, whichmay mean considerable work. The hard part of this work is dealing with semanticchanges. Modern version control systems can do wonders with merging complexchanges to the program text, but they are blind to the semantics of the code. If I’vechanged the name of a function, my version control tool may easily integrate mychanges with Rachel’s. But if, in her branch, she added a call to a function that I’verenamed in mine, the code will fail.The problem of complicated merges gets exponentially worse as the length of featurebranches increases. Integrating branches that are four weeks old is more than twice ashard as those that are a couple of weeks old. Many people, therefore, argue for keepingfeature branches short—perhaps just a couple of days. Others, such as me, want themeven shorter than that. This is an approach called Continuous Integration (CI), alsoknown as Trunk­Based Development. With CI, each team member integrates withmainline at least once per day. This prevents any branches diverting too far from eachother and thus greatly reduces the complexity of merges. CI doesn’t come for free: Itmeans you use practices to ensure the mainline is healthy, learn to break large featuresinto smaller chunks, and use feature toggles (aka feature flags) to switch off any in­process features that can’t be broken down.Fans of CI like it partly because it reduces the complexity of merges, but the dominantreason to favor CI is that it’s far more compatible with refactoring. Refactorings ofteninvolve making lots of little changes all over the code base—which are particularlyprone to semantic merge conflicts (such as renaming a widely used function). Many ofus have seen feature­branching teams that find refactorings so exacerbate mergeproblems that they stop refactoring. CI and re­factoring work well together, which iswhy Kent Beck combined them in Extreme Programming.I’m not saying that you should never use feature branches. If they are sufficiently short,their problems are much reduced. (Indeed, users of CI usually also use branches, butintegrate them with mainline each day.) Feature branches may be the right techniquefor open source projects where you have infrequent commits from programmers whoyou don’t know well (and thus don’t trust). But in a full­time development team, thecost that feature branches impose on refactoring is excessive. Even if you don’t go to fullCI, I certainly urge you to integrate as frequently as possible. You should also considerthe objective evidence [Forsgren et al.] that teams that use CI are more effective insoftware deliver
-**** [[https://github.com/HugoMatilla/Refactoring-Summary][Summary of "Refactoring: Improving the Design of Existing Code" by Martin Fowler]]
-**** Patterns of Enterprise Application Architecture; 2012	
-*** Michael Feathers
-**** [[pdf:/home/slk/Dropbox/books/Refactoring/Feathers, Michael - Working Effectively with Legacy Code (2005).pdf::1][Working Effectively with Legacy Code; 2005]]
- - To me, legacy code is simply code without tests. I’ve gotten some grief for this definition. What do tests have to do with whether code is bad? To me, the answer is straightforward, and it is a point that I elaborate throughout the book: 'Code without tests is bad code. It doesn’t matter how well written it is; it doesn’t matter how pretty or object-oriented or well-encapsulated it is. With tests, we can change the behavior of our code quickly and verifiably. Without them, we really don’t know if our code is getting better or worse.'
-
- - being able to confidently make changes in any code base.
-
- - Preserving existing behavior
-
- - Changes in a system can be made in two primary ways. I like to call them Edit and Pray and Cover and Modify. Unfortunately, Edit and Pray is pretty much the industry standard. When you use Edit and Pray, you carefully plan the changes you are going to make, you make sure that you understand the code you are going to modify, and then you start to make the changes. When you’re done, you run the system to see if the change was enabled, and then you poke around further to make sure that you didn’t break anything. The poking around is essential. When you make your changes, you are hoping and praying that you’ll get them right, and you take extra time when you are done to make sure that you did.
-
- - ...testing is a tough problem, and people are often seduced by the idea that they can test through a GUI or web interface without having to do anything special to their application. It can be done, but it is usually more work than anyone on a team is prepared to admit. In addition, a user interface often isn’t the best place to write tests. UIs are often volatile and too far from the functionality being tested. When UI-based tests fail, it can be hard to figure out why. Regardless, people  often spend considerable money trying to do all of their testing with those sorts of tools.
-   
- - Pay now or pay more later
-
-[copied from somesite]
- Exploratory Refactoring: the recipe
- When you feel stuck because you don't understand what the code is doing, here's what you can do:
- Take a breath, there is a way out and you're about to find it
- Reset your git status to start fresh (git reset --hard or git stash will do)
- Set up a timer for 30 minutes
- Refactor the code freely, don't worry if the code still compiles, just go ahead and change it
- Throw away your changes when the timer rings!
- Just do it: git reset --hard
- Take a break, go drink some water and think about what you just learned
-
-git clean -f -d
-**** LOOKING-FOR Brutal Refactoring: More Working Effectively with Legacy Code
-*** [[pdf:/home/slk/Dropbox/books/Refactoring/\[Joshua_Kerievsky\]_Refactoring_to_Patterns (2004).pdf::1][Kerievsky, Joshua; Refactoring to Patterns; 2004]]
-**** Primitive Obsession
-***** Replace Type Code with Class
-      if a primitive value controls logic in a class
-***** Replace State-Altering Conditionals with State
-      if an object's state transitions are controller by complex conditional logic 
-***** Replace Conditional Logic with Strategy 
-      if complicated conditional logic controls which algorithm to run and that logic relies on primitive values
-*** LOOKING-FOR The Legacy Code Programmer's Toolbox
-*** TODO Five Lines of Code Christian Clausen
-*** Refactoring in Large Software Projects 2006
-*** [[pdf:/home/slk/Dropbox/books/Refactoring/Antipatterns. Refactoring Software, Archtectures and Projects in Crisis(1998).pdf::1][Antipatterns. Refactoring Software, Archtectures and Projects in Crisis 1998]]
-    William J. Brown, Raphael C. Malveau, Hays W. "Skip" McCormick, Thomas J. Mowbray
-*** Phillip A. Laplante, Colin J. Neill Antipatterns: Identification, Refactoring, and Management 2005	
-*** [[pdf:/home/slk/Dropbox/books/Refactoring/Refactoring for Software Design Smells - Managing Technical Debt (2015).pdf::1][Ganesh, Samarthyam Tushar, Sharma; Refactoring for Software Design Smells: Managing Technical Debt; 2015]]
-Catalog of smells. Focus on smell point of view. Also they introduce smell classification scheme, naming scheme for design smells which helps to increase awerness of smells. So definetly must read. (Java)
-
-bk. Unbuilding Cities: Obduracy in Urban Sociotechnical Change  2008
-
-[[http://scg.unibe.ch/download/oorp/OORP.pdf][Object-Oriented Reengineering Patterns]]
-
-[[https://en.wikipedia.org/wiki/Lehman%2527s_laws_of_software_evolution][https://en.wikipedia.org/wiki/Lehman%27s_laws_of_software_evolution]]
-
-As a program is evolved its complexity increases unless work is done to maintain or reduce it.
-Lehman’s law of Increasing Complexity [1]
-
-Borrowing a phrase from the health care domain “a good doctor is one who knows the medicines but a great doctor is one who knows the disease”
-
-[[https://en.wikipedia.org/wiki/Grady_Booch#cite_note-16][Grady Booch]]
-
-We believe that the impact of a smell can only be judged based on the design context in which it occurs.
-
-However, today, software engineers are expected to build really complex software within a short time frame in an environment where requirements are continuously changing. Needless to say, it is a huge challenge to maintain the quality of the design and overall software in such a context.
-
-In the midst of this struggle, it became clear to us that if we wanted to organize this collection so that we could share it in a beneficial manner with fellow architects, designers, and developers, our classification scheme should be linked to something fundamental, i.e., design principles.
-
-**** design smells?
-     Design smells are certain structures in the design that indicate violation of fundamental design principles and negatively impact design quality.
-In other words, a design smell indicates a potential problem in the design structure. The medical domain provides a good analogy for our work on smells. The symptoms of a patient can be likened to a “smell,” and the underlying disease can be likened to the concrete “design problem.”
-**** technical debt
-Technical debt is the debt that accrues when you knowingly or unknowingly make wrong or non-optimal design decisions.  Technical debt is a metaphor coined by Ward Cunningham in a 1992 report [44]. Technical debt is analogous to financial debt. When a person takes a loan (or uses his credit card), he incurs debt. If he regularly pays the installments (or the credit card bill) then the created debt is repaid and does not create further problems.  However, if the person does not pay his installment (or bill), a penalty in the form of interest is applicable and it mounts every time he misses the payment. In case the person is not able to pay the installments (or bill) for a long time, the accrued interest can make the total debt so ominously large that the person may have to declare bankruptcy.
-
-•	Code debt: Static analysis tool violations and inconsistent coding style.
-•	Design debt: Design smells and violations of design rules.
-•	Test debt: Lack of tests, inadequate test coverage, and improper test design.
-•	Documentation debt: No documentation for important concerns, poor docu-
-mentation, and outdated documentation.
-
-Jim Highsmith [45] describes how Cost of Change (CoC) varies wth technical debt.
-
-congitive load
-
-**** smells
-|                | structural | behavioral |
-|----------------+------------+------------|
-| architecture   |            |            |
-| design         | X          |            |
-| implementation |            |            |
-**** PHAME
-     We treat the four major elements of Booch’s object model as “design principles” and refer to them collectively as PHAME (Principles of Hierarchy, Abstraction, Modularization, and Encapsulation).
-**** Booch’s fundamental design principles HAME
-***** hierarchy
-***** abstraction
-The principle of abstraction advocates the simplification of entities through reduction and generalization: reduction is by elimination of unnecessary details and generalization is by identification and specification of common and important characteristics.
-
-****** Missing Abstraction
-Clumps of data or encoded strings are used instead of creating a class or an interface
-
-******* Rationale
-- It can expose implementation details to different abstractions, violating the principle of encapsulation.
-- When data and associated behavior are spread across abstractions, it can lead to tight coupling between entities, resulting in brittle and non-reusable code. Hence, not creating necessary abstractions also violates the principle of modularization.
-******* Potential Causes
-******** Inadequate design analysis
-When careful thought is not applied during design, it is easy to overlook creating abstractions and use primitive type values or strings to “get the work done.” In our experience, this often occurs when software is developed under tight deadlines or resource constraints.
-******** Lack of refactoring
-As requirements change, software evolves and entities that were earlier represented using strings or primitive types may need to be refactored into classes or interfaces.  When the existing clumps of data or encoded strings are retained as they are without refactoring them, it can lead to a Missing Abstraction smell.
-******** Misguided focus on minor performance gains 
-This smell often results when designers compromise design quality for minor performance gains. For instance, we have observed developers using arrays directly in the code instead of creating appropriate abstractions since they feel that indexing arrays is faster than accessing members in objects. In most contexts, the performance gains due to such “optimizations” are minimal, and do not justify the resultant trade-off in design quality.
-https://steemit.com/php/@crell/php-use-associative-arrays-basi
-******* Examples
-******** from, to
-data clumps always used together
-******* Refactor
-create abstraction(s) that can internally make use
-of primitive type values or strings.
-******* Alias
-******** Primitive Obsession
-This smell occurs when [[*primitive elements - types][primitive types]] are used for encoding dates, currency, etc. instead of creating classes.
-******** Data clumps
-This smell occurs when there are clumps of data items that occur together in lots of places instead of creating a class.
-****** Imperative Abstraction
-This smell arises when an operation is turned into a class. This smell manifests as a class that has only one method defined within the class. At times, the class name itself may be identical to the one method defined within it. For instance, if you see class with name Read that contains only one method named read() with no data members, then the Read class has Imperative Abstraction smell. Often, it is also seen in the case of this smell that the data on which the method operates is located within a different class.  It should be noted that it is sometimes desirable to turn an operation into a class.
-******* Rationale
-Defining functions or procedures explicitly as classes (when the data is located somewhere else) is a glorified form of structured programing rather than object-oriented programming. One-operation classes cannot be representative of an “abstraction,” especially when the associated data is placed somewhere else. Clearly, this is a violation of the principle of abstraction. Since these classes are ‘doing’ things instead of ‘being’ things, this smell is named Imperative Abstraction.  If operations are turned into classes, the design will suffer from an explosion of one-method classes and increase the complexity of the design. Furthermore, many of these methods that act on the same data would be separated into different classes and thus reduce the cohesiveness of the design. For these reasons, this smell also violates the principles of encapsulation and modularization.
-The smell not only increases the number of classes (in this case there are at least four classes when ideally one could have been used), but also increases the complex- ity involved in development and maintenance because of the unnecessary separation of cohesive methods.
-******* Potential Causes
-******** procedural thinking
-******* Refactor
-To refactor the Imperative Abstraction design smell, you have to either find or create an appropriate abstraction to house the method existing within the Imperative Abstraction. You also have to encapsulate the data needed by the method within the same abstraction to improve cohesion and reduce coupling.
-******* Reification 
-is the promotion or elevation of something that is not an object into an object. When we reify behavior, it is possible to store it, pass it, or transform it. Reification improves flexibility of the system at the cost of introducing some complexity [52].  Many design patterns [54] employ reification. Examples:
-
-• State pattern: Encoding a state-machine.
-
-• Command pattern: Encoding requests as command objects. A permitted exception for this smell is when a Command pattern has been used to objectify method requests.
-
-• Strategy pattern: Parameterizing a procedure in terms of an operation it uses.
-
-In other words, when we consciously design in such a way to elevate non-objects to objects for better reusability, flexibility, and extensibility (i.e., for improving
-design quality), it is not a smell.
-
-******* Aliases
-“Operation class” ??? [51,52] — This smell occurs when an operation that should have been a method within a class has been turned into a class itself.
-****** Incomplete Abstraction
-An abstraction (entity or interface) does not support complementary or interrelated methods completely
-For example, if we need to be able to add or remove elements in a data
-structure, the type abstracting that data structure should support both add() and
-remove() methods. Supporting only one of them makes the abstraction incomplete
-
-| Min/max        | Open/close  | Create/destroy | Get/set   |
-| Read/write     | Print/scan  | First/last     | Begin/end |
-| Start/stop     | Lock/unlock | Show/hide      | Up/down   |
-| First/last     | Push/pull   |                |           |
-| Enable/disable | Left/right  | On/off         |           |
-
-Sometimes, a designer may make a conscious design decision to not provide symmetric or matching methods. For example, in a read-only collection, only add() method may be provided without the corresponding remove() method. In such a case, the abstraction may appear incomplete, but is not a smell.
-
-******* Aliases
-This smell is also known in literature as:
-  
-• “Class supports incomplete behavior” [18]—This smell occurs when the public interface of a class is incomplete and does not support all the behavior needed by objects of that class.
-
-• “Half-hearted operations” [63]—This smell occurs when interrelated methods provided in an incomplete or in an inconsistent way; this smell could lead to runtime problems.
-****** Multifaceted Abstraction
-This smell arises when an abstraction has more than one responsibility assigned to it.
-
-In particular, the Single Responsibility Principle says that an abstraction should have a single well-defined responsibility and that responsibility should be entirely encapsulated
-within that abstraction. 
-
-Since the abstraction has multiple “faces” or “responsibilities”, it is named Multifaceted Abstraction.
-
-Single “Responsibility” Principle does not mean logical grouping of all functionality related to a concept. Rather “responsibility” refers to a concrete, specific, and precise responsibility that has one reason to change
-
-******* Potential Causes
-******** General-purpose abstractions
-An abstraction with a generic name (Node , Component, Element, and Item ), it often becomes a “placeholder” for providing all the functionality related (but not necessarily belonging) to that abstraction. Hence, general purpose abstractions often exhibit this smell.
-******** Evolution without periodic refactoring
-When a class undergoes extensive changes over a long period of time without refac- toring, other responsibilities start getting introduced in these classes and design decay starts. In this way, negligence toward refactoring leads to the creation of monolithic blobs that exhibit multiple responsibilities.
-******** The burden of processes
-Sometimes the viscosity of the software and environment serves to discourage the adoption of good practices.
-******** Mixing up concerns
-******* Example
-Classes exhibiting Multifaceted Abstraction are usually large and complex.  For example, java.util.Calendar class (in JDK 7) spans 2825 lines of code and has 67 methods and 71 fields! However, large or complex implementation is not an essential characteristic of classes having Multifaceted Abstraction smell; see the discussion on Insufficient Modularization smell (Section 5.2).
-
-******* Aliases
-• “Divergent change” [7]—This smell occurs when a class is changed for different reasons.
-
-• “Conceptualization abuse” [30]—This smell occurs when two or more noncohesive concepts have been packed into a single class of the system.
-	 
-• “Large class” [7,24,57,58]—This smell occurs when a class has “too many” responsibilities.
-	 
-• “Lack of cohesion” [59]—This smell occurs when there is a large type in a design with low cohesion, i.e., a “kitchen sink” type that represents many abstractions.
-
-****** Unnecessary Abstraction
-An abstraction that is not needed
-
-ALIASES:
-Irrelevant class - class does not have any meaningful behavior in the design
-Lazy class / Freeloader — class does “too little”
-Small class - class has no (or too few) variables or no (or too few) methods in it
-Mini-class - a public, non-nested class defines less than three methods and less than three attributes (including constants) in it
-No responsibility - class has no responsibility associated with it
-Agent classes - class serve as an “agent” (i.e., they only pass messages from one class to another), indicating that the class may be unnecessary
-****** Unutilized Abstraction
-An abstraction is left unused (either not directly used or not
-reachable). This smell manifests in two forms:
-
-• Unreferenced abstractions—Concrete classes that are not being used by anyone
-• Orphan abstractions—Stand-alone interfaces/abstract classes that do not have
-any derived abstractions
-
-
-This smell violates the principle YAGNI (You
-Aren’t Gonna Need It), which recommends not adding functionality until deemed
-necessary [53]
-
-When an abstraction is left unused
-in design, it does not serve a meaningful purpose in design, and hence violates the
-principle of abstraction.
-
-POTENTIAL CAUSES:
-Leftover garbage during maintenance or refactoring.
-Speculative generality - abstractions are introduced speculating that they may be required sometime in future.
-
-
-REFACTORING:
-remove the Unutilized Abstraction from the design.
-
-IMPACT:
-pollutes the design space and increases cognitive load. This impacts understandability.
-UNUTILIZED ABSTRACTION
-Two or more abstractions have identical names or identical implementation or both
-
-
-POTENTIAL CAUSES:
-
-Copy-paste programming
-The “get-the-work-done” mindset of a programmer leads him to copy and paste code
-instead of applying proper abstraction.
-Ad hoc maintenance
-When the software undergoes haphazard fixes or enhancements over many years, it
-leaves “crufts”6 with lots of redundant code in it.
-Lack of communication
-Often, in industrial software, code duplication occurs because different people work
-on the same code at different times in the life cycle of the software. They are not
-aware of existing classes or methods and end up re-inventing the wheel.
-
-REFACTORING:
-For identical name form, the suggested refactoring is to rename one of the abstrac-
-tions to a unique name.
-In the case of the identical implementation form of Duplicate Abstraction, if the
-implementations are exactly the same, one of the implementations can be removed.
-If the implementations are slightly different, then the common implementation in
-the duplicate abstractions can be factored out into a common class.
-
-
-IMPACT:
-it affects understandability of the design. Developers of client code will be confused and unclear about the choice
-of the abstraction that should be used by their code.
-
-identical implementation (i.e., they have duplicate code), it becomes difficult to maintain them.
-In summary, this smell indicates a violation of the DRY (Don’t Repeat Yourself)
-principle.
-If the DRY principle is not fol-
-lowed, a modification of an element within the system requires modifications to other
-logically unrelated elements making maintainability a nightmare. Since there is dupli-
-cation among abstractions in the design, this smell is named Duplicate Abstraction.
-
-3.7.6 ALIASES
-This smell is also known in literature as:
-
-•	“Alternative classes with different interfaces” [7]—This smell occurs when
-classes do similar things, but have different names.
-•	“Duplicate design artifacts” [74]—This smell occurs when equivalent design
-artifacts are replicated throughout the architecture.
-****** Duplicate Abstraction
-UNUTILIZED ABSTRACTION
-Two or more abstractions have identical names or identical implementation or both
-
-
-POTENTIAL CAUSES:
-
-Copy-paste programming
-The “get-the-work-done” mindset of a programmer leads him to copy and paste code
-instead of applying proper abstraction.
-Ad hoc maintenance
-When the software undergoes haphazard fixes or enhancements over many years, it
-leaves “crufts”6 with lots of redundant code in it.
-Lack of communication
-Often, in industrial software, code duplication occurs because different people work
-on the same code at different times in the life cycle of the software. They are not
-aware of existing classes or methods and end up re-inventing the wheel.
-
-REFACTORING:
-For identical name form, the suggested refactoring is to rename one of the abstrac-
-tions to a unique name.
-In the case of the identical implementation form of Duplicate Abstraction, if the
-implementations are exactly the same, one of the implementations can be removed.
-If the implementations are slightly different, then the common implementation in
-the duplicate abstractions can be factored out into a common class.
-
-
-IMPACT:
-it affects understandability of the design. Developers of client code will be confused and unclear about the choice
-of the abstraction that should be used by their code.
-
-identical implementation (i.e., they have duplicate code), it becomes difficult to maintain them.
-In summary, this smell indicates a violation of the DRY (Don’t Repeat Yourself)
-principle.
-If the DRY principle is not fol-
-lowed, a modification of an element within the system requires modifications to other
-logically unrelated elements making maintainability a nightmare. Since there is dupli-
-cation among abstractions in the design, this smell is named Duplicate Abstraction.
-
-3.7.6 ALIASES
-This smell is also known in literature as:
-
-•	“Alternative classes with different interfaces” [7]—This smell occurs when
-classes do similar things, but have different names.
-•	“Duplicate design artifacts” [74]—This smell occurs when equivalent design
-artifacts are replicated throughout the architecture.
-***** modularization
-***** encapsulation
-*** Francesco Trucchia, Jacopo Romei Pro PHP Refactoring 2010
-    Old, without PHP 7 but still the best PHP book about refactoring. Great examples. Worth to have.
-** documentations
-*** READING Living Documentation: Continuous Knowledge Sharing by Design 1st Edition by Cyrille Martraire
-    https://github.com/tedneward/ArchKatas
-    Specifying the Type of a Change type must be one of the following:
-    • feat: A new feature
-    • fix: A bug fix
-    • docs: Documentation-only changes
-    • style: Changes that do not affect the meaning of the code, such as changes to whitespace, formatting, missing semicolons, and so on
-    • refactor: A code change that neither fixes a bug nor adds a feature
-    • perf: A code change that improves performance
-    • test: Changes that add missing tests
-    • chore: Changes to the build process or auxiliary tools and libraries, such as documentation generation
-** database
-*** Karwin, Bill SQL Antipatterns - Avoiding The Pitfalls of Database Programming 2010	
-*** SQL for Smarties: Advanced SQL Programming 2005
-*** Joe Celko’s Trees and Hierarchies in SQL for Smarties
-*** Scott J Ambler and Pramod J. Sadalage Refactoring Databases - Evolutionary Database Design 2006
-    refactoring	must read It's catalog of refactorings for database
-*** Stephane Faroult, Pascal L'Hermite	Refactoring SQL Application 2008	
-** Andrew Hunt, David Thomas - The Pragmatic Programmer: From Journeyman to Master 1999	
-   overall skip a lot of tips & tricks but too old
-** Fifty Quick Ideas To Improve Your Tests tests			
-** Growing Object-Oriented Software, Guided by Tests				
-** Working Effectively with Unit Tests				
-** Scalable Internet Architectures 	
-** Anthology  The Thoughtworks Anthology - Essays on Software Technology and Innovation 2008
-** Anthology  The ThoughtWorks Anthology 2 - More Essays on Software Technology and Innovation 2012	
-** Beck, Kent Extreme Programming Explained: Embrace Change 1999	
-   overall can be read
-** Bhargava, Aditya Grokking Algorithms: An illustrated guide for programmers and other curious people 
-   must read 2017 Fully illustrated, friendly, easy to read guide, worth to read. When you will stumble upon a problem, you will know how to recognize it and chose the right Algorithm
-** [[pdf:/home/slk/Dropbox/books/Effective Java by Joshua Bloch (z-lib.org).pdf::1][Bloch, Joshua Effective Java 2018]]	
-** Buenosvinos, Carlos	Domain-Driven Design in PHP 2016	
-** Jones, Paul M. Modernizing Legacy Apps In PHP 2014	
-** Junade, Ali	Mastering PHP Design Patterns 2016 
-   Little bit inmature, poorly written. Having a lot of tips and information about broad variaty of things which is a good place on website but not in the book. Code examples could be much better.
-** Rahman, Mizanur PHP 7 Data Structures and Algorithms 2017
-** Tornhill, Adam Your Code as a Crime Scene - Use Forensic Techniques to Arrest Defects, Bottlenecks, and Bad Design in Your Programs 2015	
-** West, David Object Thinking  2004
-** Back-end Performance
-   https://www.oreilly.com/library/view/back-end-performance/9781492069362/
-** Build APIs You Won't Hate
-** McConnel, Steve "Code Complete 2"
-** Wake, William C.; Refactoring Workbook; 2003
-*** https://xp123.com/articles/refactoring-workbook/
-**** Taxonomy
-***** [[http://mikamantyla.eu/BadCodeSmellsTaxonomy.html][Mika Mäntylä]]
-***** [[http://www.industriallogic.com/wp-content/uploads/2005/09/smellstorefactorings.pdf][Joshua Kerievsky]]
-** Martin, Robert C.
-*** [[pdf:/home/slk/Dropbox/books/Refactoring/Martin, Robert C. - Clean Code: A Handbook of Agile Software Craftsmanship (2009).pdf::1][Clean Code: A Handbook of Agile Software Craftsmanship; 2009]]
-- There are two parts to learning craftsmanship: knowledge and work. You must gain the knowledge of principles, patterns, practices, and heuristics that a craftsman knows, and you must also grind that knowledge into your fingers, eyes, and gut by working hard and practicing.
-- Do not refer to a grouping of accounts as an accountList unless it’s actually a List. The word list means something specific to programmers. If the container holding the accounts is not actually a List, it may lead to false conclusions (even if the container is a List, it’s probably better not to encode the container type into the name). So accountGroup or bunchOfAccounts or just plain accounts would be better.
-- A truly awful example of disinformative names would be the use of lower-case L or uppercase O as variable names, especially in combination. The problem, of course, is that they look almost entirely like the constants one and zero, respectively.
-- Certainly a loop counter may be named i or j or k (though never l!) if its scope is very small and no other names can conflict with it. This is because those single-letter names for loop counters are traditional.
-#+BEGIN_SRC php
-int a = 1;
-if ( O == 1 )
-    a = O1;
-else
-    l = 01;
-#+END_SRC
-*** Agile Software Development: Principles, Patterns, and Practices; 2002
-** Design It!: From Programmer to Software Architect (The Pragmatic Programmers) 1st Edition by Michael Keelin
-** Mastering the SPL Library
-** Zandstra, Matt "PHP Objects, Patterns, and Practice" 2008
-   Pretty old. But written with precise language and with great examples                                                                                                                                        |
-** TODO Halladay, Steve Principle-Based Refactoring: Learning Software Design Principles by Applying Refactoring Rules 2012
-** TODO Matthias Noback
-*** TODO Object Design Style Guide
-** TODO xUnit Test Patterns - Refactoring Test Code
-   http://xunitpatterns.com/index.html
-** TODO The Psychology of Computer Programming
-** TODO Timeless Laws of Software Development
-** TODO Hacker's Delight
-** LOOKING-FOR Bernstein, David Scott Beyond Legacy Code 2015
-** LOOKING-FOR Bugayenko, Yegor Elegant Objects 2016
-** LOOKING-FOR Cusumano MA, Selby RW (1995) Microsoft secrets. Free Press, USA
-   describe how Microsoft uses 20% of its development effort to re-develop the code base of its products
-** LOOKING-FOR Cusumano MA, Yoffie DB (1998) Design strategy. In: Competing on internet time. Free Press, New York, USA, pp 180–198
-   report how Netscape’s inability to refactor the code base hindered their software development, and how Microsoft’s redesign efforts in the Internet Explorer 3.0 project later paid off.
-** LOOKING-FOR https://www.sandimetz.com/99bottle
 * smells
 ** description
 *** "Subjective Evaluation of Software Evolvability Using Code Smells: An Empirical Study" 2006
@@ -5234,6 +5246,10 @@ sudo lsof -i:22 ## see a specific port such as 22 ##
 19) Software isn't the hard part; people are the hard part.
 20) abyss of the rewrite
 21) A mistake that kills many startups is premature scaling: adding too many people and processes before gaining significant traction. You cannot scale a product that is still taking shape. Until the product is validated, staying small is a competitive advantage.
+22) No Code, No Problem
+23) The lurking suspicion that something could be simplified is the world's richest source of rewarding challenges. Edsger Dijkstra
+24) Simplicity is a great virtue but it requires hard work to achieve it and education to appreciate it. And to make matters worse: complexity sells better. The computing industry is not the only one that has discovered that sore truth: so has the academic world. If you deliver a lecture that is crystal clear from the beginning to end, your audience feels cheated and mutters while leaving the lecture hall "That was all rather trivial, wasn't it?"
+    — Edsger .W. Dijkstra, "On the Nature of Computing Science" (EWD896), August 1984
 * php
 ** language
 *** primitive elements - types
@@ -5602,12 +5618,34 @@ echo "<pre>";print_r($result);
 ** companies focus on refactoring 
 *** https://corgibytes.com/
 * topics
+** [[https://wiki.c2.com/?WaterbedTheory][Waterbed Theory]]
+** free software 
+*** [[https://r0ml.medium.com/giving-up-on-open-source-software-526b63a90d5d][Giving up on Open Source Software]]
 ** simplicity
    - Simplicity is a great virtue but it requires hard work to achieve it and education to appreciate it. And to make matters worse complexity sells better.
 ** null                                                                :null:
 *** [[https://www.infoq.com/presentations/Null-References-The-Billion-Dollar-Mistake-Tony-Hoare/][Null References: The Billion Dollar Mistake]]
 ** technical debt                                            :technical_debt:
-   - [[https://youtu.be/pqeJFYwnkjcE][Ward Cunningham - Debt Metaphor]]
+*** [[https://youtu.be/pqeJFYwnkjcE][Ward Cunningham - Debt Metaphor]]
+*** [[https://thenewstack.io/to-reduce-tech-debt-eliminate-dependencies-and-refactoring/][Robert Lefkowitz To Reduce Tech Debt, Eliminate Dependencies (and Refactoring)]]
+**** [[https://learning.oreilly.com/videos/technical-debt-a/0636920338031/0636920338031-video327221/][Technical Debt: A Master Class - Robert "r0ml" Lefkowitz (Retired)]]
+***** [[https://code.jjb.cc/benchmarking-postgres-vs-redis][Benchmarking Postgres vs. Redis Reads]]                       :benchmark:
+***** [[https://thebuild.com/blog/2015/10/30/dont-assume-postgresql-is-slow/][Don’t Assume PostgreSQL is Slow]] :benchmark:
+***** [[https://www.pcworld.idg.com.au/article/347616/][App Overload Hurts Flexibility, Adds Complexity]]            :complexity:
+      The best-performing companies have an average of 20 applications per 1,000 users, whereas run-of-the-mill companies have an average of 39, according to Hackett's benchmarking database.
+***** https://boringtechnology.club/
+***** TODO https://breakingsmart.com/en/season-1/
+***** TODO The Data Model Resource Book: A Library of Universal Data Models for All Enterprises
+***** TODO Understanding computers and cognition 
+***** configuration file is technical debt
+***** notes
+      - adding an unnecessary dependency is manufacturing technical debt
+      - the Lindy effect - the future life expectancy of a technology or an idea is proportional to its current age
+      - the new thing won't be better, you just aren't aware of all the ways it will be terrible yet
+      - [[https://en.wikipedia.org/wiki/Qmail][qmail]] In 1997, Bernstein offered a US$500 reward for the first person to publish a verifiable security hole in the latest version of the software. On November 1, 2007, Bernstein raised the reward to US$1000.
+      - technical debt is dependencies - borrowing something is dependency
+      - I was looking for an answer in the form of an integer
+      - These laws were constructed in 1986, they have held up remarkably well, and the First Law is, if you take the number of lines of code that you have, and divide it by 25,000, that will be the number of people in your technology organization. And the Second Law is, a programmer will generate a thousand lines of code, you know, will deploy a thousand lines of debugged code per month. These things give rise to ROML's First Theorem of Software Development, which is that a software developer has a useful life of two years. All right, you put a software developer down, they write code, they churn out a thousand lines of code a month. After two years they have 24,000 lines of code, which means you have to hire somebody else,
 ** failing fast
    I’m so glad you brought this up @heidi. This is important, and words have immense meanings associated with them. In our team we have a wiki page called “Fail Wall”. The idea was to own our failures and write about them so others could see. After some time we realised that even in our open and honest team culture, a lot was just not being shared through that system.
    We changed the name to “Fabulous Failures” and added a description that we valued the learnings opportunity that failures brought with them, but to no avail.

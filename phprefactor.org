@@ -1,24 +1,47 @@
-#+TODO: IN-PROGRESS READING TODO LOOKING-FOR READ DONE 
-#+OPTIONS: broken-links:auto
-#+OPTIONS: toc:nil
-#+begin_src emacs-lisp :results drawer
-(defun ndk/select-heading ()
-  (org-get-outline-path)
-      (org-get-heading t t t t))
+#+columns: %50ITEM(title) %author(author) %8TODO(state)
+#+BEGIN: columnview :indent nil  :id global :skip-empty-rows t :match "type=\"book\""
+| title                                                        | author            | state |
+|--------------------------------------------------------------+-------------------+-------|
+| Living Documentation: Continuous Knowledge Sharing by Design | Cyrille Martraire | DOING |
+| Peter Seibel - Coders at Work                                | Peter Seibel      | DOING |
+#+END
 
-(remove nil
-	(org-map-entries 'ndk/select-heading "+TODO=\"READING\"" 'file))
-#+end_src
-
-#+RESULTS:
-:results:
-(Living Documentation: Continuous Knowledge Sharing by Design 1st Edition by Cyrille Martraire)
-:end:
-
-https://www.youtube.com/ThinkDesignWorkSmart
-
-https://www.oreilly.com/live-events/technical-debt-first-steps/0636920058624/0636920060114/
-
+* DOING Living Documentation: Continuous Knowledge Sharing by Design
+  :PROPERTIES:
+  :type:     book
+  :author:   Cyrille Martraire
+  :year:     2020
+  :name:     Living Documentation: Continuous Knowledge Sharing by Design
+  :tag:      documentation
+  :start:
+  :end:
+  :END:
+  https://github.com/tedneward/ArchKatas
+  Specifying the Type of a Change type must be one of the following:
+  • feat: A new feature
+  • fix: A bug fix
+  • docs: Documentation-only changes
+  • style: Changes that do not affect the meaning of the code, such as changes to whitespace, formatting, missing semicolons, and so on
+  • refactor: A code change that neither fixes a bug nor adds a feature
+  • perf: A code change that improves performance
+  • test: Changes that add missing tests
+  • chore: Changes to the build process or auxiliary tools and libraries, such as documentation generation
+** notes
+   - [[https://vimeo.com/131660202][video - WHEN DDD MEETS DOCUMENTATION - Cyrille Martraire]] <2022-07-03 Sun>
+     - ddd - investing in domain knowledge
+     - domain imersion
+     - https://structurizr.com/
+* DOING Peter Seibel - Coders at Work
+  :PROPERTIES:
+  :type:     book
+  :author:   Peter Seibel
+  :year:     2009
+  :name:     Coders at Work
+  :tag:
+  :start:    <2022-06-25 Sat>
+  :end:
+  :END:
+  books: Writers at Work Paris Review,   
 * simple example
   Wprowadzenie nowej formy zapisu czegoś i konieczność dostosowanie całego systemu i danych do nowego zapisu.
   Ciąganie tych martych elementów i konieczność dostosowania ich do nowego działania.
@@ -32,11 +55,12 @@ https://www.oreilly.com/live-events/technical-debt-first-steps/0636920058624/063
        - Invoice
 	 InvoiceService.php
   3.
-* IN-PROGRESS The code is a liability, not an asset.
+* The code is a liability, not an asset.
   W biznesie panuje ciągłe przekonanie, że dany kod jest zasobem, gotowym produktem, który po wytworzeniu możemy odłożyć na półkę i spokojnie czekać na jego spożycie, zużycie, sprzedaż.
   Jakie są implikację jeśli to prawda?
   1. Dodajemy tylko te funkcjonalności które są używane przez użytkowników - jaki procent? i w jakim czasie ? np. 5% w przeciągu 1 roku.
 * todo
+  Alistair Cockburn
   Code That Fits in Your Head: Heuristics for Software Engineering
   Prefactoring Ken Pugh
   One unbounded ocean of consciousness: Simple answers to the big questions in life
@@ -68,6 +92,64 @@ https://www.oreilly.com/live-events/technical-debt-first-steps/0636920058624/063
   Managing Technical Debt: Reducing Friction in Software Development
   Documenting Software Architectures: Views and Beyond
   Evaluating Software Architectures: Methods and Case Studies
+** manage
+*** Peopleware: Productive Projects and Teams
+    - The High-Tech Illusion Perhaps the answer is what we’ve come to think of as the High-Tech Illusion: the widely held conviction among people who deal with any aspect of new technology (as who of us does not?) that they are in an intrinsically high-tech business. They are indulging in the illusion whenever they find themselves explaining at a cocktail party, say, that they are “in computers,” or “in telecommunications,” or “in electronic funds transfer.” The implication is that they are part of the high-tech world. Just between us, they usually aren’t. The researchers who made fundamental breakthroughs in those areas are in a high-tech business. The rest of us are appliers of their work. We use computers and other new technology components to develop our products or to organize our affairs. Because we go about this work in teams and projects and other tightly knit working groups, we are mostly in the human communication business. Our successes stem from good human interactions by all participants in the effort, and our failures stem from poor human interactions.
+    - The main reason we tend to focus on the technical rather than the human side of the work is not because it’s more crucial, but because it’s easier to do. Getting the new disk drive installed is positively trivial compared to figuring out why Horace is in a blue funk or why Susan is dissatisfied with the company after only a few months. Human interactions are complicated and never very crisp and clean in their effects, but they matter more than any other aspect of the work.
+    - We Haven’t Got Time to Think about This Job, Only to Do It
+    - Quality—If Time Permits”
+    - A policy of “Quality—If Time Permits” will assure that no quality at all sneaks into the product.
+    - Writing in 1954, the British author C. Northcote Parkinson introduced the notion that work expands to fill the time allocated for it, now known as Parkinson’s Law.
+    - The manager’s function is not to make people work, but to make it possible for people to work.
+    - But people work better in natural light. They feel better in windowed space and that feeling translates directly into higher quality of work. People don’t want to work in a perfectly uniform space either. They want to shape their space to their own convenience and taste.
+    - Coding War Games
+    - Environments of the Best and Worst Performers in the Coding War Games
+    - The entire cost of work space for one developer is a small percentage of the salary paid to the developer. How small depends on such factors as real-estate values, salary levels, and lease versus buy tactics. In general, it varies in the range from 6 to 16 percent.
+    - For a programmer/analyst working in company-owned space, you should expect to pay fifteen dollars directly to the worker for every dollar you spend on space and amenities. If you add the cost for employee benefits, the total investment in the worker could easily be twenty times the cost of his or her workplace. The 20:1 ratio implies that workplace cost reduction is risky. Attempts to save a small portion of the one dollar may cause you to sacrifice a large portion of the twenty.
+    - The only acceptable interruption there was a fire alarm, and it had to be for a real fire.
+    - Saving money on space may be costing you a fortune. Intermezzo: Productivity Measurement and Unidentified Flying Objects An intermezzo is a fanciful digression inserted between the pages of an otherwise serious work (oh, well, fairly serious work).
+    - Why can’t we just measure productivity in good and bad workplaces and finally nail down the relationship between the environment and worker effectiveness? That approach would certainly be suitable for an assembly line, but when the work being measured is of a more intellectual nature, it’s not so obvious.
+    - Why should people calling from the comfort of their homes get priority over those of us standing here in this stupid line? Why should those mere window shoppers be taken ahead of customers with money in their hands, ready to buy?
+    - People must learn that it’s okay sometimes not to answer their phones, and their managers need to understand that as well. That’s the character of knowledge workers’ work: The quality of their time is important, not just its quantity.
+    - During the 1960s, researchers at Cornell University conducted a series of tests on the effects of working with music. They polled a group of computer science students and divided the students into two groups, those who liked to have music in the background while they worked (studied) and those who did not. Then they put half of each group together in a silent room, and the other half of each group in a different room equipped with earphones and a musical selection. Participants in both rooms were given a programming problem to work out from specification. To no one’s surprise, participants in the two rooms performed about the same in speed and accuracy of programming. As any kid who does his arithmetic homework with the music on knows, the part of the brain required for arithmetic and related logic is unbothered by music—there’s another brain center that listens to the music. The Cornell experiment, however, contained a hidden wild card. The specification required that an output data stream be formed through a series of manipulations on numbers in the input data stream. For example, participants had to shift each number two digits to the left and then divide by one hundred and so on, perhaps completing a dozen operations in total. Although the specification never said it, the net effect of all the operations was that each output number was necessarily equal to its input number. Some people realized this and others did not. Of those who figured it out, the overwhelming majority came from the quiet room. Many of the everyday tasks performed by professional workers are done in the serial processing center of the left brain. Music will not interfere particularly with this work, since it’s the brain’s holistic right side that digests music. But not all of the work is centered in the left brain. There is that occasional breakthrough that makes you say “Ahah!” and steers you toward an ingenious bypass that may save months or years of work. The creative leap involves right-brain function. If the right brain is busy listening to “1,001 Strings” on Muzak, the opportunity for a creative leap is lost. The creativity penalty exacted by the environment is insidious. Since creativity is a sometime thing anyway, we often don’t notice when there is less of it. People don’t have a quota for creative thoughts. The effect of reduced creativity is cumulative over a long period. The organization is less effective, people grind out the work without a spark of excitement, and the best people leave.
+    - The master plan envisions hugeness and grandeur, steel and concrete spans, modular approaches and replication to make an enormous whole of identical components. The result is sterile uniformity and space that doesn’t work for anyone except the one Ego to whom it stands as a tribute.
+    - (it’s kind of a toilet stall without a toilet).
+    - Management science is much more concerned with the boss’s role as principal strategist and tactician of the work. You are taught to think of management as playing out one of those battle simulation board games. There are no personalities or individual talents to be reckoned with in such a game; you succeed or fail based on your decisions of when and where to deploy your faceless resources.
+    - In the next four chapters, we will attempt to undo the damage of the manager-as-strategist view, and replace it with an approach that encourages you to court success with this formula: • Get the right people. • Make them happy so they don’t want to leave. • Turn them loose. Of course, you have to coordinate the efforts of even the best team so that all the individual contributions add up to an integrated whole. But that’s the relatively mechanical part of management. For most efforts, success or failure is in the cards from the moment the team is formed and the initial directions set out. With talented people, the manager can almost coast from that point on.
+    - But managers are unlikely to change their people in any meaningful way. People usually don’t stay put long enough, and the manager just doesn’t have enough leverage to make a difference in their nature. So the people who work for you through whatever period will be more or less the same at the end as they were at the beginning. If they’re not right for the job from the start, they never will be.
+    - In order to lead without positional authority—without anyone ever appointing you leader—you have to do what Mike does: • Step up to the task. • Be evidently fit for the task. • Prepare for the task by doing the required homework ahead of time. • Maximize value to everyone. • Do it all with humor and obvious goodwill.
+    - Team jell takes time, and, during much of that time, the composition of the team can’t be changing. If you need to use a reactive strategy of contract labor, your team will probably never jell. In fact, the workforce you manage almost certainly won’t be a team at all.
+    - A generation that grew up studying with music blaring on their iPods, text messages flooding in and out, social networking sites open at all hours, and a video game going on sporadically in a window beside the history assignment is an illustration of what former Microsoft Vice President Linda Stone has called “continuous partial attention.”
+    - The total cost of replacing each person is the equivalent of four-and-a-half to five months of employee cost or about 20 percent of the cost of keeping that employee for the full two years on the job.
+    - Believing that workers will automatically accept organizational goals is the sign of naïve managerial optimism.
+    - “Today the Sysboombah Project, tomorrow the world!”
+    - Managers are often not true members of their teams
+    - The Black Team
+    - Back to brainstorming mode: We began looking for “Six Things You Can Do to Make Team Formation Possible.” It was still hard. At last, in desperation, we tried a trick called inversion, described in Edward deBono’s Lateral Thinking. When you’re stuck trying to solve a problem, deBono suggests that rather than looking for ways to achieve your goal, look for ways to achieve the exact opposite of your goal. This can have the effect of clearing away the brain’s cobwebs that keep you from being creative. So instead of looking for ways to make team formation possible, we began to think of ways to make it impossible. That was easy. In no time at all, we came up with lots of surefire ways to inhibit the formation of teams and disrupt project sociology. These measures, taken together, constitute a strategy we dubbed teamicide. Our short list of teamicide techniques is • Defensive management • Bureaucracy • Physical separation • Fragmentation of people’s time • Quality reduction of the product • Phony deadlines • Clique control Some of these techniques will look awfully familiar. They are things that companies do all the time.
+    - It accounts for more than 30 percent of the cost of producing a given product.
+    - Most forms of teamicide do their damage by effectively demeaning the work, or demeaning the people who do it. Teams are catalyzed by a common sense that the work is important and that doing it well is worthwhile.
+    - Teamicide Re-revisited Internal competition has the direct effect of making coaching difficult or impossible. Since coaching is essential to the workings of a healthy team, anything the manager does to increase competition within a team has to be viewed as teamicidal. Here are some of the managerial actions that tend to produce teamicidal side effects: • Annual salary or merit reviews • Management by objectives (MBO) • Praise of certain workers for extraordinary accomplishment • Awards, prizes, bonuses tied to performance • Performance measurement in almost any form But hold on here, aren’t these the very things that managers spend much or even most of their time doing? Sadly, yes. And yet these actions are likely to be teamicidal. In his 1982 book Out of the Crisis, W. Edwards Deming set forth his now widely followed “Fourteen Points.” Hidden among them, almost as an afterthought, is point 12B: Remove barriers that rob people in management and in engineering of their right to pride of workmanship. This means [among other things] abolishment of the annual or merit rating and of management by objectives.1 1. W. E. Deming, Out of the Crisis (Cambridge, Mass.: MIT Center for Advanced Engineering Study, 1982), p. 24. Even people who think of themselves as Deming-ites have trouble with this one. They are left gasping, What the hell are we supposed to do instead? Deming’s point is that MBO and its ilk are managerial cop-outs. By using simplistic extrinsic motivators to goad performance, managers excuse themselves from harder matters such as investment, direct personal motivation, thoughtful team formation, staff retention, and ongoing analysis and redesign of work procedures.
+    - Our point here is somewhat more limited: Any action that rewards team members differentially is likely to foster competition. Managers need to take steps to decrease or counteract this effect.
+    - Growing jelled teams is a fairly chancy matter. Nobody does it consistently. Nobody can make it happen, particularly when it would be most useful. Sometimes the mix is wrong. And sometimes the group is staffed with folks who aren’t disposed to become part of a team; they’re loners and always will be. In his book People and Project Management, Rob Thomsett analyzes certain of the pathologies that interfere with team formation. It makes fascinating reading. However, few of these pathologies are treatable.
+    - Visual supervision is a joke for development workers. Visual supervision is for prisoners.
+    - The engineering profession is famous for a kind of development mode that doesn’t exist elsewhere: the skunkworks project. Skunkworks implies that the project is hidden away someplace where it can be done without upper management’s knowing what’s going on. This happens when people at the lowest levels believe so strongly in the rightness of a product that they refuse to accept management’s decision to kill it. Digital Equipment Corporation’s PDP11, one of DEC’s most successful products, came to the market in this manner. There is a lore about such projects. The amusing thing is that skunkworks is really just another word for insubordination. Management says no, and the project goes on anyway.
+    - “Recognize me as a different caste of creature, a manager. I belong to the thinking class. Those beneath me are employed to carry out my decisions.”
+    - The Cult of Quality The judgment that a still-imperfect product is “good enough” is the death knell for a jelling team. There can be no impetus to bind together with your cohorts for the joint satisfaction gained from delivering mediocre work. The opposite attitude, of “only perfect is good enough for us,” gives the team a real chance. This cult of quality is the strongest catalyst for team formation. It binds the team together because it sets its members apart from the rest of the world. The rest of the world, remember, doesn’t give a hoot for quality.
+    - The cult of quality works like the grain of sand in an oyster; it is a focal point for the team to bind around.
+    - If you could effect some change in the people you manage and make them much more productive and goal-directed but also less controllable, would you do it? The answer to this question distinguishes the great managers from the merely mediocre. The mediocre manager is too insecure to give up the trappings. The great manager knows that people can’t be controlled in any meaningful sense anyway. The essence of successful management is to get everyone pulling in the same direction and then somehow get them fired up to the point that nothing, not even their manager, could stop their progress.
+    - In Australia, where striking uses up nearly as much labor time as working, there is a charming form of strike called work to rule. Rather than walk off the job, workers open up a fat book of procedures and announce, “Until you give us what we’re asking for, we’re going to work exactly to the rule.” When the air-traffic controllers do this, for instance, they can only land one plane every seven minutes. If doctors were to do it, an appendectomy would take a week. Introduction of a Methodology opens up the possibility of work-to-rule actions in still more parts of the economy. People might actually do exactly what the Methodology says, and the work would grind nearly to a halt.
+    - This is fundamental to the theory of standardization at DuPont, for instance. That company’s standards manual during the years we consulted there defined a standard as “a proven method for undertaking a repeated task.”
+    - Why Nonperformance Risks Often Don’t Get Managed Can-do thinking often replaces risk management when the outcome has been defined as a challenge. People rise to a challenge; they welcome it. They get genned up to prove themselves against adversity. The last thing they need is to spend any of their time planning and provisioning for their own failure. Time is of the essence, especially when the challenge is to get something done on a tight schedule. The more the schedule matters, the less time for mitigation planning and the less people are inclined to do it. This need not be all bad. If the manager and his or her team aren’t going to do risk management, someone else has to. The best project manager in this situation is the one who can say, “Look, we’re willing to take on this challenge, this scary delivery date, and we’ll do our best to meet it. We’ll have no time to manage the risk that we won’t make it in spite of our best efforts, but somebody better manage that risk. Unless we see that specific plans are being made for the eventuality of our late delivery, we’re not going to be able to think of this as a challenge; it’s more of a stupid, desperation crapshoot.”
+    - The need that was being served was not the boss’s need for information, but for reassurance. The ceremony supplies reassurance. It establishes for everyone that the boss is boss, that he or she gets to run the meeting, that attendance is expected, that the hierarchy is being respected.
+    - Fragmentation is particularly injurious when two of the tasks involve qualitatively different kinds of work habits. Thus, the mix of a design task (which requires lots of immersion time, relative quiet, and quality interaction time with a small group) with a telephone support task (which requires instant interruptibility, constant availability, quick change of focus) is sure to make progress on the more think-intensive of these tasks virtually impossible. The time wasted continually trying to get restarted is perceived only as frustration by the worker. You may never hear about it, because the people who suffer from this problem are all too likely to blame themselves.
+    - Building a Spam-less Self-Coordinating Organization You may not be able to transform your whole company, but you can make important change in the work modes of people who work with you and under you. Start by stating in explicit terms that corporate spam is unwelcome. One of our clients even built an e-mail filter that rejected—with a polite advisory—e-mail that had his address only in the CC line or that had too many total recipients. He was at the top of the hierarchy, so he didn’t have to worry about inadvertently insulting anyone above him. The lesson was quickly apparent to everyone who worked for him. They not only stopped sending him corporate spam but stopped sending it to each other as well. Do the need-to-know test on your incoming e-mail, but do it, too, on the messages you send out. Each time you’re inclined to send a coordinating e-mail to a colleague or to anyone who works for you, think about what steps you have to make to coach that person to self-coordinate. Don’t expect this to be easy. Telling someone what to do is easy, while instilling self-coordinating abilities in that same person is much more complicated. But it pays off in the long run. If you need to puzzle long and hard over how to make it happen, remember that’s why you make the big bucks. 34.
+    - “People hate change . . . and that’s because people hate change. . . . I want to be sure that you get my point. People really hate change. They really, really do.” —Steve McMenamin Principal, The Atlantic Systems Guild Steve made this statement to an audience of IT managers who were attending the Guild’s 1996 London Conference. More than a little troubled by this view, at first the managers were pretty comfortable with rejecting it: “Hey, we build systems that change how people work and play. We try hard to make sure that the changes will be for the better. We explain how the new way will be better; sometimes, we even use precise geometric logic. Why would any rational person resist any change for the better?” To the protesters, Steve retorted, “You don’t get it. I’m sorry, but people really, truly hate change. That’s the problem: They’re not rejecting a particular change on its merits; they’re rejecting any change. And that’s because people hate change.” The examples he offered were devastating. Little by little, the message got through, and the crisis counselors had to be called in.
+    - —TDM A Better Model of Change The way most of us tend to think about change is depicted in Figure 34–2. 
+    - Safety First Change won’t even get started unless people feel safe—and people feel safe when they know they will not be demeaned or degraded for proposing a change, or trying to get through one. Temporary loss of mastery is embarrassing enough for most of us; catching any kind of gratuitous flack for floundering in Chaos guarantees that everyone will flee back to the security of the Old Status Quo.
+    - It’s Supposed to Be Fun to Work Here
+    - Brainstorming Brainstorming is a structured interactive session, specifically targeted on creative insight. Up to half a dozen people get together to focus on a relevant problem. The rules of the session and the ploys used by the person in charge help to make it an enjoyable and disorderly experience, and often a truly rewarding one. There aren’t many rules. Since you’re trying to introduce chaos into the thought process, rules don’t have much of a place. As facilitator, you want to impress on everyone to strive for quantity of ideas, not quality, and to keep the proceedings loose, even silly. Sometimes an apparently foolish idea, one that wouldn’t even be mentioned in a more formal session, can turn out to be the prize. There is no evaluation of proposed ideas during the brainstorming. The evaluation phase comes later. Discourage negative comments, like “That’s a dumb idea,” since dumb ideas often lead others to think of smart ideas. As facilitator, try these ploys to restart participants’ thinking when the idea flow slows down: • Analogy thinking (How does nature solve this or some similar problem?) • Inversion (How might we achieve the opposite of our goal?) • Immersion (How might you project yourself into the problem?)
+    - Sociology matters more than technology or even money. It’s supposed to be productive, satisfying fun to work. If it isn’t, then there’s nothing else worth concentrating on.
+
 ** code review
 *** Implementing Effective Code Reviews: How to Build and Maintain Clean Code
 ** TODO [[https://bookauthority.org/books/best-refactoring-books?t=ncizgy&s=author&book=0128013974][48 Best Refactoring Books of All Time]]
@@ -77,7 +159,49 @@ https://www.oreilly.com/live-events/technical-debt-first-steps/0636920058624/063
 *** Reinertsen's Principles of Product Development Flow
 *** Ward's Lean Product and Process Development
 *** Software Fundamentals: Collected Papers By Book by Daniel M. 
-** DONE Kill It with Fire - Manage Aging Computer Systems (and Future Proof Modern Ones) by Marianne Bellotti
+** Kill It with Fire - Manage Aging Computer Systems (and Future Proof Modern Ones) by Marianne Bellotti
+   - It is easy to build things, but it is difficult to rethink them once they are in place.
+   - When people assume that technology advances in a linear fashion, they also assume that anything new is naturally more advanced and better than whatever they are currently running. Adopting new practices doesn’t necessarily make technology better, but doing so almost always makes technology more complicated, and more complicated technology is hard to maintain and ultimately more prone to failure.
+   - Changing technology should be about real value and trade-offs, not faulty assumptions that newer is by default more advanced.
+   - Why is a line of code 80 characters long simpler and easier to read? It is short, but what if I told you that user experience research actually puts the ideal number at 50 to 60 characters wide? This means 80 characters is a good 50 percent longer than what we know works best from actual testing.
+   - The novice Unix user is always surprised by Unix’s choice of command names. No amount of training on DOS or the Mac prepares one for the majestic beauty of cryptic two-letter command names such as cp, rm, and ls. Those of us who used early 70s I/O devices suspect the degeneracy stems from the speed, reliability, and, most importantly, the keyboard of the ASR-33 Teletype, the common input/output device in those days. Unlike today’s keyboards, where the distance keys travel is based on feedback principles, and the only force necessary is that needed to close a microswitch, keys on the Teletype (at least in memory) needed to travel over half an inch, and take the force necessary to run a small electric generator such as those found on bicycles. You could break your knuckles touch typing on those beasts. If Dennis and Ken had a Selectric instead of a Teletype, we’d probably be typing “copy” and “remove” instead of “cp” and “rm.” Proof again that technology limits our choices as often as it expands them. After more than two decades, what is the excuse for continuing this tradition? The implacable force of history, AKA existing code and books. If a vendor replaced rm by, say, remove, then every book describing Unix would no longer apply to its system, and every shell script that calls rm would also no longer apply. Such a vendor might as well stop implementing the POSIX standard while it was at it. A century ago, fast typists were jamming their keyboards, so engineers designed the QWERTY keyboard to slow them down. Computer keyboards don’t jam, but we’re still living with QWERTY today. A century from now, the world will still be living with rm.10
+   - just like the way 80-character lines come from punch cards, two-character Linux commands come from teletype machines, and the save icon on desktop applications is a floppy disk.
+   - We know, for example, that iterating on existing solutions is more likely to improve software than a full rewrite. The dangers of full rewrites have been documented. Joel Spolsky of Fog Creek Software and Stack Overflow described them as “the single worst strategic mistake that any software company can make.”13 Chad Fowler, general manager of startups at Microsoft, describes it this way: Almost all production software is in such bad shape that it would be nearly useless as a guide to re-implementing itself. Now take this already bad picture, and extract only those products that are big, complex, and fragile enough to need a major rewrite, and the odds of success with this approach are significantly worse.14 Fred Brooks coined the term second system syndrome in 1975 to explain the tendency of such full rewrites to produce bloated, inefficient, and often nonfunctioning software. But he attributed such problems not to the rewrites themselves, but to the experience of the architects overseeing the rewrite. The second system in second system syndrome was not the second version of an existing system, it was the second system the architect had produced. Brooks’s feeling was that architects are stricter with their first systems because they have never built software before, but for their second systems, they become overconfident and tack on all kinds of flourishes and features that ultimately overcomplicate things. By their third systems, they have learned their lesson
+   - It’s no accident that proposals for full rewrites tend to include introducing some language, design pattern, or technology that is new to the engineering team.
+   - A big red flag is raised for me when people talk about the phases of their modernization plans in terms of which technologies they are going to use rather than what value they will add. This distinction is usually a pretty clear sign that they assume anything new must be better and more advanced than what they already have.
+   - I always keep in mind three principles when developing a strategy around a new legacy system. The tour of history in Chapters 1 and 2 laid them out in detail: Modernizations should be based on adding value, not chasing new technology. Familiar interfaces help speed up adoption. People gain awareness of interfaces and technology through their networks, not necessarily by popularity.
+   - So the last thing you need to consider when developing a plan of attack is the exact nature of the failure that is driving the desire to modernize in the first place. In all likelihood, you’re dealing with one or more of the following issues: technical debt, poor performance, or instability.
+   - Large problems are always tackled by breaking them down into smaller problems. Solve enough small problems, and eventually the large problem collapses and can be resolved.
+   - In 1983, Charles Perrow coined the term normal accidents to describe systems that were so prone to failure, no amount of safety procedures could eliminate accidents entirely. According to Perrow, normal accidents are not the product of bad technology or incompetent staff. Systems that experience normal accidents display two important characteristics. They are tightly coupled. When two separate components are dependent on each other, they are said to be coupled. In tightly coupled situations, there’s a high probability that changes with one component will affect the other. For example, if a change to one code base requires a corresponding change to another code base, the two repositories are tightly coupled. Loosely coupled components, on the other hand, are ones where changes made to one component don’t necessarily affect the other. Tightly coupled systems produce cascading effects. One change creates a response in another part of the system, which creates a response in another part of the system. Like a domino effect, parts of the system start executing without a human operator telling them to do so. If the system is simple, it is possible to anticipate how failure will happen and prevent it, which leads to the second characteristic of systems that experience normal accidents. They are complex. Big systems are often complex, but not all complex systems are big. Signs of complexity in software include the number of direct dependencies and the depth of the dependency tree, the number of integrations, the hierarchy of users and ability to delegate, the number of edge cases the system must control for, the amount of input from untrusted sources, the amount of legal variety in that input, and so on, and so forth. Computer systems naturally grow more complex as they age, because as they age, we tend to add more and more features to them, which increases at least a few of these characteristics. Computer systems also tend to start off tightly coupled and may in fact stay that way if priority is not given to refactoring the code occasionally. Tightly coupled and complex systems are prone to failure because the coupling produces cascading effects, and the complexity makes the direction and course of those cascades impossible to predict. 
+   - When you first take on a legacy system, you can’t possibly understand it well enough to make big changes right away.
+   - Another consideration is the people involved. Who gets to work on the new system, and who takes on the maintenance tasks of the old system? If the old system is written in an obsolete technology relevant only to that particular system, the team maintaining the old system is essentially sitting around waiting to be fired. And don’t kid yourself, they know it. So if the people maintaining the old system are not participating in the creation of the new system, you should expect that they are also looking for new jobs. If they leave before your new system is operational, you lose both their expertise and their institutional knowledge.
+   - I tell my engineers that the biggest problems we have to solve are not technical problems, but people problems.
+   - Modernization projects take months, if not years of work. Keeping a team of engineers focused, inspired, and motivated from beginning to end is difficult. Keeping their senior leadership prepared to invest over and over on what is, in effect, something they already have is a huge challenge. Creating momentum and sustaining it are where most modernization projects fail.
+   - Software can have serious bugs and still be wildly successful. Lotus 1-2-3 famously mistook 1900 for a leap year, but it was so popular that versions of Excel to this day have to be programmed to honor that mistake to ensure backward compatibility. And because Excel’s popularity ultimately dwarfed that of Lotus 1-2-3, the bug is now part of the ECMA Office Open XML specification.
+   - If you’re thinking about rearchitecting a system and cannot tie the effort back to some kind of business goal, you probably shouldn’t be doing it at all.
+   - The hard problems around legacy modernization are not technical problems; they’re people problems. The technology is usually pretty straightforward. Keeping people focused and motivated through the months or years it takes to finish the job is hard. To do this, you need to provide significant value right away, as soon as possible, so that you overcome people’s natural skepticism and get them to buy in. The important word in the phrase proof of concept is proof. You need to prove to people that success is possible and worth doing. The more an organization has failed at something, the more proof it needs that modernization will bring value. When there’s a history of failure, that first step has to provide enough value to build the momentum necessary to be successful. The obvious problem with that is it means there’s a natural upper
+   - The Surprising Power of Liberating Structures: Simple Rules to Unleash a Culture of Innovation by Henri Lipmanowicz and Keith McCandless,
+   - introducing and supporting new tools, databases, languages, or infrastructures increases the complexity of maintaining the system over time.
+   - We are swapping a system that works and needs to be adjusted for an expensive and difficult migration to something unproven.
+   - Don’t design the organization; let the organization design itself by choosing a structure that facilitates the communication teams will need to get the job done
+   - What kind of scenarios justify breaking things on purpose? The most common one when dealing with legacy systems is loss of institutional memory. On any old system, one or two components exist that no one seems to know exactly what they do. If you are seeking to minimize the system’s complexity and restore context, such knowledge gaps can’t just be ignored. Mind you, the situations when you can’t figure out what a component is doing from studying logs or digging up old documentation tend to be rare, but they do happen. Provided the system doesn’t control nuclear weapons, turning the component off and seeing what breaks is a tool that should be available when all other avenues are exhausted.
+   - Having a part of a system that no one understands is a weakness, so avoiding the issue for fear of breaking things should not be considered the safer choice. Using failure as a tool to make systems and the organizations that run them stronger is one of the foundational concepts behind resilience engineering. It’s important to know how each part of a system works in a variety of conditions, including how interactions between parts work.
+   - That’s why the second reason to break things on purpose is to verify that what an organization believes about its system is actually true. Resilience engineering tests—also called failure drills—look to trigger failure strategically so that the true behavior of the system can be documented and verified.
+   - turn it off and see who complains,
+   - The value of this strategy is that the criteria chosen indicates the approach that will be taken without anyone arguing about the approach. If the success criteria are all about implementing new features, it’s unlikely the team is going to prioritize resolving any technical debt. If the success criteria are instead about decreasing the number of errors or speeding up minimum time to recover, the team has to focus on improving existing code. Whenever you can avoid having people argue about principles, philosophies, and other generalities of good engineering versus bad engineering, take advantage of it.
+   - Example: Adding Continuous Integration/Continuous Deploy Goal: Move service on to its own deploy pipeline. Timeline: One quarter. Success Criteria: Time to deploy drops by 20 percent. Any single person on the Service team can initiate and manage a deploy. Number of deploys in a week goes up.
+   - What went well? What could have gone better? Where did you get lucky?
+   - By defining success, you keep the finish line from moving.
+   - In 2010, 20 million chip and PIN bank cards became unusable in Germany thanks to a time bug.2
+   - As a general rule, we get better
+   - As a general rule, we get better at dealing with problems the more often we have to deal with them.
+   - Throughout this book and in this chapter especially, the message has been don’t build for scale before you have scale. Build something that you will have to redesign later, even if that means building a monolith to start. Build something wrong and update it often.
+   - The secret to building technology “wrong” but in the correct way is to understand that successful complex systems are made up of stable simple systems. Before your system can be scaled with practical approaches, like load balancers, mesh networks, queues, and other trappings of distributive computing, the simple systems have to be stable and performant. Disaster comes from trying to build complex systems right away and neglecting the foundation with which all system behavior—planned and unexpected—will be determined
+   - More people do not make software projects go faster.
+   - Meetings, reports, and dialogues are the least efficient feedback loops. Feedback loops are most effective when the operator feels the impact, rather than just hearing about it. That’s because people are naturally inclined to misinterpret information to suit what they already want to believe. It is more difficult to do that when the feedback is delivered in the form of inconvenience, disruption, interruptions, and additional work.
+   - Newer is not necessarily better. Good technology isn’t about having the most modern, most scalable, fastest, or most secure implementation; it’s about serving the needs of the user
+   - What does it mean to bring value, and how do we know when value has increased?
+
 ** [[https://livebook.manning.com/book/the-programmers-brain][The Programmer's Brain]]
    - lack of knowledge
    - lack of information
@@ -593,17 +717,6 @@ artifacts are replicated throughout the architecture.
 *** Francesco Trucchia, Jacopo Romei Pro PHP Refactoring 2010
     Old, without PHP 7 but still the best PHP book about refactoring. Great examples. Worth to have.
 ** documentations
-*** READING Living Documentation: Continuous Knowledge Sharing by Design 1st Edition by Cyrille Martraire
-    https://github.com/tedneward/ArchKatas
-    Specifying the Type of a Change type must be one of the following:
-    • feat: A new feature
-    • fix: A bug fix
-    • docs: Documentation-only changes
-    • style: Changes that do not affect the meaning of the code, such as changes to whitespace, formatting, missing semicolons, and so on
-    • refactor: A code change that neither fixes a bug nor adds a feature
-    • perf: A code change that improves performance
-    • test: Changes that add missing tests
-    • chore: Changes to the build process or auxiliary tools and libraries, such as documentation generation
 ** database
 *** Karwin, Bill SQL Antipatterns - Avoiding The Pitfalls of Database Programming 2010	
 *** SQL for Smarties: Advanced SQL Programming 2005
@@ -707,44 +820,50 @@ class Menu
 ** performance base test
 ** complexity
    complexity - złożoność, powikłanie - schorzenie, które powstaje wskutek m.in. innej choroby, operacji czy błędów w leczeniu. 
-* meetups legacy code rocks!
-** <2022-04-27 Wed>
-*** Chris Cumming
-    [[https://www.goodreads.com/book/show/2799497-under-pressure-and-on-time][Under Pressure and on Time by Ed Sullivan, John Robbins]]
-    [[https://www.ramseysolutions.com/shows/the-dr-john-delony-show][Dr. John Delony Show]]
-*** Christopher Sławomir Grochowski
-    [[https://en.wikipedia.org/wiki/Peopleware:_Productive_Projects_and_Teams][Peopleware: Productive Projects and Teams]]
-    https://youtu.be/KZ26GjMSuuo video review ebook reader
-*** Daniel Heater
-    [[https://www.amazon.com/Goal-Business-Graphic-Novel/dp/0884272079][The Goal: A Business Graphic Novel]]
-    [[https://www.amazon.com/Phoenix-Project-DevOps-Helping-Business-ebook/dp/B078Y98RG8][The Phoenix Project: A Novel about IT, DevOps, and Helping Your Business Win]]
-    [[https://www.amazon.com/Managing-Design-Factory-Donald-Reinertsen/dp/0684839911/ref=sr_1_1?keywords=managing+the+design+factory&qid=1651081958&sprefix=managing+the+de%2Caps%2C101&sr=8-1][Managing the Design Factory]]
-*** Ian Clark - Chicago
-    [[https://www.amazon.com/gp/product/B01N4P12XJ/ref=dbs_a_def_rwt_bibl_vppi_i1][A Life In Code - Ellen Ullman]]
-    [[https://www.amazon.com/Design-Hackers-Reverse-Engineering-Beauty-ebook/dp/B005J578EW/ref=sr_1_1?crid=13ZHSARMU7YYG&keywords=design+for+hackers&qid=1651081658&s=digital-text&sprefix=design+for+hackers%2Cdigital-text%2C83&sr=1-1][Design For Hackers - David Kadavy]]
-    [[https://www.amazon.com/Rosie-Project-Novel-Graeme-Simsion/dp/1476729085/ref=tmm_hrd_swatch_0?_encoding=UTF8&qid=1651081745&sr=1-4][The Rosie Project: A Novel]]
-*** Lars Grammel
-    [[https://www.amazon.de/-/en/Camille-Fournier/dp/1491973897][The Manager's Path: A Guide for Tech Leaders Navigating Growth and Change]]
-    [[https://www.amazon.de/-/en/Brian-W-Fitzpatrick/dp/1449302440/ref=sr_1_3?crid=25P5SVXBJ1L2F&keywords=team+geek&qid=1651081948&sprefix=team+geek%2Caps%2C87&sr=8-3][Team Geek: A Software Developer's Guide to Working Well with Others: A Software Developer's Guide to Programming Well with Others]]
-*** Mike Clement
-    [[https://leanpub.com/thesecretsofconsulting][The Secrets of Consulting]]
-    [[https://amzn.to/3MBfdDu][Chief Joy Officer: How Great Leaders Elevate Human Energy and Eliminate Fear]]
-    [[https://amzn.to/3EVeTfW][The Five Dysfunctions of a Team, Enhanced Edition: A Leadership Fable]]
-*** Samuel Taggart
-    [[https://www.amazon.com/Secrets-Consulting-Giving-Getting-Successfully/dp/0932633013][The Secrets of Consulting: A Guide to Giving and Getting Advice Successfully]]
-    [[https://www.goodreads.com/book/show/15801967-contagious][Contagious: Why Things Catch On by Jonah Berger]]
-    [[https://www.goodreads.com/book/show/54493401-project-hail-mary][Project Hail Mary by Andy Weir]]
-*** Thanh Nguyen
-    [[https://www.amazon.com/Effective-Java-Joshua-Bloch/dp/0134685997/ref=nodl][Effective Java 3rd Edition by Joshua Bloch]]
-** <2022-05-04 Wed>
-   Russian scientists have discovered a nerve that connects the eye directly to the ass. When they stabbed the patient with the needle in the ass, a tear appeared in his eye. When they stuck the same needle in the eye, the patient shit himself.
-** <2022-05-11 Wed>
-   “What are your favorite patterns to apply when working with existing codebases?“
-   violations of my sensibility
-*** Andrea Goulet
-    - https://www.amazon.com/Code-Reviews-101-Wisdom-Coding/dp/1916067816
-    - https://www.amazon.com/dp/B00AFPTSI0/ref=cm_sw_em_r_mt_dp_FW242S61ZRME5F4E23T4
-    - https://www.amazon.com/Teaming-Organizations-Innovate-Compete-Knowledge-ebook/dp/B007MF3BRA.  
+* meetups 
+** legacy code rocks!
+*** <2022-04-27 Wed>
+**** Chris Cumming
+     [[https://www.goodreads.com/book/show/2799497-under-pressure-and-on-time][Under Pressure and on Time by Ed Sullivan, John Robbins]]
+     [[https://www.ramseysolutions.com/shows/the-dr-john-delony-show][Dr. John Delony Show]]
+**** Christopher Sławomir Grochowski
+     [[https://en.wikipedia.org/wiki/Peopleware:_Productive_Projects_and_Teams][Peopleware: Productive Projects and Teams]]
+     https://youtu.be/KZ26GjMSuuo video review ebook reader
+**** Daniel Heater
+     [[https://www.amazon.com/Goal-Business-Graphic-Novel/dp/0884272079][The Goal: A Business Graphic Novel]]
+     [[https://www.amazon.com/Phoenix-Project-DevOps-Helping-Business-ebook/dp/B078Y98RG8][The Phoenix Project: A Novel about IT, DevOps, and Helping Your Business Win]]
+     [[https://www.amazon.com/Managing-Design-Factory-Donald-Reinertsen/dp/0684839911/ref=sr_1_1?keywords=managing+the+design+factory&qid=1651081958&sprefix=managing+the+de%2Caps%2C101&sr=8-1][Managing the Design Factory]]
+**** Ian Clark - Chicago
+     [[https://www.amazon.com/gp/product/B01N4P12XJ/ref=dbs_a_def_rwt_bibl_vppi_i1][A Life In Code - Ellen Ullman]]
+     [[https://www.amazon.com/Design-Hackers-Reverse-Engineering-Beauty-ebook/dp/B005J578EW/ref=sr_1_1?crid=13ZHSARMU7YYG&keywords=design+for+hackers&qid=1651081658&s=digital-text&sprefix=design+for+hackers%2Cdigital-text%2C83&sr=1-1][Design For Hackers - David Kadavy]]
+     [[https://www.amazon.com/Rosie-Project-Novel-Graeme-Simsion/dp/1476729085/ref=tmm_hrd_swatch_0?_encoding=UTF8&qid=1651081745&sr=1-4][The Rosie Project: A Novel]]
+**** Lars Grammel
+     [[https://www.amazon.de/-/en/Camille-Fournier/dp/1491973897][The Manager's Path: A Guide for Tech Leaders Navigating Growth and Change]]
+     [[https://www.amazon.de/-/en/Brian-W-Fitzpatrick/dp/1449302440/ref=sr_1_3?crid=25P5SVXBJ1L2F&keywords=team+geek&qid=1651081948&sprefix=team+geek%2Caps%2C87&sr=8-3][Team Geek: A Software Developer's Guide to Working Well with Others: A Software Developer's Guide to Programming Well with Others]]
+**** Mike Clement
+     [[https://leanpub.com/thesecretsofconsulting][The Secrets of Consulting]]
+     [[https://amzn.to/3MBfdDu][Chief Joy Officer: How Great Leaders Elevate Human Energy and Eliminate Fear]]
+     [[https://amzn.to/3EVeTfW][The Five Dysfunctions of a Team, Enhanced Edition: A Leadership Fable]]
+**** Samuel Taggart
+     [[https://www.amazon.com/Secrets-Consulting-Giving-Getting-Successfully/dp/0932633013][The Secrets of Consulting: A Guide to Giving and Getting Advice Successfully]]
+     [[https://www.goodreads.com/book/show/15801967-contagious][Contagious: Why Things Catch On by Jonah Berger]]
+     [[https://www.goodreads.com/book/show/54493401-project-hail-mary][Project Hail Mary by Andy Weir]]
+**** Thanh Nguyen
+     [[https://www.amazon.com/Effective-Java-Joshua-Bloch/dp/0134685997/ref=nodl][Effective Java 3rd Edition by Joshua Bloch]]
+*** <2022-05-04 Wed>
+    Russian scientists have discovered a nerve that connects the eye directly to the ass. When they stabbed the patient with the needle in the ass, a tear appeared in his eye. When they stuck the same needle in the eye, the patient shit himself.
+*** <2022-05-11 Wed>
+    “What are your favorite patterns to apply when working with existing codebases?“
+    violations of my sensibility
+**** Andrea Goulet
+     - https://www.amazon.com/Code-Reviews-101-Wisdom-Coding/dp/1916067816
+     - https://www.amazon.com/dp/B00AFPTSI0/ref=cm_sw_em_r_mt_dp_FW242S61ZRME5F4E23T4
+     - https://www.amazon.com/Teaming-Organizations-Innovate-Compete-Knowledge-ebook/dp/B007MF3BRA.  
+** code reading club
+*** <2022-05-03 Tue>
+**** identify molds used
+**** Felinna what's your opinion about snake_case vs. camelCase?
+     I have seen only one scientific research on that - [[http://www.cs.kent.edu/~jmaletic/papers/ICPC2010-CamelCaseUnderScoreClouds.pdf][(PDF) ]]from 2010, snake_case is 20% easier to read than camelCase! 
 * coupling
   Tight coupling means classes and objects are dependent on one another. In general, tight coupling is usually not good because it reduces the flexibility and re-usability of the code while Loose coupling means reducing the dependencies of a class that uses the different class directly.
 * blogs
@@ -755,7 +874,6 @@ class Menu
 ** Kellan Elliott-McCrea
 *** IN-PROGRESS [[https://medium.com/@kellan/towards-an-understanding-of-technical-debt-ae0f97cc0553][Towards an understanding of technical debt]]   :technical_debt:
     The term is being abused, or at least dangerously overloaded.
-    “tech debt”: an overloaded term
     There are at least 5 distinct things we mean we say “technical debt”.
 
     1. Maintenance work
@@ -782,6 +900,7 @@ class Menu
 *** [[https://afilina.com/learn/nulls/parameters][Null Parameters]]                                                    :null:
 ** Larry Garfield
 *** [[https://peakd.com/hive-168588/@crell/much-ado-about-null][Much ado about null]]                                                :null:
+** [[https://nolanlawson.com/2022/06/09/the-collapse-of-complex-software/][The collapse of complex software]]
 * [[https://en.wikipedia.org/wiki/List_of_software_development_philosophies][List of software development philosophies]]
 * presentation - prezentację
 ** rules
@@ -807,6 +926,14 @@ class Menu
    Że na wszystko każdą usługę robią oddzielna aplikację, która wiażę człowieka z interfejsem który nie jest edytowalny. To człowiek ma się dostosować do interfejsu.
 *** gmail
 ** taming the complexity
+* managing
+** przełączanie kontekstu / context switching
+   - https://agile247.pl/koszt-przelaczania-kontekstu/
+   - https://www.radicalcandor.com/
+* code review
+** uwagi dotyczące stylu
+   racja, ale to kwestia stylu, i od tego są automatyczne narzędzie do formatowania i w CR uwagi dotyczą logiki kodu a nie jego formatowania
+** stosowanie raw SQL w raportach
 * pytania
 ** stawka vat w database
    to powinno być - w domenie a nie w bazie - baza to już integracja z innym systemem.
@@ -828,14 +955,7 @@ class Menu
    myślałem o tym ale intencjonalnie zrobiłem integer bo nazwy zakładek w menu ulegają zmianą, więc np. jeśli 'SUPPORT_PROGRAMS' w bazie - 'support_program' zmieni nazwę na np. 'MARIO_BROTHERS' to wtedy w bazie musiałbyś robić migrację - bo zostanie 'support_program'. A tak jak jest int to elegancko zrobimy tylko zmianę nazwy zmiennej bez migracji bazy. Jak myślisz?
 ** nazewnictwo - proces nadawania nazw
    - najważniejszą rzeczą jest możliwość zmiany nazwy danego elementu w systemie, im łatwiej to zrobić tym lepiej? ewoluowalność
-* code reading club
-** <2022-05-03 Tue>
-*** naming
-    - unused protected $contactRepo;
-    - TargetedSurveyStateRepository $targetedSurveyStateRepo; property declared dynamically
-*** identify molds used
-*** Felinna what's your opinion about snake_case vs. camelCase?
-    I have seen only one scientific research on that - [[http://www.cs.kent.edu/~jmaletic/papers/ICPC2010-CamelCaseUnderScoreClouds.pdf][(PDF) ]]from 2010, snake_case is 20% easier to read than camelCase! 
+** https://serverfault.com/questions/984424/allow-requests-only-for-specific-referer-within-domain
 * ideas
 ** word clouds
    print all variable names used in project
@@ -1992,6 +2112,8 @@ echo "Price after discount: $totalDiscountPrice";
 *** Pass a test
 * podcasts
 ** [[https://www.legacycode.rocks/][legacy code rocks!]]
+*** [[https://www.legacycode.rocks/podcast-1/episode/df332196/rector-with-matthias-noback][6/13/2022 Rector with Matthias Noback]]
+*** [[https://www.legacycode.rocks/podcast-1/episode/aeb4b975/estimates-with-woody-zuill][4/6/2017 Estimates with Woody Zuill]]
 *** [[https://www.legacycode.rocks/podcast-1/episode/25606691/code-testing-with-melanie-frank][5/16/2022 Code Testing With Melanie Frank]]
 *** [[https://www.legacycode.rocks/podcast-1/episode/1e1dd699/checks-and-balances-in-coding-with-samuel-taggart][5/2/2022 Checks and Balances in Coding with Samuel Taggart]]
 **** Zettelkasten Method at https://zenkit.com/en/blog/a-beginners-guide-to-the-zettelkasten-method/
@@ -2031,19 +2153,18 @@ echo "Price after discount: $totalDiscountPrice";
 *** Top Five Best Practices for Legacy Code with Leon Miller-Out
     - the CEO of a web app development and maintenance firm Singlebrook
 *** 07/13/2020 Living Documentation with Cyrille
-    bk. Living Documentation: Continuous Knowledge Sharing by Design 1st Edition
-    by Cyrille Martraire
+    bk. Living Documentation: Continuous Knowledge Sharing by Design 1st Edition by Cyrille Martraire
 *** 1/13/2020 Why Legacy Code Rocks with Abraham Marín
     - https://18f.gsa.gov/2016/02/23/software-maintenance-is-an-anti-pattern/
     - bk. https://www.oreilly.com/library/view/real-world-maintainable-software/9781492042853/
 *** [[https://www.legacycode.rocks/podcast-1/episode/c240c45d/naming-with-arlo-belshee][9/22/2016 Naming with Arlo Belshee]]
-    Read by refactoring approach, never read hard code, theere is a easier way, try to identify first chunk then extract method or introduce variable
+    Read by refactoring approach, never read hard code, there is a easier way, try to identify first chunk then extract method or introduce variable.
 *** notes
     Interior
     cognitive load, capacity, cognitive waste
     reducing unnecessary cognitive energy loss, decision fatigue, linter set rules, 
     Social contract,, experiment - less energy when you have to behave, cognitive work, 3 aspects, decoding, making decision & making interactiona, reading is expensive, writing is cheap,
-** [[https://maintainable.fm/][maintainable.fm]]
+** [[https://maintainable.fm/][maintainable.fm]] Robby Russell
 *** TODO https://maintainable.fm/episodes/chris-birchall-re-engineering-legacy-software
 *** TODO https://maintainable.fm/episodes/jutta-eckstein-how-software-impacts-our-planet
 *** TODO https://maintainable.fm/episodes/khaled-souf-track-down-dead-code-and-delete-it
@@ -2053,6 +2174,12 @@ echo "Price after discount: $totalDiscountPrice";
 *** TODO https://maintainable.fm/episodes/mariah-howard
 *** TODO https://maintainable.fm/episodes/karolina-szczur-the-importance-of-documentation-for-remote-developers
 *** TODO https://maintainable.fm/episodes/marco-ocramius-pivetta-what-senior-devs
+*** [[https://maintainable.fm/episodes/chelsea-troy-all-code-has-maintenance-load][e121 Chelsea Troy - All Code Has Maintenance Load]] good
+    maintenance load, context lost, żeby kasować nie tyle martwy kod lecz rzeczy, ficzery które są rzadko używane 
+*** [[https://maintainable.fm/episodes/dhh-celebrating-legacy-software-and-the-story-of-how-humans-cant-estimate][E108 DHH: Celebrating Legacy Software as a Victory and the Story of How Humans Can't Estimate David Heinemeier Hansson]]
+    - klnie jak szewc
+    - https://basecamp.com/shapeup book
+    - metrics - velocity, atempts measure performance often realy on estimate - use shapeup - measuring thw wrong thing - harmfull
 *** [[https://maintainable.fm/episodes/anna-filina-how-every-decision-introduces-technical-debt][e1 Anna Filina: How Every Decision Introduces Technical Debt]]
     - integral part of your work, you don't have to ask persmissions
     - you not gonna ask permisssion to extract method, change name of variable
@@ -2077,6 +2204,9 @@ echo "Price after discount: $totalDiscountPrice";
     - it's not the code that we don't like, it's more intentionally
     - The Manager's Path: A Guide for Tech Leaders Navigating Growth and Change 1st Edition by Camille Fournier
     - everyone should read short fictions - just exposing to idea & widening your view point
+** [[https://crafting-code-podcast.github.io/episodes/index.html][crafting code podcast]]
+*** [[https://crafting-code-podcast.github.io/episodes/006-deleting-code.html][006-deleting-code]]
+    bout metaphor
 * tutorials
 ** [[https://ericnormand.me][eric normand]]
 *** [[https://ericnormand.me/issues/465][465: Abstraction is the essence of programming]]
@@ -2133,7 +2263,23 @@ echo "Price after discount: $totalDiscountPrice";
     - we know what can happen where
       - entity & application service: manage application state
       - view model: used for presentation
-      - service with abstraction: used for sending emails, talking to web services, etc.    
+      - service with abstraction: used for sending emails, talking to web services, etc.
+** mendercon
+*** 2022
+**** Code is Communication: Understanding the Inherent Value of Legacy Code - Steve Richey
+***** Uber and the YOLO rewrite                                     :rewrite:
+      - constant hotfixes and burning releases
+      - from objective C to Swift
+      - Xcode IDE struggles to keep up - 45 seconds delay of writing new line of code
+      - developer burnout
+	- 80+ hour weeks
+	- 2am emergencies
+***** ECDSA Java
+      rewrite security module
+***** Basecamp & Wunderlist
+***** https://godbolt.org/
+**** [[https://youtu.be/XcwrOLShGSY][Creating Pleasant Development Environments with Chris C.]]
+     boring
 ** refactoring
 *** [[https://www.youtube.com/watch?v=vK1DazRK_a0][Solving Problems the Clojure Way - Rafal Dittwald]] 
     great example - refactoring to pure functions javascript
@@ -2431,6 +2577,7 @@ CodeSniffer
 **** [[https://symfonycasts.com/screencast/symfonycon2018/symfony-forms-rich-domain-models][Using Symfony Forms with Rich Domain Models]]
 ***** dto
 ***** mapper
+**** [[https://riptutorial.com/symfony3/example/20615/populate-a-select-field-depending-on-the-value-another][Populate a select field depending on the value another]]
 *** [[https://symfonycasts.com/screencast/symfony4-security][Symfony Security: Beautiful Authentication, Powerful Authorization]]
     - authentication - finding out who you are and making you prove it. - job of the firewall
     - aythorization - happens after authentication. It determines whether or not you have access to something.
@@ -2969,6 +3116,7 @@ Log::channel('tombstone')->info(_METHOD_)
 ** cohesion
 - keep things together that are related.
 - Cohesion means sticking together. If your group of friends heads to the lunchroom as a team and sits all together, you're demonstrating strong cohesion. Cohesion is a word that comes to us through physics, where cohesion describes particles that are the same and tend to stick together — water molecules, for example. Outside of physics, cohesion describes unity among parts, and is something to be sought after. A team that has good cohesion is often a team that wins. [[https://www.vocabulary.com/dictionary/cohesion][vocabulary.com]]
+- Cohesion is a term in linguistics that refers to how the structure and content of a sentence or text is linked together to create meaning.
 - kohezja
 * practices
   are a set of informal rules that the software development community employ to help improve the quality of software.
@@ -4879,7 +5027,22 @@ tests/
 - https://stovepipe.systems/post/rethinking-form-development
 - https://blog.martinhujer.cz/symfony-forms-with-request-objects/
 - https://speakerdeck.com/webmozart/symfony-forms-101
-- http://verraes.net/2013/04/decoupling-symfony2-forms-from-entities/ 
+- http://verraes.net/2013/04/decoupling-symfony2-forms-from-entities/
+***** templates
+****** form
+       #+begin_src php
+$form = $this->createForm(
+    FormType::class
+);
+$form->handleRequest($request);
+
+if ($form->isValid()){
+            
+}
+
+       #+end_src
+***** get value hidden form in twig
+      {{ form.user.htmlRoles.vars.value }}
 **** doctrine
 ***** https://tomasvotruba.com/blog/2017/10/16/how-to-use-repository-with-doctrine-as-service-in-symfony
 ***** [[https://stackoverflow.com/questions/17589626/symfony2-3-raw-sql-query-with-in-clause][raw sql query with IN Clause]]
@@ -4956,7 +5119,7 @@ $request->request->get('name');
      --author "author name"
 
 *** Code City
-https://www.reddit.com/r/PHP/comments/a079r6/php_implementation_of_code_city/
+    https://www.reddit.com/r/PHP/comments/a079r6/php_implementation_of_code_city/
 *** https://www.phpmetrics.org/
 *** phploc
 #+begin_src shell
@@ -4965,7 +5128,7 @@ sudo chmod +x phploc.phar
 sudo mv phploc.phar /usr/local/bin/phploc
 #+end_src
 *** rector
-https://github.com/rectorphp/rector
+    https://github.com/rectorphp/rector
 *** [[https://github.com/nunomaduro/phpinsights][phpinsights]]
 *** [[https://github.com/mamuz/PhpDependencyAnalysis][PhpDependencyAnalysis]]
 *** Psalm
@@ -5250,6 +5413,7 @@ sudo lsof -i:22 ## see a specific port such as 22 ##
 23) The lurking suspicion that something could be simplified is the world's richest source of rewarding challenges. Edsger Dijkstra
 24) Simplicity is a great virtue but it requires hard work to achieve it and education to appreciate it. And to make matters worse: complexity sells better. The computing industry is not the only one that has discovered that sore truth: so has the academic world. If you deliver a lecture that is crystal clear from the beginning to end, your audience feels cheated and mutters while leaving the lecture hall "That was all rather trivial, wasn't it?"
     — Edsger .W. Dijkstra, "On the Nature of Computing Science" (EWD896), August 1984
+25) Nobody can subtract from the system; everyone just adds.
 * php
 ** language
 *** primitive elements - types
@@ -5607,6 +5771,7 @@ echo "<pre>";print_r($result);
 ** [[https://pragdave.me/][Dave Thomas]]
 - suggesting that as developers we need to spend more time just practicing: writing throwaway code just to get the experience of writing it.
 - There are no right or wrong answers in these kata: the benefit comes from the process, not from the result.
+** [[https://www.youtube.com/ThinkDesignWorkSmart ][Adrian Bolboaca youtube channel]]
 ** Carola Lilienthal
 ** https://understandlegacycode.com/
 ** The Clean Code Blog by Robert C. Martin (Uncle Bob)
@@ -5618,11 +5783,22 @@ echo "<pre>";print_r($result);
 ** companies focus on refactoring 
 *** https://corgibytes.com/
 * topics
+** backlog
+*** [[https://medium.com/@dheater/measuring-backlog-health-with-time-to-zero-ttz-5ae7b767118][Measuring Backlog Health with Time-To-Zero (TTZ)]]
+** ajax
+   #+begin_src js
+$("button").click(function(){
+  $.ajax({url: "demo_test.txt", success: function(result){
+    $("#div1").html(result);
+  }});
+});
+   #+end_src
 ** [[https://wiki.c2.com/?WaterbedTheory][Waterbed Theory]]
 ** free software 
 *** [[https://r0ml.medium.com/giving-up-on-open-source-software-526b63a90d5d][Giving up on Open Source Software]]
 ** simplicity
    - Simplicity is a great virtue but it requires hard work to achieve it and education to appreciate it. And to make matters worse complexity sells better.
+   [[https://youtu.be/k0qmkQGqpM8][Terry Davis on Simplicity]]
 ** null                                                                :null:
 *** [[https://www.infoq.com/presentations/Null-References-The-Billion-Dollar-Mistake-Tony-Hoare/][Null References: The Billion Dollar Mistake]]
 ** technical debt                                            :technical_debt:
@@ -6148,7 +6324,9 @@ https://stitcher.io/blog/php-preload-benchmarks
    E-mail: <input type="text" name="email"><br>
    <input type="submit">
    </form>
-* bin                                                              :noexport:
+** select
+   [[https://stackoverflow.com/questions/43148940/is-there-a-way-to-add-a-description-to-each-option-in-a-dropdown-using-select2][description to each option in a dropdown using select2?]]
+* bin
 ** use in constructors or setters?
    Symfony Controllers - autowire dependencies -
    1. wszystkie zależności są wstrzykiwane do konstruktora klasy
@@ -6298,20 +6476,7 @@ $application->setVariant($variant);
 *** [[https://www.youtube.com/watch?v=CIfBC56tPEI][Refactoring Intro y Live Coding Kata Gilded Rose]]
 *** [[https://youtu.be/RJdoeUocVUk][Five Lines of Code]]
 *** https://youtu.be/O4-XoH8FiP8
-* templates
-** form
-   #+begin_src php
-$form = $this->createForm(
-    FormType::class
-);
-$form->handleRequest($request);
-
-if ($form->isValid()){
-            
-}
-
-   #+end_src
-* parsowanie
+* parsowanie faq
   Hej, potrzebuję sparsować taką listę tworzoną w CKEditor. Chyba defaultowo jest ona zapisana do HTML.
   Wygląda mniej więcej tak - wraz ze źródłem HTML.
 
@@ -6431,3 +6596,471 @@ if ($form->isValid()){
    describe how Microsoft uses 20% of its development effort to re-develop the code base of its products
 ** Cusumano MA, Yoffie DB (1998) Design strategy. In: Competing on internet time. Free Press, New York, USA, pp 180–198
    report how Netscape’s inability to refactor the code base hindered their software development, and how Microsoft’s redesign efforts in the Internet Explorer 3.0 project later paid off.
+* DDD
+  https://herbertograca.com/2017/11/16/explicit-architecture-01-ddd-hexagonal-onion-clean-cqrs-how-i-put-it-all-together
+* Code Samples
+  https://rosettacode.org/wiki/Permutations_with_repetitions#PHP
+* Code Review
+  https://sergeyzhuk.me/2018/12/29/code_review/?fbclid=IwAR2wPIHL7INreMCsA6JViddc0cFZXWtY_hhiXLYU4DCzbPpdnvy4OzHVgJc
+* Deploy
+  @Route("/contact", name="contact", condition="request.isXmlHttpRequest()")
+
+
+  http://symfony2-checklist.com/
+  http://symfony2cheatsheet.com/
+
+
+  php -r "require 'address.php'; exportAddress(12345);" - odpalenie funkcji php w konsoli
+
+  http://www.dieuwe.com/blog/xdebug-ubuntu-1604-php7
+
+* Email
+  #+BEGIN_SRC php
+$email = "john.doe@example.com";
+
+// Remove all illegal characters from email
+$email = filter_var($email, FILTER_SANITIZE_EMAIL);
+
+// Validate e-mail
+if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    echo("$email is a valid email address");
+} else {
+    echo("$email is not a valid email address");
+}
+  #+END_SRC
+* Refactoring
+** codereatret
+   http://articles.coreyhaines.com/
+** links 
+   https://inpsyde.com/en/php-code-refactoring-phpstorm/ - refactogin in phpstorm gifs
+   https://speakerdeck.com/hhamon/bringing-symfony-components-into-your-legacy-code 
+** naming
+   function noun+verb+situaction - playerMessageCreateWhenAnsweredInccorectly
+
+   http://www.maultech.com/chrislott/resources/cstyle/ottinger-naming.html
+
+   This paper grew out of some postings made on usenet, specifically comp.object, in 1997
+** People 
+   http://blog.technicalleadership.pl/
+
+** smoke test
+   Start a Boom!
+
+   So you would to make your project make better, start writnig test. Be more comfortable.
+
+   I would like to show you I a great prerequsitsion on your legacy doe that you can take at minimum resource
+
+   The smoke test. It's name came from production line
+
+   development flo
+
+
+** Unit Testing
+   Here are qualities of good unit tests:
+   1. They run fast.
+   2. They help us localize problems.
+
+   • Error localization—As tests get further from what they test, it is harder to
+   determine what a test failure means. Often it takes considerable work to
+   pinpoint the source of a test failure. You have to look at the test inputs,
+   look at the failure, and determine where along the path from inputs to out-
+   puts the failure occurred. Yes, we have to do that for unit tests also, but
+   often the work is trivial.
+
+   • Execution time—Larger tests tend to take longer to execute. This tends to
+   make test runs rather frustrating. Tests that take too long to run end up
+   not being run.
+
+   Unit tests run fast. If they don’t run fast, they aren’t unit tests.
+   Other kinds of tests often masquerade as unit tests. A test is not a unit test if:
+   1. It talks to a database.
+   2. It communicates across a network.
+   3. It touches the file system.
+   4. You have to do special things to your environment
+   (such as editing configuration files) to run it.
+   Tests that do these things aren’t bad. Often they are worth writing, and you generally
+   will write them in unit test harnesses. However, it is important to be able to separate
+   them from true unit tests so that you can keep a set of tests that you can run fast
+   whenever you make changes.
+
+   Dependency is one of the most critical problems in software development. Much leg-
+   acy code work involves breaking dependencies so that change can be easier.
+
+   How to name it -> nameWhatWeAreTesting_inWhatStateItIs_ExpectedBehaviour
+
+   Permutations !=ExecutionPath
+
+   3A 
+   - Arrange all necessary preconditions and inputs
+   - Act on the object or class under test
+   - Assert that the expected results have occured
+* Ternary
+  if (total <= 3850.0
+  { total *= 1.10; }
+  else
+
+  { total *= 1.05; )
+
+  (total <= 3850.0) ? (total *= 1.10): (total *= 1.05);
+
+  total *= (total <= 3850.0) ? (1.10): (1.05);
+* TwoPhaseSearchBuilder
+  Zastałem aplikację która na frontendzie ma kilka tabel w których każdą kolumnę można przeszukiwać i sortować, a nawet podać wyszukiwane frazy dla kilku kolumn. 
+  Wydaje mi się, że to obecnie dość standardowy feature w aplikacjach firmowych. Dla przykładu zamieszczam screena. 
+  Bill Karwin 'SQL Antipatterns' (2001) nazwał taki feature 'Poor Man’s Search Engine' w polskim przekładzie 'wyszukiwarka żebraka' :p
+
+  Problemem było to, że na backendzie dane do tabeli były pobierane z widoku (view) mysql zbudowanego z 12 joinów. Sam widok bezpośrednio odpalony w bazie ładował się 1,2 sekundy. Na aplikacju trwalo to już 3-4 sekund, bo musiał dwukrotnie odpalić zapytanie, drugie z count() aby określić liczbę elementów do paginacji. A przeszukiwanie pól widoku to już była totalna klęska.
+
+  Rozwiązanie które zostało zastosowane aby rozwiązać problem: 
+  Zrezygnowanie z widoku przy wyszukiwaniu i rozbicie procesu na dwa etapy. Wyszukiwania i prezentacji danych.
+  
+  Tak jak było poprzednio na froncie przez UI buduję się zapytanie restowe dodając różne filtry i sortowania. Zapytanie na backendzie budowane jest przy użyciu Doctrine, które wcześniej odnosiło się do widoku, teraz ustalenie tabeli głównej i dopiero do niej joinowanie innych tabel jeśli jest potrzeba przeszukania z nich pól.
+ 
+  1. Następnie zapytanie wyszukiwania jest konwertowane do czystego SQL aby dodać i skorzystać z funkcji  SQL_CALC_FOUND_ROWS. Pobranie samych 'id' elementów z tabeli głównej. Wiadomo paginacja -> LIMIT 25.  
+  2. Zapytanie SELECT FOUND_ROWS(); aby pobrać liczbę wszystkich elementów. Wcześniej szło takie jak pkt1. tylko, że z count(). 
+  3. Pobrane id'iki trafiają do widoku (view) więc zawsze tylko 25 elementów przy tych 12 joinach.  
+
+  Wynik: 
+  Zapytania w apce zeszły poniżej 200ms, a czas wyszukiwania rośnie dopiero z liczbą zastosowanych filtrów.  
+
+  Co sądzicie o takim rozwiązaniu? Jak rozwiązujecie ten problem u siebie?
+* Some Notes
+** ddd
+   book - domain driven design in PHP
+
+   The PostService is what is known as an Application Service and its purpose is to orchestrate and
+   organize the domain behaviour. In other words, the Application services are the ones that make
+   things happen and they are the direct clients of a Domain Model. No other type of object should
+   be able to directly talk to the internal layers of the Model layer.
+
+   The View is a layer that can both receive and send messages from the Model layer and/or from the
+   Controller layer. Its main purpose is to represent the Model to the user at the UI level, and refresh the
+   representation in the UI each time the Model is updated. Generally speaking, the View layer receives
+   an object, often a Data Transfer Object (DTO) instead of instances of the Model layer, gathering all
+   the needed information to be successfully represented.
+
+   DTOs instead of Model instances?
+   This is an old and active topic. Why create a DTO instead of giving an instance of the Model
+   to the View layer? The main reason and the short answer is, again, Separation of Concerns.
+   Letting the view inspect and use a Model instance leads to tight coupling between the View
+   layer and the Model layer. In fact, a change in the Model layer can potentially break all the
+   views that make use of the changed Model instances.
+
+   named Command Query Separation CQS, defined
+   by Bertrand Meyer which gave birth to a new architectural pattern named Command Query
+   Responsibility Segregation defined by Greg Young.
+* Pytania Rekrut
+  #pytanieRekrutacyjne
+  Dostajesz legacy projekt. Jest 100 testów. Odpalasz je - jedna połowa to 'errory i faile' druga połowa przechodzi 'na zielono'. Czas nagli. Co robisz?
+
+  Myślę, że Rafał Maciejewski dał najrozsądniejsza odpowiedź "Jak nie da się ich naprawić w jednym sprincie to kasuję te failujące, po czym wpinam testy w pipeline. Zakładam, że tamte już nie działają jakiś czas, więc prawdopodobnie są nieprzydatne."
+
+  Kluczowę jest tutaj wprowadzenie automatyzacji - podpięcie pipeline, aby ustawić projekt na odpowiednie tory. Drugi krok skasowanie (nie skipowanie) testów 'errory i faile'. Am I right?
+
+* Frontend
+** CSS
+   https://purgecss.com/#table-of-contents
+** Interface and User Experience
+*** [[https://en.wikipedia.org/wiki/Post/Redirect/Get][Redirect after a POST]] if that POST was successful, to prevent a refresh from submitting again.
+* Trash
+** order
+   #+begin_src php
+public function __construct()
+{
+    $this->setTo(Input::get('args.to')); //order is important! first setTo then setFrom
+    $this->setFrom(Input::get('args.from'));
+}
+
+protected function setTo(?string $to)
+{
+    $this->to = $to ? Carbon::createFromTimeString($to)->endOfDay() : (new Carbon())->endOfDay();
+}
+
+protected function setFrom(?string $from)
+{
+    $carbonFrom = $from ? Carbon::createFromTimeString($from) : $this->to->copy()->subYear();
+
+    if ($carbonFrom->gt($this->to)) {
+        abort(422, trans('error.to-must-be-greater-than-from'));
+    }
+
+    $this->from = $carbonFrom->endOfDay();
+}
+   #+end_src
+** cognitive dissonance
+   #+begin_src php
+final class NextDateTimeGreaterThanPreviousValidator
+{
+    /**
+     ,* @param Collection|Carbon[] $dates
+     ,*/
+    public function validate(Collection $dates): bool
+    {
+        return $dates->every(function(Carbon $date, $key) use ($dates) {
+            $nextDate = $dates->get($key + 1);
+
+            if(!$nextDate) {
+                return true;
+            }
+
+            return $date->lessThan($nextDate);
+        });
+    }
+}
+   #+end_src
+   Dziękuje każdemu za cenne wskazówki i uwagi, każdy po troszę ma rację. Myślę, że nie ma tutaj wzorowego rozwiązania. Mnie osobiście raził pewien 'dysonanspoznawczy' że klasa nazywa się 'NextDateTimeGreaterThanPreviousValidator' natomiast na return jest sprawdzane czy 'poprzednia data jest mniejsza od następnej' spójnie z nazwą byłoby sprawdzić czy 'nastęþna data jest większa od poprzedniej'. Chociaż po sugestiach innych, ta moja uwaga wydaje się błahostką.  
+   #+begin_src php
+   final class NextDateTimeGreaterThanPreviousDateTimeValidator
+   {
+   /**
+   ,* @param Collection|Carbon[] $dates
+   ,*/
+   public function validate(Collection $dates): bool
+   {
+   return $dates->every(function(Carbon $previousDateTime, int $key) use ($dates) {
+   $nextDateTime = $dates->get($key + 1);
+
+   if(!$nextDateTime) {
+   return true;
+   }
+
+   return $nextDateTime->greaterThan($previousDateTime);
+   });
+   }
+   }
+   #+end_sr
+** refactor
+   $cmResponse = $this->getStatus();
+
+   private function getStatus(): PaymentResponse
+   {
+   return resolve(PaymentCardManagerResponseProcessor::class)->process(
+   resolve(ProcessCardManagerRequestService::class)
+   ->process(new GetPaymentStatusRequest($this->payment))
+   );
+   }
+* Journals
+  Empirical Software Engineering
+* Recrut
+** array_map
+   #+begin_src php
+$letters = ['a','b','c','d','e' ];
+$numbers = [1,2,3,4,5];
+
+// ['a1','b2','c3','d4','e5']
+
+$pairs = array_map(
+    fn($letters, $number) => "$letter$number",
+    $letters,
+    $numbers
+);
+
+print_r($pairs);
+
+   #+end_src
+
+   #+RESULTS:
+   : Array
+   : (
+   :     [0] => 1
+   :     [1] => 2
+   :     [2] => 3
+   :     [3] => 4
+   :     [4] => 5
+   : )
+** employees salary
+   #+begin_src php
+$employees = [
+    [
+        'name' => 'John',
+        'age' => 43,
+        'salary' => 90000,
+        'job_title' => 'developer',
+    ], [
+        'name' => 'Hannah',
+        'age' => 32,
+        'salary' => 110000,
+        'job_title' => 'developer',  
+    ], [
+        'name' => 'Ralph',
+        'age' => 22,
+        'salary' => 35000,
+        'job_title' => 'construction worker',
+    ], [
+        'name' => 'Rachel',
+        'age' => 29,
+        'salary' => 55000,
+        'job_title' => 'digital marketing specialist',
+    ]
+];
+
+$developers = array_filter($employees, fn($x) => $x['job_title'] == 'developer');
+$developer_salaries = array_map(fn($x) => $x['salary'], $developers);
+$total_developer_salaries = array_reduce(
+    $developer_salaries,
+    fn($carry, $item) => $carry + $item,
+);
+$average_developer_salary = $total_developer_salaries / count($developer_salaries);
+
+$non_developers = array_filter($employees, fn($x) => $x['job_title'] != 'developer');
+$non_developer_salaries = array_map(fn($x) => $x['salary'], $non_developers);
+$total_non_developer_salaries = array_reduce(
+    $non_developer_salaries,
+    fn($carry, $item) => $carry + $item,
+);
+$average_non_developer_salary = $total_non_developer_salaries / count($non_developer_salaries);
+
+echo "The average developer salary is $average_developer_salary\n";
+echo "The average non-developer salary is $average_non_developer_salary\n";
+   #+end_src
+** unpack array
+   #+begin_src php
+$input = [
+    0 => ['a' => ['id' => 1]],
+    1 => ['b' => ['id' => 2]]
+];
+
+$expected = [
+    'a' => ['id' => 1],
+    'b' => ['id' => 2]
+];
+
+foreach ($input as $key => $value) {
+    $output = array_merge($output, $value);
+}
+
+$result = array_merge(...$input);
+
+   #+end_src
+
+* Presentation
+** CultureVein - change to functions
+   - zmiena nazwy funkcji która jest wywoływana z obiektu jest bardziej podatna na błędy niż samej funkcji
+   - przerzucenie funkcji do innego pliku nie ważę się absolutnie z żadną zmianą dla systemu, w przeciwieństwie do tworzenia taxonomi - gdzie isteniej duża podatność na błędy. To gdzie dana funkcja znajduję się w systemie jest tylko dla człowieka w której warstwie, componecie ona się znajduję a nie dla systemu gdzie ma ją znaleźć
+** Simple presentation for a complex people
+** [[https://youtu.be/6ayR9s5pudk][Life Without Objects]]
+   - object
+     - inheritance  
+     - namespace 
+     - data
+     - functions
+     - abstract - behaviour (modify data with functions)
+     - state managment 
+     - polymorphic dispatch
+
+*** [[https://youtu.be/US8QG9I1XW0][Functional architecture - The pits of success - Mark Seemann]]
+    OOP - entities, value objects, services
+    functional - data, functions
+*** Other
+    The whole point of objects is that they are a technique to package data with the processes used on that data.[Fowler]
+** What's that smell?
+*** software quality 
+    refers to two related but distinct notions
+**** functional quality 
+     - how well it complies with or conforms to a given design, based on functional requirements or specifications
+     - how it compares to competitors in the marketplace as a product
+**** structural quality 
+***** maintainability
+      - from a developer’s viewpoint the ease of modifying and further developing the software is clearly one of the most important quality dimensions - maintainability.
+      - what is ? - modularity, understandability, changeability, testability, reusability, and transferability
+      - how to achieve ? - compliance with Programming Practices
+	- code compliance with Programming Practices - 'good code, clean code'
+	- code noncompliant with Programming Practices - 'bad code, dirty code'
+	  - how that code looks like? how to recognise? 
+	    - 'bad smell' - indicators of violation Programming Practices - help software developers recognise problematic code
+	      - how to fix this?
+		- refactoring
+      Refactoring (noun): a change made to the internal structure of software to make it easier to understand and cheaper to modify without changing its observable behavior.
+
+      Refactoring (verb): to restructure software by applying a series of refactorings without changing its observable behavior.
+
+
+
+      - the goal of code refactoring is to make the software easier to understand and/or extent
+*** 'bad code' - indicators - smells
+    vague, ulotne, wyczucia, przeczucia dotyczące tego jak powinnien wyglądać dobry kod, subiektywne w dodatku zależne od stanu oceniającego, - jego doświadczenia, zmęczenia itp.
+
+    - is a hint that something might be wrong, not a certainty 
+
+    "Rules are for the guidance of the wise and the obedience of fools."
+
+*** make it official
+    Fowler, Martin - Refactoring: improving the design of existing code (2002)
+
+    - gather 22
+** Progress
+*** IN-PROGRESS Fowler, Martin - Refactoring: improving the design of existing code
+    end 97
+*** TODO Working Effectively with Legacy Code; 2005
+*** DONE "Subjective Evaluation of Software Evolvability Using Code Smells: An Empirical Study" 2006
+*** TODO Antipatterns. Refactoring Software, Archtectures and Projects in Crisis 1998
+** Notes
+*** legacy code
+    - valueable code you afraid to change
+** Used
+   https://wiki.c2.com/?CodeSmell
+* Case?
+  #+begin_src php
+final class VideoTagNormalizer
+{
+    //todo to complex -> make it simple
+    public function normalize(array $array): array
+    {
+        $previous_tag_slug_id = '';
+        $lastKey = null;
+        $result = [];
+
+        /**
+         ,* @var $video_tag VideoTagRaw
+         ,*/
+        foreach ($array as $video_tag) {
+
+            if($previous_tag_slug_id === $video_tag->tag_slug_id){
+
+                $result[$lastKey]['video_tags_time'][]=[
+                    'video_tag_time_id' => $video_tag->video_tag_time_id,
+                    'start' => $video_tag->start,
+                    'stop' => $video_tag->stop
+                ];
+
+                $previous_tag_slug_id = $video_tag->tag_slug_id;
+            } else {
+                $video_tag_normalize = [
+                    'video_tag_id' => $video_tag->video_tag_id,
+                    'video_youtube_id' => $video_tag->video_youtube_id,
+                    'tag_name' => $video_tag->tag_name,
+                    'tag_slug_id' => $video_tag->tag_slug_id,
+                    'is_complete' => $video_tag->is_complete,
+                    'video_tags_time' => []
+                ];
+
+                if($video_tag->video_tag_time_id) {
+                    $video_tag_normalize['video_tags_time'][] = [
+                        'video_tag_time_id' => $video_tag->video_tag_time_id,
+                        'start' => $video_tag->start,
+                        'stop' => $video_tag->stop
+                    ];
+                }
+
+                $previous_tag_slug_id = $video_tag->tag_slug_id;
+                $result [] = $video_tag_normalize;
+            }
+            $lastKey = array_key_last($result);
+        }
+        return array_values($result); //have to do this -> angular will throw error otherwise
+    }
+}
+  #+end_src
+* Pytanie Rekrut 
+** innodb myisam
+   blokowania całej tabeli myisam
+   blokowanie wierszy
+** struktura danych
+   tree - jaki sposób wypełnienia,  
+   cqrs - co to jest -
+   jakie są struktury danych, 
+   Maciej Kabala
+* bin
+  https://web-anatomy.com/kontakt/ - sho
+
+   
